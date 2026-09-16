@@ -13,16 +13,20 @@ const buttonVariants = cva(
         /** Primary CTA — violet, with a lifting hover. */
         cta: "bg-interactive text-interactive-foreground shadow-subtle hover-lift hover:bg-interactive/92",
         /** Animated hero gradient — the single most important action on a screen. */
-        hero: "gradient-hero gradient-motion text-white shadow-glow hover-lift",
+        hero: "gradient-hero gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
         /** Warm secondary — coral. */
         coral: "bg-accent text-accent-foreground shadow-subtle hover:bg-accent/90",
         /** Natural highlight — teal, used sparingly. */
         teal: "bg-highlight text-highlight-foreground shadow-subtle hover:bg-highlight/90",
         /** Mode gradients — Inspire / Build / Busywork / Challenge. */
-        inspire: "gradient-inspire gradient-motion text-white shadow-glow hover-lift",
-        build: "gradient-build gradient-motion text-white shadow-glow hover-lift",
-        busywork: "gradient-busywork gradient-motion text-white shadow-glow hover-lift",
-        challenge: "gradient-challenge gradient-motion text-white shadow-glow hover-lift",
+        inspire:
+          "gradient-inspire gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
+        build:
+          "gradient-build gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
+        busywork:
+          "gradient-busywork gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
+        challenge:
+          "gradient-challenge gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "sweep-fill border border-border-strong bg-transparent text-foreground hover:border-interactive hover:text-interactive",

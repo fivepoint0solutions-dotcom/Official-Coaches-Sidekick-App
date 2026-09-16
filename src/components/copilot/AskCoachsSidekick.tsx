@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowUp, MessageCircleHeart, Sparkles } from "lucide-react";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
@@ -94,15 +94,20 @@ export function AskCoachsSidekick() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label={t("chat.button")}
-        className="gradient-hero gradient-motion big-cta fixed bottom-5 right-5 z-40 flex items-center gap-2.5 px-5 py-4 text-sm font-bold text-white sm:bottom-7 sm:right-7"
-      >
-        <MessageCircleHeart className="size-5" />
-        {t("chat.button")}
-      </button>
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-center gap-1.5 sm:bottom-7 sm:right-7">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label={t("chat.button")}
+          className="gradient-hero gradient-motion twinkle grid size-16 place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift"
+          style={{ "--twinkle-duration": "26s" } as CSSProperties}
+        >
+          <MessageCircleHeart className="size-7" />
+        </button>
+        <span className="glass-panel font-display rounded-full px-3 py-1 text-xs font-bold">
+          {t("chat.button")}
+        </span>
+      </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right" className="flex w-full flex-col gap-0 p-0 sm:max-w-md">
@@ -127,7 +132,7 @@ export function AskCoachsSidekick() {
                     "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
                     turn.role === "user"
                       ? "bg-interactive text-interactive-foreground"
-                      : "card-soft text-foreground",
+                      : "glass-panel",
                   )}
                 >
                   <p>{turn.text}</p>
@@ -150,7 +155,7 @@ export function AskCoachsSidekick() {
             ))}
             {thinking && (
               <div className="flex justify-start">
-                <div className="card-soft flex gap-1.5 px-4 py-3">
+                <div className="glass-panel flex gap-1.5 px-4 py-3">
                   {[0, 1, 2].map((i) => (
                     <span
                       key={i}

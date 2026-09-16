@@ -6,15 +6,15 @@
 
 /*
  * ============================================================
- * GLOBAL DESIGN SYSTEM — Coach's Sidekick ("Topshelf" palette)
+ * GLOBAL DESIGN SYSTEM — Coach's Sidekick
  * ============================================================
  *
- * Dark, premium, metallic-athletic visual language: charcoal base,
- * deep teal, vivid orange, and brushed silver. Colour is built from
- * a small set of brand hues, mixed with `color-mix()` into semantic
- * roles (bg-background, text-primary, border-border, ...). Never
- * hardcode a colour in a component — reach for a semantic utility or
- * one of the mode gradients below.
+ * Matches the shared "Sidekick family" look (Teacher's Sidekick / Senior
+ * Sidekick): warm parchment paper, Playfair Display headlines, and
+ * animated 5-stop gradient placards with a bright shimmering border and
+ * a twinkle glint — recolored here to a teal/orange/gold "Topshelf"
+ * coaching palette. Never hardcode a colour in a component — reach for
+ * a semantic utility or one of the mode gradients below.
  */
 
 @theme inline {
@@ -28,8 +28,8 @@
   --radius-4xl: 2.5rem;
   --radius-full: 9999px;
 
-  --font-display: "Plus Jakarta Sans", "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter", "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
 
   --spacing-gutter: 1.5rem;
   --spacing-section: 4rem;
@@ -140,132 +140,125 @@
 }
 
 :root {
-  /* --- Brand primitives (single source of truth) --- */
-  --brand-charcoal: oklch(0.155 0.012 250); /* page background */
-  --brand-charcoal-deep: oklch(0.09 0.01 250); /* ambient depth */
-  --brand-slate: oklch(0.235 0.015 250); /* card/surface base */
-  --brand-ink: oklch(0.955 0.004 240); /* near-white foreground */
-  --brand-ink-dim: oklch(0.7 0.008 240); /* muted foreground */
-  --brand-teal: oklch(0.42 0.06 200); /* #1c4d50 — primary brand teal */
-  --brand-teal-soft: oklch(0.6 0.09 195); /* #2f7d82 — Build mode */
-  --brand-orange: oklch(0.72 0.17 48); /* #e8791f — CTA / Inspire mode */
-  --brand-orange-deep: oklch(0.56 0.17 38); /* #a8501c — Challenge mode */
-  --brand-silver: oklch(0.78 0.006 250); /* #c7c9cc — Busywork mode + metal accents */
-  --brand-onbright: oklch(0.16 0.02 45); /* near-black text on bright orange/silver */
+  /* --- Brand primitives (single source of truth) ---
+   * Matches the shared "Sidekick family" palette shape (bg, primary,
+   * primaryDeep, secondary, accent, accentWarm, sky, berry, text, plus a
+   * 5-tone ambient wash) — recolored to a teal/orange/gold coaching theme. */
+  --brand-bg: oklch(0.975 0.012 90); /* #F6F4EC — warm parchment */
+  --brand-primary: oklch(0.4 0.06 200); /* #1F4A55 — deep teal */
+  --brand-primary-deep: oklch(0.3 0.05 205); /* #13343D */
+  --brand-secondary: oklch(0.55 0.02 200); /* #5F7075 — muted slate-teal */
+  --brand-accent: oklch(0.78 0.13 75); /* #E0A43C — gold */
+  --brand-accent-warm: oklch(0.65 0.16 45); /* #D9702E — vivid orange */
+  --brand-sky: oklch(0.62 0.09 235); /* #4E86B8 — blue */
+  --brand-sky-deep: oklch(0.48 0.08 235); /* #33628F */
+  --brand-berry: oklch(0.48 0.1 25); /* #9C4A42 — team-spirit red */
+  --brand-berry-deep: oklch(0.36 0.09 25); /* #7A362F */
+  --brand-ink: oklch(0.24 0.02 200); /* #1B2420 */
 
   --radius: 0.875rem;
 
-  /* Default glow tint for glass cards; overridden per-mode by .card-tint-* */
-  --card-glow: var(--brand-teal-soft);
+  /* Default shimmer border tint for placards; overridden per-mode by .card-tint-* */
+  --card-glow: var(--brand-accent-warm);
 
   /* --- Mode gradients — the app's visual personality --- */
-  --grad-inspire: linear-gradient(120deg, #f6a94f, #f0862c 45%, #d9702e 100%);
-  --grad-build: linear-gradient(120deg, #4fa3a8, #2f7d82 45%, #1c4d50 100%);
-  --grad-busywork: linear-gradient(120deg, #a7b0b6, #7c868d 45%, #545e64 100%);
-  --grad-challenge: linear-gradient(120deg, #d97a3f, #a8501c 45%, #7a3a15 100%);
-  --grad-hero: linear-gradient(120deg, #2f7d82, #e8791f 60%, #a8501c 100%);
-  --grad-ambient:
-    radial-gradient(
-      55% 50% at 12% 8%,
-      color-mix(in oklab, var(--brand-orange) 26%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      55% 50% at 90% 12%,
-      color-mix(in oklab, var(--brand-teal) 36%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      60% 55% at 16% 92%,
-      color-mix(in oklab, var(--brand-silver) 16%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      55% 55% at 92% 90%,
-      color-mix(in oklab, var(--brand-orange-deep) 24%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      80% 70% at 50% 45%,
-      color-mix(in oklab, var(--brand-teal-soft) 14%, transparent),
-      transparent 80%
-    );
-
-  /* --- Semantic roles: dark, premium "Topshelf" theme --- */
-  --background: var(--brand-charcoal);
-  --foreground: var(--brand-ink);
-
-  --surface: color-mix(in oklab, var(--brand-charcoal) 88%, var(--brand-teal) 8%);
-  --surface-foreground: var(--brand-ink);
-  --card: color-mix(in oklab, var(--brand-slate) 92%, var(--brand-teal) 6%);
-  --card-foreground: var(--brand-ink);
-  --popover: color-mix(in oklab, var(--brand-slate) 96%, var(--brand-teal) 4%);
-  --popover-foreground: var(--brand-ink);
-
-  /* Glass-card surface: translucent brushed-metal panel over the mesh background. */
-  --glass-bg: color-mix(in oklab, var(--brand-slate) 78%, transparent);
-  --glass-border: color-mix(in oklab, var(--brand-silver) 20%, transparent);
+  --grad-inspire: linear-gradient(120deg, #f6c877, #e0a43c 45%, #c98a2c 100%);
+  --grad-build: linear-gradient(120deg, #4fa3a8, #1f4a55 45%, #13343d 100%);
+  --grad-busywork: linear-gradient(120deg, #6c86b4, #4e86b8 45%, #33628f 100%);
+  --grad-challenge: linear-gradient(120deg, #d9702e, #9c4a42 45%, #7a362f 100%);
+  --grad-hero: linear-gradient(120deg, #1f4a55, #4e86b8 45%, #d9702e 100%);
+  /* The 5-stop animated placard gradient every card in the app shares. */
   --grad-card: linear-gradient(
     135deg,
-    color-mix(in oklab, var(--brand-slate) 92%, var(--brand-teal) 6%),
-    color-mix(in oklab, var(--brand-slate) 94%, var(--brand-silver) 5%) 100%
+    var(--brand-primary-deep),
+    var(--brand-sky),
+    var(--brand-berry),
+    var(--brand-accent-warm),
+    var(--brand-primary)
   );
-  /* Mode-tinted glow colors — used for hover borders/shadows on cards keyed to each mode. */
-  --grad-card-inspire: var(--brand-orange);
-  --grad-card-build: var(--brand-teal-soft);
-  --grad-card-busywork: var(--brand-silver);
-  --grad-card-challenge: var(--brand-orange-deep);
+  --grad-ambient:
+    linear-gradient(
+      120deg,
+      var(--brand-bg),
+      oklch(0.95 0.02 200),
+      oklch(0.96 0.03 75),
+      oklch(0.955 0.015 235),
+      var(--brand-bg)
+    );
 
-  --primary: var(--brand-orange);
-  --primary-foreground: var(--brand-onbright);
+  /* Mode-tinted shimmer border colors, cycling the same three accents the
+   * reference app uses (accentWarm / accent / sky) keyed to each mode. */
+  --grad-card-inspire: var(--brand-accent);
+  --grad-card-build: var(--brand-sky);
+  --grad-card-busywork: var(--brand-sky-deep);
+  --grad-card-challenge: var(--brand-accent-warm);
 
-  --secondary: color-mix(in oklab, var(--brand-charcoal) 82%, var(--brand-silver) 10%);
+  /* --- Semantic roles: warm parchment "Sidekick family" theme --- */
+  --background: var(--brand-bg);
+  --foreground: var(--brand-ink);
+
+  --surface: color-mix(in oklab, var(--brand-bg) 88%, var(--brand-primary) 6%);
+  --surface-foreground: var(--brand-ink);
+  --card: color-mix(in oklab, white 85%, var(--brand-bg) 15%);
+  --card-foreground: var(--brand-ink);
+  --popover: color-mix(in oklab, white 92%, var(--brand-bg) 8%);
+  --popover-foreground: var(--brand-ink);
+
+  /* Glass fill: a translucent white panel, used only where the reference
+   * shows a paler chip (input fields, dock bubbles) rather than a placard. */
+  --glass-bg: color-mix(in oklab, white 78%, transparent);
+  --glass-border: color-mix(in oklab, var(--brand-primary) 20%, transparent);
+
+  --primary: var(--brand-primary);
+  --primary-foreground: white;
+
+  --secondary: color-mix(in oklab, var(--brand-bg) 80%, var(--brand-primary) 8%);
   --secondary-foreground: var(--brand-ink);
 
-  --muted: color-mix(in oklab, var(--brand-charcoal) 88%, black 8%);
-  --muted-foreground: var(--brand-ink-dim);
+  --muted: color-mix(in oklab, var(--brand-bg) 88%, var(--brand-ink) 6%);
+  --muted-foreground: color-mix(in oklab, var(--brand-ink) 55%, var(--brand-bg));
 
-  --accent: var(--brand-silver);
-  --accent-foreground: var(--brand-onbright);
+  --accent: var(--brand-accent);
+  --accent-foreground: var(--brand-ink);
 
-  --interactive: var(--brand-orange);
-  --interactive-foreground: var(--brand-onbright);
+  --interactive: var(--brand-primary);
+  --interactive-foreground: white;
 
-  --highlight: var(--brand-teal-soft);
+  --highlight: var(--brand-accent-warm);
   --highlight-foreground: white;
 
   --destructive: oklch(0.58 0.19 25);
   --destructive-foreground: white;
 
-  --border: color-mix(in oklab, var(--brand-silver) 16%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-silver) 30%, transparent);
-  --input: color-mix(in oklab, var(--brand-ink) 16%, transparent);
-  --ring: var(--brand-orange);
+  --border: color-mix(in oklab, var(--brand-primary) 16%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-primary) 30%, transparent);
+  --input: color-mix(in oklab, var(--brand-ink) 14%, transparent);
+  --ring: var(--brand-primary);
 
-  --chart-1: var(--brand-teal);
-  --chart-2: var(--brand-orange);
-  --chart-3: var(--brand-silver);
-  --chart-4: var(--brand-teal-soft);
-  --chart-5: var(--brand-orange-deep);
+  --chart-1: var(--brand-primary);
+  --chart-2: var(--brand-accent-warm);
+  --chart-3: var(--brand-sky);
+  --chart-4: var(--brand-accent);
+  --chart-5: var(--brand-berry);
 
-  --sidebar: color-mix(in oklab, var(--brand-charcoal) 88%, var(--brand-teal) 8%);
+  --sidebar: color-mix(in oklab, var(--brand-bg) 88%, var(--brand-primary) 8%);
   --sidebar-foreground: var(--brand-ink);
-  --sidebar-primary: var(--brand-orange);
-  --sidebar-primary-foreground: var(--brand-onbright);
-  --sidebar-accent: color-mix(in oklab, var(--brand-charcoal) 88%, var(--brand-teal) 10%);
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-primary-foreground: white;
+  --sidebar-accent: color-mix(in oklab, var(--brand-bg) 88%, var(--brand-primary) 10%);
   --sidebar-accent-foreground: var(--brand-ink);
-  --sidebar-border: color-mix(in oklab, var(--brand-silver) 14%, transparent);
-  --sidebar-ring: var(--brand-orange);
+  --sidebar-border: color-mix(in oklab, var(--brand-primary) 14%, transparent);
+  --sidebar-ring: var(--brand-primary);
 
-  /* --- Elevation: deep, dark shadows with a faint metallic glow --- */
-  --elevation-1: 0 1px 2px color-mix(in oklab, black 30%, transparent);
+  /* --- Elevation: soft paper shadows --- */
+  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-ink) 10%, transparent);
   --elevation-2:
-    0 3px 8px color-mix(in oklab, black 34%, transparent),
-    0 10px 24px -14px color-mix(in oklab, black 55%, transparent);
+    0 3px 8px color-mix(in oklab, var(--brand-ink) 12%, transparent),
+    0 10px 24px -14px color-mix(in oklab, var(--brand-ink) 30%, transparent);
   --elevation-3:
-    0 6px 20px color-mix(in oklab, black 40%, transparent),
-    0 28px 56px -28px color-mix(in oklab, black 65%, transparent);
-  --elevation-4: 0 40px 90px -32px color-mix(in oklab, black 75%, transparent);
+    0 8px 20px color-mix(in oklab, var(--brand-ink) 20%, transparent),
+    0 18px 40px -10px color-mix(in oklab, var(--brand-ink) 38%, transparent);
+  --elevation-4: 0 40px 90px -32px color-mix(in oklab, var(--brand-ink) 45%, transparent);
 
   /* --- Motion tokens --- */
   --duration-instant: 90ms;
@@ -288,59 +281,10 @@
     box-shadow var(--duration-base) var(--ease-editorial);
 }
 
-/* Note: this app has no light/dark toggle — :root above already renders the
-   intended dark "Topshelf" theme. This block only deepens things further
-   in case a toggle is ever added. */
+/* This app, like the rest of the Sidekick family, has no light/dark toggle —
+   it always renders the warm parchment theme above. */
 .dark {
-  --background: var(--brand-charcoal-deep);
-  --foreground: var(--brand-ink);
-
-  --surface: color-mix(in oklab, var(--brand-charcoal-deep) 90%, var(--brand-teal) 6%);
-  --surface-foreground: var(--brand-ink);
-  --card: color-mix(in oklab, var(--brand-charcoal-deep) 80%, var(--brand-slate) 20%);
-  --card-foreground: var(--brand-ink);
-  --popover: color-mix(in oklab, var(--brand-charcoal-deep) 74%, var(--brand-slate) 26%);
-  --popover-foreground: var(--brand-ink);
-
-  --glass-bg: color-mix(in oklab, var(--brand-charcoal-deep) 80%, var(--brand-slate) 20%);
-  --glass-border: color-mix(in oklab, var(--brand-silver) 16%, transparent);
-
-  --primary: var(--brand-orange);
-  --primary-foreground: var(--brand-onbright);
-
-  --secondary: color-mix(in oklab, var(--brand-charcoal-deep) 70%, var(--brand-silver) 8%);
-  --secondary-foreground: var(--brand-ink);
-
-  --muted: color-mix(in oklab, var(--brand-charcoal-deep) 80%, black);
-  --muted-foreground: var(--brand-ink-dim);
-
-  --accent: var(--brand-silver);
-  --accent-foreground: var(--brand-onbright);
-
-  --interactive: var(--brand-orange);
-  --interactive-foreground: var(--brand-onbright);
-
-  --highlight: var(--brand-teal-soft);
-  --highlight-foreground: white;
-
-  --border: color-mix(in oklab, var(--brand-silver) 14%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-silver) 28%, transparent);
-  --input: color-mix(in oklab, var(--brand-ink) 18%, transparent);
-  --ring: var(--brand-orange);
-
-  --sidebar: color-mix(in oklab, var(--brand-charcoal-deep) 88%, var(--brand-teal) 6%);
-  --sidebar-foreground: var(--brand-ink);
-  --sidebar-primary: var(--brand-orange);
-  --sidebar-primary-foreground: var(--brand-onbright);
-  --sidebar-accent: color-mix(in oklab, var(--brand-charcoal-deep) 70%, var(--brand-teal) 10%);
-  --sidebar-accent-foreground: var(--brand-ink);
-  --sidebar-border: color-mix(in oklab, var(--brand-silver) 12%, transparent);
-  --sidebar-ring: var(--brand-orange);
-
-  --elevation-1: 0 1px 2px oklch(0 0 0 / 40%);
-  --elevation-2: 0 3px 8px oklch(0 0 0 / 40%), 0 10px 24px -14px oklch(0 0 0 / 55%);
-  --elevation-3: 0 6px 20px oklch(0 0 0 / 44%), 0 28px 56px -28px oklch(0 0 0 / 65%);
-  --elevation-4: 0 40px 90px -32px oklch(0 0 0 / 75%);
+  color-scheme: only light;
 }
 
 @layer base {
@@ -695,13 +639,58 @@
     background: linear-gradient(
       100deg,
       transparent,
-      color-mix(in oklab, white 70%, var(--brand-silver)) 50%,
+      color-mix(in oklab, white 70%, var(--brand-accent)) 50%,
       transparent
     );
     opacity: 0.4;
     transform: translateX(-140%) rotate(8deg);
     animation: shimmer-sweep 6s ease-in-out infinite;
     pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes twinkle-pulse {
+  0%,
+  82% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  90% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+  97% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+/* A soft radial glint that pulses once every cycle — the same "twinkle" the
+ * whole Sidekick family uses on its gradient placards. */
+@utility twinkle {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8%;
+    right: 10%;
+    width: 34%;
+    height: 34%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 65%);
+    pointer-events: none;
+    animation: twinkle-pulse var(--twinkle-duration, 26s) ease-in-out infinite;
+    animation-delay: var(--twinkle-delay, 0s);
   }
   @media (prefers-reduced-motion: reduce) {
     &::after {
@@ -749,59 +738,80 @@
  * SURFACES — soft, elevated, glassy
  * ============================================================ */
 
+/* Gradient placards: force legible white text over the animated gradient,
+ * the same way the whole Sidekick family does — inputs stay dark-on-light. */
+@utility placard-text {
+  color: white !important;
+  & :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a):not(.keep-color) {
+    color: white !important;
+  }
+  & :is(input, textarea, select) {
+    color: var(--brand-ink) !important;
+  }
+  & :is(.keep-color, .keep-color *) {
+    color: var(--brand-ink) !important;
+  }
+}
+
+/* Escape hatches for text that must win over placard-text's forced white. */
+@utility text-glow {
+  color: var(--card-glow) !important;
+}
+
+@utility text-brand-primary {
+  color: var(--brand-primary) !important;
+}
+
 @utility card-soft {
-  @apply shimmer-sweep;
+  @apply twinkle placard-text;
   border-radius: var(--radius-2xl);
-  background-color: var(--glass-bg);
   background-image: var(--grad-card);
-  backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--elevation-1);
-  transition:
-    var(--transition-hover),
-    border-color var(--duration-base) var(--ease-editorial);
+  background-size: 320% 320%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  border: 2px solid var(--card-glow);
+  box-shadow: var(--elevation-2);
+  transition: var(--transition-hover);
   &:hover {
-    border-color: color-mix(in oklab, var(--card-glow) 45%, var(--glass-border));
     box-shadow:
-      var(--elevation-2),
-      0 0 0 1px color-mix(in oklab, var(--card-glow) 18%, transparent);
+      var(--elevation-3),
+      0 0 0 1px color-mix(in oklab, var(--card-glow) 45%, transparent);
   }
 }
 
 @utility card-elevated {
-  @apply shimmer-sweep;
+  @apply twinkle placard-text;
   border-radius: var(--radius-2xl);
-  background-color: var(--glass-bg);
   background-image: var(--grad-card);
-  backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--elevation-2);
-  transition:
-    var(--transition-hover),
-    border-color var(--duration-base) var(--ease-editorial);
+  background-size: 320% 320%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  border: 2px solid var(--card-glow);
+  box-shadow: var(--elevation-3);
+  transition: var(--transition-hover);
   &:hover {
     transform: translate3d(0, -4px, 0);
-    border-color: color-mix(in oklab, var(--card-glow) 50%, var(--glass-border));
-    box-shadow:
-      var(--elevation-3),
-      0 0 32px -8px color-mix(in oklab, var(--card-glow) 45%, transparent);
+    box-shadow: var(--elevation-4);
   }
 }
 
+/* The paler, translucent "glass chip" surface — used for input rows, dock
+ * bubbles, and anywhere the reference shows a pale panel instead of a
+ * saturated placard. Dark text, not white. */
 @utility glass-panel {
   border-radius: var(--radius-3xl);
   background-color: var(--glass-bg);
-  background-image: var(--grad-card);
-  backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--elevation-2);
+  color: var(--brand-ink);
 }
 
 @utility big-cta {
-  @apply shimmer-sweep;
+  @apply twinkle placard-text;
   border-radius: var(--radius-3xl);
-  border: 1px solid color-mix(in oklab, var(--brand-silver) 55%, transparent);
-  color: white;
+  background-image: var(--grad-hero);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient) ease-in-out infinite;
+  border: 2px solid var(--brand-accent-warm);
   box-shadow: var(--elevation-3);
   transition: var(--transition-hover);
   &:hover {
@@ -856,6 +866,25 @@
 
 @utility animate-float {
   animation: float 7s var(--ease-tide) infinite;
+}
+
+@keyframes paper-drift {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-17px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@utility animate-paper-drift {
+  animation: paper-drift 40s ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility animate-pop {

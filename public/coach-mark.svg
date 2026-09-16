@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Coach's Sidekick watermark mark: a whistle on a lanyard loop, drawn soft
+       and painterly like the rest of the Sidekick family's watermark. -->
+  <g stroke="#1F4A55" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- lanyard loop -->
+    <path d="M100 18c-16 0-28 12-28 27 0 10 6 18 14 23" />
+    <path d="M100 18c16 0 28 12 28 27 0 10-6 18-14 23" />
+    <!-- whistle body -->
+    <path d="M58 96c0-14 12-24 28-24h28c17 0 30 13 30 30v6c0 17-13 30-30 30H98c-16 0-28-10-28-24" />
+    <!-- mouthpiece -->
+    <path d="M58 96c-10 0-19 7-19 18s9 18 19 18" />
+    <!-- pea hole -->
+    <circle cx="128" cy="108" r="10" />
+    <!-- sound slot -->
+    <path d="M100 128h44" />
+  </g>
+</svg>
