@@ -10,33 +10,167 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuildRouteImport } from './routes/build'
+import { Route as BusyworkRouteImport } from './routes/busywork'
+import { Route as ChallengeRouteImport } from './routes/challenge'
+import { Route as CreateRouteImport } from './routes/create'
+import { Route as IdeasRouteImport } from './routes/ideas'
+import { Route as InspireRouteImport } from './routes/inspire'
+import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as MaterialsRouteImport } from './routes/materials'
+import { Route as RecentWorkRouteImport } from './routes/recent-work'
+import { Route as WorkspaceRouteImport } from './routes/workspace'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuildRoute = BuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusyworkRoute = BusyworkRouteImport.update({
+  id: '/busywork',
+  path: '/busywork',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengeRoute = ChallengeRouteImport.update({
+  id: '/challenge',
+  path: '/challenge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateRoute = CreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdeasRoute = IdeasRouteImport.update({
+  id: '/ideas',
+  path: '/ideas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InspireRoute = InspireRouteImport.update({
+  id: '/inspire',
+  path: '/inspire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsRoute = LessonsRouteImport.update({
+  id: '/lessons',
+  path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialsRoute = MaterialsRouteImport.update({
+  id: '/materials',
+  path: '/materials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecentWorkRoute = RecentWorkRouteImport.update({
+  id: '/recent-work',
+  path: '/recent-work',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceRoute = WorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
+  '/busywork': typeof BusyworkRoute
+  '/challenge': typeof ChallengeRoute
+  '/create': typeof CreateRoute
+  '/ideas': typeof IdeasRoute
+  '/inspire': typeof InspireRoute
+  '/lessons': typeof LessonsRoute
+  '/materials': typeof MaterialsRoute
+  '/recent-work': typeof RecentWorkRoute
+  '/workspace': typeof WorkspaceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
+  '/busywork': typeof BusyworkRoute
+  '/challenge': typeof ChallengeRoute
+  '/create': typeof CreateRoute
+  '/ideas': typeof IdeasRoute
+  '/inspire': typeof InspireRoute
+  '/lessons': typeof LessonsRoute
+  '/materials': typeof MaterialsRoute
+  '/recent-work': typeof RecentWorkRoute
+  '/workspace': typeof WorkspaceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
+  '/busywork': typeof BusyworkRoute
+  '/challenge': typeof ChallengeRoute
+  '/create': typeof CreateRoute
+  '/ideas': typeof IdeasRoute
+  '/inspire': typeof InspireRoute
+  '/lessons': typeof LessonsRoute
+  '/materials': typeof MaterialsRoute
+  '/recent-work': typeof RecentWorkRoute
+  '/workspace': typeof WorkspaceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/build'
+    | '/busywork'
+    | '/challenge'
+    | '/create'
+    | '/ideas'
+    | '/inspire'
+    | '/lessons'
+    | '/materials'
+    | '/recent-work'
+    | '/workspace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/build'
+    | '/busywork'
+    | '/challenge'
+    | '/create'
+    | '/ideas'
+    | '/inspire'
+    | '/lessons'
+    | '/materials'
+    | '/recent-work'
+    | '/workspace'
+  id:
+    | '__root__'
+    | '/'
+    | '/build'
+    | '/busywork'
+    | '/challenge'
+    | '/create'
+    | '/ideas'
+    | '/inspire'
+    | '/lessons'
+    | '/materials'
+    | '/recent-work'
+    | '/workspace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuildRoute: typeof BuildRoute
+  BusyworkRoute: typeof BusyworkRoute
+  ChallengeRoute: typeof ChallengeRoute
+  CreateRoute: typeof CreateRoute
+  IdeasRoute: typeof IdeasRoute
+  InspireRoute: typeof InspireRoute
+  LessonsRoute: typeof LessonsRoute
+  MaterialsRoute: typeof MaterialsRoute
+  RecentWorkRoute: typeof RecentWorkRoute
+  WorkspaceRoute: typeof WorkspaceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +182,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/build': {
+      id: '/build'
+      path: '/build'
+      fullPath: '/build'
+      preLoaderRoute: typeof BuildRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/busywork': {
+      id: '/busywork'
+      path: '/busywork'
+      fullPath: '/busywork'
+      preLoaderRoute: typeof BusyworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenge': {
+      id: '/challenge'
+      path: '/challenge'
+      fullPath: '/challenge'
+      preLoaderRoute: typeof ChallengeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create': {
+      id: '/create'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof CreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ideas': {
+      id: '/ideas'
+      path: '/ideas'
+      fullPath: '/ideas'
+      preLoaderRoute: typeof IdeasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inspire': {
+      id: '/inspire'
+      path: '/inspire'
+      fullPath: '/inspire'
+      preLoaderRoute: typeof InspireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lessons': {
+      id: '/lessons'
+      path: '/lessons'
+      fullPath: '/lessons'
+      preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materials': {
+      id: '/materials'
+      path: '/materials'
+      fullPath: '/materials'
+      preLoaderRoute: typeof MaterialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recent-work': {
+      id: '/recent-work'
+      path: '/recent-work'
+      fullPath: '/recent-work'
+      preLoaderRoute: typeof RecentWorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspace': {
+      id: '/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuildRoute: BuildRoute,
+  BusyworkRoute: BusyworkRoute,
+  ChallengeRoute: ChallengeRoute,
+  CreateRoute: CreateRoute,
+  IdeasRoute: IdeasRoute,
+  InspireRoute: InspireRoute,
+  LessonsRoute: LessonsRoute,
+  MaterialsRoute: MaterialsRoute,
+  RecentWorkRoute: RecentWorkRoute,
+  WorkspaceRoute: WorkspaceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
