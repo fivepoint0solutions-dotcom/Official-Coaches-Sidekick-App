@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Menu, Sparkles, X } from "lucide-react";
+import { Globe, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,6 +17,18 @@ const NAV_ITEMS = [
   { key: "nav.myIdeas", to: "/ideas" as const },
   { key: "nav.materials", to: "/materials" as const },
 ] as const;
+
+function BrandMark({ flip = false }: { flip?: boolean }) {
+  return (
+    <img
+      src="/coach-mark.svg"
+      alt=""
+      aria-hidden="true"
+      className="hidden size-8 shrink-0 object-contain opacity-65 mix-blend-multiply sm:block"
+      style={flip ? { transform: "scaleX(-1)" } : undefined}
+    />
+  );
+}
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -51,54 +63,71 @@ function LanguageSwitcher() {
   );
 }
 
+/** The gradient pill nav — the same "Sidekick family" tab bar look, with the
+ * active tab shown as a pale rounded chip riding inside the gradient. */
+function NavPill() {
+  const t = useT();
+  return (
+    <div
+      className="card-soft hidden w-full max-w-md items-stretch justify-between gap-0.5 rounded-full p-1 lg:flex"
+      style={{ "--twinkle-duration": "30s" } as CSSProperties}
+    >
+      {NAV_ITEMS.map((item) => (
+        <Link
+          key={item.to}
+          to={item.to}
+          className="min-w-0 flex-1 rounded-full px-2 py-2 text-center transition-refined"
+          activeProps={{ className: "bg-white/75 [&_span]:text-brand-primary" }}
+          activeOptions={{ exact: item.to === "/" }}
+        >
+          <span className="font-display block truncate text-xs font-bold">{t(item.key)}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function AppHeader() {
   const [open, setOpen] = useState(false);
   const t = useT();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+    <header
+      className="sticky top-0 z-50 backdrop-blur-xl"
+      style={{ background: "color-mix(in oklab, var(--background) 72%, transparent)" }}
+    >
       <nav
         aria-label="Primary"
-        className="container-app flex items-center justify-between gap-4 py-4"
+        className="container-app flex items-center justify-between gap-3 py-3"
       >
+        <BrandMark />
         <Link
           to="/"
-          className="group inline-flex items-center gap-2.5"
+          className="group inline-flex shrink-0 items-center gap-2.5"
           onClick={() => setOpen(false)}
         >
-          <span className="gradient-hero gradient-motion grid size-9 place-items-center rounded-xl text-white shadow-subtle transition-transform duration-300 group-hover:scale-105">
-            <Sparkles className="size-4.5" />
+          <span className="font-display text-lg font-bold tracking-tight text-primary">
+            Coach's Sidekick
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">Coach's Sidekick</span>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.to}>
-              <Link
-                to={item.to}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
-                activeProps={{ className: "bg-secondary text-foreground" }}
-              >
-                {t(item.key)}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <NavPill />
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <LanguageSwitcher />
           <Button asChild variant="hero" size="default">
             <Link to="/create">{t("nav.createSomething")}</Link>
           </Button>
         </div>
 
+        <BrandMark flip />
+
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
-          className="-mr-1 grid size-11 place-items-center rounded-full text-foreground hover:bg-secondary md:hidden"
+          className="-mr-1 grid size-11 shrink-0 place-items-center rounded-full text-foreground hover:bg-secondary lg:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -106,7 +135,7 @@ export function AppHeader() {
 
       <div
         className={cn(
-          "grid overflow-hidden transition-all duration-300 ease-[var(--ease-editorial)] md:hidden",
+          "grid overflow-hidden transition-all duration-300 ease-[var(--ease-editorial)] lg:hidden",
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
       >
