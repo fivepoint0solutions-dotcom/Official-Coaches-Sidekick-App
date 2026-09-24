@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { Mode } from "@/lib/ai";
 import { CopilotWorkspace } from "@/components/copilot/CopilotWorkspace";
 
-type WorkspaceSearch = { draft?: string; mode?: Mode };
+type WorkspaceSearch = { draft: string | undefined; mode: Mode | undefined };
 
 export const Route = createFileRoute("/workspace")({
   validateSearch: (search: Record<string, unknown>): WorkspaceSearch => ({
-    draft: typeof search.draft === "string" ? search.draft : undefined,
-    mode: typeof search.mode === "string" ? (search.mode as Mode) : undefined,
+    draft: typeof search["draft"] === "string" ? search["draft"] : undefined,
+    mode: typeof search["mode"] === "string" ? (search["mode"] as Mode) : undefined,
   }),
   head: () => ({ meta: [{ title: "Coach's Sidekick" }] }),
   component: WorkspacePage,

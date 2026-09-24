@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Globe, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { key: "nav.dashboard", to: "/" as const },
+  { key: "nav.drills", to: "/drills" as const },
   { key: "nav.myLessons", to: "/lessons" as const },
   { key: "nav.myIdeas", to: "/ideas" as const },
   { key: "nav.materials", to: "/materials" as const },
@@ -21,10 +22,10 @@ const NAV_ITEMS = [
 function BrandMark({ flip = false }: { flip?: boolean }) {
   return (
     <img
-      src="/coach-mark.svg"
+      src="/feather-mark.png"
       alt=""
       aria-hidden="true"
-      className="hidden size-8 shrink-0 object-contain opacity-65 mix-blend-multiply sm:block"
+      className="hidden h-10 w-7 shrink-0 object-contain opacity-65 mix-blend-multiply sm:block"
       style={flip ? { transform: "scaleX(-1)" } : undefined}
     />
   );
@@ -68,16 +69,13 @@ function LanguageSwitcher() {
 function NavPill() {
   const t = useT();
   return (
-    <div
-      className="card-soft hidden w-full max-w-md items-stretch justify-between gap-0.5 rounded-full p-1 lg:flex"
-      style={{ "--twinkle-duration": "30s" } as CSSProperties}
-    >
+    <div className="nav-pill hidden w-full max-w-xl items-stretch justify-between gap-0.5 p-1 lg:flex">
       {NAV_ITEMS.map((item) => (
         <Link
           key={item.to}
           to={item.to}
           className="min-w-0 flex-1 rounded-full px-2 py-2 text-center transition-refined"
-          activeProps={{ className: "bg-white/75 [&_span]:text-brand-primary" }}
+          activeProps={{ className: "nav-active" }}
           activeOptions={{ exact: item.to === "/" }}
         >
           <span className="font-display block truncate text-xs font-bold">{t(item.key)}</span>
@@ -147,6 +145,7 @@ export function AppHeader() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-4 py-3 text-base font-semibold text-foreground/85 hover:bg-secondary"
+                activeProps={{ className: "nav-active" }}
               >
                 {t(item.key)}
               </Link>

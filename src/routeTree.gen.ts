@@ -20,6 +20,8 @@ import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as MaterialsRouteImport } from './routes/materials'
 import { Route as RecentWorkRouteImport } from './routes/recent-work'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
+import { Route as DrillsIndexRouteImport } from './routes/drills.index'
+import { Route as DrillsDrillIdRouteImport } from './routes/drills.$drillId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +78,16 @@ const WorkspaceRoute = WorkspaceRouteImport.update({
   path: '/workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DrillsIndexRoute = DrillsIndexRouteImport.update({
+  id: '/drills/',
+  path: '/drills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrillsDrillIdRoute = DrillsDrillIdRouteImport.update({
+  id: '/drills/$drillId',
+  path: '/drills/$drillId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -89,6 +101,8 @@ export interface FileRoutesByFullPath {
   '/materials': typeof MaterialsRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
+  '/drills/$drillId': typeof DrillsDrillIdRoute
+  '/drills/': typeof DrillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +116,8 @@ export interface FileRoutesByTo {
   '/materials': typeof MaterialsRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
+  '/drills/$drillId': typeof DrillsDrillIdRoute
+  '/drills': typeof DrillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +132,8 @@ export interface FileRoutesById {
   '/materials': typeof MaterialsRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
+  '/drills/$drillId': typeof DrillsDrillIdRoute
+  '/drills/': typeof DrillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +149,8 @@ export interface FileRouteTypes {
     | '/materials'
     | '/recent-work'
     | '/workspace'
+    | '/drills/$drillId'
+    | '/drills/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +164,8 @@ export interface FileRouteTypes {
     | '/materials'
     | '/recent-work'
     | '/workspace'
+    | '/drills/$drillId'
+    | '/drills'
   id:
     | '__root__'
     | '/'
@@ -157,6 +179,8 @@ export interface FileRouteTypes {
     | '/materials'
     | '/recent-work'
     | '/workspace'
+    | '/drills/$drillId'
+    | '/drills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,6 +195,8 @@ export interface RootRouteChildren {
   MaterialsRoute: typeof MaterialsRoute
   RecentWorkRoute: typeof RecentWorkRoute
   WorkspaceRoute: typeof WorkspaceRoute
+  DrillsDrillIdRoute: typeof DrillsDrillIdRoute
+  DrillsIndexRoute: typeof DrillsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -252,6 +278,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/drills/': {
+      id: '/drills/'
+      path: '/drills'
+      fullPath: '/drills/'
+      preLoaderRoute: typeof DrillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drills/$drillId': {
+      id: '/drills/$drillId'
+      path: '/drills/$drillId'
+      fullPath: '/drills/$drillId'
+      preLoaderRoute: typeof DrillsDrillIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -267,6 +307,8 @@ const rootRouteChildren: RootRouteChildren = {
   MaterialsRoute: MaterialsRoute,
   RecentWorkRoute: RecentWorkRoute,
   WorkspaceRoute: WorkspaceRoute,
+  DrillsDrillIdRoute: DrillsDrillIdRoute,
+  DrillsIndexRoute: DrillsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

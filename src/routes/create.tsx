@@ -23,7 +23,7 @@ function CreatePage() {
     if (!type) return;
     const meta = creationTypeMeta(type);
     const draft = createDraft({ mode: meta.defaultMode, type, context });
-    navigate({ to: "/workspace", search: { draft: draft.id, mode: undefined } });
+    navigate({ to: "/workspace", search: { draft: draft.id } });
   }
 
   return (

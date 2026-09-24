@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { DrillCard } from "@/components/drills/DrillCard";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { drillLibrary, drillSports } from "@/data/drillLibrary";
 
 export const Route = createFileRoute("/drills/")({
@@ -45,7 +46,7 @@ function DrillLibraryPage() {
         </label>
         <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter by sport">
           {["All sports", ...drillSports].map((option) => (
-            <button key={option} type="button" onClick={() => setSport(option)} className={`chip ${sport === option ? "bg-primary text-primary-foreground" : ""}`}>{option}</button>
+            <Button key={option} type="button" size="sm" variant={sport === option ? "default" : "outline"} onClick={() => setSport(option)} className="rounded-full">{option}</Button>
           ))}
         </div>
       </section>

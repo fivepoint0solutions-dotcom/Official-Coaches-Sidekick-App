@@ -1,10 +1,10 @@
-const MARK_SRC = "/coach-mark.svg";
+const MARK_SRC = "/feather-mark.png";
 
 const MARK_LAYOUT = [
-  { top: "8%", left: "52%", width: "42%", rotate: -6, flip: false, opacity: 0.3 },
-  { top: "34%", left: "18%", width: "34%", rotate: 18, flip: true, opacity: 0.24 },
-  { top: "58%", left: "82%", width: "38%", rotate: -14, flip: false, opacity: 0.27 },
-  { top: "80%", left: "35%", width: "36%", rotate: 9, flip: true, opacity: 0.24 },
+  { top: "4%", left: "72%", width: "25%", rotate: -6, flip: false, opacity: 0.16 },
+  { top: "30%", left: "19%", width: "22%", rotate: 18, flip: true, opacity: 0.13 },
+  { top: "56%", left: "81%", width: "24%", rotate: -14, flip: false, opacity: 0.14 },
+  { top: "79%", left: "32%", width: "23%", rotate: 9, flip: true, opacity: 0.13 },
 ];
 
 /** Soft watermark wallpaper, same treatment as the rest of the Sidekick family. */
@@ -28,6 +28,7 @@ export function WatermarkBackdrop() {
               maxWidth: "none",
               transform: `translateX(-50%) rotate(${m.rotate}deg)${m.flip ? " scaleX(-1)" : ""}`,
               opacity: m.opacity,
+              mixBlendMode: "multiply",
             }}
           />
         ))}

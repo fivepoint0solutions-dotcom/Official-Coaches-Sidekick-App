@@ -31,7 +31,7 @@ function DrillDetailPage() {
       { id: `${drill.id}-instructions`, heading: "Step-by-step instructions", body: drill.steps.map((step, index) => `${index + 1}. ${step}`).join("\n") },
       { id: `${drill.id}-coaching`, heading: "Coaching points", body: drill.coachingPoints.map((point) => `• ${point}`).join("\n") },
     ] });
-    navigate({ to: "/workspace", search: { draft: draft.id, mode: undefined } });
+    navigate({ to: "/workspace", search: { draft: draft.id } });
   }
 
   return (

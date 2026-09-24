@@ -12,8 +12,8 @@ import { BusyworkPanel } from "./panels/BusyworkPanel";
 import { ChallengePanel } from "./panels/ChallengePanel";
 
 type CopilotWorkspaceProps = {
-  draftId?: string;
-  mode?: Mode;
+  draftId: string | undefined;
+  mode: Mode | undefined;
 };
 
 function initDraft(draftId: string | undefined, mode: Mode | undefined): Draft {
@@ -26,7 +26,7 @@ function initDraft(draftId: string | undefined, mode: Mode | undefined): Draft {
 }
 
 export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
-  const [draft, setDraft] = useState<Draft>(() => initDraft(draftId, mode));
+  const [draft, setDraft] = useState<Draft | null>(null);
 
   useEffect(() => {
     setDraft(initDraft(draftId, mode));
@@ -34,24 +34,28 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
   }, [draftId]);
 
   useEffect(() => {
+    if (!draft) return;
     updateDraft(draft.id, draft);
   }, [draft]);
 
   function patch(p: Partial<Draft>) {
-    setDraft((prev) => ({ ...prev, ...p }));
+    setDraft((prev) => prev ? ({ ...prev, ...p }) : prev);
   }
 
   const t = useT();
   const { language } = useLanguage();
 
   useEffect(() => {
+    if (!draft) return;
     if (draft.context.language !== language) patch({ context: { ...draft.context, language } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
+  if (!draft) return <div className="container-app py-16" aria-busy="true" />;
+
   function onSave(title: string) {
     const saved = saveLibraryItem({
-      id: draft.savedLibraryId ?? undefined,
+      ...(draft.savedLibraryId ? { id: draft.savedLibraryId } : {}),
       title,
       type: draft.type,
       mode: draft.mode,
