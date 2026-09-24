@@ -3,6 +3,7 @@ import { ArrowLeft, Clock3, ListChecks, Package, Play, Users } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { getDrill } from "@/data/drillLibrary";
 import { createDraft, updateDraft } from "@/lib/draft";
+import { DrillDiagram } from "@/components/drills/DrillDiagram";
 
 export const Route = createFileRoute("/drills/$drillId")({
   loader: ({ params }) => {
@@ -45,6 +46,12 @@ function DrillDetailPage() {
       </header>
       <div className="mt-8 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-8">
+          {drill.diagram ? (
+            <section>
+              <h2 className="text-title">Diagram</h2>
+              <div className="mt-3"><DrillDiagram diagram={drill.diagram} id={drill.id} /></div>
+            </section>
+          ) : null}
           <section><h2 className="text-title flex items-center gap-2"><Package className="size-5 text-interactive" /> Equipment</h2><p className="mt-3 text-body text-foreground/85">{drill.equipment}</p></section>
           <section><h2 className="text-title">Setup</h2><p className="mt-3 text-body text-foreground/85">{drill.setup}</p></section>
         </div>
