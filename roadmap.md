@@ -8,3 +8,7 @@
 - [ ] Add proportionate sport surfaces and drill-specific schematic overlays
 - [ ] Show diagrams on drill details and compact card thumbnails
 - [ ] Verify diagrams and watermark across desktop and mobile
+
+- [ ] Rebrand with the supplied sports logo and image-derived palette
+- [ ] Replace feather imagery, favicon, watermark, and loading branding
+- [ ] Verify the rebrand across desktop and mobile
