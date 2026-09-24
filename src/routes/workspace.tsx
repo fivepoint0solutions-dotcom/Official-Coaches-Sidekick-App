@@ -9,7 +9,14 @@ export const Route = createFileRoute("/workspace")({
     draft: typeof search["draft"] === "string" ? search["draft"] : undefined,
     mode: typeof search["mode"] === "string" ? (search["mode"] as Mode) : undefined,
   }),
-  head: () => ({ meta: [{ title: "Coach's Sidekick" }] }),
+  head: () => ({ meta: [
+    { title: "Practice Workspace — Coach's Sidekick" },
+    { name: "description", content: "Build, refine, and save a complete coaching plan in your Coach's Sidekick workspace." },
+    { property: "og:title", content: "Practice Workspace — Coach's Sidekick" },
+    { property: "og:description", content: "Build, refine, and save a complete coaching plan." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: WorkspacePage,
 });
 

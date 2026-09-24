@@ -9,7 +9,14 @@ import { Reveal } from "@/components/motion/Reveal";
 import { useT } from "@/lib/i18n";
 
 export const Route = createFileRoute("/create")({
-  head: () => ({ meta: [{ title: "Create Something — Coach's Sidekick" }] }),
+  head: () => ({ meta: [
+    { title: "Create Something — Coach's Sidekick" },
+    { name: "description", content: "Start a practice plan, play, scouting report, or team communication." },
+    { property: "og:title", content: "Create Something — Coach's Sidekick" },
+    { property: "og:description", content: "Start your next coaching plan, play, report, or team communication." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: CreatePage,
 });
 
