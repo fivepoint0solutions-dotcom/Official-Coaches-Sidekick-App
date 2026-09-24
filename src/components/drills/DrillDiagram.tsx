@@ -13,13 +13,19 @@ export type DiagramArrow = {
   style?: "run" | "pass" | "dribble";
 };
 
+export type DiagramStroke = {
+  points: [number, number][];
+  color?: string;
+};
+
 export type DrillDiagramSpec = {
   surface: SurfaceId;
   markers: DiagramMarker[];
   arrows?: DiagramArrow[];
+  strokes?: DiagramStroke[];
 };
 
-const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
+export const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
   player: "#2B4573",
   defender: "#C2603F",
   cone: "#E6A93C",
@@ -27,11 +33,11 @@ const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
   coach: "#6E5A8C",
 };
 
-function pct(value: number, size: number) {
+export function pct(value: number, size: number) {
   return (value / 100) * size;
 }
 
-function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: number }) {
+export function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: number }) {
   const cx = pct(marker.x, w);
   const cy = pct(marker.y, h);
   const r = marker.kind === "cone" ? 1.6 : marker.kind === "ball" ? 1.3 : 2.4;
@@ -71,7 +77,17 @@ function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: number 
   );
 }
 
-function Arrow({ arrow, w, h, id }: { arrow: DiagramArrow; w: number; h: number; id: string }) {
+export function Arrow({
+  arrow,
+  w,
+  h,
+  id,
+}: {
+  arrow: DiagramArrow;
+  w: number;
+  h: number;
+  id: string;
+}) {
   const x1 = pct(arrow.from[0], w);
   const y1 = pct(arrow.from[1], h);
   const x2 = pct(arrow.to[0], w);
@@ -100,6 +116,20 @@ function Arrow({ arrow, w, h, id }: { arrow: DiagramArrow; w: number; h: number;
   );
 }
 
+export function Stroke({ stroke, w, h }: { stroke: DiagramStroke; w: number; h: number }) {
+  const points = stroke.points.map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ");
+  return (
+    <polyline
+      points={points}
+      fill="none"
+      stroke={stroke.color ?? "#1A2236"}
+      strokeWidth={0.9}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
 /** Schematic sport-surface diagram for a drill: a scaled field/court/rink with
  * player, cone and ball markers plus movement/pass arrows drawn on top. */
 export function DrillDiagram({ diagram, id }: { diagram: DrillDiagramSpec; id: string }) {
@@ -108,13 +138,19 @@ export function DrillDiagram({ diagram, id }: { diagram: DrillDiagramSpec; id: s
 
   return (
     <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
-      <div className="relative w-full overflow-hidden rounded-xl shadow-inner" style={{ aspectRatio: `${w} / ${h}` }}>
+      <div
+        className="relative w-full overflow-hidden rounded-xl shadow-inner"
+        style={{ aspectRatio: `${w} / ${h}` }}
+      >
         <div className="absolute inset-0">
           <Surface />
         </div>
         <svg viewBox={`0 0 ${w} ${h}`} className="absolute inset-0 h-full w-full">
           {diagram.arrows?.map((arrow, i) => (
             <Arrow key={i} arrow={arrow} w={w} h={h} id={`${id}-arrow-${i}`} />
+          ))}
+          {diagram.strokes?.map((stroke, i) => (
+            <Stroke key={i} stroke={stroke} w={w} h={h} />
           ))}
           {diagram.markers.map((marker, i) => (
             <Marker key={i} marker={marker} w={w} h={h} />
