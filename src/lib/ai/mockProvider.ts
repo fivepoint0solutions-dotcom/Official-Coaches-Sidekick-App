@@ -9,6 +9,7 @@ import type {
   CritiqueResult,
   GenerationResult,
   IdeaOption,
+  NavPath,
   QuickAction,
 } from "./types";
 import { translate, type TranslationKey } from "@/lib/i18n";
@@ -91,7 +92,8 @@ const HOOK_STARTERS = [
   (t: string) =>
     `Start with a quick show-of-hands on confidence with ${t} to see where the team actually stands.`,
   (t: string) => `Tell a 60-second story about a game moment that came down to ${t}.`,
-  (t: string) => `Pose a game-situation scenario tied to ${t} and have players call out what they'd do.`,
+  (t: string) =>
+    `Pose a game-situation scenario tied to ${t} and have players call out what they'd do.`,
 ];
 
 const ACTIVITY_STARTERS = [
@@ -100,7 +102,8 @@ const ACTIVITY_STARTERS = [
   (t: string) => `Players rotate through 3 stations, each drilling ${t} from a different angle.`,
   (t: string) =>
     `Pair players up for a "coach each other" rep where each one cues the other through ${t}.`,
-  (t: string) => `Run a small-sided game or scrimmage segment where ${t} is the only way to score or win the rep.`,
+  (t: string) =>
+    `Run a small-sided game or scrimmage segment where ${t} is the only way to score or win the rep.`,
   (t: string) =>
     `Give players a live game-like scenario involving ${t} and see how they respond under pressure.`,
 ];
@@ -379,7 +382,8 @@ const STRENGTH_TEMPLATES = [
     `The core rep around ${t} is clear and gives players something concrete to execute.`,
   (t: string) =>
     `There's a natural competitive hook here — players will likely buy in fast on ${t}.`,
-  () => `The structure leaves room for players to problem-solve rather than just follow instructions.`,
+  () =>
+    `The structure leaves room for players to problem-solve rather than just follow instructions.`,
 ];
 
 const CONSIDERATION_TEMPLATES = [
@@ -395,8 +399,7 @@ const QUESTION_TEMPLATES = [
   (t: string) =>
     `What will you do in the moment if half the team already has ${t} down and half doesn't?`,
   () => `What does success look like here — for you, not just for a stat line?`,
-  (t: string) =>
-    `Is there a simpler version of ${t} you could start with for players who need it?`,
+  (t: string) => `Is there a simpler version of ${t} you could start with for players who need it?`,
 ];
 
 const ALTERNATIVE_TEMPLATES = [
@@ -420,8 +423,7 @@ function extractAgeGroup(message: string): string | undefined {
   const uMatch = message.match(/\bu[- ]?(\d{1,2})\b/i);
   if (uMatch) return `U${uMatch[1]}`;
   const gradeMatch =
-    message.match(/(\d{1,2})(?:st|nd|rd|th)\s*grade(rs)?/i) ??
-    message.match(/grade\s*(\d{1,2})/i);
+    message.match(/(\d{1,2})(?:st|nd|rd|th)\s*grade(rs)?/i) ?? message.match(/grade\s*(\d{1,2})/i);
   if (gradeMatch?.[1]) return `${gradeMatch[1]}th`;
   for (const [needle, label] of Object.entries(AGE_GROUP_ALIASES)) {
     if (message.toLowerCase().includes(needle)) return label;
@@ -456,6 +458,64 @@ function classifyIntent(message: string): ChatIntent {
   return "build";
 }
 
+const NAV_TARGETS: { pattern: RegExp; to: NavPath; label: string }[] = [
+  {
+    pattern: /\bdrill\s+librar(y|ies)\b|\bmy\s+drills?\b|\bdrills?\b(?!\s*sheet)/i,
+    to: "/drills",
+    label: "Opening the Drill Library",
+  },
+  {
+    pattern: /\b(my\s+)?(saved|recent)\s+(work|practices?|plans?)\b|\brecent\s*work\b/i,
+    to: "/recent-work",
+    label: "Opening your recent work",
+  },
+  {
+    pattern: /\bworkspace\b|\bpractice\s+builder\b/i,
+    to: "/workspace",
+    label: "Opening the workspace",
+  },
+  { pattern: /\bideas?\b|\bbrainstorm/i, to: "/ideas", label: "Opening saved ideas" },
+  {
+    pattern: /\bmaterials?\b|\bteam\s+(message|communication)s?\b/i,
+    to: "/materials",
+    label: "Opening materials",
+  },
+  { pattern: /\blessons?\b/i, to: "/lessons", label: "Opening lessons" },
+  { pattern: /\bchallenge\b|\bcritique\b/i, to: "/challenge", label: "Opening Challenge" },
+  { pattern: /\bbusywork\b|\bdrill\s+sheet\b/i, to: "/busywork", label: "Opening Busywork" },
+  { pattern: /\bhome(page)?\b|\bdashboard\b/i, to: "/", label: "Opening the dashboard" },
+];
+
+function detectNavigation(message: string): { to: NavPath; label: string } | null {
+  const m = message.toLowerCase();
+  const hasNavVerb =
+    /\b(take me to|go to|open|show me|navigate to|switch to|pull up|bring up)\b/.test(m);
+  if (!hasNavVerb) return null;
+  for (const target of NAV_TARGETS) {
+    if (target.pattern.test(m)) return target;
+  }
+  return null;
+}
+
+function isAddDrillRequest(message: string): boolean {
+  const m = message.toLowerCase();
+  if (/drill\s+sheet/.test(m)) return false;
+  return /\b(add|create|log|save|upload|new)\s+(a\s+|my\s+)?drill\b/.test(m);
+}
+
+function extractDrillSearch(message: string): string | undefined {
+  const m = message.match(
+    /\b(?:edit|find|search for|look for)\b[\s\S]*?\bdrills?\b(?:\s+(?:for|about|on|called|named))?\s+([a-z0-9][a-z0-9 ,'-]{1,40})/i,
+  );
+  return m?.[1]?.trim();
+}
+
+function isImperative(message: string): boolean {
+  return /^(build|create|make|start|set up|put together|let'?s (build|start|make))\b/i.test(
+    message.trim(),
+  );
+}
+
 const ENCOURAGERS = [
   "Good starting point.",
   "That's a solid thread to pull on.",
@@ -483,6 +543,41 @@ async function generateCritique(ideaText: string, ctx: CreationContext): Promise
 export const mockProvider: AIProvider = {
   async converse(message, memory) {
     await delay(300, 650);
+
+    const nav = detectNavigation(message);
+    if (nav) {
+      return {
+        text: `${nav.label}.`,
+        suggestions: [],
+        memory,
+        action: { kind: "navigate", to: nav.to, label: nav.label },
+      };
+    }
+
+    if (isAddDrillRequest(message)) {
+      return {
+        text: "Let's add it — I've opened a blank drill for you to fill in.",
+        suggestions: [],
+        memory,
+        action: { kind: "navigate", to: "/drills/new", label: "Add a drill" },
+      };
+    }
+
+    const drillSearch = extractDrillSearch(message);
+    if (drillSearch) {
+      return {
+        text: `Here's the Drill Library filtered to "${drillSearch}" — tap a drill, then Edit if it's one of yours.`,
+        suggestions: [],
+        memory,
+        action: {
+          kind: "navigate",
+          to: "/drills",
+          search: { q: drillSearch },
+          label: "Find a drill",
+        },
+      };
+    }
+
     const ageGroup = extractAgeGroup(message) ?? memory.context.ageGroup;
     const topic =
       extractTopic(message) ?? (memory.awaiting ? message.trim() : memory.context.topic);
@@ -595,9 +690,18 @@ export const mockProvider: AIProvider = {
         memory: { context, awaiting: "grade-objective-for-build" },
       };
     }
+    const buildSuggestion = { label: "Build this with me", mode: "build" as const, context };
+    if (isImperative(message)) {
+      return {
+        text: "On it — I've started building this practice plan for you.",
+        suggestions: [],
+        memory: { context },
+        action: { kind: "apply-suggestion", suggestion: buildSuggestion, label: "Building it now" },
+      };
+    }
     return {
       text: "Here's where I'd start — want to build this out together, step by step?",
-      suggestions: [{ label: "Build this with me", mode: "build", context }],
+      suggestions: [buildSuggestion],
       memory: { context },
     };
   },

@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 import { drillLibrary, drillSports } from "@/data/drillLibrary";
 import { useUserDrills } from "@/lib/userDrills";
 
+type DrillsSearch = { q?: string | undefined };
+
 export const Route = createFileRoute("/drills/")({
+  validateSearch: (search: Record<string, unknown>): DrillsSearch => ({
+    q: typeof search["q"] === "string" ? search["q"] : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Drill Library — Coach's Sidekick" },
@@ -29,7 +34,8 @@ export const Route = createFileRoute("/drills/")({
 });
 
 function DrillLibraryPage() {
-  const [query, setQuery] = useState("");
+  const { q } = Route.useSearch();
+  const [query, setQuery] = useState(q ?? "");
   const [sport, setSport] = useState("All sports");
   const [mineOnly, setMineOnly] = useState(false);
   const userDrills = useUserDrills();

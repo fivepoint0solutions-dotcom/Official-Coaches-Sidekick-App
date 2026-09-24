@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, FolderOpen, Lightbulb, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, FolderOpen, Lightbulb, ListChecks, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { useModes } from "@/lib/modes";
 import { deleteLibraryItem, useLibrary, useRecentWork } from "@/lib/library";
+import { useUserDrills } from "@/lib/userDrills";
 import { useT } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -55,10 +56,11 @@ function ShortcutRow() {
   const practices = useLibrary("practice");
   const ideas = useLibrary("idea");
   const materials = useLibrary("material");
+  const userDrills = useUserDrills();
   const counts = { practice: practices.length, idea: ideas.length, material: materials.length };
 
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {SHORTCUTS.map((s) => (
         <Link
           key={s.to}
@@ -79,6 +81,21 @@ function ShortcutRow() {
           <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
         </Link>
       ))}
+      <Link
+        to="/drills"
+        className="card-soft group flex items-center justify-between gap-4 p-5 hover:-translate-y-0.5"
+      >
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-xl bg-secondary text-interactive">
+            <ListChecks className="size-5" />
+          </span>
+          <div>
+            <p className="font-semibold">Drill Library</p>
+            <p className="text-caption text-muted-foreground">{userDrills.length} of yours saved</p>
+          </div>
+        </div>
+        <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+      </Link>
     </div>
   );
 }

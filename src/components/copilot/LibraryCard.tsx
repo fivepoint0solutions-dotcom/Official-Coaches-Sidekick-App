@@ -58,7 +58,11 @@ export function LibraryCard({ item, onDelete }: LibraryCardProps) {
             variant="ghost"
             className="size-9 text-muted-foreground hover:text-destructive"
             aria-label={t("library.delete")}
-            onClick={() => onDelete(item.id)}
+            onClick={() => {
+              if (window.confirm(`Delete "${item.title}"? This can't be undone.`)) {
+                onDelete(item.id);
+              }
+            }}
           >
             <Trash2 className="size-4" />
           </Button>

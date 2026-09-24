@@ -82,10 +82,32 @@ export interface ChatSuggestion {
   challengeText?: string;
 }
 
+/** Pages the "Ask Coach's Sidekick" assistant can jump the coach to directly. */
+export type NavPath =
+  | "/"
+  | "/build"
+  | "/busywork"
+  | "/challenge"
+  | "/create"
+  | "/ideas"
+  | "/inspire"
+  | "/lessons"
+  | "/materials"
+  | "/recent-work"
+  | "/workspace"
+  | "/drills"
+  | "/drills/new";
+
+/** Something the assistant does for the coach right away, instead of just suggesting it. */
+export type ChatAction =
+  | { kind: "navigate"; to: NavPath; search?: Record<string, string>; label: string }
+  | { kind: "apply-suggestion"; suggestion: ChatSuggestion; label: string };
+
 export interface ChatReply {
   text: string;
   suggestions: ChatSuggestion[];
   memory: ChatMemory;
+  action?: ChatAction;
 }
 
 /**

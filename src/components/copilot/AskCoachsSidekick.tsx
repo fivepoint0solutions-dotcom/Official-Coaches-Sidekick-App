@@ -142,6 +142,19 @@ export function AskCoachsSidekick() {
     ]);
     setThinking(false);
     scrollToEnd();
+
+    if (reply.action) {
+      const action = reply.action;
+      setTimeout(() => {
+        setOpen(false);
+        if (action.kind === "navigate") {
+          if (action.search) navigate({ to: action.to, search: action.search });
+          else navigate({ to: action.to });
+        } else {
+          applySuggestion(action.suggestion);
+        }
+      }, 500);
+    }
   }
 
   function applySuggestion(suggestion: ChatSuggestion) {
