@@ -717,6 +717,59 @@
   }
 }
 
+@utility anchor-twinkle {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -35%;
+    background: radial-gradient(circle at 18% 45%, color-mix(in oklab, white 82%, transparent) 0%, transparent 20%);
+    opacity: 0;
+    transform: translate3d(-28%, 12%, 0);
+    animation: anchor-glint var(--twinkle-duration, 21s) ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after { animation: none; opacity: 0; }
+  }
+}
+
+@keyframes anchor-glint {
+  0%, 72%, 100% { opacity: 0; transform: translate3d(-28%, 12%, 0); }
+  82% { opacity: 0.42; }
+  92% { opacity: 0; transform: translate3d(34%, -14%, 0); }
+}
+
+@utility anchor-card-gradient {
+  @apply anchor-twinkle placard-text;
+  background-image: var(--grad-card);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  border: 3px solid var(--card-glow);
+  box-shadow: var(--elevation-3);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 30% 30%;
+  }
+}
+
+@utility nav-pill {
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  box-shadow: var(--elevation-1);
+  backdrop-filter: blur(12px);
+}
+
+@utility nav-active {
+  @apply anchor-card-gradient;
+  border-radius: var(--radius-full);
+  border-color: var(--sk-accent);
+  box-shadow: var(--elevation-2);
+}
+
 @utility gradient-hero {
   background-image: var(--grad-hero);
 }
@@ -780,12 +833,8 @@
 }
 
 @utility card-soft {
-  @apply twinkle placard-text;
+  @apply anchor-card-gradient;
   border-radius: var(--radius-2xl);
-  background-image: var(--grad-card);
-  background-size: 320% 320%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 2px solid var(--card-glow);
   box-shadow: var(--elevation-2);
   transition: var(--transition-hover);
   &:hover {
@@ -796,13 +845,8 @@
 }
 
 @utility card-elevated {
-  @apply twinkle placard-text;
+  @apply anchor-card-gradient;
   border-radius: var(--radius-2xl);
-  background-image: var(--grad-card);
-  background-size: 320% 320%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 2px solid var(--card-glow);
-  box-shadow: var(--elevation-3);
   transition: var(--transition-hover);
   &:hover {
     transform: translate3d(0, -4px, 0);
