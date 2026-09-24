@@ -51,6 +51,8 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
+  const config = useModeConfig(draft?.mode ?? mode ?? "build");
+
   if (!draft) return <div className="container-app py-16" aria-busy="true" />;
   const activeDraft = draft;
 
@@ -70,7 +72,6 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
     });
   }
 
-  const config = useModeConfig(draft.mode);
   const panelProps = { draft, patch, onSave };
 
   return (
