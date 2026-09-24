@@ -10,8 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-
-const FEATHER_MARK_SRC = "/feather-mark.png";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 const NAV_ITEMS = [
   { key: "nav.dashboard", to: "/" as const },
@@ -20,18 +19,6 @@ const NAV_ITEMS = [
   { key: "nav.myIdeas", to: "/ideas" as const },
   { key: "nav.materials", to: "/materials" as const },
 ] as const;
-
-function BrandMark({ flip = false }: { flip?: boolean }) {
-  return (
-    <img
-      src={FEATHER_MARK_SRC}
-      alt=""
-      aria-hidden="true"
-      className="hidden h-10 w-7 shrink-0 object-contain opacity-65 mix-blend-multiply sm:block"
-      style={flip ? { transform: "scaleX(-1)" } : undefined}
-    />
-  );
-}
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -100,15 +87,13 @@ export function AppHeader() {
         aria-label="Primary"
         className="container-app flex items-center justify-between gap-3 py-3"
       >
-        <BrandMark />
         <Link
           to="/"
-          className="group inline-flex shrink-0 items-center gap-2.5"
+          aria-label="Coach's Sidekick home"
+          className="group shrink-0"
           onClick={() => setOpen(false)}
         >
-          <span className="font-display text-lg font-bold tracking-tight text-primary">
-            Coach's Sidekick
-          </span>
+          <BrandLogo compact markClassName="transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105" />
         </Link>
 
         <NavPill />
@@ -119,8 +104,6 @@ export function AppHeader() {
             <Link to="/create">{t("nav.createSomething")}</Link>
           </Button>
         </div>
-
-        <BrandMark flip />
 
         <button
           type="button"

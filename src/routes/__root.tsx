@@ -141,9 +141,11 @@ function RootComponent() {
       <LanguageProvider>
         <RefinedCursor />
         <WatermarkBackdrop />
-        <AppHeader />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
+        <div className="relative z-10 min-h-screen">
+          <AppHeader />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </div>
         <AskCoachsSidekick />
         <Toaster position="bottom-right" />
       </LanguageProvider>

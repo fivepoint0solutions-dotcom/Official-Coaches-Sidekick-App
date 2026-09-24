@@ -10,6 +10,7 @@ import { InspirePanel } from "./panels/InspirePanel";
 import { BuildPanel } from "./panels/BuildPanel";
 import { BusyworkPanel } from "./panels/BusyworkPanel";
 import { ChallengePanel } from "./panels/ChallengePanel";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 type CopilotWorkspaceProps = {
   draftId?: string | undefined;
@@ -53,7 +54,13 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
 
   const config = useModeConfig(draft?.mode ?? mode ?? "build");
 
-  if (!draft) return <div className="container-app py-16" aria-busy="true" />;
+  if (!draft) {
+    return (
+      <div className="container-app flex min-h-[55vh] items-center justify-center py-16" aria-busy="true">
+        <BrandLogo markClassName="animate-float" />
+      </div>
+    );
+  }
   const activeDraft = draft;
 
   function onSave(title: string) {

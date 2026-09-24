@@ -1,16 +1,6 @@
-const MARK_SRC = "/feather-mark.png";
+import { brandMark } from "@/components/brand/BrandLogo";
 
-const MARK_LAYOUT = [
-  { top: "-4%", left: "82%", width: "42%", rotate: -6, flip: false, opacity: 0.2 },
-  { top: "16%", left: "10%", width: "36%", rotate: 18, flip: true, opacity: 0.16 },
-  { top: "20%", left: "50%", width: "30%", rotate: 8, flip: false, opacity: 0.14 },
-  { top: "46%", left: "88%", width: "40%", rotate: -14, flip: false, opacity: 0.18 },
-  { top: "54%", left: "26%", width: "34%", rotate: 11, flip: true, opacity: 0.16 },
-  { top: "78%", left: "62%", width: "38%", rotate: -20, flip: true, opacity: 0.16 },
-  { top: "86%", left: "6%", width: "28%", rotate: 6, flip: false, opacity: 0.14 },
-];
-
-/** Soft watermark wallpaper, same treatment as the rest of the Sidekick family. */
+/** Large, quiet brand watermark held behind every app screen. */
 export function WatermarkBackdrop() {
   return (
     <div
@@ -18,23 +8,16 @@ export function WatermarkBackdrop() {
       aria-hidden="true"
     >
       <div className="animate-paper-drift relative h-full w-full">
-        {MARK_LAYOUT.map((m, i) => (
-          <img
-            key={i}
-            src={MARK_SRC}
-            alt=""
-            className="absolute object-contain"
-            style={{
-              top: m.top,
-              left: m.left,
-              width: m.width,
-              maxWidth: "none",
-              transform: `translateX(-50%) rotate(${m.rotate}deg)${m.flip ? " scaleX(-1)" : ""}`,
-              opacity: m.opacity,
-              mixBlendMode: "multiply",
-            }}
-          />
-        ))}
+        <img
+          src={brandMark}
+          alt=""
+          className="absolute left-1/2 top-[14%] w-[min(72vw,48rem)] -translate-x-1/2 object-contain opacity-[0.075] mix-blend-multiply"
+        />
+        <img
+          src={brandMark}
+          alt=""
+          className="absolute -bottom-[10%] -right-[10%] w-[min(52vw,34rem)] rotate-[-12deg] object-contain opacity-[0.055] mix-blend-multiply"
+        />
       </div>
     </div>
   );
