@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import featherMark from "@/assets/feather-mark.png.asset.json";
 
 const NAV_ITEMS = [
   { key: "nav.dashboard", to: "/" as const },
@@ -22,7 +23,7 @@ const NAV_ITEMS = [
 function BrandMark({ flip = false }: { flip?: boolean }) {
   return (
     <img
-      src="/feather-mark.png"
+      src={featherMark.url}
       alt=""
       aria-hidden="true"
       className="hidden h-10 w-7 shrink-0 object-contain opacity-65 mix-blend-multiply sm:block"

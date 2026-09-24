@@ -12,8 +12,8 @@ import { BusyworkPanel } from "./panels/BusyworkPanel";
 import { ChallengePanel } from "./panels/ChallengePanel";
 
 type CopilotWorkspaceProps = {
-  draftId: string | undefined;
-  mode: Mode | undefined;
+  draftId?: string | undefined;
+  mode?: Mode | undefined;
 };
 
 function initDraft(draftId: string | undefined, mode: Mode | undefined): Draft {
@@ -52,16 +52,17 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
   }, [language]);
 
   if (!draft) return <div className="container-app py-16" aria-busy="true" />;
+  const activeDraft = draft;
 
   function onSave(title: string) {
     const saved = saveLibraryItem({
-      ...(draft.savedLibraryId ? { id: draft.savedLibraryId } : {}),
+      ...(activeDraft.savedLibraryId ? { id: activeDraft.savedLibraryId } : {}),
       title,
-      type: draft.type,
-      mode: draft.mode,
-      context: draft.context,
-      blocks: draft.blocks,
-      ideas: draft.ideas,
+      type: activeDraft.type,
+      mode: activeDraft.mode,
+      context: activeDraft.context,
+      blocks: activeDraft.blocks,
+      ideas: activeDraft.ideas,
     });
     patch({ savedLibraryId: saved.id });
     toast.success(t("library.savedToast"), {

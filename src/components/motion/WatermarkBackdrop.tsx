@@ -1,4 +1,6 @@
-const MARK_SRC = "/feather-mark.png";
+import featherMark from "@/assets/feather-mark.png.asset.json";
+
+const MARK_SRC = featherMark.url;
 
 const MARK_LAYOUT = [
   { top: "4%", left: "72%", width: "25%", rotate: -6, flip: false, opacity: 0.16 },
