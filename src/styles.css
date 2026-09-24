@@ -9,12 +9,8 @@
  * GLOBAL DESIGN SYSTEM — Coach's Sidekick
  * ============================================================
  *
- * Matches the shared "Sidekick family" look (Teacher's Sidekick / Senior
- * Sidekick): warm parchment paper, Playfair Display headlines, and
- * animated 5-stop gradient placards with a bright shimmering border and
- * a twinkle glint — recolored here to a teal/orange/gold "Topshelf"
- * coaching palette. Never hardcode a colour in a component — reach for
- * a semantic utility or one of the mode gradients below.
+ * Built from the Coach's Sidekick sports crest: warm cream paper, deep navy
+ * typography, terracotta energy, and steel-blue equipment tones.
  */
 
 @theme inline {
@@ -140,25 +136,25 @@
 }
 
 :root {
-  /* Exact shared Ink & Pencil primitives used across the Sidekick family. */
-  --sk-bg: #f3f5fa;
-  --sk-primary: #2b4573;
-  --sk-primary-deep: #1b2c4c;
-  --sk-secondary: #6b7894;
-  --sk-accent: #e6a93c;
-  --sk-accent-warm: #c2603f;
-  --sk-sky: #4e86b8;
-  --sk-sky-deep: #33628f;
-  --sk-berry: #6e5a8c;
-  --sk-berry-deep: #4f3f6b;
-  --sk-text: #1a2236;
-  --sk-hero-mid: #243a63;
-  --sk-hero-deep: #172641;
-  --sk-amb-1: #f3f5fa;
-  --sk-amb-2: #edf1f8;
-  --sk-amb-3: #f7f0e5;
-  --sk-amb-4: #eef2f7;
-  --sk-amb-5: #f4eef5;
+  /* Sports-crest palette, expressed as perceptual OKLCH design tokens. */
+  --sk-bg: oklch(0.955 0.025 85);
+  --sk-primary: oklch(0.32 0.055 225);
+  --sk-primary-deep: oklch(0.245 0.047 229);
+  --sk-secondary: oklch(0.57 0.055 235);
+  --sk-accent: oklch(0.73 0.125 58);
+  --sk-accent-warm: oklch(0.61 0.14 40);
+  --sk-sky: oklch(0.68 0.095 225);
+  --sk-sky-deep: oklch(0.52 0.09 231);
+  --sk-berry: oklch(0.58 0.065 28);
+  --sk-berry-deep: oklch(0.43 0.07 27);
+  --sk-text: oklch(0.275 0.045 225);
+  --sk-hero-mid: oklch(0.43 0.08 228);
+  --sk-hero-deep: oklch(0.255 0.05 229);
+  --sk-amb-1: oklch(0.965 0.025 88);
+  --sk-amb-2: oklch(0.94 0.035 76);
+  --sk-amb-3: oklch(0.95 0.025 218);
+  --sk-amb-4: oklch(0.925 0.045 50);
+  --sk-amb-5: oklch(0.95 0.03 88);
 
   /* Backwards-compatible aliases keep every existing surface on the family palette. */
   --brand-bg: var(--sk-bg);
@@ -181,15 +177,15 @@
   /* --- Mode gradients — the app's visual personality --- */
   --grad-inspire: linear-gradient(120deg, var(--sk-accent), var(--sk-accent-warm) 50%, var(--sk-berry-deep));
   --grad-build: linear-gradient(120deg, var(--sk-sky), var(--sk-primary) 50%, var(--sk-primary-deep));
-  --grad-busywork: linear-gradient(120deg, var(--sk-berry), var(--sk-sky-deep) 50%, var(--sk-primary-deep));
-  --grad-challenge: linear-gradient(120deg, var(--sk-accent-warm), var(--sk-berry) 50%, var(--sk-berry-deep));
+  --grad-busywork: linear-gradient(120deg, var(--sk-secondary), var(--sk-sky-deep) 50%, var(--sk-primary-deep));
+  --grad-challenge: linear-gradient(120deg, var(--sk-accent-warm), var(--sk-accent) 50%, var(--sk-berry-deep));
   --grad-hero: linear-gradient(120deg, var(--sk-primary), var(--sk-hero-mid) 48%, var(--sk-hero-deep));
   /* The 5-stop animated placard gradient every card in the app shares. */
   --grad-card: linear-gradient(
     135deg,
       var(--sk-primary-deep),
       var(--sk-sky),
-      var(--sk-berry),
+      var(--sk-accent),
       var(--sk-accent-warm),
       var(--sk-primary)
   );
