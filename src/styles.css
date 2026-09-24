@@ -28,7 +28,7 @@
   --radius-4xl: 2.5rem;
   --radius-full: 9999px;
 
-  --font-display: "Playfair Display", "Georgia", serif;
+  --font-display: "Playfair Display", "Poppins", serif;
   --font-sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
 
   --spacing-gutter: 1.5rem;
@@ -140,21 +140,38 @@
 }
 
 :root {
-  /* --- Brand primitives (single source of truth) ---
-   * Matches the shared "Sidekick family" palette shape (bg, primary,
-   * primaryDeep, secondary, accent, accentWarm, sky, berry, text, plus a
-   * 5-tone ambient wash) — recolored to a teal/orange/gold coaching theme. */
-  --brand-bg: oklch(0.975 0.012 90); /* #F6F4EC — warm parchment */
-  --brand-primary: oklch(0.4 0.06 200); /* #1F4A55 — deep teal */
-  --brand-primary-deep: oklch(0.3 0.05 205); /* #13343D */
-  --brand-secondary: oklch(0.55 0.02 200); /* #5F7075 — muted slate-teal */
-  --brand-accent: oklch(0.78 0.13 75); /* #E0A43C — gold */
-  --brand-accent-warm: oklch(0.65 0.16 45); /* #D9702E — vivid orange */
-  --brand-sky: oklch(0.62 0.09 235); /* #4E86B8 — blue */
-  --brand-sky-deep: oklch(0.48 0.08 235); /* #33628F */
-  --brand-berry: oklch(0.48 0.1 25); /* #9C4A42 — team-spirit red */
-  --brand-berry-deep: oklch(0.36 0.09 25); /* #7A362F */
-  --brand-ink: oklch(0.24 0.02 200); /* #1B2420 */
+  /* Exact shared Ink & Pencil primitives used across the Sidekick family. */
+  --sk-bg: #f3f5fa;
+  --sk-primary: #2b4573;
+  --sk-primary-deep: #1b2c4c;
+  --sk-secondary: #6b7894;
+  --sk-accent: #e6a93c;
+  --sk-accent-warm: #c2603f;
+  --sk-sky: #4e86b8;
+  --sk-sky-deep: #33628f;
+  --sk-berry: #6e5a8c;
+  --sk-berry-deep: #4f3f6b;
+  --sk-text: #1a2236;
+  --sk-hero-mid: #243a63;
+  --sk-hero-deep: #172641;
+  --sk-amb-1: #f3f5fa;
+  --sk-amb-2: #edf1f8;
+  --sk-amb-3: #f7f0e5;
+  --sk-amb-4: #eef2f7;
+  --sk-amb-5: #f4eef5;
+
+  /* Backwards-compatible aliases keep every existing surface on the family palette. */
+  --brand-bg: var(--sk-bg);
+  --brand-primary: var(--sk-primary);
+  --brand-primary-deep: var(--sk-primary-deep);
+  --brand-secondary: var(--sk-secondary);
+  --brand-accent: var(--sk-accent);
+  --brand-accent-warm: var(--sk-accent-warm);
+  --brand-sky: var(--sk-sky);
+  --brand-sky-deep: var(--sk-sky-deep);
+  --brand-berry: var(--sk-berry);
+  --brand-berry-deep: var(--sk-berry-deep);
+  --brand-ink: var(--sk-text);
 
   --radius: 0.875rem;
 
@@ -162,28 +179,28 @@
   --card-glow: var(--brand-accent-warm);
 
   /* --- Mode gradients — the app's visual personality --- */
-  --grad-inspire: linear-gradient(120deg, #f6c877, #e0a43c 45%, #c98a2c 100%);
-  --grad-build: linear-gradient(120deg, #4fa3a8, #1f4a55 45%, #13343d 100%);
-  --grad-busywork: linear-gradient(120deg, #6c86b4, #4e86b8 45%, #33628f 100%);
-  --grad-challenge: linear-gradient(120deg, #d9702e, #9c4a42 45%, #7a362f 100%);
-  --grad-hero: linear-gradient(120deg, #1f4a55, #4e86b8 45%, #d9702e 100%);
+  --grad-inspire: linear-gradient(120deg, var(--sk-accent), var(--sk-accent-warm) 50%, var(--sk-berry-deep));
+  --grad-build: linear-gradient(120deg, var(--sk-sky), var(--sk-primary) 50%, var(--sk-primary-deep));
+  --grad-busywork: linear-gradient(120deg, var(--sk-berry), var(--sk-sky-deep) 50%, var(--sk-primary-deep));
+  --grad-challenge: linear-gradient(120deg, var(--sk-accent-warm), var(--sk-berry) 50%, var(--sk-berry-deep));
+  --grad-hero: linear-gradient(120deg, var(--sk-primary), var(--sk-hero-mid) 48%, var(--sk-hero-deep));
   /* The 5-stop animated placard gradient every card in the app shares. */
   --grad-card: linear-gradient(
     135deg,
-    var(--brand-primary-deep),
-    var(--brand-sky),
-    var(--brand-berry),
-    var(--brand-accent-warm),
-    var(--brand-primary)
+      var(--sk-primary-deep),
+      var(--sk-sky),
+      var(--sk-berry),
+      var(--sk-accent-warm),
+      var(--sk-primary)
   );
   --grad-ambient:
     linear-gradient(
       120deg,
-      var(--brand-bg),
-      oklch(0.95 0.02 200),
-      oklch(0.96 0.03 75),
-      oklch(0.955 0.015 235),
-      var(--brand-bg)
+       var(--sk-amb-1),
+       var(--sk-amb-2),
+       var(--sk-amb-3),
+       var(--sk-amb-4),
+       var(--sk-amb-5)
     );
 
   /* Mode-tinted shimmer border colors, cycling the same three accents the
@@ -267,7 +284,7 @@
   --duration-slow: 560ms;
   --duration-cinematic: 900ms;
   --duration-gradient: 16s;
-  --duration-gradient-soft: 26s;
+   --duration-gradient-soft: 22s;
   --duration-ambient: 42s;
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
@@ -304,7 +321,7 @@
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
-    letter-spacing: -0.001em;
+    letter-spacing: 0;
     position: relative;
   }
 
@@ -338,7 +355,7 @@
     font-family: var(--font-display);
     font-weight: 600;
     line-height: 1.12;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     text-wrap: balance;
   }
 
@@ -380,7 +397,7 @@
   font-weight: 700;
   font-size: clamp(2.5rem, 6vw, 4.25rem);
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 @utility text-headline {
@@ -388,7 +405,7 @@
   font-weight: 700;
   font-size: clamp(1.75rem, 3.6vw, 2.75rem);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 @utility text-title {
@@ -396,7 +413,7 @@
   font-weight: 600;
   font-size: clamp(1.15rem, 1.8vw, 1.4rem);
   line-height: 1.24;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 @utility text-gradient {
@@ -700,6 +717,59 @@
   }
 }
 
+@utility anchor-twinkle {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -35%;
+    background: radial-gradient(circle at 18% 45%, color-mix(in oklab, white 82%, transparent) 0%, transparent 20%);
+    opacity: 0;
+    transform: translate3d(-28%, 12%, 0);
+    animation: anchor-glint var(--twinkle-duration, 21s) ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after { animation: none; opacity: 0; }
+  }
+}
+
+@keyframes anchor-glint {
+  0%, 72%, 100% { opacity: 0; transform: translate3d(-28%, 12%, 0); }
+  82% { opacity: 0.42; }
+  92% { opacity: 0; transform: translate3d(34%, -14%, 0); }
+}
+
+@utility anchor-card-gradient {
+  @apply anchor-twinkle placard-text;
+  background-image: var(--grad-card);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  border: 3px solid var(--card-glow);
+  box-shadow: var(--elevation-3);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 30% 30%;
+  }
+}
+
+@utility nav-pill {
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  box-shadow: var(--elevation-1);
+  backdrop-filter: blur(12px);
+}
+
+@utility nav-active {
+  @apply anchor-card-gradient;
+  border-radius: var(--radius-full);
+  border-color: var(--sk-accent);
+  box-shadow: var(--elevation-2);
+}
+
 @utility gradient-hero {
   background-image: var(--grad-hero);
 }
@@ -763,12 +833,8 @@
 }
 
 @utility card-soft {
-  @apply twinkle placard-text;
+  @apply anchor-card-gradient;
   border-radius: var(--radius-2xl);
-  background-image: var(--grad-card);
-  background-size: 320% 320%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 2px solid var(--card-glow);
   box-shadow: var(--elevation-2);
   transition: var(--transition-hover);
   &:hover {
@@ -779,13 +845,8 @@
 }
 
 @utility card-elevated {
-  @apply twinkle placard-text;
+  @apply anchor-card-gradient;
   border-radius: var(--radius-2xl);
-  background-image: var(--grad-card);
-  background-size: 320% 320%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 2px solid var(--card-glow);
-  box-shadow: var(--elevation-3);
   transition: var(--transition-hover);
   &:hover {
     transform: translate3d(0, -4px, 0);

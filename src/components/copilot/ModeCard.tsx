@@ -12,7 +12,7 @@ export function ModeCard({ mode, className }: ModeCardProps) {
     <Link
       to={mode.href}
       className={cn(
-        "card-elevated group flex flex-col gap-5 p-7",
+        "anchor-card-gradient group flex min-h-72 flex-col justify-between gap-5 rounded-3xl p-7 transition-refined hover-lift",
         mode.cardTintClass,
         className,
       )}

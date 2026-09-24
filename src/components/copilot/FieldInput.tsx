@@ -28,7 +28,7 @@ export function FieldInput({ field, context, onChange }: FieldInputProps) {
     return (
       <ChoiceGroup
         options={field.options ?? []}
-        value={typeof value === "string" ? value : undefined}
+        {...(typeof value === "string" ? { value } : {})}
         onChange={(v) => onChange(field.key, v)}
       />
     );

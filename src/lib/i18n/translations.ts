@@ -8,6 +8,7 @@ const en = {
   "brand.name": "Coach's Sidekick",
 
   "nav.dashboard": "Dashboard",
+  "nav.drills": "Drill Library",
   "nav.myLessons": "My Practices",
   "nav.myIdeas": "My Ideas",
   "nav.materials": "Team Materials",
@@ -207,6 +208,7 @@ const es: Dictionary = {
   "brand.name": "Coach's Sidekick",
 
   "nav.dashboard": "Panel",
+  "nav.drills": "Biblioteca de ejercicios",
   "nav.myLessons": "Mis prácticas",
   "nav.myIdeas": "Mis ideas",
   "nav.materials": "Materiales del equipo",
@@ -404,6 +406,7 @@ const fr: Dictionary = {
   "brand.name": "Coach's Sidekick",
 
   "nav.dashboard": "Tableau de bord",
+  "nav.drills": "Bibliothèque d’exercices",
   "nav.myLessons": "Mes entraînements",
   "nav.myIdeas": "Mes idées",
   "nav.materials": "Ressources d'équipe",
@@ -602,6 +605,7 @@ const pt: Dictionary = {
   "brand.name": "Coach's Sidekick",
 
   "nav.dashboard": "Painel",
+  "nav.drills": "Biblioteca de exercícios",
   "nav.myLessons": "Meus treinos",
   "nav.myIdeas": "Minhas ideias",
   "nav.materials": "Materiais do time",
@@ -799,6 +803,7 @@ const zh: Dictionary = {
   "brand.name": "Coach's Sidekick",
 
   "nav.dashboard": "主页",
+  "nav.drills": "训练库",
   "nav.myLessons": "我的训练",
   "nav.myIdeas": "我的创意",
   "nav.materials": "团队材料",

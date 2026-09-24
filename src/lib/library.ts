@@ -83,7 +83,7 @@ export function saveLibraryItem(input: {
     mode: input.mode,
     context: input.context,
     blocks: input.blocks,
-    ideas: input.ideas,
+    ...(input.ideas ? { ideas: input.ideas } : {}),
     createdAt: now,
     updatedAt: now,
   };

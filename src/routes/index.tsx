@@ -22,6 +22,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "You're still the coach. AI just helps you do more with your game plan.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Dashboard,

@@ -25,13 +25,14 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
   }
 
   function helpMeImprove() {
+    const objective = draft.critique?.alternatives[0] ?? draft.critique?.considerations[0];
     const next = createDraft({
       mode: "build",
       type: "practice-plan",
       context: {
         ...draft.context,
         idea: text,
-        objective: draft.critique?.alternatives[0] ?? draft.critique?.considerations[0],
+        ...(objective ? { objective } : {}),
       },
     });
     navigate({ to: "/workspace", search: { draft: next.id, mode: undefined } });
