@@ -80,8 +80,8 @@ export function AppHeader() {
 
   return (
     <header
-      className="sticky top-0 z-50 backdrop-blur-xl"
-      style={{ background: "color-mix(in oklab, var(--background) 72%, transparent)" }}
+      className="sticky top-0 z-50 backdrop-blur-xl border-b"
+      style={{ background: "color-mix(in oklab, var(--primary) 45%, transparent)", borderColor: "color-mix(in oklab, var(--primary) 30%, transparent)" }}
     >
       <nav
         aria-label="Primary"
