@@ -1,4 +1,10 @@
-import { useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowUp, MessageCircleHeart, Sparkles } from "lucide-react";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
@@ -29,6 +35,16 @@ const STARTER_KEYS: TranslationKey[] = [
   "chat.starter4",
 ];
 
+const WIDGET_POS_KEY = "tcc.chatWidgetPos.v1";
+const DRAG_THRESHOLD = 6;
+
+function clampToViewport(x: number, y: number, width: number, height: number) {
+  return {
+    x: Math.min(Math.max(x, 8), window.innerWidth - width - 8),
+    y: Math.min(Math.max(y, 8), window.innerHeight - height - 8),
+  };
+}
+
 export function AskCoachsSidekick() {
   const navigate = useNavigate();
   const t = useT();
@@ -40,6 +56,64 @@ export function AskCoachsSidekick() {
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+  const dragging = useRef(false);
+  const moved = useRef(false);
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(WIDGET_POS_KEY);
+      if (raw) setPos(JSON.parse(raw));
+    } catch {
+      // ignore malformed/blocked storage
+    }
+  }, []);
+
+  function handleWidgetPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    const el = wrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    dragOffset.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragging.current = true;
+    moved.current = false;
+    el.setPointerCapture(event.pointerId);
+  }
+
+  function handleWidgetPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (!dragging.current) return;
+    const el = wrapRef.current;
+    if (!el) return;
+    const distance = Math.hypot(
+      event.clientX - dragStart.current.x,
+      event.clientY - dragStart.current.y,
+    );
+    if (distance < DRAG_THRESHOLD) return;
+    moved.current = true;
+    const next = clampToViewport(
+      event.clientX - dragOffset.current.x,
+      event.clientY - dragOffset.current.y,
+      el.offsetWidth,
+      el.offsetHeight,
+    );
+    setPos(next);
+  }
+
+  function handleWidgetPointerUp() {
+    if (!dragging.current) return;
+    dragging.current = false;
+    if (moved.current && pos) {
+      try {
+        window.localStorage.setItem(WIDGET_POS_KEY, JSON.stringify(pos));
+      } catch {
+        // ignore blocked storage
+      }
+    }
+  }
 
   function scrollToEnd() {
     requestAnimationFrame(() => {
@@ -94,12 +168,23 @@ export function AskCoachsSidekick() {
 
   return (
     <>
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-center gap-1.5 sm:bottom-7 sm:right-7">
+      <div
+        ref={wrapRef}
+        className="fixed bottom-5 right-5 z-40 flex touch-none select-none flex-col items-center gap-1.5 sm:bottom-7 sm:right-7"
+        style={pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : undefined}
+        onPointerDown={handleWidgetPointerDown}
+        onPointerMove={handleWidgetPointerMove}
+        onPointerUp={handleWidgetPointerUp}
+        onPointerCancel={handleWidgetPointerUp}
+      >
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            if (moved.current) return;
+            setOpen(true);
+          }}
           aria-label={t("chat.button")}
-          className="gradient-hero gradient-motion twinkle grid size-16 place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift"
+          className="gradient-hero gradient-motion twinkle grid size-16 cursor-grab place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
           style={{ "--twinkle-duration": "26s" } as CSSProperties}
         >
           <MessageCircleHeart className="size-7" />
