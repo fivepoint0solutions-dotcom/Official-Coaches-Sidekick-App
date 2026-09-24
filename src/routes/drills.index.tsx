@@ -46,7 +46,7 @@ function DrillLibraryPage() {
         </label>
         <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter by sport">
           {["All sports", ...drillSports].map((option) => (
-            <Button key={option} type="button" size="sm" variant={sport === option ? "default" : "outline"} onClick={() => setSport(option)} className="rounded-full">{option}</Button>
+            <Button key={option} type="button" size="sm" variant={sport === option ? "default" : "outline"} onClick={() => setSport(option)} className="shrink-0 rounded-full">{option}</Button>
           ))}
         </div>
       </section>
