@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+import { brandMark } from "@/components/brand/BrandLogo";
 
 const NAV_ITEMS = [
   { key: "nav.dashboard", to: "/" as const },
@@ -53,103 +53,69 @@ function LanguageSwitcher() {
   );
 }
 
-/** The gradient pill nav — the same "Sidekick family" tab bar look, with the
- * active tab shown as a pale rounded chip riding inside the gradient. */
-function NavPill() {
-  const t = useT();
-  return (
-    <div className="nav-pill hidden w-full max-w-xl items-stretch justify-between gap-0.5 p-1 lg:flex">
-      {NAV_ITEMS.map((item) => (
-        <Link
-          key={item.to}
-          to={item.to}
-          className="min-w-0 flex-1 rounded-full px-2 py-2 text-center transition-refined"
-          activeProps={{ className: "nav-active" }}
-          activeOptions={{ exact: item.to === "/" }}
-        >
-          <span className="font-display block truncate text-xs font-bold">{t(item.key)}</span>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
 export function AppHeader() {
   const [open, setOpen] = useState(false);
   const t = useT();
 
   return (
-    <header
-      className="sticky top-0 z-50 backdrop-blur-xl border-b"
-      style={{ background: "color-mix(in oklab, var(--primary) 45%, transparent)", borderColor: "color-mix(in oklab, var(--primary) 30%, transparent)" }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       <nav
         aria-label="Primary"
-        className="container-app flex items-center justify-between gap-3 py-3"
+        className="flex items-start justify-between gap-3 px-4 pt-4 pointer-events-none"
       >
         <Link
           to="/"
           aria-label="Coach's Sidekick home"
-          className="group shrink-0"
+          className="group shrink-0 pointer-events-auto"
           onClick={() => setOpen(false)}
         >
-          <BrandLogo compact markClassName="transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105" />
+          <img
+            src={brandMark}
+            alt=""
+            aria-hidden="true"
+            className="size-16 shrink-0 object-contain transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"
+            style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
+          />
         </Link>
 
-        <NavPill />
+        <div className="pointer-events-auto flex flex-col items-end">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="grid size-11 shrink-0 place-items-center rounded-full text-white"
+            style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.35))" }}
+          >
+            {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <LanguageSwitcher />
-          <Button asChild variant="hero" size="default">
-            <Link to="/create">{t("nav.createSomething")}</Link>
-          </Button>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="-mr-1 grid size-11 shrink-0 place-items-center rounded-full text-foreground hover:bg-secondary lg:hidden"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </nav>
-
-      <div
-        className={cn(
-          "grid overflow-hidden transition-all duration-300 ease-[var(--ease-editorial)] lg:hidden",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
-        )}
-      >
-        <div className="min-h-0">
-          <div className="container-app flex flex-col gap-1 pb-5">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-base font-semibold text-foreground/85 hover:bg-secondary"
-                activeProps={{ className: "nav-active" }}
-              >
-                {t(item.key)}
-              </Link>
-            ))}
-            <div className="mt-1 px-4">
-              <LanguageSwitcher />
-            </div>
-            <Button
-              asChild
-              variant="hero"
-              size="lg"
-              className="mt-2"
-              onClick={() => setOpen(false)}
+          {open && (
+            <div
+              className="mt-2 flex flex-col gap-1 rounded-2xl p-2 backdrop-blur-xl"
+              style={{ background: "color-mix(in oklab, var(--primary) 90%, transparent)", boxShadow: "0 12px 28px -10px rgba(0,0,0,0.45)" }}
             >
-              <Link to="/create">{t("nav.createSomething")}</Link>
-            </Button>
-          </div>
+              {NAV_ITEMS.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-4 py-3 text-right text-base font-semibold text-white hover:bg-white/10"
+                  activeProps={{ className: "underline" }}
+                >
+                  {t(item.key)}
+                </Link>
+              ))}
+              <div className="mt-1 px-2 flex justify-end">
+                <LanguageSwitcher />
+              </div>
+              <Button asChild variant="hero" size="default" className="mt-1" onClick={() => setOpen(false)}>
+                <Link to="/create">{t("nav.createSomething")}</Link>
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
