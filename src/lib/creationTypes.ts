@@ -243,11 +243,11 @@ function resolveField(field: FieldMeta, t: TFunction): FieldConfig {
   return {
     key: field.key,
     label: t(field.labelKey),
-    placeholder: field.placeholderKey ? t(field.placeholderKey) : undefined,
-    helper: field.helperKey ? t(field.helperKey) : undefined,
+    ...(field.placeholderKey ? { placeholder: t(field.placeholderKey) } : {}),
+    ...(field.helperKey ? { helper: t(field.helperKey) } : {}),
     kind: field.kind,
-    options: field.options,
-    required: field.required,
+    ...(field.options ? { options: field.options } : {}),
+    ...(field.required === undefined ? {} : { required: field.required }),
   };
 }
 
