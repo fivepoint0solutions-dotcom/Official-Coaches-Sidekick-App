@@ -84,29 +84,30 @@ export function AppHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid size-11 shrink-0 place-items-center rounded-full text-white"
-            style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.35))" }}
+            className="grid size-11 shrink-0 place-items-center rounded-full"
+            style={{ color: "var(--primary)", filter: "drop-shadow(0 1px 3px rgba(255,255,255,0.9)) drop-shadow(0 1px 6px rgba(0,0,0,0.25))" }}
           >
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
 
           {open && (
-            <div
-              className="mt-2 flex flex-col gap-1 rounded-2xl p-2 backdrop-blur-xl"
-              style={{ background: "linear-gradient(160deg, var(--brand-primary-deep), var(--primary))", boxShadow: "0 12px 28px -10px rgba(0,0,0,0.55)" }}
-            >
+            <div className="mt-2 flex flex-col gap-2">
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-right text-base font-semibold text-white hover:bg-white/10"
-                  activeProps={{ className: "underline" }}
+                  className="rounded-full px-4 py-3 text-right text-base font-semibold text-white"
+                  style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
+                  activeProps={{ style: { background: "linear-gradient(135deg, var(--brand-accent-warm), var(--primary))" } }}
                 >
                   {t(item.key)}
                 </Link>
               ))}
-              <div className="mt-1 px-2 flex justify-end">
+              <div
+                className="mt-1 flex justify-end rounded-full px-2 py-1"
+                style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
+              >
                 <LanguageSwitcher />
               </div>
               <Button asChild variant="hero" size="default" className="mt-1" onClick={() => setOpen(false)}>
