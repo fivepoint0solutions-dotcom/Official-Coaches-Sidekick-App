@@ -93,7 +93,7 @@ export function AppHeader() {
           {open && (
             <div
               className="mt-2 flex flex-col gap-1 rounded-2xl p-2 backdrop-blur-xl"
-              style={{ background: "color-mix(in oklab, var(--primary) 90%, transparent)", boxShadow: "0 12px 28px -10px rgba(0,0,0,0.45)" }}
+              style={{ background: "linear-gradient(160deg, var(--brand-primary-deep), var(--primary))", boxShadow: "0 12px 28px -10px rgba(0,0,0,0.55)" }}
             >
               {NAV_ITEMS.map((item) => (
                 <Link
