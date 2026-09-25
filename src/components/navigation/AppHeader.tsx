@@ -66,7 +66,7 @@ export function AppHeader() {
         <Link
           to="/"
           aria-label="Coach's Sidekick home"
-          className="group shrink-0 pointer-events-auto"
+          className="group flex shrink-0 items-center gap-2.5 pointer-events-auto"
           onClick={() => setOpen(false)}
         >
           <img
@@ -76,6 +76,16 @@ export function AppHeader() {
             className="size-16 shrink-0 object-contain transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"
             style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
           />
+          <span
+            className="font-display font-bold tracking-wide"
+            style={{
+              color: "var(--primary)",
+              fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
+              filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
+            }}
+          >
+            Coach's Sidekick
+          </span>
         </Link>
 
         <div className="pointer-events-auto flex flex-col items-end">
