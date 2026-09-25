@@ -141,7 +141,7 @@ function RootComponent() {
       <LanguageProvider>
         <RefinedCursor />
         <WatermarkBackdrop />
-        <div className="relative z-10 min-h-screen">
+        <div className="relative z-10 min-h-screen pt-24">
           <AppHeader />
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
