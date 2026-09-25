@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Globe, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,24 @@ import {
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { brandMark } from "@/components/brand/BrandLogo";
+
+function useHideOnScroll() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    let lastY = window.scrollY;
+    function onScroll() {
+      const y = window.scrollY;
+      const delta = y - lastY;
+      if (y < 40) setHidden(false);
+      else if (delta > 6) setHidden(true);
+      else if (delta < -6) setHidden(false);
+      lastY = y;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return hidden;
+}
 
 const NAV_ITEMS = [
   { key: "nav.dashboard", to: "/" as const },
@@ -56,9 +74,13 @@ function LanguageSwitcher() {
 export function AppHeader() {
   const [open, setOpen] = useState(false);
   const t = useT();
+  const hidden = useHideOnScroll();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-transform duration-300"
+      style={{ transform: hidden && !open ? "translateY(-130%)" : "translateY(0)" }}
+    >
       <nav
         aria-label="Primary"
         className="flex items-start justify-between gap-3 px-4 pt-4 pointer-events-none"
