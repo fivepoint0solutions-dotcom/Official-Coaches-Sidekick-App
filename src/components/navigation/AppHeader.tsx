@@ -88,7 +88,7 @@ export function AppHeader() {
         <Link
           to="/"
           aria-label="Coach's Sidekick home"
-          className="group flex shrink-0 items-center gap-2.5 pointer-events-auto"
+          className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
           onClick={() => setOpen(false)}
         >
           <img
@@ -99,7 +99,7 @@ export function AppHeader() {
             style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
           />
           <span
-            className="font-display font-bold tracking-wide"
+            className="font-display font-bold tracking-wide truncate min-w-0"
             style={{
               color: "var(--primary)",
               fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
@@ -110,7 +110,7 @@ export function AppHeader() {
           </span>
         </Link>
 
-        <div className="pointer-events-auto flex flex-col items-end">
+        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
