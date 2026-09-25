@@ -91,23 +91,30 @@ export function AppHeader() {
           </button>
 
           {open && (
-            <div className="mt-2 flex flex-col gap-2">
+            <div className="mt-3 flex flex-col items-end gap-3.5">
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-full px-4 py-3 text-right text-base font-semibold text-white"
-                  style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
-                  activeProps={{ style: { background: "linear-gradient(135deg, var(--brand-accent-warm), var(--primary))" } }}
+                  className="text-right text-base font-semibold"
+                  style={{
+                    color: "var(--primary)",
+                    filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
+                  }}
+                  activeProps={{
+                    style: {
+                      color: "var(--brand-accent-warm)",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "4px",
+                      filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
+                    },
+                  }}
                 >
                   {t(item.key)}
                 </Link>
               ))}
-              <div
-                className="mt-1 flex justify-end rounded-full px-2 py-1"
-                style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
-              >
+              <div style={{ filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))" }}>
                 <LanguageSwitcher />
               </div>
               <Button asChild variant="hero" size="default" className="mt-1" onClick={() => setOpen(false)}>
