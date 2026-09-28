@@ -11,12 +11,12 @@ export function WatermarkBackdrop() {
         <img
           src={brandMark}
           alt=""
-          className="absolute left-1/2 top-[14%] w-[min(72vw,48rem)] -translate-x-1/2 object-contain opacity-[0.16] mix-blend-multiply"
+          className="absolute left-1/2 top-[14%] w-[min(72vw,48rem)] -translate-x-1/2 object-contain opacity-[0.3] mix-blend-multiply"
         />
         <img
           src={brandMark}
           alt=""
-          className="absolute -bottom-[10%] -right-[10%] w-[min(52vw,34rem)] rotate-[-12deg] object-contain opacity-[0.12] mix-blend-multiply"
+          className="absolute -bottom-[10%] -right-[10%] w-[min(52vw,34rem)] rotate-[-12deg] object-contain opacity-[0.24] mix-blend-multiply"
         />
       </div>
     </div>
