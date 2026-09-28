@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, FolderOpen, Lightbulb, ListChecks, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -122,19 +123,28 @@ function RecentWork() {
   );
 }
 
+function useGreetingKey() {
+  const [hour, setHour] = useState(() => new Date().getHours());
+  useEffect(() => {
+    const id = setInterval(() => setHour(new Date().getHours()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+  if (hour < 12) return "dashboard.greeting.morning" as const;
+  if (hour < 18) return "dashboard.greeting.afternoon" as const;
+  return "dashboard.greeting.evening" as const;
+}
+
 function Dashboard() {
   const t = useT();
   const modes = useModes();
+  const greetingKey = useGreetingKey();
 
   return (
     <main>
       <section className="container-app pb-4 pt-16 text-center lg:pt-24">
-        <Reveal>
-          <p className="text-eyebrow text-interactive">{t("dashboard.eyebrow")}</p>
-        </Reveal>
         <Reveal delay={80}>
           <h1 className="text-display measure mx-auto mt-5">
-            {t("dashboard.headline1")}
+            {t(greetingKey)}
             <br />
             <span className="text-gradient">{t("dashboard.headline2")}</span>
           </h1>
