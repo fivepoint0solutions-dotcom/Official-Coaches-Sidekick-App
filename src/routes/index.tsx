@@ -141,20 +141,18 @@ function Dashboard() {
 
   return (
     <main>
-      <section className="container-app pb-4 pt-16 text-center lg:pt-24">
+      <section className="container-app pb-4 pt-6 lg:pt-2">
         <Reveal delay={80}>
-          <h1 className="text-display measure mx-auto mt-5">
-            {t(greetingKey)}
-            <br />
-            <span className="text-gradient">{t("dashboard.headline2")}</span>
+          <h1 className="text-headline">
+            {t(greetingKey)} <span className="text-gradient">{t("dashboard.headline2")}</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>
-          <p className="text-lede measure mx-auto mt-6 text-muted-foreground">
+          <p className="text-lede mt-4 max-w-2xl text-muted-foreground">
             {t("dashboard.subtitle")}
           </p>
         </Reveal>
-        <Reveal delay={240} className="mt-9 flex justify-center">
+        <Reveal delay={240} className="mt-7">
           <Button asChild variant="hero" size="xl">
             <Link to="/create">
               <Sparkles /> {t("nav.createSomething")}

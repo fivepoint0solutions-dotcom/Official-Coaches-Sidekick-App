@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
+import { NAV_ITEMS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { brandMark } from "@/components/brand/BrandLogo";
 
@@ -29,14 +30,6 @@ function useHideOnScroll() {
   }, []);
   return hidden;
 }
-
-const NAV_ITEMS = [
-  { key: "nav.dashboard", to: "/" as const },
-  { key: "nav.drills", to: "/drills" as const },
-  { key: "nav.myLessons", to: "/lessons" as const },
-  { key: "nav.myIdeas", to: "/ideas" as const },
-  { key: "nav.materials", to: "/materials" as const },
-] as const;
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -129,7 +122,7 @@ export function AppHeader() {
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                  className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
                   style={{
                     background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
                     boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
@@ -141,6 +134,7 @@ export function AppHeader() {
                     },
                   }}
                 >
+                  <item.icon className="size-4" />
                   {t(item.key)}
                 </Link>
               ))}

@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RefinedCursor } from "../components/motion/RefinedCursor";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
+import { Sidebar } from "../components/navigation/Sidebar";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
@@ -143,8 +144,13 @@ function RootComponent() {
         <WatermarkBackdrop />
         <div className="relative z-10 min-h-screen pt-24">
           <AppHeader />
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
+          <div className="flex w-full flex-col gap-6 px-4 lg:flex-row lg:items-start lg:gap-8 lg:px-8">
+            <Sidebar className="hidden lg:flex lg:w-60 lg:shrink-0" />
+            <div className="min-w-0 flex-1">
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+              <Outlet />
+            </div>
+          </div>
         </div>
         <AskCoachsSidekick />
         <Toaster position="bottom-right" />
