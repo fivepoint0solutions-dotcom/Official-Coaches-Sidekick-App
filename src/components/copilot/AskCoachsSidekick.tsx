@@ -6,7 +6,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowUp, MessageCircleHeart, Sparkles } from "lucide-react";
+import { ArrowUp, Mic, Sparkles } from "lucide-react";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
 import { createDraft, updateDraft } from "@/lib/draft";
 import {
@@ -200,7 +200,7 @@ export function AskCoachsSidekick() {
           className="gradient-hero gradient-motion twinkle grid size-16 cursor-grab place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
           style={{ "--twinkle-duration": "26s" } as CSSProperties}
         >
-          <MessageCircleHeart className="size-7" />
+          <Mic className="size-7" />
         </button>
         <span className="glass-panel font-display rounded-full px-3 py-1 text-xs font-bold">
           {t("chat.button")}

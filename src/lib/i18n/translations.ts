@@ -14,9 +14,10 @@ const en = {
   "nav.materials": "Team Materials",
   "nav.createSomething": "Create Something",
 
-  "dashboard.eyebrow": "Coach's Sidekick",
-  "dashboard.headline1": "You're still the coach.",
-  "dashboard.headline2": "AI just helps you do more with your game plan.",
+  "dashboard.greeting.morning": "Good morning, Coach.",
+  "dashboard.greeting.afternoon": "Good afternoon, Coach.",
+  "dashboard.greeting.evening": "Good evening, Coach.",
+  "dashboard.headline2": "Let's build today's game plan.",
   "dashboard.subtitle":
     "Bring your expertise. Choose a mode below, and let's turn your idea into something even better — together.",
   "dashboard.recentWork": "Recent work",
@@ -214,9 +215,10 @@ const es: Dictionary = {
   "nav.materials": "Materiales del equipo",
   "nav.createSomething": "Crear algo",
 
-  "dashboard.eyebrow": "Coach's Sidekick",
-  "dashboard.headline1": "Sigues siendo el/la entrenador/a.",
-  "dashboard.headline2": "La IA solo te ayuda a hacer más con tu plan de juego.",
+  "dashboard.greeting.morning": "Buenos días, entrenador/a.",
+  "dashboard.greeting.afternoon": "Buenas tardes, entrenador/a.",
+  "dashboard.greeting.evening": "Buenas noches, entrenador/a.",
+  "dashboard.headline2": "Construyamos el plan de juego de hoy.",
   "dashboard.subtitle":
     "Aporta tu experiencia. Elige un modo a continuación y llevemos tu idea a algo aún mejor — juntos.",
   "dashboard.recentWork": "Trabajo reciente",
@@ -412,9 +414,10 @@ const fr: Dictionary = {
   "nav.materials": "Ressources d'équipe",
   "nav.createSomething": "Créer",
 
-  "dashboard.eyebrow": "Coach's Sidekick",
-  "dashboard.headline1": "Vous restez l'entraîneur·euse.",
-  "dashboard.headline2": "L'IA vous aide simplement à aller plus loin avec votre plan de jeu.",
+  "dashboard.greeting.morning": "Bonjour, coach.",
+  "dashboard.greeting.afternoon": "Bon après-midi, coach.",
+  "dashboard.greeting.evening": "Bonsoir, coach.",
+  "dashboard.headline2": "Construisons le plan de jeu du jour.",
   "dashboard.subtitle":
     "Apportez votre expertise. Choisissez un mode ci-dessous, et rendons votre idée encore meilleure — ensemble.",
   "dashboard.recentWork": "Travaux récents",
@@ -611,9 +614,10 @@ const pt: Dictionary = {
   "nav.materials": "Materiais do time",
   "nav.createSomething": "Criar algo",
 
-  "dashboard.eyebrow": "Coach's Sidekick",
-  "dashboard.headline1": "Você continua sendo o(a) treinador(a).",
-  "dashboard.headline2": "A IA só te ajuda a fazer mais com o seu plano de jogo.",
+  "dashboard.greeting.morning": "Bom dia, treinador(a).",
+  "dashboard.greeting.afternoon": "Boa tarde, treinador(a).",
+  "dashboard.greeting.evening": "Boa noite, treinador(a).",
+  "dashboard.headline2": "Vamos construir o plano de jogo de hoje.",
   "dashboard.subtitle":
     "Traga a sua experiência. Escolha um modo abaixo e vamos deixar sua ideia ainda melhor — juntos.",
   "dashboard.recentWork": "Trabalhos recentes",
@@ -809,9 +813,10 @@ const zh: Dictionary = {
   "nav.materials": "团队材料",
   "nav.createSomething": "开始创建",
 
-  "dashboard.eyebrow": "Coach's Sidekick",
-  "dashboard.headline1": "你依然是那位教练。",
-  "dashboard.headline2": "AI只是帮你把战术想法变得更好。",
+  "dashboard.greeting.morning": "早上好，教练。",
+  "dashboard.greeting.afternoon": "下午好，教练。",
+  "dashboard.greeting.evening": "晚上好，教练。",
+  "dashboard.headline2": "一起制定今天的战术计划。",
   "dashboard.subtitle": "发挥你的专业经验。选择下面的一种模式，让我们一起把你的想法变得更好。",
   "dashboard.recentWork": "最近的作品",
   "dashboard.seeAll": "查看全部",
