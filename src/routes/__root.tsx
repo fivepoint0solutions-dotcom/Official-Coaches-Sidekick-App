@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { RefinedCursor } from "../components/motion/RefinedCursor";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
 import { Sidebar } from "../components/navigation/Sidebar";
@@ -140,16 +139,13 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <RefinedCursor />
         <WatermarkBackdrop />
         <div className="relative z-10 min-h-screen pt-24">
           <AppHeader />
-          <div className="flex w-full flex-col gap-6 px-4 lg:flex-row lg:items-start lg:gap-8 lg:px-8">
-            <Sidebar className="hidden lg:flex lg:w-60 lg:shrink-0" />
-            <div className="min-w-0 flex-1">
-              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-              <Outlet />
-            </div>
+          <Sidebar className="hidden lg:flex lg:w-56" />
+          <div className="w-full px-4 lg:pl-[17rem] lg:pr-8">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
           </div>
         </div>
         <AskCoachsSidekick />

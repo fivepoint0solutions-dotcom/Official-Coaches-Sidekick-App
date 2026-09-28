@@ -12,7 +12,7 @@ export function Sidebar({ className }: { className?: string }) {
     <nav
       aria-label="Primary"
       className={cn(
-        "sticky top-28 flex flex-col gap-1 self-start rounded-3xl border border-border bg-card/70 p-3 shadow-subtle backdrop-blur",
+        "fixed left-4 top-28 z-40 flex flex-col gap-1 rounded-3xl border border-border bg-card/70 p-3 shadow-subtle backdrop-blur lg:left-8",
         className,
       )}
     >

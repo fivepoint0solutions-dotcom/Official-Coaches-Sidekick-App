@@ -1,4 +1,9 @@
-import { useRef, useState, type CSSProperties } from "react";
+import {
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowUp, Mic, Sparkles } from "lucide-react";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
@@ -29,6 +34,15 @@ const STARTER_KEYS: TranslationKey[] = [
   "chat.starter4",
 ];
 
+const DRAG_THRESHOLD = 6;
+
+function clampToViewport(x: number, y: number, width: number, height: number) {
+  return {
+    x: Math.min(Math.max(x, 8), window.innerWidth - width - 8),
+    y: Math.min(Math.max(y, 8), window.innerHeight - height - 8),
+  };
+}
+
 export function AskCoachsSidekick() {
   const navigate = useNavigate();
   const t = useT();
@@ -40,6 +54,51 @@ export function AskCoachsSidekick() {
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  // Draggable within the session only — never persisted, so a stray drag can
+  // never come back to haunt the next page load. Double-click/tap snaps it
+  // back to the default corner immediately.
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const fabRef = useRef<HTMLButtonElement>(null);
+  const dragOffset = useRef({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+  const dragging = useRef(false);
+  const moved = useRef(false);
+
+  function handleFabPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
+    const el = fabRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    dragOffset.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragging.current = true;
+    moved.current = false;
+    el.setPointerCapture(event.pointerId);
+  }
+
+  function handleFabPointerMove(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!dragging.current) return;
+    const el = fabRef.current;
+    if (!el) return;
+    const distance = Math.hypot(
+      event.clientX - dragStart.current.x,
+      event.clientY - dragStart.current.y,
+    );
+    if (distance < DRAG_THRESHOLD) return;
+    moved.current = true;
+    setPos(
+      clampToViewport(
+        event.clientX - dragOffset.current.x,
+        event.clientY - dragOffset.current.y,
+        el.offsetWidth,
+        el.offsetHeight,
+      ),
+    );
+  }
+
+  function handleFabPointerUp() {
+    dragging.current = false;
+  }
 
   function scrollToEnd() {
     requestAnimationFrame(() => {
@@ -108,13 +167,27 @@ export function AskCoachsSidekick() {
   return (
     <>
       <button
+        ref={fabRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (moved.current) return;
+          setOpen(true);
+        }}
+        onDoubleClick={() => setPos(null)}
+        onPointerDown={handleFabPointerDown}
+        onPointerMove={handleFabPointerMove}
+        onPointerUp={handleFabPointerUp}
+        onPointerCancel={handleFabPointerUp}
         aria-label={t("chat.button")}
-        className="gradient-hero gradient-motion twinkle fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift sm:bottom-7 sm:right-7"
-        style={{ "--twinkle-duration": "26s" } as CSSProperties}
+        className="gradient-hero gradient-motion twinkle fixed bottom-5 right-5 z-40 grid size-16 aspect-square cursor-grab touch-none select-none place-items-center rounded-full border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing sm:bottom-7 sm:right-7"
+        style={
+          {
+            "--twinkle-duration": "26s",
+            ...(pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : {}),
+          } as CSSProperties
+        }
       >
-        <Mic className="size-6" />
+        <Mic className="size-7" />
       </button>
 
       <Sheet open={open} onOpenChange={setOpen}>

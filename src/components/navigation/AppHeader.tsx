@@ -16,14 +16,23 @@ import { brandMark } from "@/components/brand/BrandLogo";
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
+    // Desktop has a permanently fixed sidebar — hiding the header there would
+    // desync it from the sidebar, so this behavior is mobile-only.
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    if (desktop.matches) return;
+
     let lastY = window.scrollY;
     function onScroll() {
       const y = window.scrollY;
       const delta = y - lastY;
       if (y < 40) setHidden(false);
-      else if (delta > 6) setHidden(true);
-      else if (delta < -6) setHidden(false);
-      lastY = y;
+      else if (delta > 6) {
+        setHidden(true);
+        lastY = y;
+      } else if (delta < -6) {
+        setHidden(false);
+        lastY = y;
+      }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -103,7 +112,12 @@ export function AppHeader() {
           </span>
         </Link>
 
-        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end">
+        {/* Desktop already has the persistent sidebar for nav — only the language switcher lives here. */}
+        <div className="pointer-events-auto hidden shrink-0 lg:block">
+          <LanguageSwitcher />
+        </div>
+
+        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end lg:hidden">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
