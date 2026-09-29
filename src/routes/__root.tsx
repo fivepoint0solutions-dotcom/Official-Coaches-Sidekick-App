@@ -140,7 +140,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <WatermarkBackdrop />
-        <div className="relative z-10 min-h-screen pt-24">
+        <div className="relative z-10 min-h-screen pt-24 lg:pt-0">
           <AppHeader />
           <Sidebar className="hidden lg:flex lg:w-56" />
           <div className="w-full px-4 lg:pl-[17rem] lg:pr-8">
