@@ -102,7 +102,7 @@ export function AppHeader() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(to bottom, var(--background) 0%, var(--background) 65%, transparent 100%)",
+            "linear-gradient(to bottom, var(--background) 0%, var(--background) 82%, transparent 100%)",
         }}
       />
       <nav
