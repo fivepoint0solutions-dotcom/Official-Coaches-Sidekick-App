@@ -83,9 +83,19 @@ export function AppHeader() {
       className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-transform duration-300"
       style={{ transform: hidden && !open ? "translateY(-130%)" : "translateY(0)" }}
     >
+      {/* Fades the page background in behind the header so content scrolling
+          up underneath fades out instead of colliding with the logo. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--background) 0%, var(--background) 65%, transparent 100%)",
+        }}
+      />
       <nav
         aria-label="Primary"
-        className="flex items-start justify-between gap-3 px-4 pt-4 pointer-events-none"
+        className="flex items-start justify-between gap-3 px-4 pt-4 pb-5 pointer-events-none"
       >
         <Link
           to="/"

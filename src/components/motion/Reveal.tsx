@@ -21,7 +21,7 @@ export function Reveal({
   children,
   variant = "up",
   delay = 0,
-  threshold = 0.15,
+  threshold = 0,
   as: Tag = "div",
   className,
 }: RevealProps) {
