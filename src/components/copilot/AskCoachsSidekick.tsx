@@ -210,7 +210,7 @@ export function AskCoachsSidekick() {
         onPointerUp={handleFabPointerUp}
         onPointerCancel={handleFabPointerUp}
         aria-label={t("chat.button")}
-        className="gradient-hero gradient-motion twinkle fixed bottom-5 right-5 z-40 grid size-[60px] cursor-grab touch-none select-none place-items-center rounded-2xl border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing sm:bottom-7 sm:right-7"
+        className="gradient-hero gradient-motion twinkle fixed bottom-4 right-4 z-40 grid size-11 cursor-grab opacity-85 touch-none select-none place-items-center rounded-xl border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
         style={
           {
             "--twinkle-duration": "26s",
@@ -218,7 +218,7 @@ export function AskCoachsSidekick() {
           } as CSSProperties
         }
       >
-        <Mic className="size-6" />
+        <Mic className="size-5" />
       </button>
 
       <Sheet open={open} onOpenChange={setOpen}>
