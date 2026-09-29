@@ -16,23 +16,31 @@ import { brandMark } from "@/components/brand/BrandLogo";
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    // Desktop has a permanently fixed sidebar — hiding the header there would
-    // desync it from the sidebar, so this behavior is mobile-only.
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    if (desktop.matches) return;
-
+    // Same timing as Senior's Sidekick. Desktop keeps the header put: the
+    // fixed sidebar is there, and hiding the header would desync from it.
+    const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
     let lastY = window.scrollY;
+    let accum = 0;
     function onScroll() {
+      if (isDesktop()) {
+        accum = 0;
+        lastY = window.scrollY;
+        setHidden(false);
+        return;
+      }
       const y = window.scrollY;
       const delta = y - lastY;
-      if (y < 40) setHidden(false);
-      else if (delta > 6) {
-        setHidden(true);
-        lastY = y;
-      } else if (delta < -6) {
+      lastY = y;
+      if (y < 24) {
+        accum = 0;
         setHidden(false);
-        lastY = y;
+        return;
       }
+      // Momentum scrolling fires many tiny deltas, so accumulate same-direction
+      // movement instead of requiring one big jump.
+      accum = delta > 0 === accum > 0 ? accum + delta : delta;
+      if (accum > 12) setHidden(true);
+      else if (accum < -12) setHidden(false);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

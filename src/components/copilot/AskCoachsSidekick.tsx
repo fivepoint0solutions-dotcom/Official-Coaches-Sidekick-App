@@ -210,7 +210,7 @@ export function AskCoachsSidekick() {
         onPointerUp={handleFabPointerUp}
         onPointerCancel={handleFabPointerUp}
         aria-label={t("chat.button")}
-        className="gradient-hero gradient-motion twinkle fixed bottom-4 right-4 z-40 grid size-11 cursor-grab opacity-85 touch-none select-none place-items-center rounded-xl border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
+        className="gradient-hero gradient-motion twinkle fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-40 grid size-11 cursor-grab opacity-85 touch-none select-none place-items-center rounded-[16px] border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
         style={
           {
             "--twinkle-duration": "26s",

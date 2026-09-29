@@ -5,34 +5,23 @@ import { cn } from "@/lib/utils";
 
 type ModeCardProps = { mode: ModeConfig; className?: string };
 
-/** An animated gradient placard, shimmer-bordered per mode — the app's primary navigation surface. */
+/** Animated gradient placard, sized and typeset to match the other Sidekick apps' mode cards. */
 export function ModeCard({ mode, className }: ModeCardProps) {
-  const Icon = mode.icon;
   return (
     <Link
       to={mode.href}
       className={cn(
-        "anchor-card-gradient group flex min-h-72 flex-col justify-between gap-5 rounded-3xl p-7 transition-refined hover-lift",
+        "anchor-card-gradient group flex flex-col rounded-[16px] p-5 transition-refined hover-lift",
         mode.cardTintClass,
         className,
       )}
     >
-      <div className="flex items-start justify-between">
-        <span
-          className={cn(
-            "grid size-12 place-items-center rounded-2xl border-2 border-white/70 shadow-subtle transition-transform duration-300 ease-[var(--ease-editorial)] group-hover:scale-110 group-hover:rotate-3",
-            mode.gradientClass,
-          )}
-        >
-          <Icon className="size-6" />
-        </span>
-        <ArrowUpRight className="size-6 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="font-display text-xl font-bold leading-tight">{mode.label}</h3>
+        <ArrowUpRight className="size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
       </div>
-      <div>
-        <h3 className="text-title font-bold">{mode.label}</h3>
-        <p className="text-glow mt-1 text-sm font-semibold">{mode.tagline}</p>
-        <p className="mt-2 text-sm opacity-85">{mode.description}</p>
-      </div>
+      <p className="mt-1 text-base leading-snug opacity-90">{mode.tagline}</p>
+      <p className="mt-2 text-sm leading-snug opacity-85">{mode.description}</p>
     </Link>
   );
 }

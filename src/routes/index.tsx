@@ -77,7 +77,7 @@ function Dashboard() {
           </h1>
         </Reveal>
         <Reveal delay={160}>
-          <p className="text-lede mt-4 max-w-2xl text-muted-foreground">
+          <p className="mt-2 max-w-2xl text-base text-muted-foreground">
             {t("dashboard.subtitle")}
           </p>
         </Reveal>
@@ -92,7 +92,7 @@ function Dashboard() {
 
       <section className="container-app pt-4 pb-10 lg:pb-12">
         <Reveal>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             {modes.map((mode) => (
               <ModeCard key={mode.id} mode={mode} />
             ))}
