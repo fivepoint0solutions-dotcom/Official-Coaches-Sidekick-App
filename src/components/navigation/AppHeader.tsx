@@ -38,9 +38,13 @@ function useHideOnScroll() {
       }
       // Momentum scrolling fires many tiny deltas, so accumulate same-direction
       // movement instead of requiring one big jump.
+      // The bounce at the very bottom of the page reads as "scrolling up".
+      if (delta < 0 && window.innerHeight + y >= document.documentElement.scrollHeight - 2) return;
       accum = delta > 0 === accum > 0 ? accum + delta : delta;
+      // Hide quickly on the way down, but only come back after a deliberate
+      // scroll up — a small wobble mid-scroll must not pull it over content.
       if (accum > 12) setHidden(true);
-      else if (accum < -12) setHidden(false);
+      else if (accum < -72) setHidden(false);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
