@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -35,6 +36,7 @@ const STARTER_KEYS: TranslationKey[] = [
 ];
 
 const DRAG_THRESHOLD = 6;
+const DOUBLE_TAP_MS = 300;
 
 function clampToViewport(x: number, y: number, width: number, height: number) {
   return {
@@ -64,6 +66,20 @@ export function AskCoachsSidekick() {
   const dragStart = useRef({ x: 0, y: 0 });
   const dragging = useRef(false);
   const moved = useRef(false);
+  // Manual tap/double-tap bookkeeping. A native onClick + onDoubleClick pair
+  // doesn't work here: the first click of a double-click would immediately
+  // open the chat Sheet, whose overlay then swallows the second click before
+  // the browser can recognize a dblclick on this button. So both single-tap
+  // (open) and double-tap (reset position) are resolved by hand from
+  // pointerup timing, which also works for touch.
+  const lastTapAt = useRef(0);
+  const pendingTapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (pendingTapTimer.current) clearTimeout(pendingTapTimer.current);
+    };
+  }, []);
 
   function handleFabPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
     const el = fabRef.current;
@@ -98,6 +114,26 @@ export function AskCoachsSidekick() {
 
   function handleFabPointerUp() {
     dragging.current = false;
+    if (moved.current) return; // this gesture was a drag, not a tap
+
+    const now = Date.now();
+    if (now - lastTapAt.current < DOUBLE_TAP_MS) {
+      // Second tap of a double-tap/double-click: cancel the pending single-tap
+      // open and snap back to the default corner instead.
+      if (pendingTapTimer.current) {
+        clearTimeout(pendingTapTimer.current);
+        pendingTapTimer.current = null;
+      }
+      lastTapAt.current = 0;
+      setPos(null);
+      return;
+    }
+
+    lastTapAt.current = now;
+    pendingTapTimer.current = setTimeout(() => {
+      pendingTapTimer.current = null;
+      setOpen(true);
+    }, DOUBLE_TAP_MS);
   }
 
   function scrollToEnd() {
@@ -169,11 +205,6 @@ export function AskCoachsSidekick() {
       <button
         ref={fabRef}
         type="button"
-        onClick={() => {
-          if (moved.current) return;
-          setOpen(true);
-        }}
-        onDoubleClick={() => setPos(null)}
         onPointerDown={handleFabPointerDown}
         onPointerMove={handleFabPointerMove}
         onPointerUp={handleFabPointerUp}
