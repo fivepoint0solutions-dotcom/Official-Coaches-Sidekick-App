@@ -72,7 +72,7 @@ function Dashboard() {
     <main>
       <section className="container-app pb-4 pt-6 lg:pt-2">
         <Reveal delay={80}>
-          <h1 className="text-display italic">
+          <h1 className="text-headline italic">
             {t(greetingKey)} <span className="text-gradient">{t("dashboard.headline2")}</span>
           </h1>
         </Reveal>
@@ -92,7 +92,7 @@ function Dashboard() {
 
       <section className="container-app pt-4 pb-10 lg:pb-12">
         <Reveal>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             {modes.map((mode) => (
               <ModeCard key={mode.id} mode={mode} />
             ))}
