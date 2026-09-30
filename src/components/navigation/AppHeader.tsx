@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
 import { Globe, MessageCircle, X } from "lucide-react";
 import {
@@ -285,8 +286,14 @@ export function AppHeader() {
           </button>
         </div>
       </nav>
-      {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} onFeedback={() => setFeedbackOpen(true)} />}
-      {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
+      {/* Portaled to <body>: the header is pointer-events-none and transformed, which would
+          otherwise make these "fixed" overlays unclickable and not full-screen. */}
+      {helpOpen &&
+        createPortal(
+          <HelpModal onClose={() => setHelpOpen(false)} onFeedback={() => setFeedbackOpen(true)} />,
+          document.body,
+        )}
+      {feedbackOpen && createPortal(<FeedbackModal onClose={() => setFeedbackOpen(false)} />, document.body)}
     </header>
   );
 }
