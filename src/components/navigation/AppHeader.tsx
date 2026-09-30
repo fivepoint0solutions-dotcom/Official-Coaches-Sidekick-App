@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
-import { Globe, MessageCircle, X } from "lucide-react";
+import { CircleHelp, Globe, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -269,14 +269,9 @@ export function AppHeader() {
             type="button"
             onClick={() => setHelpOpen(true)}
             aria-label="Help"
-            className="flex items-center gap-1.5 rounded-full py-2 pl-3 pr-4 text-sm font-bold text-white active:scale-95 md:gap-2 md:py-2.5 md:pl-4 md:pr-5 transition-transform"
-            style={{
-              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-            }}
+            className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
           >
-            <MessageCircle className="size-[18px]" />
-            Help
+            <CircleHelp className="size-5 text-white" strokeWidth={2.2} />
           </button>
         </div>
       </nav>
