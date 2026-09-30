@@ -14,7 +14,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
-import { Sidebar } from "../components/navigation/Sidebar";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
@@ -142,8 +141,7 @@ function RootComponent() {
         <WatermarkBackdrop />
         <div className="relative z-10 min-h-screen pt-24 lg:pt-0">
           <AppHeader />
-          <Sidebar className="hidden lg:flex lg:w-56" />
-          <div className="w-full px-4 lg:pl-[17rem] lg:pr-8">
+          <div className="w-full px-4 lg:pr-8">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </div>

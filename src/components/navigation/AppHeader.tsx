@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,8 +16,8 @@ import { brandMark } from "@/components/brand/BrandLogo";
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    // Same timing as Senior's Sidekick. Desktop keeps the header put: the
-    // fixed sidebar is there, and hiding the header would desync from it.
+    // Same timing as Senior's Sidekick. Desktop keeps the header put (it's in
+    // normal flow there), so hiding it on scroll would look broken.
     const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
     let lastY = window.scrollY;
     let accum = 0;
@@ -85,8 +85,91 @@ function LanguageSwitcher() {
   );
 }
 
+function FeedbackModal({ onClose }: { onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+
+  function send() {
+    const subject = encodeURIComponent(
+      `Coach's Sidekick Feedback${name.trim() ? ` from ${name.trim()}` : ""}`,
+    );
+    const body = encodeURIComponent(message.trim());
+    window.location.href = `mailto:fivepoint0solutions@gmail.com?subject=${subject}&body=${body}`;
+    onClose();
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.55)" }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Send feedback"
+    >
+      <div
+        className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-foreground">Send Feedback</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close feedback form"
+            className="grid size-9 place-items-center rounded-full text-foreground/70 transition-refined hover:bg-secondary"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
+        <label className="mt-4 block text-sm font-semibold text-foreground/80">
+          Your name (optional)
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Jane Coach"
+            className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-normal text-foreground outline-none focus:border-primary"
+          />
+        </label>
+        <label className="mt-3 block text-sm font-semibold text-foreground/80">
+          Your feedback
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={5}
+            placeholder="Tell us what you think..."
+            className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-normal text-foreground outline-none focus:border-primary"
+          />
+        </label>
+        <div className="mt-4 flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-foreground/75 transition-refined hover:bg-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={send}
+            disabled={!message.trim()}
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+            style={{
+              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+            }}
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AppHeader() {
   const [open, setOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const t = useT();
   const hidden = useHideOnScroll();
 
@@ -139,7 +222,7 @@ export function AppHeader() {
           <LanguageSwitcher />
         </div>
 
-        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end lg:hidden">
+        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -174,6 +257,21 @@ export function AppHeader() {
                   {t(item.key)}
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setFeedbackOpen(true);
+                }}
+                className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                style={{
+                  background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+                  boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+                }}
+              >
+                <MessageCircle className="size-4" />
+                Feedback
+              </button>
               <div
                 className="rounded-full px-2 py-1"
                 style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
@@ -187,6 +285,7 @@ export function AppHeader() {
           )}
         </div>
       </nav>
+      {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
     </header>
   );
 }
