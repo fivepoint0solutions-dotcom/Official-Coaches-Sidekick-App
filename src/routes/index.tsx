@@ -7,7 +7,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { useModes } from "@/lib/modes";
 import { deleteLibraryItem, useRecentWork } from "@/lib/library";
 import { useT } from "@/lib/i18n";
-import { NAV_ITEMS } from "@/lib/nav";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -96,23 +95,6 @@ function Dashboard() {
           <div className="grid gap-4 sm:grid-cols-2">
             {modes.map((mode) => (
               <ModeCard key={mode.id} mode={mode} />
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="container-app pb-10">
-        <Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="anchor-card-gradient card-tint-inspire group flex items-center justify-between gap-3 rounded-[16px] p-5 transition-refined hover-lift"
-              >
-                <h3 className="font-display text-xl font-bold leading-tight">{t(item.key)}</h3>
-                <item.icon className="size-5 shrink-0 opacity-80" />
-              </Link>
             ))}
           </div>
         </Reveal>

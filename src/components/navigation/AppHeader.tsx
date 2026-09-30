@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
-import { CircleHelp, Globe, X } from "lucide-react";
+import { CircleHelp, Globe, Menu, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
+import { NAV_ITEMS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { brandMark } from "@/components/brand/BrandLogo";
 
@@ -216,14 +217,16 @@ function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: (
 }
 
 export function AppHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const t = useT();
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const hidden = useHideOnScroll();
 
   return (
     <header
       className="fixed top-0 left-0 right-0 lg:relative z-50 pointer-events-none transition-transform duration-300"
-      style={{ transform: hidden ? "translateY(-130%)" : "translateY(0)" }}
+      style={{ transform: hidden && !menuOpen ? "translateY(-130%)" : "translateY(0)" }}
     >
       {/* Fades the page background in behind the header so content scrolling
           up underneath fades out instead of colliding with the logo. */}
@@ -265,14 +268,57 @@ export function AppHeader() {
 
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
-          <button
-            type="button"
-            onClick={() => setHelpOpen(true)}
-            aria-label="Help"
-            className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
-          >
-            <CircleHelp className="size-5 text-white" strokeWidth={2.2} />
-          </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
+            >
+              {menuOpen ? <X className="size-5 text-white" /> : <Menu className="size-5 text-white" />}
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 top-full z-50 mt-2 flex w-52 max-w-[70vw] flex-col items-end gap-2">
+                {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                    style={{
+                      background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+                      boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+                    }}
+                    activeProps={{
+                      style: {
+                        background: "linear-gradient(135deg, var(--brand-accent-warm), var(--primary))",
+                        boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+                      },
+                    }}
+                  >
+                    <item.icon className="size-4" />
+                    {t(item.key)}
+                  </Link>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setHelpOpen(true);
+                  }}
+                  className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                  style={{
+                    background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+                    boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  <CircleHelp className="size-4" />
+                  Help
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
       {/* Portaled to <body>: the header is pointer-events-none and transformed, which would
