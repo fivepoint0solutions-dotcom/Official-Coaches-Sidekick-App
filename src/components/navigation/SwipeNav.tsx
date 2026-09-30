@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { NAV_ITEMS } from "@/lib/nav";
+import { useT } from "@/lib/i18n";
 
 /**
  * Swipe right = previous page, swipe left = next page (same gesture as Senior Sidekick).
@@ -10,6 +11,7 @@ import { NAV_ITEMS } from "@/lib/nav";
 export function SwipeNav({ children }: { children: ReactNode }) {
   const areaRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const t = useT();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const state = useRef({ pathname, navigate });
   state.current = { pathname, navigate };
@@ -84,8 +86,26 @@ export function SwipeNav({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const current = NAV_ITEMS.findIndex((i) =>
+    i.to === "/" ? pathname === "/" : pathname === i.to || pathname.startsWith(`${i.to}/`),
+  );
+
   return (
     <div ref={areaRef} style={{ touchAction: "pan-y", minHeight: "70vh" }}>
+      {current >= 0 && (
+        <div className="flex flex-col items-center gap-1.5 pb-3 pt-1" aria-live="polite">
+          <div className="font-display text-sm font-bold text-interactive">{t(NAV_ITEMS[current]!.key)}</div>
+          <div className="flex items-center gap-1.5" aria-hidden="true">
+            {NAV_ITEMS.map((item, k) => (
+              <span
+                key={item.to}
+                className="h-[7px] rounded-full bg-interactive transition-all"
+                style={{ width: k === current ? 18 : 7, opacity: k === current ? 1 : 0.3 }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       {children}
     </div>
   );
