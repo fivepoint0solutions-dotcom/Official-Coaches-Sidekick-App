@@ -257,7 +257,7 @@ export function AppHeader() {
             style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
           />
           <span
-            className="font-display font-bold tracking-wide truncate min-w-0"
+            className="font-display font-bold tracking-wide leading-tight min-w-0"
             style={{
               color: "var(--primary)",
               fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
@@ -274,7 +274,7 @@ export function AppHeader() {
             type="button"
             onClick={() => setHelpOpen(true)}
             aria-label="Help"
-            className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white active:scale-95 transition-transform"
+            className="flex items-center gap-1.5 rounded-full py-2 pl-3 pr-4 text-sm font-bold text-white active:scale-95 md:gap-2 md:py-2.5 md:pl-4 md:pr-5 transition-transform"
             style={{
               background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
               boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
