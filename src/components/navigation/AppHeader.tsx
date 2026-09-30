@@ -285,17 +285,8 @@ export function AppHeader() {
                     key={item.to}
                     to={item.to}
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
-                    style={{
-                      background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-                      boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                    }}
-                    activeProps={{
-                      style: {
-                        background: "linear-gradient(135deg, var(--brand-accent-warm), var(--primary))",
-                        boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                      },
-                    }}
+                    className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                    activeProps={{ className: "border-white" }}
                   >
                     <item.icon className="size-4" />
                     {t(item.key)}
@@ -307,11 +298,7 @@ export function AppHeader() {
                     setMenuOpen(false);
                     setHelpOpen(true);
                   }}
-                  className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
-                  style={{
-                    background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-                    boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                  }}
+                  className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 pl-4 pr-5 py-2.5 text-sm font-bold text-white"
                 >
                   <CircleHelp className="size-4" />
                   Help

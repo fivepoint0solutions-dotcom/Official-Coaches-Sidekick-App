@@ -768,22 +768,47 @@
 
 @utility gradient-hero {
   background-image: var(--grad-hero);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility gradient-inspire {
   background-image: var(--grad-inspire);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility gradient-build {
   background-image: var(--grad-build);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility gradient-busywork {
   background-image: var(--grad-busywork);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility gradient-challenge {
   background-image: var(--grad-challenge);
+  background-size: 300% 300%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 /* Scope card-soft/card-elevated/glass-panel to a mode's glow colour wherever this wraps them. */
