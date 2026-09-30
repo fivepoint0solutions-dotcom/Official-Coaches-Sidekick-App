@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Menu, MessageCircle, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Globe, MessageCircle, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
-import { NAV_ITEMS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { brandMark } from "@/components/brand/BrandLogo";
 
@@ -167,16 +165,70 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
   );
 }
 
+function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.55)" }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Help"
+    >
+      <div
+        className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-foreground">Help</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close help"
+            className="grid size-9 place-items-center rounded-full text-foreground/70 transition-refined hover:bg-secondary"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
+        <p className="mt-3 text-sm text-foreground/80">
+          Pick a mode on the home page to start. Coach's Sidekick gives you options and ideas — you stay in charge of every decision. Your saved work lives under My Lessons, My Ideas and Materials on the home page.
+        </p>
+        <div className="mt-4 flex flex-wrap justify-end gap-2">
+          <a
+            href="mailto:fivepoint0solutions@gmail.com?subject=Coach's Sidekick Help"
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-foreground/75 transition-refined hover:bg-secondary"
+          >
+            Email us
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              onFeedback();
+            }}
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-white"
+            style={{
+              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+            }}
+          >
+            Send feedback
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AppHeader() {
-  const [open, setOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const t = useT();
   const hidden = useHideOnScroll();
 
   return (
     <header
       className="fixed top-0 left-0 right-0 lg:relative z-50 pointer-events-none transition-transform duration-300"
-      style={{ transform: hidden && !open ? "translateY(-130%)" : "translateY(0)" }}
+      style={{ transform: hidden ? "translateY(-130%)" : "translateY(0)" }}
     >
       {/* Fades the page background in behind the header so content scrolling
           up underneath fades out instead of colliding with the logo. */}
@@ -196,7 +248,6 @@ export function AppHeader() {
           to="/"
           aria-label="Coach's Sidekick home"
           className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
-          onClick={() => setOpen(false)}
         >
           <img
             src={brandMark}
@@ -217,74 +268,24 @@ export function AppHeader() {
           </span>
         </Link>
 
-        {/* Desktop already has the persistent sidebar for nav — only the language switcher lives here. */}
-        <div className="pointer-events-auto hidden shrink-0 lg:block">
+        <div className="pointer-events-auto flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
-        </div>
-
-        <div className="pointer-events-auto flex flex-shrink-0 flex-col items-end">
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="grid size-11 shrink-0 place-items-center rounded-full"
-            style={{ color: "var(--primary)", filter: "drop-shadow(0 1px 3px rgba(255,255,255,0.9)) drop-shadow(0 1px 6px rgba(0,0,0,0.25))" }}
+            onClick={() => setHelpOpen(true)}
+            aria-label="Help"
+            className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white active:scale-95 transition-transform"
+            style={{
+              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
+              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
+            }}
           >
-            {open ? <X className="size-6" /> : <Menu className="size-6" />}
+            <MessageCircle className="size-[18px]" />
+            Help
           </button>
-
-          {open && (
-            <div className="mt-3 flex flex-col items-end gap-2">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
-                  style={{
-                    background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-                    boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                  }}
-                  activeProps={{
-                    style: {
-                      background: "linear-gradient(135deg, var(--brand-accent-warm), var(--primary))",
-                      boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                    },
-                  }}
-                >
-                  <item.icon className="size-4" />
-                  {t(item.key)}
-                </Link>
-              ))}
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false);
-                  setFeedbackOpen(true);
-                }}
-                className="flex items-center gap-2 rounded-full pl-4 pr-5 py-2.5 text-sm font-bold text-white"
-                style={{
-                  background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-                  boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-                }}
-              >
-                <MessageCircle className="size-4" />
-                Feedback
-              </button>
-              <div
-                className="rounded-full px-2 py-1"
-                style={{ background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))", boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)" }}
-              >
-                <LanguageSwitcher />
-              </div>
-              <Button asChild variant="hero" size="default" className="mt-1" onClick={() => setOpen(false)}>
-                <Link to="/create">{t("nav.createSomething")}</Link>
-              </Button>
-            </div>
-          )}
         </div>
       </nav>
+      {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} onFeedback={() => setFeedbackOpen(true)} />}
       {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
     </header>
   );
