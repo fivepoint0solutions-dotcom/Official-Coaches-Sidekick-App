@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
+import { FeedbackFab } from "../components/navigation/FeedbackFab";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
 
@@ -147,6 +148,7 @@ function RootComponent() {
           </div>
         </div>
         <AskCoachsSidekick />
+        <FeedbackFab />
         <Toaster position="bottom-right" />
       </LanguageProvider>
     </QueryClientProvider>

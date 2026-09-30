@@ -84,7 +84,7 @@ function LanguageSwitcher() {
   );
 }
 
-function FeedbackModal({ onClose }: { onClose: () => void }) {
+export function FeedbackModal({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
@@ -107,21 +107,21 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
       aria-label="Send feedback"
     >
       <div
-        className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-xl"
+        className="w-full max-w-md rounded-3xl p-6 shadow-xl anchor-card-gradient card-tint-inspire text-white"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-foreground">Send Feedback</h2>
+          <h2 className="text-lg font-bold text-white">Send Feedback</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close feedback form"
-            className="grid size-9 place-items-center rounded-full text-foreground/70 transition-refined hover:bg-secondary"
+            className="grid size-9 place-items-center rounded-full text-white/90 transition-refined hover:bg-white/15"
           >
             <X className="size-5" />
           </button>
         </div>
-        <label className="mt-4 block text-sm font-semibold text-foreground/80">
+        <label className="mt-4 block text-sm font-semibold text-white/90">
           Your name (optional)
           <input
             value={name}
@@ -130,7 +130,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
             className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-normal text-foreground outline-none focus:border-primary"
           />
         </label>
-        <label className="mt-3 block text-sm font-semibold text-foreground/80">
+        <label className="mt-3 block text-sm font-semibold text-white/90">
           Your feedback
           <textarea
             value={message}
@@ -144,7 +144,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-5 py-2.5 text-sm font-bold text-foreground/75 transition-refined hover:bg-secondary"
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-white/90 transition-refined hover:bg-white/15"
           >
             Cancel
           </button>
@@ -153,10 +153,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
             onClick={send}
             disabled={!message.trim()}
             className="rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50"
-            style={{
-              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-            }}
+            style={{ background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.5)" }}
           >
             Send
           </button>
@@ -177,27 +174,27 @@ function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: (
       aria-label="Help"
     >
       <div
-        className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-xl"
+        className="w-full max-w-md rounded-3xl p-6 shadow-xl anchor-card-gradient card-tint-inspire text-white"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-foreground">Help</h2>
+          <h2 className="text-lg font-bold text-white">Help</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close help"
-            className="grid size-9 place-items-center rounded-full text-foreground/70 transition-refined hover:bg-secondary"
+            className="grid size-9 place-items-center rounded-full text-white/90 transition-refined hover:bg-white/15"
           >
             <X className="size-5" />
           </button>
         </div>
-        <p className="mt-3 text-sm text-foreground/80">
+        <p className="mt-3 text-sm text-white/90">
           Pick a mode on the home page to start. Coach's Sidekick gives you options and ideas — you stay in charge of every decision. Your saved work lives under My Lessons, My Ideas and Materials on the home page.
         </p>
         <div className="mt-4 flex flex-wrap justify-end gap-2">
           <a
             href="mailto:fivepoint0solutions@gmail.com?subject=Coach's Sidekick Help"
-            className="rounded-full px-5 py-2.5 text-sm font-bold text-foreground/75 transition-refined hover:bg-secondary"
+            className="rounded-full px-5 py-2.5 text-sm font-bold text-white/90 transition-refined hover:bg-white/15"
           >
             Email us
           </a>
@@ -208,10 +205,7 @@ function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: (
               onFeedback();
             }}
             className="rounded-full px-5 py-2.5 text-sm font-bold text-white"
-            style={{
-              background: "linear-gradient(135deg, var(--primary), var(--brand-primary-deep))",
-              boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
-            }}
+            style={{ background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.5)" }}
           >
             Send feedback
           </button>
