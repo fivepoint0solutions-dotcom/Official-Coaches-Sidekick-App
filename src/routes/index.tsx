@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
@@ -82,11 +81,12 @@ function Dashboard() {
           </p>
         </Reveal>
         <Reveal delay={240} className="mt-7">
-          <Button asChild variant="hero" size="xl">
-            <Link to="/create">
-              <Sparkles /> {t("nav.createSomething")}
-            </Link>
-          </Button>
+          <Link
+            to="/create"
+            className="anchor-card-gradient card-tint-inspire group inline-flex items-center gap-2.5 rounded-[16px] px-6 py-3.5 text-base font-bold transition-refined hover-lift"
+          >
+            <Sparkles className="size-5" /> {t("nav.createSomething")}
+          </Link>
         </Reveal>
       </section>
 
