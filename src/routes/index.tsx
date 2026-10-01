@@ -47,7 +47,7 @@ function Testimonials() {
         <figure className="glass-panel relative mt-6 max-w-3xl p-7 lg:p-9">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -top-5 left-6 font-serif text-[4.5rem] leading-none text-brand-accent"
+            className="pointer-events-none absolute -top-5 left-6 font-[family-name:var(--font-display)] text-[4.5rem] leading-none text-accent"
           >
             &ldquo;
           </span>
@@ -57,7 +57,7 @@ function Testimonials() {
           <figcaption className="mt-5 flex items-center gap-3">
             <span
               aria-hidden="true"
-              className="flex size-9 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white"
+              className="flex size-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground"
             >
               KD
             </span>
