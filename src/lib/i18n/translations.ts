@@ -22,7 +22,6 @@ const en = {
     "Bring your expertise. Choose a mode below, and let's turn your idea into something even better — together.",
   "dashboard.recentWork": "Recent work",
   "dashboard.seeAll": "See all",
-  "testimonials.title": "What coaches say",
 
   "shortcuts.myLessons": "My Practices",
   "shortcuts.myIdeas": "My Ideas",
@@ -224,7 +223,6 @@ const es: Dictionary = {
     "Aporta tu experiencia. Elige un modo a continuación y llevemos tu idea a algo aún mejor — juntos.",
   "dashboard.recentWork": "Trabajo reciente",
   "dashboard.seeAll": "Ver todo",
-  "testimonials.title": "Lo que dicen los entrenadores",
 
   "shortcuts.myLessons": "Mis prácticas",
   "shortcuts.myIdeas": "Mis ideas",
@@ -424,7 +422,6 @@ const fr: Dictionary = {
     "Apportez votre expertise. Choisissez un mode ci-dessous, et rendons votre idée encore meilleure — ensemble.",
   "dashboard.recentWork": "Travaux récents",
   "dashboard.seeAll": "Tout voir",
-  "testimonials.title": "Ce que disent les coachs",
 
   "shortcuts.myLessons": "Mes entraînements",
   "shortcuts.myIdeas": "Mes idées",
@@ -625,7 +622,6 @@ const pt: Dictionary = {
     "Traga a sua experiência. Escolha um modo abaixo e vamos deixar sua ideia ainda melhor — juntos.",
   "dashboard.recentWork": "Trabalhos recentes",
   "dashboard.seeAll": "Ver tudo",
-  "testimonials.title": "O que dizem os treinadores",
 
   "shortcuts.myLessons": "Meus treinos",
   "shortcuts.myIdeas": "Minhas ideias",
@@ -824,7 +820,6 @@ const zh: Dictionary = {
   "dashboard.subtitle": "发挥你的专业经验。选择下面的一种模式，让我们一起把你的想法变得更好。",
   "dashboard.recentWork": "最近的作品",
   "dashboard.seeAll": "查看全部",
-  "testimonials.title": "教练们的评价",
 
   "shortcuts.myLessons": "我的训练",
   "shortcuts.myIdeas": "我的创意",

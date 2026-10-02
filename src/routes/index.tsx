@@ -29,46 +29,6 @@ export const Route = createFileRoute("/")({
   component: Dashboard,
 });
 
-const TESTIMONIAL = {
-  quote:
-    "As an educator, finding tools that save time while delivering rich, high-quality instructional content is rare. Senior Teacher's Sidekick creates well-structured lesson plans, engaging hooks, and tailored assessments in seconds. The ability to customize every detail ensures the generated content aligns perfectly with my curriculum goals. It is a reliable, high-utility platform for modern teaching.",
-  author: "Kianna Doonanco",
-};
-
-function Testimonials() {
-  const t = useT();
-
-  return (
-    <section className="container-app pt-6 pb-14 lg:pb-16">
-      <Reveal>
-        <h2 className="text-headline">{t("testimonials.title")}</h2>
-      </Reveal>
-      <Reveal delay={140}>
-        <figure className="glass-panel relative mt-6 max-w-3xl p-7 lg:p-9">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-5 left-6 font-[family-name:var(--font-display)] text-[4.5rem] leading-none text-accent"
-          >
-            &ldquo;
-          </span>
-          <blockquote className="text-base leading-relaxed lg:text-lg">
-            {TESTIMONIAL.quote}
-          </blockquote>
-          <figcaption className="mt-5 flex items-center gap-3">
-            <span
-              aria-hidden="true"
-              className="flex size-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground"
-            >
-              KD
-            </span>
-            <span className="text-sm font-semibold">{TESTIMONIAL.author}</span>
-          </figcaption>
-        </figure>
-      </Reveal>
-    </section>
-  );
-}
-
 function RecentWork() {
   const t = useT();
   const recent = useRecentWork(6);
@@ -144,7 +104,6 @@ function Dashboard() {
         <RecentWork />
       </div>
 
-      <Testimonials />
     </main>
   );
 }
