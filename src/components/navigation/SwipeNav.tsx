@@ -3,6 +3,29 @@ import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { NAV_ITEMS } from "@/lib/nav";
 import { useT } from "@/lib/i18n";
 
+/** Tool pages that are reached from the dashboard swipe as part of the dashboard's slot. */
+const SECTION_OF: Record<string, string> = {
+  "/create": "/",
+  "/build": "/",
+  "/inspire": "/",
+  "/challenge": "/",
+  "/busywork": "/",
+  "/recent-work": "/",
+  "/workspace": "/",
+};
+const slotPath = (p: string) => SECTION_OF[p] ?? p;
+
+/** A drag that starts on a sideways-scrolling row (filter pills etc.) belongs to that row. */
+function inSideScroller(node: Element | null, root: Element): boolean {
+  for (let n: Element | null = node; n && n !== root; n = n.parentElement) {
+    if (n.scrollWidth > n.clientWidth + 2) {
+      const ox = getComputedStyle(n).overflowX;
+      if (ox === "auto" || ox === "scroll") return true;
+    }
+  }
+  return false;
+}
+
 /**
  * Swipe right = previous page, swipe left = next page (same gesture as Senior Sidekick).
  * The page follows the finger, then slides the rest of the way. Drags that start on a
@@ -22,7 +45,7 @@ export function SwipeNav({ children }: { children: ReactNode }) {
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     const paths = NAV_ITEMS.map((i) => i.to);
     const idx = () => {
-      const p = state.current.pathname;
+      const p = slotPath(state.current.pathname);
       return paths.findIndex((to) => (to === "/" ? p === "/" : p === to || p.startsWith(`${to}/`)));
     };
     let g: { x0: number; y0: number; t0: number; dx: number; mode: "pending" | "vertical" | "horizontal" } | null = null;
@@ -38,6 +61,7 @@ export function SwipeNav({ children }: { children: ReactNode }) {
       if (e.touches.length !== 1) return;
       const target = e.target as Element | null;
       if (target?.closest?.(".fixed, [data-no-swipe], input, textarea, select, [contenteditable='true'], [role='dialog']")) return;
+      if (inSideScroller(target, el)) return;
       const t = e.touches[0]!;
       g = { x0: t.clientX, y0: t.clientY, t0: Date.now(), dx: 0, mode: "pending" };
     };
@@ -86,8 +110,9 @@ export function SwipeNav({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const slot = slotPath(pathname);
   const current = NAV_ITEMS.findIndex((i) =>
-    i.to === "/" ? pathname === "/" : pathname === i.to || pathname.startsWith(`${i.to}/`),
+    i.to === "/" ? slot === "/" : slot === i.to || slot.startsWith(`${i.to}/`),
   );
 
   return (
