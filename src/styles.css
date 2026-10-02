@@ -325,12 +325,15 @@
   body::before {
     content: "";
     position: fixed;
-    inset: 0;
+    inset: -35%;
     z-index: -1;
     pointer-events: none;
     background-image: var(--grad-ambient);
-    background-size: 220% 220%;
-    animation: gradient-flow var(--duration-ambient) ease-in-out infinite;
+    background-size: 100% 100%;
+    /* Moves on the GPU (transform) instead of repainting the whole screen every frame. */
+    will-change: transform;
+    backface-visibility: hidden;
+    animation: ambient-drift var(--duration-ambient) ease-in-out infinite;
   }
 
   .dark body::before {
@@ -340,7 +343,6 @@
   @media (prefers-reduced-motion: reduce) {
     body::before {
       animation: none;
-      background-position: 30% 30%;
     }
   }
 
@@ -615,6 +617,16 @@
   @media (prefers-reduced-motion: reduce) {
     animation: none;
     background-position: 30% 30%;
+  }
+}
+
+@keyframes ambient-drift {
+  0%,
+  100% {
+    transform: translate3d(-7%, -5%, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(7%, 5%, 0) scale(1.05);
   }
 }
 
