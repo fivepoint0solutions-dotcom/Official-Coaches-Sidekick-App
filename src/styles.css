@@ -984,3 +984,12 @@
 @utility animate-pop {
   animation: pop 0.4s var(--ease-editorial) both;
 }
+
+/* No spotlight / glint shimmer on the gradients. */
+.twinkle::after,
+.anchor-twinkle::after,
+.shimmer-sweep::after {
+  display: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
