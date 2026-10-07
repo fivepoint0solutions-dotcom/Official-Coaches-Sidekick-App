@@ -21,6 +21,7 @@ import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
 import { fontScaleInitScript } from "../lib/font-scale";
 import { colorThemeInitScript } from "../lib/color-theme";
+import { syncThemeColor } from "../lib/theme-color";
 
 function NotFoundComponent() {
   return (
@@ -87,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#F8EFDE" },
+      { name: "theme-color", content: "#4EA5C4" },
       { title: "Coach's Sidekick" },
       {
         name: "description",
@@ -147,6 +148,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    syncThemeColor();
+  }, []);
   useEffect(() => {
     (window as unknown as { __skReady?: () => void }).__skReady?.();
   }, []);

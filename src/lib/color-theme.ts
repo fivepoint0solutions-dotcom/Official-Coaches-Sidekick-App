@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { syncThemeColor } from "./theme-color";
 
 /**
  * One central color palette for the whole app.
@@ -272,6 +273,7 @@ export function applyColorTheme(id: string) {
     document.head.appendChild(el);
   }
   el.textContent = cssVarBlock(theme);
+  syncThemeColor();
 }
 
 /** Reads the saved palette, applies it, and lets a screen change it. */
