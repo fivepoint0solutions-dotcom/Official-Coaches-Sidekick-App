@@ -49,7 +49,13 @@ function useHideOnScroll() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  return hidden;
+  useEffect(() => {
+    const mark = () => document.body.classList.toggle("sk-scrolled", window.scrollY > 12);
+    mark();
+    window.addEventListener("scroll", mark, { passive: true });
+    return () => window.removeEventListener("scroll", mark);
+  }, []);
+  return false; // the header stays put on phones
 }
 
 function LanguageSwitcher() {
