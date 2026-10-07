@@ -120,93 +120,96 @@ function DrillDetailPage() {
       >
         <ArrowLeft className="size-4" /> Back to Drill Library
       </Link>
-      <header className="anchor-card-gradient card-tint-build mt-6 rounded-3xl p-7 sm:p-10">
-        <div className="flex flex-wrap gap-2">
-          <span className="badge-pill border border-white/40 bg-white/15">{drill.sport}</span>
-          <span className="badge-pill border border-white/40 bg-white/15">{drill.category}</span>
-          {isCustom ? (
-            <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
-          ) : null}
-        </div>
-        <h1 className="text-display mt-5">{drill.name}</h1>
-        <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
-          <span className="flex items-center gap-2">
-            <Clock3 className="size-4" />
-            {drill.duration}
-          </span>
-          <span className="flex items-center gap-2">
-            <Users className="size-4" />
-            {drill.ageGroup}
-          </span>
-        </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button variant="hero" size="lg" onClick={useInPractice}>
-            <Play /> Use in Practice
-          </Button>
-          {isCustom ? (
-            <>
-              <Button asChild variant="outline" size="lg" className="bg-white/80">
-                <Link to="/drills/$drillId/edit" params={{ drillId: drill.id }}>
-                  <Pencil /> Edit
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="bg-white/80" onClick={handleDelete}>
-                <Trash2 /> Delete
-              </Button>
-            </>
-          ) : null}
-        </div>
-      </header>
-      <div className="mt-8 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="space-y-8">
-          {drill.diagram ? (
+      {/* Desktop: one big card holds the header and the drill details. Phones keep the separate header card. */}
+      <div className="mt-6 lg:anchor-card-gradient lg:card-tint-build lg:rounded-3xl lg:p-10">
+        <header className="anchor-card-gradient card-tint-build rounded-3xl p-7 sm:p-10 lg:contents">
+          <div className="flex flex-wrap gap-2">
+            <span className="badge-pill border border-white/40 bg-white/15">{drill.sport}</span>
+            <span className="badge-pill border border-white/40 bg-white/15">{drill.category}</span>
+            {isCustom ? (
+              <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
+            ) : null}
+          </div>
+          <h1 className="text-display mt-5">{drill.name}</h1>
+          <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
+            <span className="flex items-center gap-2">
+              <Clock3 className="size-4" />
+              {drill.duration}
+            </span>
+            <span className="flex items-center gap-2">
+              <Users className="size-4" />
+              {drill.ageGroup}
+            </span>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button variant="hero" size="lg" onClick={useInPractice}>
+              <Play /> Use in Practice
+            </Button>
+            {isCustom ? (
+              <>
+                <Button asChild variant="outline" size="lg" className="bg-white/80">
+                  <Link to="/drills/$drillId/edit" params={{ drillId: drill.id }}>
+                    <Pencil /> Edit
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" className="bg-white/80" onClick={handleDelete}>
+                  <Trash2 /> Delete
+                </Button>
+              </>
+            ) : null}
+          </div>
+        </header>
+        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 lg:border-t lg:border-white/25 lg:pt-8 lg:text-[0.95rem]">
+          <div className="space-y-8">
+            {drill.diagram ? (
+              <section>
+                <h2 className="text-title">Diagram</h2>
+                <div className="mt-3">
+                  <DrillDiagram diagram={drill.diagram} id={drill.id} />
+                </div>
+              </section>
+            ) : null}
             <section>
-              <h2 className="text-title">Diagram</h2>
-              <div className="mt-3">
-                <DrillDiagram diagram={drill.diagram} id={drill.id} />
-              </div>
+              <h2 className="text-title flex items-center gap-2">
+                <Package className="size-5 text-interactive" /> Equipment
+              </h2>
+              <p className="mt-3 text-body text-foreground/85">{drill.equipment}</p>
             </section>
-          ) : null}
-          <section>
-            <h2 className="text-title flex items-center gap-2">
-              <Package className="size-5 text-interactive" /> Equipment
-            </h2>
-            <p className="mt-3 text-body text-foreground/85">{drill.equipment}</p>
-          </section>
-          <section>
-            <h2 className="text-title">Setup</h2>
-            <p className="mt-3 text-body text-foreground/85">{drill.setup}</p>
-          </section>
-        </div>
-        <div className="space-y-8">
-          <section>
-            <h2 className="text-title flex items-center gap-2">
-              <ListChecks className="size-5 text-interactive" /> Step-by-step instructions
-            </h2>
-            <ol className="mt-4 space-y-3">
-              {drill.steps.map((step, index) => (
-                <li key={step} className="flex gap-3">
-                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                    {index + 1}
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </section>
-          {drill.coachingPoints.length ? (
             <section>
-              <h2 className="text-title">Coaching points</h2>
-              <ul className="mt-4 space-y-3">
-                {drill.coachingPoints.map((point) => (
-                  <li key={point} className="flex gap-3">
-                    <span className="mt-2 size-2 shrink-0 rounded-full bg-highlight" />
-                    <span>{point}</span>
+              <h2 className="text-title">Setup</h2>
+              <p className="mt-3 text-body text-foreground/85">{drill.setup}</p>
+            </section>
+          </div>
+          <div className="space-y-8">
+            <section>
+              <h2 className="text-title flex items-center gap-2">
+                <ListChecks className="size-5 text-interactive" /> Step-by-step instructions
+              </h2>
+              <ol className="mt-4 space-y-3">
+                {drill.steps.map((step, index) => (
+                  <li key={step} className="flex gap-3">
+                    <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </section>
-          ) : null}
+            {drill.coachingPoints.length ? (
+              <section>
+                <h2 className="text-title">Coaching points</h2>
+                <ul className="mt-4 space-y-3">
+                  {drill.coachingPoints.map((point) => (
+                    <li key={point} className="flex gap-3">
+                      <span className="mt-2 size-2 shrink-0 rounded-full bg-highlight" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+          </div>
         </div>
       </div>
     </main>
