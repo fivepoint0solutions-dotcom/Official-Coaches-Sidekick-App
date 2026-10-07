@@ -16,18 +16,9 @@ import { brandMark } from "@/components/brand/BrandLogo";
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    // Same timing as Senior's Sidekick. Desktop keeps the header put (it's in
-    // normal flow there), so hiding it on scroll would look broken.
-    const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
     let lastY = window.scrollY;
     let accum = 0;
     function onScroll() {
-      if (isDesktop()) {
-        accum = 0;
-        lastY = window.scrollY;
-        setHidden(false);
-        return;
-      }
       const y = window.scrollY;
       const delta = y - lastY;
       lastY = y;
@@ -44,7 +35,7 @@ function useHideOnScroll() {
       // Hide quickly on the way down, but only come back after a deliberate
       // scroll up — a small wobble mid-scroll must not pull it over content.
       if (accum > 12) setHidden(true);
-      else if (accum < -72) setHidden(false);
+      else if (accum < -24) setHidden(false);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -55,7 +46,7 @@ function useHideOnScroll() {
     window.addEventListener("scroll", mark, { passive: true });
     return () => window.removeEventListener("scroll", mark);
   }, []);
-  return false; // the header stays put on phones
+  return hidden;
 }
 
 function LanguageSwitcher() {
