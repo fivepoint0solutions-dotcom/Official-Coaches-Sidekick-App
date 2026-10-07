@@ -230,7 +230,7 @@ export function AppHeader() {
     >
       <nav
         aria-label="Primary"
-        className="flex items-start justify-between gap-3 px-4 pt-4 pb-5 pointer-events-none"
+        className="mx-auto flex w-full max-w-md items-start justify-between gap-3 px-4 pt-4 pb-5 pointer-events-none md:max-w-7xl"
       >
         <Link
           to="/"
