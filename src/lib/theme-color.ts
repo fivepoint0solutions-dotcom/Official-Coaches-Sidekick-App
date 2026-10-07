@@ -1,10 +1,9 @@
 /**
  * Phone status bar / browser chrome color (<meta name="theme-color">).
  *
- * Kept in step with the app's first home placard: it reads the same CSS variable that
- * placard is drawn with, so it also follows the chosen color theme.
+ * Matches the page's solid top background, including the chosen color theme.
  */
-export const THEME_COLOR_VAR = "--sk-sky";
+export const THEME_COLOR_VAR = "--background";
 
 function toHex(css: string): string | null {
   try {

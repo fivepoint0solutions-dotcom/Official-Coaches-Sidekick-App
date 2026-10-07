@@ -336,6 +336,16 @@
     animation: ambient-drift var(--duration-ambient) ease-in-out infinite;
   }
 
+  /* Keep the top edge solid so Android's status bar joins it seamlessly. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: linear-gradient(to bottom, var(--background) 24px, transparent 180px);
+  }
+
   .dark body::before {
     opacity: 0.55;
   }
