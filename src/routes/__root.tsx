@@ -109,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=block",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "manifest", href: "/manifest.json" },
@@ -125,9 +125,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "var(--background, #F7F1E8)" }}>
       <head>
         <HeadContent />
+        {/* No flash on load: the page stays hidden until the fonts are ready and the app has drawn, then fades in once. */}
+        <style dangerouslySetInnerHTML={{ __html: "html.sk-pre body{opacity:0}body{transition:opacity .3s ease}" }} />
+        <script dangerouslySetInnerHTML={{ __html: "(function(){var d=document.documentElement;d.classList.add('sk-pre');var f=false,r=false,x=false;function go(){if(x||!(f&&r))return;x=true;requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('sk-pre')})})}window.__skReady=function(){r=true;go()};(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){f=true;go()});setTimeout(function(){x=true;d.classList.remove('sk-pre')},3000)})();" }} />
       </head>
       <body>
         {children}
@@ -139,6 +142,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    (window as unknown as { __skReady?: () => void }).__skReady?.();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

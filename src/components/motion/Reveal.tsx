@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -17,6 +17,8 @@ type RevealProps = {
  * One-shot scroll reveal. Uses IntersectionObserver (no scroll listeners),
  * animates only opacity/transform/clip-path, and no-ops for reduced motion.
  */
+const useBeforePaint = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export function Reveal({
   children,
   variant = "up",
@@ -26,15 +28,16 @@ export function Reveal({
   className,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  // Everything starts visible (so the server HTML and the first paint show the page, with no blank-then-fade
+  // flash). Before the browser paints, only content that sits below the fold is tucked away to fade in on scroll.
+  const [revealed, setRevealed] = useState(true);
 
-  useEffect(() => {
+  useBeforePaint(() => {
     const node = ref.current;
     if (!node) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setRevealed(true);
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (node.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+    setRevealed(false);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
