@@ -9,6 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
+import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
+import { themeSwatches, useColorTheme } from "@/lib/color-theme";
 import { NAV_ITEMS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { brandMark } from "@/components/brand/BrandLogo";
@@ -161,6 +163,89 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
   );
 }
 
+function DisplaySettings() {
+  const { fontScale, setFontScale } = useFontScale();
+  const { colorTheme, setColorTheme, themes } = useColorTheme();
+  const [showThemes, setShowThemes] = useState(false);
+  const current = themes.find((th) => th.id === colorTheme) ?? themes[0];
+
+  return (
+    <div className="mt-5 space-y-5">
+      <section>
+        <h3 className="text-base font-bold text-white">Text size</h3>
+        <p className="mt-1 text-sm text-white/90">Make the words bigger everywhere in the app.</p>
+        <div className="mt-3 space-y-2" role="group" aria-label="Text size">
+          {FONT_SCALES.map((size) => {
+            const on = fontScale === size.id;
+            return (
+              <button
+                key={size.id}
+                type="button"
+                onClick={() => setFontScale(size.id)}
+                aria-pressed={on}
+                className="flex w-full items-center justify-center gap-3 rounded-full px-4 py-3 text-sm font-bold text-white transition-transform active:scale-[0.98]"
+                style={{
+                  background: on ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.14)",
+                  border: on ? "2px solid #fff" : "1px solid rgba(255,255,255,0.4)",
+                }}
+              >
+                <span className="text-base">{size.glyph}</span>
+                <span>{size.label}</span>
+                <span className="text-xs font-medium opacity-80">{size.percent}%</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="text-base font-bold text-white">Color theme</h3>
+        <p className="mt-1 text-sm text-white/90">Now using {current?.label}.</p>
+        <button
+          type="button"
+          onClick={() => setShowThemes((o) => !o)}
+          aria-expanded={showThemes}
+          className="mt-3 w-full rounded-full px-4 py-3 text-sm font-bold text-foreground transition-transform active:scale-[0.98]"
+          style={{ background: "rgba(255,255,255,0.78)", border: "2px solid rgba(255,255,255,0.6)" }}
+        >
+          {showThemes ? "Hide" : "Show"}
+        </button>
+        {showThemes && (
+          <div className="mt-3 space-y-2" role="group" aria-label="Color theme">
+            {themes.map((th) => {
+              const on = colorTheme === th.id;
+              return (
+                <button
+                  key={th.id}
+                  type="button"
+                  onClick={() => setColorTheme(th.id)}
+                  aria-pressed={on}
+                  className="w-full rounded-2xl p-3.5 text-left text-white transition-transform active:scale-[0.98]"
+                  style={{
+                    background: on ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.14)",
+                    border: on ? "2px solid #fff" : "1px solid rgba(255,255,255,0.4)",
+                  }}
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="flex shrink-0 -space-x-1" aria-hidden="true">
+                      {themeSwatches(th).map((c) => (
+                        <span key={c} className="size-5 rounded-full border border-white/70" style={{ background: c }} />
+                      ))}
+                    </span>
+                    <span className="min-w-0 flex-1 text-sm font-bold">{th.label}</span>
+                    {on && <span aria-hidden="true" className="font-extrabold">✓</span>}
+                  </span>
+                  <span className="mt-1.5 block text-xs text-white/90">{th.blurb}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
 function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: () => void }) {
   return (
     <div
@@ -172,7 +257,7 @@ function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: (
       aria-label="Help"
     >
       <div
-        className="w-full max-w-md rounded-3xl p-6 shadow-xl anchor-card-gradient card-tint-inspire text-white"
+        className="max-h-[88vh] w-full max-w-md overflow-y-auto rounded-3xl p-6 shadow-xl anchor-card-gradient card-tint-inspire text-white"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
@@ -189,6 +274,7 @@ function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: (
         <p className="mt-3 text-sm text-white/90">
           Pick a mode on the home page to start. Coach's Sidekick gives you options and ideas — you stay in charge of every decision. Your saved work lives under My Lessons, My Ideas and Materials on the home page.
         </p>
+        <DisplaySettings />
         <div className="mt-4 flex flex-wrap justify-end gap-2">
           <a
             href="mailto:fivepoint0solutions@gmail.com?subject=Coach's Sidekick Help"
