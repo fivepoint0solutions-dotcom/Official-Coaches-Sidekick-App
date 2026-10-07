@@ -231,7 +231,7 @@ export function AppHeader() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 lg:relative z-50 pointer-events-none transition-transform duration-300"
+      className="fixed top-0 left-0 right-0 lg:sticky z-50 pointer-events-none transition-transform duration-300"
       style={{ transform: hidden && !menuOpen ? "translateY(-130%)" : "translateY(0)" }}
     >
       <nav
