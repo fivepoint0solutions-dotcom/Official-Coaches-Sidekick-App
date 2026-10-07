@@ -1,3 +1,4 @@
+import InstallAppButton from "@/components/InstallAppButton";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
@@ -255,6 +256,7 @@ export function AppHeader() {
 
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
+          <InstallAppButton wrapperClassName="" className="anchor-card-gradient card-tint-inspire border-2 border-white/30 shadow-lg" />
           <div className="relative">
             <button
               type="button"
