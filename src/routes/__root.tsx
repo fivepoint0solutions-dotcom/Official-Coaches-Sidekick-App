@@ -19,6 +19,8 @@ import { FeedbackFab } from "../components/navigation/FeedbackFab";
 import { SwipeNav } from "../components/navigation/SwipeNav";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
+import { fontScaleInitScript } from "../lib/font-scale";
+import { colorThemeInitScript } from "../lib/color-theme";
 
 function NotFoundComponent() {
   return (
@@ -128,6 +130,9 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Apply the saved text size and color palette before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: fontScaleInitScript() }} />
+        <script dangerouslySetInnerHTML={{ __html: colorThemeInitScript() }} />
       </head>
       <body>
         {children}
