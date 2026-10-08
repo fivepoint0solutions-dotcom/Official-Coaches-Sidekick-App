@@ -1,7 +1,9 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { DrillForm } from "@/components/drills/DrillForm";
 import { saveUserDrill } from "@/lib/userDrills";
+import { takeDraft, type DrillValues } from "@/lib/drillTransfer";
 
 export const Route = createFileRoute("/drills/new")({
   head: () => ({
@@ -21,6 +23,17 @@ export const Route = createFileRoute("/drills/new")({
 
 function NewDrillPage() {
   const navigate = useNavigate();
+  // A file the coach uploaded arrives as a first draft. Read it once, after the page is on screen.
+  const [draft, setDraft] = useState<DrillValues | null>(null);
+  const [ready, setReady] = useState(false);
+  const loaded = useRef(false);
+  useEffect(() => {
+    if (!loaded.current) {
+      loaded.current = true;
+      setDraft(takeDraft());
+    }
+    setReady(true);
+  }, []);
 
   return (
     <main className="container-app py-8 lg:py-12">
@@ -38,14 +51,23 @@ function NewDrillPage() {
           collection, on this device.
         </p>
       </header>
+      {draft && (
+        <p role="status" className="glass-panel mt-6 max-w-3xl p-4 text-base font-semibold">
+          We read your file and filled in a first draft. Check each step, add the sport and any missing details, then save.
+        </p>
+      )}
       <div className="mt-8 max-w-3xl">
+        {ready && (
         <DrillForm
+          key={draft ? "draft" : "blank"}
+          {...(draft ? { initial: { id: "draft", ...draft } } : {})}
           submitLabel="Save drill"
           onSubmit={(values) => {
             const drill = saveUserDrill(values);
             navigate({ to: "/drills/$drillId", params: { drillId: drill.id } });
           }}
         />
+        )}
       </div>
     </main>
   );

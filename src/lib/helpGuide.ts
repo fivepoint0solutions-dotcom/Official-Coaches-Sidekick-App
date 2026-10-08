@@ -259,6 +259,25 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         go: { to: "/drills/new", label: "Add a drill now" },
       },
       {
+        id: "upload-drills",
+        title: "Uploading and downloading drills",
+        intro: "Bring in drills you already have, or take yours with you. Files are read on your device and are never uploaded anywhere.",
+        steps: [
+          "Open the Drill Library and find the box called Upload or download drills.",
+          "To add drills you already have, tap Upload a file.",
+          "A spreadsheet (.csv) or a drill file you downloaded here: you see a list of the drills found. Tap Add them all to my library.",
+          "A PDF, a Word file, a photo of a drill sheet or a notes file: it opens as a first draft in the Add a drill form. Fix anything that is off, add the sport, then tap Save drill.",
+          "To fill in a spreadsheet yourself, tap Blank template, open it in Excel or Google Sheets, type one drill per row, save it as .csv, and upload it.",
+          "To take your drills with you, tap My drills (file) to download a file you can add back later or share with another coach, or My drills (spreadsheet) for Excel.",
+        ],
+        tips: [
+          "Put | between steps and between coaching points in a spreadsheet cell, for example: Pass around the outside | Win the ball.",
+          "Photos and scanned PDFs are read with text recognition the first time you use them. That can take a minute. A clear, flat photo works best.",
+          "Only your own drills are in the downloads. The built-in library drills are not included.",
+        ],
+        go: { to: "/drills", label: "Open the Drill Library" },
+      },
+      {
         id: "diagram",
         title: "Drawing a diagram",
         intro: "A simple board lets you sketch the drill with players, cones and arrows.",

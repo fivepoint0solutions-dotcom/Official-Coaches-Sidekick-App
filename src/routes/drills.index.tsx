@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus, Search } from "lucide-react";
 import { DrillCard } from "@/components/drills/DrillCard";
+import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { drillLibrary, drillSports } from "@/data/drillLibrary";
@@ -123,6 +124,8 @@ function DrillLibraryPage() {
           </Button>
         ) : null}
       </section>
+
+      <DrillTransfer />
 
       <p className="mt-6 text-sm font-semibold text-muted-foreground">
         {results.length} {results.length === 1 ? "drill" : "drills"}
