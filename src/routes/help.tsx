@@ -40,7 +40,7 @@ function Pill({
   return (
     <div
       className={cn(CARD, "overflow-hidden transition-[border-radius] duration-200")}
-      style={{ borderRadius: open ? 28 : 9999 }}
+      style={{ borderRadius: open ? 28 : 35 }}
     >
       <button
         type="button"
