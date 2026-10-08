@@ -24,20 +24,42 @@ function matches(topic: GuideTopic, q: string) {
   return q.split(/\s+/).every((w) => hay.includes(w));
 }
 
-function Topic({ topic, open, onToggle }: { topic: GuideTopic; open: boolean; onToggle: () => void }) {
+/* Every Help section is the same collapsed pill with a chevron; tap to open or close. */
+function Pill({
+  title,
+  open,
+  onToggle,
+  children,
+}: {
+  title: string;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <div className={cn(CARD, "overflow-hidden")}>
+    <div
+      className={cn(CARD, "overflow-hidden transition-[border-radius] duration-200")}
+      style={{ borderRadius: open ? 28 : 9999 }}
+    >
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center gap-3 px-5 py-4 text-left"
+        className="flex w-full items-center gap-3 px-6 text-left"
+        style={{ minHeight: 64 }}
       >
-        <span className="min-w-0 flex-1 text-base font-bold text-white">{topic.title}</span>
+        <span className="min-w-0 flex-1 text-base font-bold leading-tight text-white">{title}</span>
         <ChevronDown className={cn("size-5 shrink-0 text-white transition-transform", open && "rotate-180")} />
       </button>
-      {open && (
-        <div className="space-y-3 px-5 pb-5">
+      {open && <div className="space-y-3 px-5 pb-5">{children}</div>}
+    </div>
+  );
+}
+
+function Topic({ topic, open, onToggle }: { topic: GuideTopic; open: boolean; onToggle: () => void }) {
+  return (
+    <Pill title={topic.title} open={open} onToggle={onToggle}>
+      <>
           <p className="text-sm text-white/90">{topic.intro}</p>
           <ol className="space-y-2.5">
             {topic.steps.map((s, i) => (
@@ -72,16 +94,16 @@ function Topic({ topic, open, onToggle }: { topic: GuideTopic; open: boolean; on
               <ArrowRight className="size-4" />
             </Link>
           )}
-        </div>
-      )}
-    </div>
+      </>
+    </Pill>
   );
 }
 
 function HelpPage() {
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState<Record<string, boolean>>({ "top-bar": true });
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   const q = query.trim().toLowerCase();
+  const toggle = (id: string) => setOpen((o) => ({ ...o, [id]: !o[id] }));
 
   const groups = useMemo(
     () =>
@@ -139,26 +161,26 @@ function HelpPage() {
           {!q && (
             <section aria-label="Settings">
               <h2 className="text-title mb-3">Settings</h2>
-              <div className={cn(CARD, "p-5")}>
+              <Pill title="Text size and colors" open={Boolean(open["settings"])} onToggle={() => toggle("settings")}>
                 <DisplaySettings />
-              </div>
+              </Pill>
             </section>
           )}
 
           <section aria-label="Still stuck">
-            <div className={cn(CARD, "p-5")}>
-              <h2 className="text-base font-bold text-white">Still stuck?</h2>
-              <p className="mt-1 text-sm text-white/90">
+            <h2 className="text-title mb-3">Still stuck?</h2>
+            <Pill title="Contact us" open={Boolean(open["contact"])} onToggle={() => toggle("contact")}>
+              <p className="text-sm text-white/90">
                 Tap the megaphone at the bottom left to send feedback, or write to us and we will help.
               </p>
               <a
                 href="mailto:fivepoint0solutions@gmail.com?subject=Coach's Sidekick Help"
-                className="mt-3 inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white"
+                className="inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white"
                 style={{ background: "rgba(255,255,255,0.25)", border: "2px solid rgba(255,255,255,0.7)" }}
               >
                 Email us
               </a>
-            </div>
+            </Pill>
           </section>
         </div>
       </div>
