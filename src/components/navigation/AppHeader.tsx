@@ -163,7 +163,7 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-function DisplaySettings() {
+export function DisplaySettings() {
   const { fontScale, setFontScale } = useFontScale();
   const { colorTheme, setColorTheme, themes } = useColorTheme();
   const [showThemes, setShowThemes] = useState(false);
@@ -246,64 +246,9 @@ function DisplaySettings() {
   );
 }
 
-function HelpModal({ onClose, onFeedback }: { onClose: () => void; onFeedback: () => void }) {
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.55)" }}
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Help"
-    >
-      <div
-        className="max-h-[88vh] w-full max-w-md overflow-y-auto rounded-3xl p-6 shadow-xl anchor-card-gradient card-tint-inspire text-white"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">Help</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close help"
-            className="grid size-9 place-items-center rounded-full text-white/90 transition-refined hover:bg-white/15"
-          >
-            <X className="size-5" />
-          </button>
-        </div>
-        <p className="mt-3 text-sm text-white/90">
-          Pick a mode on the home page to start. Coach's Sidekick gives you options and ideas — you stay in charge of every decision. Your saved work lives under My Lessons, My Ideas and Materials on the home page.
-        </p>
-        <DisplaySettings />
-        <div className="mt-4 flex flex-wrap justify-end gap-2">
-          <a
-            href="mailto:fivepoint0solutions@gmail.com?subject=Coach's Sidekick Help"
-            className="rounded-full px-5 py-2.5 text-sm font-bold text-white/90 transition-refined hover:bg-white/15"
-          >
-            Email us
-          </a>
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              onFeedback();
-            }}
-            className="rounded-full px-5 py-2.5 text-sm font-bold text-white"
-            style={{ background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.5)" }}
-          >
-            Send feedback
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function AppHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
   const t = useT();
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const hidden = useHideOnScroll();
 
   return (
@@ -365,30 +310,20 @@ export function AppHeader() {
                     {t(item.key)}
                   </Link>
                 ))}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setHelpOpen(true);
-                  }}
+                <Link
+                  to="/help"
+                  onClick={() => setMenuOpen(false)}
                   className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                  activeProps={{ className: "border-white" }}
                 >
                   <CircleHelp className="size-4" />
                   Help
-                </button>
+                </Link>
               </div>
             )}
           </div>
         </div>
       </nav>
-      {/* Portaled to <body>: the header is pointer-events-none and transformed, which would
-          otherwise make these "fixed" overlays unclickable and not full-screen. */}
-      {helpOpen &&
-        createPortal(
-          <HelpModal onClose={() => setHelpOpen(false)} onFeedback={() => setFeedbackOpen(true)} />,
-          document.body,
-        )}
-      {feedbackOpen && createPortal(<FeedbackModal onClose={() => setFeedbackOpen(false)} />, document.body)}
     </header>
   );
 }

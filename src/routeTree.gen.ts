@@ -14,6 +14,7 @@ import { Route as BuildRouteImport } from './routes/build'
 import { Route as BusyworkRouteImport } from './routes/busywork'
 import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as IdeasRouteImport } from './routes/ideas'
 import { Route as InspireRouteImport } from './routes/inspire'
 import { Route as LessonsRouteImport } from './routes/lessons'
@@ -48,6 +49,11 @@ const ChallengeRoute = ChallengeRouteImport.update({
 const CreateRoute = CreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IdeasRoute = IdeasRouteImport.update({
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
+  '/help': typeof HelpRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
+  '/help': typeof HelpRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
+  '/help': typeof HelpRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
@@ -161,6 +170,7 @@ export interface FileRouteTypes {
     | '/busywork'
     | '/challenge'
     | '/create'
+    | '/help'
     | '/ideas'
     | '/inspire'
     | '/lessons'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/busywork'
     | '/challenge'
     | '/create'
+    | '/help'
     | '/ideas'
     | '/inspire'
     | '/lessons'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/busywork'
     | '/challenge'
     | '/create'
+    | '/help'
     | '/ideas'
     | '/inspire'
     | '/lessons'
@@ -213,6 +225,7 @@ export interface RootRouteChildren {
   BusyworkRoute: typeof BusyworkRoute
   ChallengeRoute: typeof ChallengeRoute
   CreateRoute: typeof CreateRoute
+  HelpRoute: typeof HelpRoute
   IdeasRoute: typeof IdeasRoute
   InspireRoute: typeof InspireRoute
   LessonsRoute: typeof LessonsRoute
@@ -259,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof CreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ideas': {
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
   BusyworkRoute: BusyworkRoute,
   ChallengeRoute: ChallengeRoute,
   CreateRoute: CreateRoute,
+  HelpRoute: HelpRoute,
   IdeasRoute: IdeasRoute,
   InspireRoute: InspireRoute,
   LessonsRoute: LessonsRoute,
