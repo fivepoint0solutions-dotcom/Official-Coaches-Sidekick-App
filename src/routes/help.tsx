@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Search } from "lucide-react";
+import { GuideDiagram } from "@/components/help/HelpDiagram";
 import { GUIDE_GROUPS, type GuideTopic } from "@/lib/helpGuide";
 import { DisplaySettings } from "@/components/navigation/AppHeader";
 import { cn } from "@/lib/utils";
@@ -61,6 +62,7 @@ function Topic({ topic, open, onToggle }: { topic: GuideTopic; open: boolean; on
     <Pill title={topic.title} open={open} onToggle={onToggle}>
       <>
           <p className="text-sm text-white/90">{topic.intro}</p>
+          {topic.diagram && <GuideDiagram spec={topic.diagram} />}
           <ol className="space-y-2.5">
             {topic.steps.map((s, i) => (
               <li key={i} className="flex gap-3 text-sm text-white">

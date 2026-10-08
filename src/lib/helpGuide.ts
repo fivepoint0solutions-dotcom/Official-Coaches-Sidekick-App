@@ -2,12 +2,15 @@
    Each topic has a short intro, numbered steps, optional tips and an optional shortcut that
    takes the person to the screen being explained. */
 
+import type { DiagramSpec } from "@/components/help/HelpDiagram";
+
 export type GuideLink = { to: "/" | "/drills" | "/drills/new" | "/lessons" | "/ideas" | "/materials" | "/create"; label: string };
 
 export type GuideTopic = {
   id: string;
   title: string;
   intro: string;
+  diagram?: DiagramSpec;
   steps: string[];
   tips?: string[];
   go?: GuideLink;
@@ -24,6 +27,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "top-bar",
         title: "The bar at the top of every screen",
         intro: "The same bar sits at the top of every page, so you always know where to tap.",
+        diagram: { kind: "top-bar", noDots: true, notes: [["Logo and name", "Tap to go back to the Dashboard"], ["EN", "Change the language"], ["Three lines", "Opens the menu"]] },
         steps: [
           "Tap the logo and \"Coach's Sidekick\" on the left to jump back to the Dashboard from anywhere.",
           "Tap EN (the small globe) to change the language: English, Español, Français or हिन्दी.",
@@ -36,6 +40,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "menu",
         title: "The menu (three lines)",
         intro: "The menu lists every page of the app. It floats over the screen and closes by itself.",
+        diagram: { kind: "menu", items: ["Drill Library", "My Practices", "My Ideas", "Team Materials", "Help"], highlight: "Help" },
         steps: [
           "Tap the round button with three lines in the top right corner.",
           "A list of buttons appears: Drill Library, My Practices, My Ideas, Team Materials and Help.",
@@ -48,6 +53,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "computer",
         title: "On a computer",
         intro: "On a bigger screen the pages are listed down the left side, so you do not need the menu.",
+        diagram: { kind: "sidebar", items: ["Dashboard", "Drill Library", "My Practices", "My Ideas", "Team Materials"] },
         steps: [
           "Look at the panel on the left: Dashboard, Drill Library, My Practices, My Ideas and Team Materials.",
           "Click the page you want. The one you are on is highlighted.",
@@ -58,11 +64,11 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "swipe",
         title: "Swiping from page to page (phones)",
         intro: "You can move between the main pages with your finger instead of the menu.",
+        diagram: { kind: "swipe", pages: ["Dashboard", "Drill Library", "My Practices", "My Ideas", "Team Materials"] },
         steps: [
           "Swipe from right to left to go to the next page. Swipe from left to right to go to the previous one.",
           "The pages are in this order: Dashboard, Drill Library, My Practices, My Ideas, Team Materials.",
-          "The small dots under the top bar show where you are.",
-        ],
+                  ],
         tips: [
           "Swiping is ignored when your finger starts on a button, a text box, or a row that scrolls sideways (like the sport filters in the Drill Library). That is on purpose, so you never change page by accident.",
         ],
@@ -71,6 +77,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "floating",
         title: "The two floating buttons",
         intro: "Two round buttons float over every page so they are always within reach.",
+        diagram: { kind: "floating", left: ["Megaphone:", "send feedback"], right: ["Microphone:", "chat with the Sidekick"] },
         steps: [
           "Bottom right: the microphone. Tap it to open the chat with Coach's Sidekick (see \"Ask Coach's Sidekick\").",
           "Bottom left: the megaphone. Tap it to send feedback to the team that built the app.",
@@ -99,6 +106,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "modes",
         title: "Which mode should I pick?",
         intro: "The four modes are four different kinds of help. You are in charge of every decision in all of them.",
+        diagram: { kind: "modes", modes: [{ t: "Draw Up Plays", d: ["Ideas and angles,", "not a finished plan"] }, { t: "Build a Practice", d: ["Shape a practice", "step by step"] }, { t: "Handle the Busywork", d: ["Drill sheets, reports,", "rubrics, messages"] }, { t: "Scout Me", d: ["A second opinion", "on your plan"] }] },
         steps: [
           "Draw Up Plays: you get several ideas and angles, not a finished plan. Use it when you are stuck for an idea.",
           "Build a Practice: you answer a few quick questions and shape a practice together, step by step.",
@@ -238,6 +246,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "add-drill",
         title: "Making your own drill",
         intro: "Add your own drills and they sit right alongside the built-in ones.",
+        diagram: { kind: "drill-form" },
         steps: [
           "Open the Drill Library and tap Add a drill.",
           "Fill in Sport, Category, Drill name, Age group, Duration, Equipment and Setup. For example Soccer, Possession, Rondo, U10+, 15-20 min, Cones and 1 ball per group.",
@@ -253,6 +262,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "diagram",
         title: "Drawing a diagram",
         intro: "A simple board lets you sketch the drill with players, cones and arrows.",
+        diagram: { kind: "drill-board" },
         steps: [
           "In the drill form, tap Draw a diagram. A board appears.",
           "Tap a marker tool (Player, Defender, Cone, Ball or Coach), then tap the board to drop one.",
