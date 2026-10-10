@@ -159,16 +159,16 @@ function DrillDetailPage() {
             ) : null}
           </div>
         </header>
-        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 lg:border-t lg:border-white/25 lg:pt-8 lg:text-[0.95rem]">
+        {drill.diagram ? (
+          <section className="mt-8 lg:mt-10 lg:border-t lg:border-white/25 lg:pt-8">
+            <h2 className="text-title">Diagram</h2>
+            <div className="mx-auto mt-3 w-full max-w-5xl">
+              <DrillDiagram diagram={drill.diagram} id={drill.id} />
+            </div>
+          </section>
+        ) : null}
+        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-2 lg:gap-10 lg:border-t lg:border-white/25 lg:pt-8 lg:text-[0.95rem]">
           <div className="space-y-8">
-            {drill.diagram ? (
-              <section>
-                <h2 className="text-title">Diagram</h2>
-                <div className="mt-3">
-                  <DrillDiagram diagram={drill.diagram} id={drill.id} />
-                </div>
-              </section>
-            ) : null}
             <section>
               <h2 className="text-title flex items-center gap-2">
                 <Package className="size-5 text-interactive" /> Equipment

@@ -21,6 +21,7 @@ import {
   type DiagramMarker,
   type DrillDiagramSpec,
 } from "./DrillDiagram";
+import { buildPath, weavePath, type PathKind } from "./pathShapes";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 
 const SURFACE_LABELS: Record<SurfaceId, string> = {
@@ -56,7 +57,15 @@ type Tool =
   | "eraser"
   | "pen"
   | `marker-${DiagramMarker["kind"]}`
-  | `arrow-${NonNullable<DiagramArrow["style"]>}`;
+  | `arrow-${NonNullable<DiagramArrow["style"]>}`
+  | `path-${PathKind}`;
+
+const PATH_TOOLS: { kind: PathKind; label: string }[] = [
+  { kind: "line", label: "Straight line" },
+  { kind: "arc", label: "Half circle" },
+  { kind: "corner", label: "Corner" },
+  { kind: "s", label: "S-turn" },
+];
 
 const HISTORY_LIMIT = 20;
 const HIT_RADIUS = 4.5;
@@ -83,6 +92,8 @@ export function DrillBoardEditor({ value, onChange }: Props) {
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
   const [livePoint, setLivePoint] = useState<[number, number] | null>(null);
   const [drawingStroke, setDrawingStroke] = useState<[number, number][] | null>(null);
+  const [flip, setFlip] = useState(false);
+  const [notice, setNotice] = useState("");
   const svgRef = useRef<SVGSVGElement>(null);
 
   const { w, h } = SURFACE_VIEWBOX[value.surface];
@@ -108,6 +119,17 @@ export function DrillBoardEditor({ value, onChange }: Props) {
 
   function clearBoard() {
     commit({ ...value, markers: [], arrows: [], strokes: [] });
+  }
+
+  function weaveCones() {
+    const cones = value.markers.filter((m) => m.kind === "cone").map((m) => [m.x, m.y] as [number, number]);
+    const points = weavePath(cones, w, h, flip);
+    if (!points) {
+      setNotice("Place at least two cones first, then tap Weave through cones.");
+      return;
+    }
+    setNotice("");
+    commit({ ...value, strokes: [...(value.strokes ?? []), { points }] });
   }
 
   function pointFromEvent(event: ReactPointerEvent): [number, number] {
@@ -208,6 +230,19 @@ export function DrillBoardEditor({ value, onChange }: Props) {
         ...value,
         arrows: [...(value.arrows ?? []), { from: arrowStart, to: point, style }],
       });
+      setArrowStart(null);
+      setLivePoint(null);
+      return;
+    }
+
+    if (tool.startsWith("path-")) {
+      const kind = tool.replace("path-", "") as PathKind;
+      if (!arrowStart) {
+        setArrowStart(point);
+        setLivePoint(point);
+        return;
+      }
+      commit({ ...value, strokes: [...(value.strokes ?? []), { points: buildPath(kind, arrowStart, point, w, h, flip) }] });
       setArrowStart(null);
       setLivePoint(null);
       return;
@@ -354,6 +389,27 @@ export function DrillBoardEditor({ value, onChange }: Props) {
             {label} arrow
           </Button>
         ))}
+        {PATH_TOOLS.map(({ kind, label }) => (
+          <Button
+            key={kind}
+            type="button"
+            size="sm"
+            variant={tool === `path-${kind}` ? "default" : "outline"}
+            onClick={() => {
+              setTool(`path-${kind}`);
+              setArrowStart(null);
+              setNotice("");
+            }}
+          >
+            {label}
+          </Button>
+        ))}
+        <Button type="button" size="sm" variant="outline" onClick={weaveCones} className="bg-white/80">
+          Weave through cones
+        </Button>
+        <Button type="button" size="sm" variant={flip ? "default" : "outline"} onClick={() => setFlip((f) => !f)} aria-pressed={flip}>
+          Flip side
+        </Button>
         <Button
           type="button"
           size="sm"
@@ -385,6 +441,9 @@ export function DrillBoardEditor({ value, onChange }: Props) {
         {tool === "eraser" && "Click a marker, arrow, or drawn line to remove it."}
         {tool === "pen" && "Press and drag to draw a freehand line."}
         {tool.startsWith("marker-") && "Click anywhere on the board to drop a marker."}
+        {tool.startsWith("path-") &&
+          (arrowStart ? "Click where the path ends." : "Click where the path starts.")}
+        {notice && <span className="font-semibold text-foreground"> {notice}</span>}
         {tool.startsWith("arrow-") &&
           (arrowStart ? "Click the arrow's end point." : "Click the arrow's start point.")}
       </p>
@@ -411,7 +470,12 @@ export function DrillBoardEditor({ value, onChange }: Props) {
             <Stroke key={i} stroke={stroke} w={w} h={h} />
           ))}
           {drawingStroke ? <Stroke stroke={{ points: drawingStroke }} w={w} h={h} /> : null}
-          {arrowStart && livePoint ? (
+          {arrowStart && livePoint && tool.startsWith("path-") ? (
+            <polyline
+              points={buildPath(tool.replace("path-", "") as PathKind, arrowStart, livePoint, w, h, flip).map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ")}
+              fill="none" stroke="#1A2236" strokeWidth={0.6} strokeDasharray="1.5 1.2"
+            />
+          ) : arrowStart && livePoint ? (
             <line
               x1={pct(arrowStart[0], w)}
               y1={pct(arrowStart[1], h)}

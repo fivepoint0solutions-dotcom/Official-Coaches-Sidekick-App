@@ -99,6 +99,32 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      <section className="glass-panel space-y-4 p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-title">Diagram</h2>
+          <Button
+            type="button"
+            size="sm"
+            variant={hasDiagram ? "outline" : "cta"}
+            onClick={() => {
+              setHasDiagram((prev) => !prev);
+              if (!values.diagram) set("diagram", EMPTY_DIAGRAM);
+            }}
+          >
+            {hasDiagram ? "Remove diagram" : "Draw a diagram"}
+          </Button>
+        </div>
+        {hasDiagram ? (
+          <DrillBoardEditor
+            value={values.diagram ?? EMPTY_DIAGRAM}
+            onChange={(diagram) => set("diagram", diagram)}
+          />
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Optional — sketch player positions, movement, and passing lanes on a sport surface.
+          </p>
+        )}
+      </section>
       <section className="glass-panel grid gap-5 p-5 sm:grid-cols-2">
         <Field label="Sport" required>
           <Input
@@ -179,32 +205,6 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
         placeholder="A cue you'd give players…"
       />
 
-      <section className="glass-panel space-y-4 p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-title">Diagram</h2>
-          <Button
-            type="button"
-            size="sm"
-            variant={hasDiagram ? "outline" : "cta"}
-            onClick={() => {
-              setHasDiagram((prev) => !prev);
-              if (!values.diagram) set("diagram", EMPTY_DIAGRAM);
-            }}
-          >
-            {hasDiagram ? "Remove diagram" : "Draw a diagram"}
-          </Button>
-        </div>
-        {hasDiagram ? (
-          <DrillBoardEditor
-            value={values.diagram ?? EMPTY_DIAGRAM}
-            onChange={(diagram) => set("diagram", diagram)}
-          />
-        ) : (
-          <p className="text-sm text-muted-foreground">
-            Optional — sketch player positions, movement, and passing lanes on a sport surface.
-          </p>
-        )}
-      </section>
 
       <Button type="submit" variant="hero" size="lg" disabled={!requiredFilled}>
         {submitLabel}
