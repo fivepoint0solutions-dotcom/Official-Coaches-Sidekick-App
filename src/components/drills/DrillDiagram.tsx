@@ -137,7 +137,10 @@ export function DrillDiagram({ diagram, id }: { diagram: DrillDiagramSpec; id: s
   const { w, h } = SURFACE_VIEWBOX[diagram.surface];
 
   return (
-    <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
+    <div
+      className="anchor-card-gradient card-tint-inspire relative mx-auto overflow-hidden rounded-2xl p-3"
+      style={{ maxWidth: `calc(46vh * ${w / h} + 1.5rem)` }}
+    >
       <div
         className="relative w-full overflow-hidden rounded-xl shadow-inner"
         style={{ aspectRatio: `${w} / ${h}` }}

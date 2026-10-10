@@ -449,8 +449,8 @@ export function DrillBoardEditor({ value, onChange }: Props) {
       </p>
 
       <div
-        className="relative w-full touch-none select-none overflow-hidden rounded-xl shadow-inner"
-        style={{ aspectRatio: `${w} / ${h}` }}
+        className="relative mx-auto w-full touch-none select-none overflow-hidden rounded-xl shadow-inner"
+        style={{ aspectRatio: `${w} / ${h}`, maxWidth: `calc(52vh * ${w / h})` }}
       >
         <div className="absolute inset-0">
           <Surface />
