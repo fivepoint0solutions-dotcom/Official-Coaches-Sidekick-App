@@ -91,6 +91,9 @@ function Dashboard() {
       </section>
 
       <section className="container-app pt-4 pb-10 lg:pb-12">
+        <Reveal className="mb-4">
+          <img src="/art/arena/hero-goalie.webp" alt="" className="hero-photo" decoding="async" />
+        </Reveal>
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
             {modes.map((mode) => (

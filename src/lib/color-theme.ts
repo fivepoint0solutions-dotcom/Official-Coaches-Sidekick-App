@@ -45,10 +45,10 @@ export type ColorTheme = {
 export const COLOR_THEMES: ColorTheme[] = [
   {
     id: "crest",
-    label: "Coach's Crest",
-    blurb: "The original look: warm cream, deep navy and terracotta.",
+    label: "Arena",
+    blurb: "The original look: newsprint, arena black, glove red and goalie orange.",
     tokens: null,
-    swatches: ["#27475F", "#E0A25A", "#5FA3CC", "#A8695F"],
+    swatches: ["#151922", "#D3202B", "#F26B1D", "#1C2F5E"],
   },
   {
     id: "ink",
