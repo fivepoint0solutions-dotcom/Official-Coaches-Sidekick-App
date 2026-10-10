@@ -258,7 +258,7 @@ export function AppHeader() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-md items-start justify-between gap-3 px-4 pt-4 pb-5 pointer-events-none md:max-w-7xl"
+        className="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
       >
         <Link
           to="/"
@@ -269,7 +269,7 @@ export function AppHeader() {
             src={brandMark}
             alt=""
             aria-hidden="true"
-            className="size-16 shrink-0 object-contain transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"
+            className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
             style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
           />
           <span
