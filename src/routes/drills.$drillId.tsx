@@ -120,54 +120,51 @@ function DrillDetailPage() {
       >
         <ArrowLeft className="size-4" /> Back to Drill Library
       </Link>
-      {/* Desktop: one big card holds the header and the drill details. Phones keep the separate header card. */}
-      <div className="mt-6 lg:anchor-card-gradient lg:card-tint-build lg:rounded-3xl lg:p-10">
-        <header className="anchor-card-gradient card-tint-build rounded-3xl p-7 sm:p-10 lg:contents">
+      {/* One card: the diagram first (so it and the drill notes are both on screen), then a compact title row. */}
+      <div className="anchor-card-gradient card-tint-build mt-4 rounded-3xl p-4 sm:p-6 lg:p-8">
+        {drill.diagram ? (
+          <div className="mx-auto w-full max-w-5xl">
+            <DrillDiagram diagram={drill.diagram} id={drill.id} />
+          </div>
+        ) : null}
+        <header className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="badge-pill border border-white/40 bg-white/15">{drill.sport}</span>
+              <span className="badge-pill border border-white/40 bg-white/15">{drill.category}</span>
+              {isCustom ? (
+                <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
+              ) : null}
+              <span className="flex items-center gap-1.5 text-sm font-semibold">
+                <Clock3 className="size-4" />
+                {drill.duration}
+              </span>
+              <span className="flex items-center gap-1.5 text-sm font-semibold">
+                <Users className="size-4" />
+                {drill.ageGroup}
+              </span>
+            </div>
+            <h1 className="text-headline mt-2">{drill.name}</h1>
+          </div>
           <div className="flex flex-wrap gap-2">
-            <span className="badge-pill border border-white/40 bg-white/15">{drill.sport}</span>
-            <span className="badge-pill border border-white/40 bg-white/15">{drill.category}</span>
-            {isCustom ? (
-              <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
-            ) : null}
-          </div>
-          <h1 className="text-display mt-5">{drill.name}</h1>
-          <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
-            <span className="flex items-center gap-2">
-              <Clock3 className="size-4" />
-              {drill.duration}
-            </span>
-            <span className="flex items-center gap-2">
-              <Users className="size-4" />
-              {drill.ageGroup}
-            </span>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button variant="hero" size="lg" onClick={useInPractice}>
+            <Button variant="hero" onClick={useInPractice}>
               <Play /> Use in Practice
             </Button>
             {isCustom ? (
               <>
-                <Button asChild variant="outline" size="lg" className="bg-white/80">
+                <Button asChild variant="outline" className="bg-white/80">
                   <Link to="/drills/$drillId/edit" params={{ drillId: drill.id }}>
                     <Pencil /> Edit
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="bg-white/80" onClick={handleDelete}>
+                <Button variant="outline" className="bg-white/80" onClick={handleDelete}>
                   <Trash2 /> Delete
                 </Button>
               </>
             ) : null}
           </div>
         </header>
-        {drill.diagram ? (
-          <section className="mt-8 lg:mt-10 lg:border-t lg:border-white/25 lg:pt-8">
-            <h2 className="text-title">Diagram</h2>
-            <div className="mx-auto mt-3 w-full max-w-5xl">
-              <DrillDiagram diagram={drill.diagram} id={drill.id} />
-            </div>
-          </section>
-        ) : null}
-        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-2 lg:gap-10 lg:border-t lg:border-white/25 lg:pt-8 lg:text-[0.95rem]">
+        <div className="mt-5 grid gap-6 border-t border-white/25 pt-5 lg:grid-cols-2 lg:gap-8 lg:text-[0.95rem]">
           <div className="space-y-8">
             <section>
               <h2 className="text-title flex items-center gap-2">
