@@ -1022,7 +1022,7 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
   --notch: 22px;    /* swallowtail depth on pennants */
   --cw: #151922;    /* banner colourway (set per mode below) */
   --card-glow: #F26B1D; /* trim colour on the left edge */
-  --stripe: linear-gradient(45deg, rgb(255 255 255 / 0.07) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / 0.07) 50%, rgb(255 255 255 / 0.07) 75%, transparent 75%);
+  --stripe: linear-gradient(transparent, transparent);
 }
 .card-tint-inspire { --cw: #B3141F; --card-glow: #F26B1D; }
 .card-tint-build { --cw: #1C2F5E; --card-glow: #F4F1EA; }
@@ -1055,7 +1055,6 @@ button.rounded-full, a.rounded-full, [role="button"].rounded-full { border-radiu
 .anchor-card-gradient, .card-soft, .card-elevated, .big-cta {
   background-image: var(--stripe), linear-gradient(135deg, var(--cw), color-mix(in srgb, var(--cw) 72%, #000));
   background-size: 22px 22px, 100% 100%;
-  animation: arena-stripes 40s linear infinite;
   border: 0;
   box-shadow: inset 6px 0 0 var(--card-glow);
 }
@@ -1126,3 +1125,10 @@ body::before {
   object-position: 50% 45%;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
 }
+
+/* Readable fields inside coloured panels: cream paper field, dark ink, clear placeholder. */
+.anchor-card-gradient :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select) {
+  background: #FFF8EA !important; color: #1B1F2A !important; border: 2px solid rgba(21,25,34,.55) !important;
+  border-radius: 4px !important; font-size: 1.05rem;
+}
+.anchor-card-gradient :is(textarea, input)::placeholder { color: #5C5648 !important; opacity: 1 !important; }
