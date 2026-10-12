@@ -125,6 +125,21 @@ function HelpPage() {
           </p>
         </div>
 
+        <div className="mb-6 flex items-center gap-4 p-4" style={{ background: "#FFFFFF", color: "#151922", borderLeft: "8px solid #E8631A", boxShadow: "0 8px 18px -10px rgba(0,0,0,.45)", clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%)" }}>
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIiIGhlaWdodD0iMTMyIiBjbGFzcz0ic2Vnbm8iPjxnIHRyYW5zZm9ybT0ic2NhbGUoNCkiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMzN2MzNoLTMzeiIvPjxwYXRoIGNsYXNzPSJxcmxpbmUiIHN0cm9rZT0iIzExMSIgZD0iTTIgMi41aDdtMSAwaDJtMiAwaDNtMyAwaDFtMyAwaDdtLTI5IDFoMW01IDBoMW0xIDBoMW0yIDBoMW0xIDBoMm0yIDBoM20yIDBoMW01IDBoMW0tMjkgMWgxbTEgMGgzbTEgMGgxbTEgMGgybTEgMGgxbTEgMGgybTcgMGgxbTEgMGgzbTEgMGgxbS0yOSAxaDFtMSAwaDNtMSAwaDFtMiAwaDNtMSAwaDFtMSAwaDRtMSAwaDFtMSAwaDFtMSAwaDNtMSAwaDFtLTI5IDFoMW0xIDBoM20xIDBoMW0xIDBoM20xIDBoMW01IDBoMm0yIDBoMW0xIDBoM20xIDBoMW0tMjkgMWgxbTUgMGgxbTQgMGgxbTUgMGgxbTIgMGgxbTEgMGgxbTUgMGgxbS0yOSAxaDdtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDdtLTE4IDFoNG0xIDBoMW0yIDBoMm0tMjEgMWgxbTIgMGgxMG0xIDBoNG0zIDBoMW0yIDBoMW0xIDBoM20tMjkgMWgzbTQgMGgxbTEgMGgybTQgMGgxbTIgMGgybTMgMGgybTEgMGgybS0yOCAxaDFtMSAwaDVtMiAwaDFtMSAwaDFtMiAwaDJtMSAwaDJtMiAwaDJtMyAwaDFtLTIzIDFoMW00IDBoMm02IDBoMW0xIDBoMW0yIDBoNG0yIDBoMW0tMjkgMWgxbTMgMGgxbTEgMGgxbTQgMGg0bTEgMGgxbTMgMGgxbTEgMGgybTQgMGgxbS0yOSAxaDNtNCAwaDNtMiAwaDVtNCAwaDhtLTI4IDFoMW0xIDBoMW0xIDBoNW0zIDBoMW0xIDBoMm0xIDBoN20xIDBoMW0xIDBoMW0tMjkgMWgxbTIgMGgzbTIgMGgxbTEgMGgzbTEgMGgzbTEgMGgxbTIgMGgxbTIgMGgxbTEgMGgxbTEgMGgxbS0yOSAxaDJtMyAwaDJtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDJtNCAwaDJtMSAwaDFtMSAwaDFtLTI2IDFoM20yIDBoMW0xIDBoMm0yIDBoMW0xIDBoMW0xIDBoMW0xIDBoMW0xIDBoMm0zIDBoMW0xIDBoMm0tMjggMWgybTIgMGg2bTIgMGgxbTIgMGgxbTEgMGg0bTQgMGgxbTIgMGgxbS0yOSAxaDJtMSAwaDNtMyAwaDRtMSAwaDFtMyAwaDJtMSAwaDFtMSAwaDFtMSAwaDJtLTI3IDFoMm0xIDBoMm0xIDBoMW0xIDBoMW0xIDBoMW0yIDBoMTVtLTIwIDFoMm00IDBoMm0xIDBoMm0xIDBoMW0zIDBoMm0tMjYgMWg3bTEgMGgxbTEgMGgybTIgMGgybTMgMGgybTEgMGgxbTEgMGgybS0yNiAxaDFtNSAwaDFtMSAwaDJtMSAwaDFtMiAwaDJtMSAwaDRtMyAwaDFtMiAwaDFtLTI4IDFoMW0xIDBoM20xIDBoMW0xIDBoMm0xIDBoNW0zIDBoN20yIDBoMW0tMjkgMWgxbTEgMGgzbTEgMGgxbTEgMGgxbTEgMGgybTMgMGg0bTEgMGgybTYgMGgxbS0yOSAxaDFtMSAwaDNtMSAwaDFtMyAwaDNtMSAwaDJtMyAwaDJtMiAwaDJtMSAwaDNtLTI5IDFoMW01IDBoMW00IDBoMW0zIDBoMW0yIDBoMW0zIDBoMm0xIDBoMm0xIDBoMW0tMjkgMWg3bTEgMGgxbTEgMGgxbTEgMGgzbTQgMGgybTEgMGgzIi8+PC9nPjwvc3ZnPg=="
+            alt="QR code: scan to open this app on your phone"
+            width={112}
+            height={112}
+            className="shrink-0"
+            style={{ background: "#fff", padding: 5, boxShadow: "0 3px 10px rgba(0,0,0,.25)" }}
+          />
+          <div className="leading-snug">
+            <div className="font-display text-xl font-bold uppercase">&larr; Scan to open on your phone</div>
+            <div className="text-sm opacity-80">Point your camera at the code, or share it with your staff.</div>
+          </div>
+        </div>
+
         <label className="relative mb-6 block">
           <span className="sr-only">Search the help guide</span>
           <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
