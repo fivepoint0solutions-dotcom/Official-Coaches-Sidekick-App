@@ -20,12 +20,12 @@ export const Route = createFileRoute("/drills/")({
       {
         name: "description",
         content:
-          "Browse 35 curated coaching drills across seven sports, then bring any drill into your practice builder.",
+          "Browse 107 hockey drills, then bring any drill into your practice builder.",
       },
       { property: "og:title", content: "Drill Library — Coach's Sidekick" },
       {
         property: "og:description",
-        content: "Search real coaching drills by sport, skill, or equipment.",
+        content: "Search 107 hockey drills by skill, category, or equipment.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -58,6 +58,7 @@ function DrillLibraryPage() {
         drill.category,
         drill.equipment,
         drill.setup,
+        drill.level ?? "",
         ...drill.coachingPoints,
       ]
         .join(" ")
@@ -73,7 +74,7 @@ function DrillLibraryPage() {
           <p className="text-eyebrow text-interactive">Curated coaching collection</p>
           <h1 className="text-display mt-3">Drill Library</h1>
           <p className="text-lede mt-4 text-muted-foreground">
-            Search field-tested drills across seven sports, add your own, then drop one straight
+            Search 107 field-tested hockey drills, add your own, then drop one straight
             into your practice plan.
           </p>
         </div>
@@ -98,20 +99,22 @@ function DrillLibraryPage() {
             className="pl-11"
           />
         </label>
-        <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter by sport">
-          {["All sports", ...sports].map((option) => (
-            <Button
-              key={option}
-              type="button"
-              size="sm"
-              variant={sport === option ? "default" : "outline"}
-              onClick={() => setSport(option)}
-              className="shrink-0 rounded-full"
-            >
-              {option}
-            </Button>
-          ))}
-        </div>
+        {sports.length > 1 ? (
+          <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter by sport">
+            {["All sports", ...sports].map((option) => (
+              <Button
+                key={option}
+                type="button"
+                size="sm"
+                variant={sport === option ? "default" : "outline"}
+                onClick={() => setSport(option)}
+                className="shrink-0 rounded-full"
+              >
+                {option}
+              </Button>
+            ))}
+          </div>
+        ) : null}
         {userDrills.length ? (
           <Button
             type="button"
@@ -140,7 +143,7 @@ function DrillLibraryPage() {
         <section className="py-20 text-center">
           <h2 className="text-headline">No drills found</h2>
           <p className="mt-2 text-muted-foreground">
-            Try another sport, a broader search, or add your own.
+            Try a broader search, or add your own.
           </p>
         </section>
       )}
