@@ -160,9 +160,9 @@ function DrillDetailPage() {
           </div>
         </header>
         {drill.diagram ? (
-          <section className="mt-8 lg:mt-10 lg:border-t lg:border-white/25 lg:pt-8">
+          <section className="mt-6 lg:mt-10">
             <h2 className="text-title">Diagram</h2>
-            <div className="mx-auto mt-3 w-full max-w-5xl">
+            <div className="mt-3 w-full">
               <DrillDiagram diagram={drill.diagram} id={drill.id} />
             </div>
           </section>
