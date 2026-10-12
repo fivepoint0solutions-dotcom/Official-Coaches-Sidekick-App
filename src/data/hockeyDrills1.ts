@@ -10,7 +10,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players line up along the goal line, no pucks. Coach demonstrates at center ice.",
     steps: ["Players take three hard strides, then glide on two feet to the blue line with knees bent and chest up.","Recover to a hockey stance, then repeat: three strides, glide to the red line.","Continue the pattern the full length of the ice, alternating glide lengths.","On the way back, players stride continuously without the glide pauses."],
     coachingPoints: ["Push through the middle of the blade, not the toe, and fully extend each leg.","Keep the head up and the stick on the ice, not dragging behind.","Glide with weight balanced over both skates, knees soft, not locked."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:6,y:32,kind:"player"},{x:6,y:44,kind:"player"},{x:6,y:56,kind:"player"},{x:6,y:68,kind:"player"},{x:50,y:82,kind:"coach",label:"C"}],arrows:[{from:[10,50],to:[90,50],style:"run"}]},
   },
   {
     id: "SKT-002", name: "C-Cuts Along the Boards", category: "Skating", duration: "8 min",
@@ -18,7 +18,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players spread out along the boards in one direction, facing the middle of the ice, no pucks.",
     steps: ["Players hold the boards lightly for balance and push off with the inside edge of the outside skate, tracing a C shape.","Recover the pushing skate under the body and repeat with the same leg for five pushes.","Switch sides and repeat with the other leg for five pushes.","Let go of the boards and skate the width of the ice using alternating C-cuts."],
     coachingPoints: ["The push comes from the inside edge; the glide skate stays flat and pointed forward.","Stay low with knees bent so the push has power behind it.","Keep the upper body quiet \u2014 no swaying side to side."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:20,y:10,kind:"player"},{x:40,y:10,kind:"player"},{x:60,y:10,kind:"player"},{x:80,y:10,kind:"player"},{x:50,y:30,kind:"coach",label:"C"}],arrows:[{from:[14,12],to:[86,12],style:"run"}]},
   },
   {
     id: "SKT-003", name: "Two-Foot Snowplow Stops", category: "Skating", duration: "10 min",
@@ -26,7 +26,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players in two lines at the goal line. Coach marks a stopping zone between the blue lines with cones.",
     steps: ["First player in each line skates at half speed toward the stopping zone.","Inside the zone, the player turns both skates sideways at the same time and shaves the ice to a full stop.","Player holds the stopped position for two seconds, then skates easy to the far end.","Repeat at three-quarter speed, then full speed, stopping on both the left and right sides."],
     coachingPoints: ["Bend the knees deeply before the stop; straight legs cannot grip the ice.","Turn the hips and shoulders together so both skates bite at once.","Keep the stick on the ice for balance, not waving in the air."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:5,y:38,kind:"player"},{x:5,y:48,kind:"player"},{x:5,y:58,kind:"player"},{x:10,y:38,kind:"player"},{x:10,y:48,kind:"player"},{x:10,y:58,kind:"player"},{x:33,y:38,kind:"cone"},{x:33,y:62,kind:"cone"},{x:67,y:38,kind:"cone"},{x:67,y:62,kind:"cone"},{x:50,y:82,kind:"coach",label:"C"}],arrows:[{from:[13,44],to:[50,50],style:"run"},{from:[13,56],to:[50,54],style:"run"}]},
   },
   {
     id: "SKT-004", name: "Forward Crossovers Around the Circle", category: "Skating", duration: "10 min",
@@ -34,7 +34,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players gather around one faceoff circle, no pucks. Coach skates the pattern once to show the crossover motion.",
     steps: ["Players skate slowly around the circle, crossing the outside skate over the inside skate on each stride.","Complete two full laps in one direction, focusing on long pushes rather than quick steps.","Switch direction and complete two laps crossing over the other way.","Add a puck for the final two laps, keeping the puck on the forehand through the turn."],
     coachingPoints: ["Lean the whole body into the circle; crossovers need inside lean to work.","The under-push from the inside skate is what creates speed \u2014 don't skip it.","Keep the head up and look where the circle is going, not down at the skates."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:13,y:40,kind:"player"},{x:13,y:60,kind:"player"},{x:27,y:40,kind:"player"},{x:27,y:60,kind:"player"},{x:20,y:30,kind:"player"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[12,50],to:[20,30],style:"run"}]},
   },
   {
     id: "SKT-005", name: "Backward C-Cuts", category: "Skating", duration: "8 min",
@@ -42,7 +42,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players line up on the goal line facing up the ice, no pucks.",
     steps: ["Players start gliding backward slowly and push with alternating C-cuts to the blue line.","Stop, turn, and skate forward back to the goal line to recover.","Repeat the backward C-cut trip, this time keeping the stick in one hand and the other hand out for balance.","Final rep: backward C-cuts the full length of the ice without stopping."],
     coachingPoints: ["Sit back slightly with chest up \u2014 backward skating needs the weight over the heels.","Make each C-cut a full push and full recovery, not short choppy kicks.","Look over one shoulder in the direction of travel; switch shoulders each trip."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:6,y:40,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:60,kind:"player"}],arrows:[{from:[10,46],to:[31,46],style:"run"},{from:[31,56],to:[10,56],style:"run"}]},
   },
   {
     id: "SKT-006", name: "Tight Turns Around the Dots", category: "Skating", duration: "10 min",
@@ -50,7 +50,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Place a cone on each of the four neutral-zone faceoff dots. Players form two lines at center ice, half with pucks.",
     steps: ["First player skates hard at the nearest dot and executes a tight turn around it, staying on the inside edges.","Player accelerates out of the turn to the next dot and tight-turns around it the other way.","Continue through all four dots in a weaving pattern, then sprint to the far blue line.","Second wave goes when the first player clears the second dot. Switch puck and no-puck groups halfway."],
     coachingPoints: ["Drop the inside shoulder and drive the inside knee into the turn to stay tight.","Keep the feet moving through the whole turn \u2014 gliding kills the tightness.","Accelerate out of every turn; the turn is only useful if you explode out of it."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:42,y:30,kind:"cone"},{x:42,y:70,kind:"cone"},{x:58,y:30,kind:"cone"},{x:58,y:70,kind:"cone"},{x:50,y:42,kind:"player"},{x:50,y:48,kind:"player"},{x:50,y:54,kind:"player"},{x:50,y:60,kind:"player"},{x:48,y:45,kind:"ball"},{x:52,y:57,kind:"ball"}],arrows:[{from:[50,44],to:[43,32],style:"run"},{from:[43,32],to:[57,68],style:"run"}]},
   },
   {
     id: "SKT-007", name: "Forward-to-Backward Pivots", category: "Skating", duration: "10 min",
@@ -58,7 +58,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Cones mark three pivot gates across the ice at the red line and both blue lines. Players in two lines at the goal line.",
     steps: ["Player skates forward hard at the first gate, opens the hips, and pivots to backward without losing speed.","Skate backward to the second gate, then pivot back to forward.","Pivot once more at the third gate and sprint through the far goal line.","Run the pattern in both directions so players pivot off each foot."],
     coachingPoints: ["Open the hips before the feet \u2014 the pivot starts with the lower body, not a hop.","Stay low through the transition; popping upright bleeds all your speed.","Keep the stick in front of the body so it stays usable coming out of the pivot."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:33,y:42,kind:"cone"},{x:33,y:58,kind:"cone"},{x:50,y:42,kind:"cone"},{x:50,y:58,kind:"cone"},{x:67,y:42,kind:"cone"},{x:67,y:58,kind:"cone"},{x:6,y:44,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:56,kind:"player"}],arrows:[{from:[10,50],to:[88,50],style:"run"}]},
   },
   {
     id: "SKT-008", name: "Russian Circles", category: "Skating", duration: "12 min",
@@ -66,7 +66,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "No cones needed \u2014 players use the faceoff circles and the center-ice circle. Two groups start at opposite ends.",
     steps: ["Players skate a full lap around the end-zone faceoff circle using continuous forward crossovers.","Without stopping, they crossover around the center-ice circle, then around the far end-zone circle.","That completes one full-ice loop; players do three loops, then rest while the next group goes.","Advanced groups add a puck and must keep it on their stick through every crossover."],
     coachingPoints: ["Crossovers must be continuous \u2014 any straight-stride coasting defeats the drill.","Drive the outside knee across hard on every stride to build real power.","Breathe rhythmically; this is a conditioning drill disguised as a skating drill."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:14,y:42,kind:"player"},{x:14,y:58,kind:"player"},{x:26,y:50,kind:"player"},{x:74,y:42,kind:"player"},{x:74,y:58,kind:"player"},{x:86,y:50,kind:"player"}],arrows:[{from:[12,50],to:[28,50],style:"run"},{from:[72,50],to:[88,50],style:"run"}]},
   },
   {
     id: "SKT-009", name: "One-Foot Slalom Edges", category: "Skating", duration: "10 min",
@@ -74,7 +74,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Set six cones in a straight line down the middle of the ice, about three meters apart. Players line up at the goal line.",
     steps: ["Player skates at the cone line on one foot and weaves through all six cones on the inside edge.","Glide back to the line on two feet, then weave through on the other foot using the outside edge.","Next rep: alternate edges each cone \u2014 inside edge, outside edge, inside edge \u2014 on a single foot.","Final rep: full speed through the slalom on one foot, then a hard stop at the far end."],
     coachingPoints: ["The ankle must stay locked and strong; a wobbling ankle means the weight is wrong.","Keep the free foot tucked tight under the body, not swinging out for balance.","Quiet upper body \u2014 all the steering comes from the edges and the hips."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:25,y:50,kind:"cone"},{x:33,y:50,kind:"cone"},{x:41,y:50,kind:"cone"},{x:49,y:50,kind:"cone"},{x:57,y:50,kind:"cone"},{x:65,y:50,kind:"cone"},{x:6,y:42,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:58,kind:"player"}],arrows:[{from:[10,50],to:[70,50],style:"dribble"}]},
   },
   {
     id: "SKT-010", name: "Backward Crossovers with Puck", category: "Skating", duration: "10 min",
@@ -82,7 +82,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players around the center-ice circle, each with a puck. Coach stands in the middle to observe.",
     steps: ["Players skate backward around the circle doing crossovers while stickhandling the puck.","Complete two laps in one direction, keeping the puck within a stick-length at all times.","Switch direction and complete two laps crossing over the other way.","Coach blows the whistle at random; players stop instantly and restart on the next whistle."],
     coachingPoints: ["The puck should ride on the forehand through the crossover \u2014 don't let it drift wide.","Shoulder-check in the direction of travel every few strides like a real game.","If the puck gets away, the crossovers are too choppy \u2014 slow down and lengthen the pushes."],
-    diagram:{surface:"hockey-full",markers:[{x:6,y:35,kind:"player"},{x:6,y:50,kind:"player"},{x:6,y:65,kind:"player"},{x:30,y:50,kind:"cone"},{x:50,y:50,kind:"cone"},{x:70,y:50,kind:"cone"},{x:50,y:78,kind:"coach",label:"C"}],arrows:[{from:[11,50],to:[90,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:42,y:42,kind:"player"},{x:58,y:42,kind:"player"},{x:42,y:58,kind:"player"},{x:58,y:58,kind:"player"},{x:50,y:36,kind:"player"},{x:44,y:44,kind:"ball"},{x:56,y:56,kind:"ball"},{x:50,y:50,kind:"coach",label:"C"}],arrows:[{from:[42,44],to:[56,40],style:"run"}]},
   },
   {
     id: "SHT-001", name: "Stationary Wrist Shot Form", category: "Shooting", duration: "8 min",
@@ -90,7 +90,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs spread along the boards, pucks in the middle of the ice. No nets needed.",
     steps: ["Players pair up across from each other, each pair with one puck, shooter five meters from the boards.","Shooter sets the puck beside the back foot, pulls it forward while transferring weight, and releases a wrist shot into the boards.","Partner catches the rebound and becomes the shooter; rotate every five shots.","Coach walks the line correcting hand position and weight transfer."],
     coachingPoints: ["Hands start apart and finish together \u2014 the bottom hand drives the shot.","Weight transfers from the back foot to the front foot through the release.","Follow through with the blade pointing at the target, low and on the ice."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:15,y:32,kind:"player"},{x:15,y:58,kind:"player"},{x:32,y:32,kind:"player"},{x:32,y:58,kind:"player"},{x:49,y:32,kind:"player"},{x:49,y:58,kind:"player"},{x:20,y:45,kind:"ball"},{x:37,y:45,kind:"ball"},{x:54,y:45,kind:"ball"},{x:32,y:84,kind:"coach",label:"C"}],arrows:[{from:[15,34],to:[15,14],style:"run"},{from:[32,34],to:[32,14],style:"run"},{from:[49,34],to:[49,14],style:"run"}]},
   },
   {
     id: "SHT-002", name: "Sweep Shot on the Move", category: "Shooting", duration: "10 min",
@@ -98,7 +98,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net, one line of players in the corner with pucks, coach at the hash marks with a pile of pucks.",
     steps: ["Player skates down the boards with a puck at half speed toward the coach at the hash marks.","Coach slides a second puck into the player's path; the player sweeps it toward the net without breaking stride.","Player continues to the net for a possible rebound, then skates to the back of the line.","Alternate sides so players shoot moving both directions."],
     coachingPoints: ["Keep the puck on the forehand side the whole way \u2014 no pulling it across the body.","Head up to pick a corner before the shot, not staring at the puck.","Shoot while the feet are still moving; stopping to shoot is a habit to break now."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:48,y:10,kind:"player"},{x:52,y:16,kind:"player"},{x:46,y:22,kind:"player"},{x:48,y:13,kind:"ball"},{x:38,y:42,kind:"coach",label:"C"},{x:40,y:44,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[47,24],to:[41,42],style:"run"},{from:[41,44],to:[51,49],style:"run"}]},
   },
   {
     id: "SHT-003", name: "Backhand Lift", category: "Shooting", duration: "8 min",
@@ -106,7 +106,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with a goalie or a shooter tutor. Players in one line in the slot, pucks at the line.",
     steps: ["Players line up in the slot with pucks, facing the net from about eight meters out.","Each player pulls the puck to the backhand side, rolls the wrists, and lifts a backhand at the net.","Shooter retrieves the puck and rejoins the line; next player goes on the coach's signal.","Run five reps forehand wrist shot, then five reps backhand, alternating."],
     coachingPoints: ["Roll the wrists over at release to get the puck up \u2014 the lift comes from the hands, not scooping.","Keep the puck close to the body so the backhand stays strong and controlled.","Aim for the far side; backhands naturally come across the body toward it."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:30,y:38,kind:"player"},{x:30,y:50,kind:"player"},{x:30,y:62,kind:"player"},{x:32,y:44,kind:"ball"},{x:32,y:56,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[33,50],to:[51,50],style:"run"}]},
   },
   {
     id: "SHT-004", name: "Catch and Release", category: "Shooting", duration: "10 min",
@@ -114,7 +114,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net, two lines: passers at the half boards, shooters in the slot. Pucks with the passers.",
     steps: ["Passer stands at the half boards with pucks; shooter sets up in the high slot.","Passer sends a firm pass across; the shooter one-touches or catches and releases in one motion.","After the shot, the shooter skates to the net for the rebound, then becomes the next passer.","Rotate lines so every player passes and shoots from both sides of the ice."],
     coachingPoints: ["The shot must leave the stick the instant the pass arrives \u2014 no settling it first.","Feet stay set and balanced; reaching for the pass ruins the release.","Practice with passes coming from both sides, not just the comfortable one."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:30,y:14,kind:"player"},{x:32,y:17,kind:"ball"},{x:38,y:40,kind:"player"},{x:38,y:60,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[31,18],to:[37,38],style:"pass"},{from:[40,44],to:[52,50],style:"run"}]},
   },
   {
     id: "SHT-005", name: "One-Timers from the Slot", category: "Shooting", duration: "10 min",
@@ -122,7 +122,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Passer at the goal line with pucks, line of shooters at the top of the circle.",
     steps: ["Passer at the goal line sends a pass to the shooter waiting at the top of the circle.","Shooter times the arrival and fires a one-timer, then follows the shot to the net.","Next shooter steps in as the previous one clears; passer keeps a steady rhythm.","Switch the play to the other side of the ice halfway through."],
     coachingPoints: ["The blade stays loaded and ready before the pass arrives \u2014 preparation is everything.","Time the swing so the stick meets the puck, not the other way around.","Keep the shot low; a one-timer in the goalie's chest is a wasted chance."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:52,y:80,kind:"player"},{x:50,y:78,kind:"ball"},{x:32,y:34,kind:"player"},{x:32,y:66,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[50,76],to:[34,64],style:"pass"},{from:[34,62],to:[52,52],style:"run"}]},
   },
   {
     id: "SHT-006", name: "Shooting in Stride", category: "Shooting", duration: "10 min",
@@ -130,7 +130,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Players line up at the far blue line with pucks, one at a time down the wing.",
     steps: ["Player picks up a puck at the far blue line and skates hard down the wing at full speed.","At the top of the circle, without slowing down, the player releases a wrist shot far side.","Player drives to the net for the rebound, then loops back to the line.","Coach adds a passive defender at the blue line who angles but does not take the puck."],
     coachingPoints: ["The upper body stays quiet and square to the net while the legs keep driving.","Hands stay out in front of the body \u2014 reaching behind loses all power.","Pick the shooting lane early; at speed there is no time to look twice."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:33,y:18,kind:"player"},{x:33,y:30,kind:"player"},{x:35,y:22,kind:"ball"},{x:42,y:26,kind:"defender"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[36,22],to:[74,32],style:"run"},{from:[74,34],to:[91,48],style:"run"}]},
   },
   {
     id: "SHT-007", name: "Slap Shot Technique", category: "Shooting", duration: "10 min",
@@ -138,7 +138,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Full-ice setup, one net with goalie at the far end. Players at the far blue line with pucks.",
     steps: ["Players line up at the blue line with pucks, shooting at the far net one at a time.","Each player takes two hard strides, sets the puck, and fires a slap shot low at the net.","Shooter follows the shot in, stops at the hash marks, and skates back along the boards.","After five reps, move the line to the top of the circle for a quicker release point."],
     coachingPoints: ["The windup is controlled \u2014 a huge backswing is slower and less accurate.","Strike the ice just behind the puck so the stick loads and snaps through.","Transfer weight fully onto the front foot; falling away from the shot kills it."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:33,y:38,kind:"player"},{x:33,y:50,kind:"player"},{x:33,y:62,kind:"player"},{x:35,y:44,kind:"ball"},{x:35,y:56,kind:"ball"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[38,50],to:[90,50],style:"run"}]},
   },
   {
     id: "SHT-008", name: "Tips and Deflections", category: "Shooting", duration: "10 min",
@@ -146,7 +146,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Shooter at the point with a puck pile, tipper in front of the net.",
     steps: ["Shooter at the point with pucks; tipper sets up at the top of the crease with stick on the ice.","Shooter fires low wrist shots at the tipper's blade; the tipper redirects without a big swing.","After five tips, the tipper becomes the shooter and a new tipper steps in.","Add a defender who ties up the tipper's stick to make the redirect contested."],
     coachingPoints: ["The stick blade stays flat and angled to redirect, never swinging at the puck.","Position the body between the defender and the goalie before the shot comes.","React to the shot release, not the pass \u2014 the tip happens at the last instant."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:50,kind:"player"},{x:14,y:52,kind:"ball"},{x:46,y:48,kind:"player"},{x:48,y:58,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[16,50],to:[43,49],style:"run"},{from:[47,48],to:[52,52],style:"run"}]},
   },
   {
     id: "SHT-009", name: "Shootout Moves", category: "Shooting", duration: "10 min",
@@ -154,7 +154,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Players at center ice, each with a puck. Coach tracks the score on the bench.",
     steps: ["Players line up at center ice with pucks; goalie in the net.","Each player skates in at game speed and executes one deke move before shooting.","No second chances \u2014 one shot each, then skate to the back of the line.","Coach keeps score: three points for a goal, one for hitting the post, to keep it competitive."],
     coachingPoints: ["Change the angle on the goalie \u2014 straight-line approaches are easy to read.","Sell one move with the shoulders and eyes, then finish the other way.","Keep the puck on the forehand as long as possible; the backhand is the surprise."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:50,y:32,kind:"player"},{x:50,y:50,kind:"player"},{x:50,y:68,kind:"player"},{x:52,y:36,kind:"ball"},{x:52,y:54,kind:"ball"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[55,50],to:[86,50],style:"dribble"}]},
   },
   {
     id: "SHT-010", name: "Quick-Release Triangle", category: "Shooting", duration: "12 min",
@@ -162,7 +162,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Three cones mark the triangle spots in the slot; passer at the half boards with pucks.",
     steps: ["Three shooters set up in a triangle around the slot; one passer at the half boards.","Passer feeds each shooter in rotation; the shooter receives and fires within one second.","After the shot, the shooter sprints to the corner and back to keep the legs engaged.","Rotate the passer every two minutes so everyone shoots from all three spots."],
     coachingPoints: ["The release must beat the goalie's lateral push \u2014 speed of release matters more than power.","Receive the pass across the body and shoot in one continuous motion.","Vary the target: high glove, low blocker, five-hole \u2014 never the same spot twice."],
-    diagram:{surface:"hockey-half",markers:[{x:12,y:30,kind:"player"},{x:12,y:50,kind:"player"},{x:12,y:70,kind:"player"},{x:18,y:50,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"},{x:32,y:78,kind:"coach",label:"C"}],arrows:[{from:[22,50],to:[50,50],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:35,y:34,kind:"cone"},{x:35,y:66,kind:"cone"},{x:46,y:50,kind:"cone"},{x:37,y:36,kind:"player"},{x:37,y:64,kind:"player"},{x:30,y:14,kind:"player"},{x:31,y:17,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[31,19],to:[36,32],style:"pass"},{from:[39,38],to:[52,49],style:"run"}]},
   },
   {
     id: "PAS-001", name: "Stationary Forehand Pass", category: "Passing", duration: "8 min",
@@ -170,7 +170,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players spread across the ice in pairs, pucks distributed one per pair. No nets.",
     steps: ["Players pair up facing each other about five meters apart, one puck per pair.","Partners pass back and forth forehand to forehand, counting consecutive completions.","Every two minutes, partners take one step farther apart.","Coach challenges pairs to beat their own record of clean passes in a row."],
     coachingPoints: ["Pass to the teammate's stick blade, not at their skates.","Follow through with the blade pointing at the target after release.","Receive with soft hands \u2014 cushion the puck instead of letting it bounce off."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:32,y:28,kind:"player"},{x:44,y:28,kind:"player"},{x:32,y:50,kind:"player"},{x:44,y:50,kind:"player"},{x:32,y:72,kind:"player"},{x:44,y:72,kind:"player"},{x:38,y:30,kind:"ball"},{x:38,y:52,kind:"ball"}],arrows:[{from:[34,28],to:[42,28],style:"pass"},{from:[42,50],to:[34,50],style:"pass"},{from:[34,72],to:[42,72],style:"pass"}]},
   },
   {
     id: "PAS-002", name: "Backhand Pass Pairs", category: "Passing", duration: "8 min",
@@ -178,7 +178,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Same setup as PAS-001. Pairs stay in place.",
     steps: ["Same pairs as the forehand drill, now passing backhand to backhand only.","Receiver must keep the stick blade open and catch the puck softly.","After three minutes, pairs alternate one forehand and one backhand pass.","Finish with a competition: most consecutive backhand completions wins."],
     coachingPoints: ["Open the blade early so the puck has a flat surface to land on.","Keep the hands out in front \u2014 a backhand received behind the body is dead.","Communicate: the receiver calls for the puck so the passer commits."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:24,y:38,kind:"player"},{x:36,y:38,kind:"player"},{x:62,y:62,kind:"player"},{x:74,y:62,kind:"player"},{x:30,y:40,kind:"ball"},{x:68,y:64,kind:"ball"}],arrows:[{from:[26,38],to:[34,38],style:"pass"},{from:[72,62],to:[64,62],style:"pass"}]},
   },
   {
     id: "PAS-003", name: "Passing on the Move", category: "Passing", duration: "10 min",
@@ -186,7 +186,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Two lines at opposite blue lines facing each other. Pucks split between the lines.",
     steps: ["Two lines face each other across the ice at the blue lines, each player with a partner opposite.","First players skate toward each other, exchange a pass at the red line, and continue to the far line.","Players join the back of the opposite line; the drill flows continuously.","Add a second puck so two pairs are moving at once, then switch to backhand passes."],
     coachingPoints: ["Pass ahead of the skater into space \u2014 never behind them.","The receiver keeps the stick on the ice as a target while skating.","Skate through the pass reception; stopping to receive breaks the flow."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:33,y:34,kind:"player"},{x:33,y:50,kind:"player"},{x:33,y:66,kind:"player"},{x:67,y:34,kind:"player"},{x:67,y:50,kind:"player"},{x:67,y:66,kind:"player"},{x:36,y:52,kind:"ball"},{x:64,y:48,kind:"ball"}],arrows:[{from:[36,50],to:[47,50],style:"run"},{from:[64,50],to:[53,50],style:"run"},{from:[47,50],to:[53,50],style:"pass"}]},
   },
   {
     id: "PAS-004", name: "Give and Go", category: "Passing", duration: "10 min",
@@ -194,7 +194,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Players line up in the corner with pucks; coach stands at the half boards.",
     steps: ["Player with the puck skates down the wing and gives it to the coach at the half boards.","Player sprints past the coach, receives the return pass in stride, and drives the net for a shot.","The next player goes as soon as the return pass is made, keeping two players moving.","Run from both wings so players give and go off each side."],
     coachingPoints: ["The give must be timed so the return pass leads the skater, not the spot they left.","The passer follows their pass up the ice to stay a threat after giving it.","Use the boards-side shoulder to protect the puck on the return."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:48,y:12,kind:"player"},{x:52,y:18,kind:"player"},{x:46,y:24,kind:"player"},{x:47,y:15,kind:"ball"},{x:30,y:20,kind:"coach",label:"C"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[45,17],to:[32,20],style:"pass"},{from:[32,22],to:[40,40],style:"run"},{from:[42,42],to:[52,50],style:"run"}]},
   },
   {
     id: "PAS-005", name: "Bank Pass off the Boards", category: "Passing", duration: "8 min",
@@ -202,7 +202,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs spread along the boards the length of the ice, one puck per pair.",
     steps: ["Players pair up along the boards, one with a puck, standing ten meters apart.","The passer banks the puck off the boards to the partner, who receives it in stride.","Partners alternate roles every five passes, then increase the distance.","Progression: the receiver skates while receiving the bank pass at half speed."],
     coachingPoints: ["Aim for a spot on the boards about a stick-length ahead of the receiver's path.","The receiver reads the angle and skates to meet the puck, not waiting for it.","Keep the pass firm \u2014 a soft bank pass dies before it reaches anyone."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:25,y:12,kind:"player"},{x:45,y:12,kind:"player"},{x:60,y:12,kind:"player"},{x:80,y:12,kind:"player"},{x:28,y:14,kind:"ball"},{x:63,y:14,kind:"ball"}],arrows:[{from:[28,13],to:[37,7],style:"pass"},{from:[37,7],to:[43,12],style:"pass"}]},
   },
   {
     id: "PAS-006", name: "Saucer Pass Over Sticks", category: "Passing", duration: "10 min",
@@ -210,7 +210,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs across the ice with two spare sticks laid flat between each pair as obstacles.",
     steps: ["Coach places two sticks flat on the ice between the passer and receiver as obstacles.","Passer lifts a saucer pass over the sticks to land flat on the receiver's blade.","Receiver catches it and returns a saucer the other way; alternate every three passes.","Move the obstacles to force longer and shorter saucer distances."],
     coachingPoints: ["The saucer must land flat just past the obstacle \u2014 a spinning saucer is uncontrollable.","Keep the follow-through short and under control; big swings send it flying.","Read the defender's stick position first, then choose the saucer lane."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:14,y:30,kind:"player"},{x:42,y:30,kind:"player"},{x:26,y:30,kind:"cone"},{x:30,y:30,kind:"cone"},{x:14,y:70,kind:"player"},{x:42,y:70,kind:"player"},{x:26,y:70,kind:"cone"},{x:30,y:70,kind:"cone"},{x:17,y:32,kind:"ball"},{x:39,y:68,kind:"ball"}],arrows:[{from:[17,30],to:[39,30],style:"pass"},{from:[39,70],to:[17,70],style:"pass"}]},
   },
   {
     id: "PAS-007", name: "D-to-D with Shot", category: "Passing", duration: "10 min",
@@ -218,7 +218,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Two D at the points with pucks, two forwards in front. Extra forwards rotate.",
     steps: ["Two defensemen at the points with pucks; two forwards set up in front of the net.","Defensemen exchange D-to-D passes twice, then one fires a low shot for a tip.","Forwards battle for the rebound; after the whistle they rotate out and new forwards step in.","Defensemen switch sides halfway so both practice passing off each wing."],
     coachingPoints: ["The D-to-D pass must be hard and flat \u2014 a soft pass gets picked off in games.","The receiving defenseman opens up early to see the whole ice on reception.","The shot follows the pass quickly; hesitation lets the penalty kill reset."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:28,kind:"player"},{x:12,y:72,kind:"player"},{x:14,y:30,kind:"ball"},{x:44,y:40,kind:"player"},{x:44,y:60,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[13,32],to:[13,68],style:"pass"},{from:[14,68],to:[48,52],style:"run"}]},
   },
   {
     id: "PAS-008", name: "Long Stretch Pass", category: "Passing", duration: "10 min",
@@ -226,7 +226,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Full-ice setup. D behind the net with pucks, winger at the near blue line, forward at the far blue line.",
     steps: ["Defenseman starts behind the net with pucks; forward waits at the far blue line.","Defenseman rims or passes up the boards to a winger, who one-touches a stretch pass to the breaking forward.","Forward receives at speed, stays onside, and attacks for a shot.","Rotate all three positions so everyone passes, relays, and receives."],
     coachingPoints: ["The passer looks up before releasing \u2014 a blind stretch pass is a turnover.","The receiver times the break so they hit the far blue line at full speed, onside.","Weight the pass so it arrives as the skater arrives; too far ahead is icing."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:4,y:50,kind:"player"},{x:6,y:52,kind:"ball"},{x:33,y:24,kind:"player"},{x:67,y:50,kind:"player"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[7,48],to:[31,26],style:"pass"},{from:[35,26],to:[65,48],style:"pass"},{from:[70,50],to:[90,50],style:"run"}]},
   },
   {
     id: "PAS-009", name: "One-Touch Passing", category: "Passing", duration: "12 min",
@@ -234,7 +234,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Cones mark a circle at center ice. One puck per group of five. One defender with a different jersey.",
     steps: ["Five players form a circle at center ice with one puck, passing one-touch around the circle.","Coach counts clean one-touch completions; the group aims for twenty in a row.","Add a defender in the middle who tries to intercept; the circle must keep the puck moving.","Shrink the circle to increase pressure, then expand it to work on long one-touch feeds."],
     coachingPoints: ["One-touch means one-touch \u2014 settling the puck defeats the entire purpose.","Keep the feet and stick in constant motion; standing still makes you readable.","Talk constantly; one-touch passing fails without loud, early communication."],
-    diagram:{surface:"hockey-half",markers:[{x:14,y:35,kind:"player"},{x:14,y:65,kind:"player"},{x:46,y:35,kind:"player"},{x:46,y:65,kind:"player"},{x:19,y:40,kind:"ball"}],arrows:[{from:[18,38],to:[42,38],style:"pass"},{from:[42,62],to:[18,62],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:42,y:42,kind:"player"},{x:58,y:42,kind:"player"},{x:42,y:58,kind:"player"},{x:58,y:58,kind:"player"},{x:50,y:34,kind:"player"},{x:50,y:50,kind:"defender"},{x:46,y:46,kind:"ball"}],arrows:[{from:[44,44],to:[56,44],style:"pass"},{from:[56,46],to:[56,56],style:"pass"}]},
   },
   {
     id: "PHL-001", name: "Stationary Wide-Narrow Dribble", category: "Puck Handling", duration: "8 min",
@@ -242,7 +242,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players spread out across the ice with room between them, each with a puck.",
     steps: ["Each player has a puck and stands in a hockey stance in their own space.","Players dribble the puck side to side: wide touches, then narrow quick touches.","Coach calls out patterns: wide-wide-narrow, forehand only, backhand only.","Finish with thirty seconds of the fastest narrow dribbling each player can control."],
     coachingPoints: ["Hands stay out in front of the body, not tucked into the stomach.","Look up every few touches \u2014 the puck should be felt, not watched.","Keep the puck within a stick-length so it is always protected."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:20,y:28,kind:"player"},{x:38,y:62,kind:"player"},{x:52,y:34,kind:"player"},{x:68,y:66,kind:"player"},{x:82,y:40,kind:"player"},{x:22,y:31,kind:"ball"},{x:40,y:65,kind:"ball"},{x:54,y:37,kind:"ball"},{x:70,y:69,kind:"ball"},{x:84,y:43,kind:"ball"}]},
   },
   {
     id: "PHL-002", name: "Figure Eights Around Cones", category: "Puck Handling", duration: "10 min",
@@ -250,7 +250,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Six cones in a zigzag down the slot, one net at the end. Players in one line with pucks.",
     steps: ["Players skate through a line of six cones in a figure-eight pattern, stickhandling throughout.","At each cone, the player makes one tight move \u2014 forehand to backhand \u2014 before the next.","After the last cone, the player shoots on the net and rejoins the line.","Coach varies the move required at the cones: toe drag, fake shot, quick deke."],
     coachingPoints: ["Keep the puck on the forehand through the turn; switching hands mid-turn loses it.","Use the outside edges to stay tight around each cone.","Head up between cones to scan, head down only during the move itself."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:34,kind:"cone"},{x:18,y:50,kind:"cone"},{x:24,y:66,kind:"cone"},{x:30,y:50,kind:"cone"},{x:36,y:34,kind:"cone"},{x:42,y:50,kind:"cone"},{x:7,y:50,kind:"player"},{x:9,y:52,kind:"ball"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[10,52],to:[43,50],style:"dribble"},{from:[44,50],to:[52,50],style:"run"}]},
   },
   {
     id: "PHL-003", name: "Toe Drags in Motion", category: "Puck Handling", duration: "10 min",
@@ -258,7 +258,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players in two lines at the goal line with pucks. Coach stands at center ice as the stationary defender.",
     steps: ["Players skate at half speed down the ice stickhandling; at each blue line they execute a toe drag.","After the toe drag, each player takes two hard strides to practice the acceleration out.","On the return trip, players do a toe drag around a stationary coach acting as a defender.","Finish with full-speed toe drags followed by a shot on net."],
     coachingPoints: ["Pull the puck across with the toe of the blade, not by sweeping the whole stick.","The toe drag happens in one quick motion \u2014 lingering gets the puck taken.","Accelerate immediately after the drag; the move only works with the burst."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:6,y:36,kind:"player"},{x:6,y:46,kind:"player"},{x:6,y:56,kind:"player"},{x:6,y:66,kind:"player"},{x:8,y:40,kind:"ball"},{x:8,y:60,kind:"ball"},{x:50,y:50,kind:"coach",label:"C"}],arrows:[{from:[10,42],to:[31,44],style:"dribble"},{from:[10,62],to:[31,60],style:"dribble"},{from:[35,50],to:[46,50],style:"dribble"}]},
   },
   {
     id: "PHL-004", name: "Puck Protection Along the Boards", category: "Puck Handling", duration: "10 min",
@@ -266,7 +266,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Pairs work along the boards from the corner to the blue line, one puck per pair.",
     steps: ["Defender stands at the half boards; puck carrier starts in the corner with a puck.","Carrier skates up the boards protecting the puck while the defender applies pressure without taking it.","At the blue line, the carrier cuts to the middle and takes a shot.","Switch roles every rep so everyone practices protecting and pressuring."],
     coachingPoints: ["The body goes between the puck and the defender \u2014 never reach the puck around.","Use the boards as a second defender; keep the puck on the outside lane.","Keep the feet moving; a stationary player protecting the puck gets stripped."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-half",markers:[{x:50,y:14,kind:"player"},{x:52,y:16,kind:"ball"},{x:30,y:17,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[48,15],to:[33,16],style:"dribble"},{from:[31,18],to:[42,40],style:"run"},{from:[43,42],to:[52,50],style:"run"}]},
   },
   {
     id: "PHL-005", name: "1-on-1 Deke Moves", category: "Puck Handling", duration: "12 min",
@@ -274,7 +274,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Shooters at the blue line with pucks, defenders at the top of the circle.",
     steps: ["Shooter starts at the blue line with a puck; defender waits at the top of the circle.","Shooter attacks at speed, makes one deke move on the defender, and shoots.","Defender plays at half effort first, then full effort once shooters are warm.","Rotate lines so everyone defends and attacks; coach demos a new deke each round."],
     coachingPoints: ["Attack the defender's stick side \u2014 the deke starts before you reach them.","Sell the move with the shoulders and eyes, not just the stick.","Finish the play: a great deke with no shot is just a trick."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-half",markers:[{x:10,y:28,kind:"player"},{x:10,y:72,kind:"player"},{x:12,y:30,kind:"ball"},{x:12,y:74,kind:"ball"},{x:32,y:36,kind:"defender"},{x:32,y:64,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[13,32],to:[36,44],style:"dribble"},{from:[38,46],to:[52,50],style:"run"}]},
   },
   {
     id: "PHL-006", name: "Deke Obstacle Course", category: "Puck Handling", duration: "12 min",
@@ -282,7 +282,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Four stations spread across the ice using cones, tires, spare sticks, and pylons. Pucks at each station.",
     steps: ["Set up four stations: cone weave, tire jump with puck, stick-lift gate, and tight-turn pylon.","Players rotate through stations in small groups, spending three minutes at each.","Each station requires a specific move: weave, carry, lift the puck, or quick deke.","Groups rotate on the whistle; coach demos the move at each station before starting."],
     coachingPoints: ["Slow down before each obstacle \u2014 control first, speed later.","Try a different move at each station to build a full toolkit.","Keep the puck close through the tight stations; wide moves belong in open ice."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:18,y:24,kind:"cone"},{x:22,y:30,kind:"cone"},{x:16,y:34,kind:"player"},{x:44,y:58,kind:"cone"},{x:50,y:62,kind:"cone"},{x:47,y:52,kind:"player"},{x:70,y:28,kind:"cone"},{x:70,y:36,kind:"player"},{x:84,y:62,kind:"cone"},{x:88,y:68,kind:"cone"},{x:82,y:56,kind:"player"},{x:20,y:28,kind:"ball"},{x:48,y:58,kind:"ball"}],arrows:[{from:[24,30],to:[42,56],style:"run"},{from:[52,60],to:[68,34],style:"run"}]},
   },
   {
     id: "PHL-007", name: "Soft Hands in Tight", category: "Puck Handling", duration: "10 min",
@@ -290,7 +290,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Cones mark several small circles across the ice. Two players and two pucks per circle.",
     steps: ["Two players face off in a tight circle of cones, each trying to keep their own puck.","On the whistle, each player tries to knock the other's puck out while protecting their own.","Thirty-second battles, then rotate partners so everyone faces different styles.","Final round: winners play winners in a small tournament bracket."],
     coachingPoints: ["The moves happen in the hands and wrists, not in big arm swings.","Stay over the puck with the chest \u2014 leaning back makes every move slow.","Protect first, dangle second; the puck on your stick beats the puck in the stands."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:24,y:29,kind:"cone"},{x:36,y:29,kind:"cone"},{x:24,y:41,kind:"cone"},{x:36,y:41,kind:"cone"},{x:28,y:33,kind:"player"},{x:33,y:38,kind:"player"},{x:29,y:35,kind:"ball"},{x:32,y:36,kind:"ball"},{x:59,y:54,kind:"cone"},{x:71,y:54,kind:"cone"},{x:59,y:66,kind:"cone"},{x:71,y:66,kind:"cone"},{x:63,y:58,kind:"player"},{x:68,y:63,kind:"player"},{x:64,y:60,kind:"ball"},{x:67,y:61,kind:"ball"}]},
   },
   {
     id: "PHL-008", name: "Speed Carry with Puck", category: "Puck Handling", duration: "10 min",
@@ -298,7 +298,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Players at the goal line, each with a puck. Coach with a stopwatch at center ice.",
     steps: ["Players line up at the goal line with pucks and sprint the full length carrying the puck.","The rule: no more than three touches per zone \u2014 push it and skate to it.","At the far end, players stop, turn, and sprint back with the same touch limit.","Time the group; challenge them to beat their team average on the second run."],
     coachingPoints: ["Push the puck ahead into space at speed \u2014 short touches slow you down.","Keep the head up to read the ice; the puck is controlled by feel.","Crossovers with the puck need the puck on the forehand through the turn."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:6,y:34,kind:"player"},{x:6,y:46,kind:"player"},{x:6,y:58,kind:"player"},{x:6,y:70,kind:"player"},{x:8,y:36,kind:"ball"},{x:8,y:48,kind:"ball"},{x:8,y:60,kind:"ball"},{x:8,y:72,kind:"ball"},{x:50,y:84,kind:"coach",label:"C"}],arrows:[{from:[10,38],to:[90,38],style:"run"},{from:[10,64],to:[90,64],style:"run"}]},
   },
   {
     id: "PHL-009", name: "Keepaway Circle", category: "Puck Handling", duration: "10 min",
@@ -306,7 +306,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Use the center-ice circle. Four attackers, two defenders with different jerseys, one puck.",
     steps: ["Four attackers keep the puck away from two defenders inside the faceoff circle.","Attackers must complete five consecutive passes to score a point; defenders score by stealing.","If the puck leaves the circle, the defenders get the point and a new puck starts.","Rotate defenders every ninety seconds; track which group holds the puck longest."],
     coachingPoints: ["Move to open ice the moment you pass \u2014 standing still kills keepaway.","Use the whole body to shield; the stick alone cannot protect the puck.","Scan before receiving so you already know your next pass."],
-    diagram:{surface:"hockey-half",markers:[{x:10,y:50,kind:"player"},{x:12,y:53,kind:"ball"},{x:22,y:32,kind:"cone"},{x:30,y:50,kind:"cone"},{x:38,y:68,kind:"cone"},{x:46,y:50,kind:"cone"}],arrows:[{from:[14,52],to:[52,52],style:"dribble"}]},
+    diagram:{surface:"hockey-full",markers:[{x:42,y:40,kind:"player"},{x:58,y:40,kind:"player"},{x:42,y:60,kind:"player"},{x:58,y:60,kind:"player"},{x:47,y:47,kind:"defender"},{x:53,y:53,kind:"defender"},{x:50,y:50,kind:"ball"}],arrows:[{from:[44,42],to:[56,42],style:"pass"},{from:[56,58],to:[44,58],style:"pass"}]},
   },
   {
     id: "BDC-001", name: "Contact Confidence Bumps", category: "Body Contact", duration: "8 min",
@@ -314,7 +314,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs skate the length of the ice along the boards, no pucks. Coach skates alongside observing.",
     steps: ["Players pair up and skate side by side along the boards at half speed.","On the coach's signal, partners give each other a controlled shoulder bump and separate.","Repeat down the length of the ice, bumping every five strides.","Switch partners and repeat, increasing to three-quarter speed once everyone is comfortable."],
     coachingPoints: ["Contact is shoulder to shoulder with elbows tucked \u2014 never with extended arms.","Stay low with knees bent; the lower player wins every bump.","Keep the stick on the ice through contact so you stay playable after."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:20,y:11,kind:"player"},{x:24,y:14,kind:"player"},{x:46,y:11,kind:"player"},{x:50,y:14,kind:"player"},{x:72,y:11,kind:"player"},{x:76,y:14,kind:"player"},{x:50,y:28,kind:"coach",label:"C"}],arrows:[{from:[14,12],to:[88,12],style:"run"}]},
   },
   {
     id: "BDC-002", name: "Angling 1-on-1", category: "Body Contact", duration: "10 min",
@@ -322,7 +322,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "No nets needed. Offensive line at the blue line with pucks, defensive line at the red line.",
     steps: ["Offensive player starts at the blue line with a puck; defender starts at the red line without one.","On the whistle, the offensive player skates down the boards while the defender angles across to cut off the lane.","Defender steers the carrier toward the boards and lifts the stick to take the puck.","Switch roles every rep; run from both sides of the ice."],
     coachingPoints: ["Take away time and space gradually \u2014 rushing the angle lets them beat you wide.","Keep the stick on the ice to take away the passing lane while angling.","The goal is to separate the player from the puck, not to deliver a big hit."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:33,y:24,kind:"player"},{x:33,y:76,kind:"player"},{x:35,y:26,kind:"ball"},{x:35,y:78,kind:"ball"},{x:50,y:32,kind:"defender"},{x:50,y:68,kind:"defender"}],arrows:[{from:[36,26],to:[62,18],style:"run"},{from:[50,32],to:[58,22],style:"run"}]},
   },
   {
     id: "BDC-003", name: "Pinning Along the Boards", category: "Body Contact", duration: "10 min",
@@ -330,7 +330,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs work in the corners, one puck per pair. No nets needed for the base drill.",
     steps: ["Puck carrier skates the puck into the corner; defender follows two strides behind.","Defender closes the gap, pins the carrier to the boards with hip and shoulder, and ties up the stick.","Carrier tries to escape along the boards or kick the puck free; defender holds the pin for five seconds.","Whistle ends the rep; players switch roles and go again from the other corner."],
     coachingPoints: ["Pin with the hip and shoulder, keeping your feet moving to hold the seal.","Keep your stick free \u2014 a pinned player with a free stick can still make a play.","Protect yourself: head up and on the correct side to avoid a dangerous hit."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:48,y:16,kind:"player"},{x:50,y:18,kind:"ball"},{x:44,y:22,kind:"defender"},{x:48,y:84,kind:"player"},{x:50,y:82,kind:"ball"},{x:44,y:78,kind:"defender"}],arrows:[{from:[46,20],to:[52,14],style:"run"}]},
   },
   {
     id: "BDC-004", name: "Stick Checks: Sweep, Poke, Lift", category: "Body Contact", duration: "10 min",
@@ -338,7 +338,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Pairs skate the length of the ice, one puck per pair. Checkers leave their sticks' tape fresh \u2014 no slashing.",
     steps: ["Carrier skates slowly down the ice stickhandling; checker skates alongside without a puck.","Checker practices the sweep check: sweeping the blade across to knock the puck away.","Next rep: the poke check \u2014 a quick jab at the puck with the stick extended.","Final rep: the stick lift \u2014 lifting the carrier's blade just as they try to receive a pass."],
     coachingPoints: ["The stick check targets the opponent's stick blade, not their hands or body.","Time the check for when the carrier's puck is exposed, not when it is protected.","Recover the stick to a defensive position immediately after the check attempt."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:25,y:40,kind:"player"},{x:29,y:44,kind:"player"},{x:27,y:42,kind:"ball"},{x:55,y:56,kind:"player"},{x:59,y:60,kind:"player"},{x:57,y:58,kind:"ball"}],arrows:[{from:[22,42],to:[50,46],style:"dribble"},{from:[52,58],to:[80,62],style:"dribble"}]},
   },
   {
     id: "BDC-005", name: "Open-Ice Angling", category: "Body Contact", duration: "12 min",
@@ -346,7 +346,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "No nets needed. Carriers at center ice with pucks, defenders at the far blue line.",
     steps: ["Carrier starts at center ice with a puck and skates toward the offensive zone with speed.","Defender starts at the far blue line and must angle the carrier to the outside, steering with body position.","If the defender separates the puck, they skate it out of the zone to finish the rep.","Run three reps per player, then switch the attack to the other wing."],
     coachingPoints: ["Angle with the stick on the ice and the body between the carrier and the net.","Close the gap under control \u2014 arriving out of control means arriving late.","Finish every angle by taking the puck, not just making contact."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:50,y:28,kind:"player"},{x:50,y:72,kind:"player"},{x:52,y:30,kind:"ball"},{x:52,y:74,kind:"ball"},{x:67,y:36,kind:"defender"},{x:67,y:64,kind:"defender"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[53,30],to:[72,40],style:"run"},{from:[67,38],to:[74,32],style:"run"}]},
   },
   {
     id: "BDC-006", name: "Battle Drills in the Corner", category: "Body Contact", duration: "10 min",
@@ -354,7 +354,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Coach at the point with a pile of pucks. Players pair up at the hash marks, one puck per battle.",
     steps: ["Coach dumps a puck into the corner; two players race in from the hash marks to battle for it.","The winner must gain possession and make one clean pass to the coach at the point.","Loser applies full legal pressure for ten seconds, then the whistle ends the rep.","Rotate partners so players battle different body types and strengths."],
     coachingPoints: ["Get low and wide before contact \u2014 balance wins every loose-puck battle.","Use the free hand legally to seal, but keep it off the opponent's back.","Win the puck first, then make the play; battling without a plan wastes the win."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:50,kind:"coach",label:"C"},{x:14,y:52,kind:"ball"},{x:40,y:40,kind:"player"},{x:40,y:60,kind:"player"},{x:45,y:43,kind:"defender"},{x:45,y:57,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[15,54],to:[47,80],style:"pass"},{from:[40,42],to:[47,76],style:"run"},{from:[45,45],to:[49,72],style:"run"}]},
   },
   {
     id: "BDC-007", name: "Net-Front Box Out", category: "Body Contact", duration: "10 min",
@@ -362,7 +362,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Coach at the point with pucks, D at the crease, forward at the hash marks.",
     steps: ["Defenseman starts at the top of the crease; forward starts at the hash marks.","Coach shoots from the point; the forward crashes for the rebound while the D boxes out.","Defenseman must keep the forward outside the crease and clear the rebound to the corner.","Switch sides and roles every three reps; track which defenders allow zero second chances."],
     coachingPoints: ["Establish position early \u2014 the box-out is won before the shot is taken.","Keep the stick on the ice to block the passing lane through the crease.","Tie up the stick, not the body; holding penalties come from grabbing jerseys."],
-    diagram:{surface:"hockey-full",markers:[{x:28,y:38,kind:"player"},{x:33,y:43,kind:"defender"},{x:31,y:41,kind:"ball"},{x:58,y:56,kind:"player"},{x:63,y:61,kind:"defender"},{x:50,y:80,kind:"coach",label:"C"}],arrows:[{from:[28,40],to:[72,54],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:50,kind:"coach",label:"C"},{x:14,y:52,kind:"ball"},{x:48,y:50,kind:"defender"},{x:40,y:50,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[15,52],to:[44,50],style:"run"}]},
   },
   {
     id: "DFZ-001", name: "D-Zone Coverage Positions", category: "Defensive Zone", duration: "10 min",
@@ -370,7 +370,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One end of the ice, no pucks initially. Five cones mark the coverage spots.",
     steps: ["Coach places five cones to mark where each defensive player should stand in the zone.","Players walk to their positions without pucks while the coach names each role out loud.","Coach moves a puck around the zone; players shift to stay between their cone and the net.","Remove the cones and repeat at half speed with the coach passing to trigger rotations."],
     coachingPoints: ["Everyone has a man or a zone \u2014 no watching the puck while someone stands open.","Defensemen stay between their check and the net, not chasing behind it.","Forwards collapse low to help; D-zone coverage is a five-player job."],
-    diagram:{surface:"hockey-half",markers:[{x:18,y:24,kind:"cone"},{x:18,y:76,kind:"cone"},{x:38,y:30,kind:"cone"},{x:38,y:70,kind:"cone"},{x:48,y:50,kind:"cone"},{x:30,y:40,kind:"defender"},{x:30,y:60,kind:"defender"},{x:44,y:50,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[10,50],to:[24,40],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:24,y:24,kind:"cone"},{x:24,y:76,kind:"cone"},{x:40,y:30,kind:"cone"},{x:40,y:70,kind:"cone"},{x:48,y:50,kind:"cone"},{x:27,y:27,kind:"player"},{x:27,y:73,kind:"player"},{x:43,y:33,kind:"player"},{x:43,y:67,kind:"player"},{x:45,y:50,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}]},
   },
   {
     id: "DFZ-002", name: "Breakout: Strong Side", category: "Defensive Zone", duration: "12 min",
@@ -378,7 +378,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One end of the ice. D behind the net with pucks, wingers on the boards, center in the low slot.",
     steps: ["Defenseman starts behind the net with a puck; wingers on the boards, center low in support.","D passes to the strong-side winger on the boards, who chips it out or carries it.","Center swings low to give the D an outlet if the winger is covered.","Add one forechecker, then two, so the breakout has to beat real pressure."],
     coachingPoints: ["The first pass must be hard and flat \u2014 a soft breakout pass gets intercepted.","The winger times the break to be moving when the pass arrives, not standing still.","The puck carrier skates it out if the lane is open; don't force a pass into coverage."],
-    diagram:{surface:"hockey-half",markers:[{x:50,y:50,kind:"player",label:"D"},{x:52,y:53,kind:"ball"},{x:28,y:26,kind:"player"},{x:28,y:74,kind:"player"},{x:40,y:50,kind:"player"},{x:20,y:40,kind:"defender"},{x:20,y:60,kind:"defender"}],arrows:[{from:[48,48],to:[30,28],style:"pass"},{from:[28,26],to:[8,26],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:58,y:50,kind:"player"},{x:56,y:52,kind:"ball"},{x:30,y:14,kind:"player"},{x:30,y:86,kind:"player"},{x:40,y:50,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[56,48],to:[32,16],style:"pass"},{from:[30,14],to:[12,14],style:"run"}]},
   },
   {
     id: "DFZ-003", name: "Breakout: Reverse", category: "Defensive Zone", duration: "10 min",
@@ -386,7 +386,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One end of the ice. Two D behind the net with pucks, wingers on the boards, two forecheckers.",
     steps: ["Defenseman carries behind the net under forecheck pressure and reverses the puck to the partner D.","Partner D picks it up on the backhand side and moves it quickly to the weak-side winger.","Winger carries out of the zone with speed while the center provides middle support.","Run it three times each direction, then add a second forechecker to raise the pressure."],
     coachingPoints: ["The reverse needs a loud, early call \u2014 a silent reverse is a turnover.","The receiving D opens up to see the whole ice before the puck arrives.","Move the puck quickly after the reverse; holding it lets the forecheck reset."],
-    diagram:{surface:"hockey-half",markers:[{x:50,y:50,kind:"player",label:"D"},{x:52,y:53,kind:"ball"},{x:28,y:26,kind:"player"},{x:28,y:74,kind:"player"},{x:40,y:50,kind:"player"},{x:20,y:40,kind:"defender"},{x:20,y:60,kind:"defender"}],arrows:[{from:[48,48],to:[30,28],style:"pass"},{from:[28,26],to:[8,26],style:"run"}]},
+    diagram:{surface:"hockey-half",markers:[{x:56,y:42,kind:"player"},{x:56,y:58,kind:"player"},{x:54,y:44,kind:"ball"},{x:30,y:14,kind:"player"},{x:30,y:86,kind:"player"},{x:45,y:34,kind:"defender"},{x:45,y:66,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[55,45],to:[55,56],style:"pass"},{from:[54,58],to:[32,84],style:"pass"},{from:[30,84],to:[12,84],style:"run"}]},
   },
   {
     id: "DFZ-004", name: "Breakout: Wheel", category: "Defensive Zone", duration: "10 min",
@@ -394,7 +394,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Full-ice setup. Coach dumps pucks into the zone; D retrieves, wingers at the far blue line.",
     steps: ["Defenseman retrieves a dumped puck behind the net with no immediate pressure and wheels the net.","D skates the puck out on the strong side while wingers stretch to the far blue line.","D either carries through the neutral zone or hits the breaking winger in stride.","Add a forechecker who starts late to force the D to wheel under partial pressure."],
     coachingPoints: ["The wheel requires speed \u2014 a slow wheel gets caught from behind.","The D must look over the shoulder to confirm the lane before turning.","Forwards stretch the zone to give the wheeling D passing options up ice."],
-    diagram:{surface:"hockey-half",markers:[{x:50,y:50,kind:"player",label:"D"},{x:52,y:53,kind:"ball"},{x:28,y:26,kind:"player"},{x:28,y:74,kind:"player"},{x:40,y:50,kind:"player"},{x:20,y:40,kind:"defender"},{x:20,y:60,kind:"defender"}],arrows:[{from:[48,48],to:[30,28],style:"pass"},{from:[28,26],to:[8,26],style:"run"}]},
+    diagram:{surface:"hockey-full",markers:[{x:50,y:82,kind:"coach",label:"C"},{x:90,y:52,kind:"player"},{x:88,y:54,kind:"ball"},{x:67,y:24,kind:"player"},{x:67,y:76,kind:"player"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[52,80],to:[86,58],style:"pass"},{from:[88,52],to:[70,38],style:"run"},{from:[68,36],to:[67,27],style:"pass"}]},
   },
   {
     id: "DFZ-005", name: "2-on-2 Low Coverage", category: "Defensive Zone", duration: "12 min",
@@ -402,7 +402,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One end of the ice with a goalie. Coach at the point with pucks, pairs rotating through.",
     steps: ["Two defenders and two forwards start in the defensive zone; coach starts with the puck at the point.","Coach moves the puck low; defenders must sort out coverage and separate the puck.","Play continues until the defenders clear the zone or the forwards score.","Rotate new pairs in every ninety seconds; keep score of clears versus goals."],
     coachingPoints: ["Stay on the defensive side \u2014 between your check and the net \u2014 at all times.","Communicate switches loudly; silent coverage breaks down on every rotation.","Finish the rep by clearing the puck 200 feet, not just poking it to the slot."],
-    diagram:{surface:"hockey-half",markers:[{x:18,y:24,kind:"cone"},{x:18,y:76,kind:"cone"},{x:38,y:30,kind:"cone"},{x:38,y:70,kind:"cone"},{x:48,y:50,kind:"cone"},{x:30,y:40,kind:"defender"},{x:30,y:60,kind:"defender"},{x:44,y:50,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[10,50],to:[24,40],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:50,kind:"coach",label:"C"},{x:14,y:52,kind:"ball"},{x:40,y:38,kind:"defender"},{x:40,y:62,kind:"defender"},{x:47,y:34,kind:"player"},{x:47,y:66,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[15,52],to:[36,42],style:"pass"}]},
   },
   {
     id: "DFZ-006", name: "Backcheck Effort Drill", category: "Defensive Zone", duration: "10 min",
@@ -410,7 +410,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Full-ice setup with a goalie. Rush starts at the far blue line, backcheckers at center ice.",
     steps: ["Two forwards start at the far blue line with a puck and attack 2-on-0.","On the whistle, two backcheckers start from center ice, three seconds behind the rush.","Backcheckers sprint to catch the play and break it up before a shot.","Rotate so everyone rushes and everyone backchecks; track which backcheckers break up the play."],
     coachingPoints: ["The backchecker's first three strides decide everything \u2014 explode, don't glide.","Take the inside lane to cut off the rush, not the outside chase lane.","Backcheck through the play to the net; stopping at the blue line helps nobody."],
-    diagram:{surface:"hockey-half",markers:[{x:18,y:24,kind:"cone"},{x:18,y:76,kind:"cone"},{x:38,y:30,kind:"cone"},{x:38,y:70,kind:"cone"},{x:48,y:50,kind:"cone"},{x:30,y:40,kind:"defender"},{x:30,y:60,kind:"defender"},{x:44,y:50,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[10,50],to:[24,40],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:67,y:40,kind:"player"},{x:67,y:60,kind:"player"},{x:65,y:44,kind:"ball"},{x:50,y:42,kind:"defender"},{x:50,y:58,kind:"defender"},{x:6,y:50,kind:"coach",label:"G"}],arrows:[{from:[64,50],to:[14,50],style:"run"},{from:[47,50],to:[20,52],style:"run"}]},
   },
   {
     id: "DFZ-007", name: "D-Zone 5-on-5 Walkthrough", category: "Defensive Zone", duration: "12 min",
@@ -418,7 +418,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One end of the ice with a goalie. Full 5-on-5 setup, coach at the point directing the puck.",
     steps: ["Set up 5-on-5 in the defensive zone with the coach controlling the puck at the point.","Walk through coverage rotations as the coach moves the puck: low to high, side to side.","Add a cycle down low; defenders practice switching and the center supporting the D.","Finish with two full-speed live reps to test the structure under pressure."],
     coachingPoints: ["Walk through at half speed first \u2014 the reads matter more than the pace.","Every rotation must be called out; the walkthrough builds the communication habits.","Once the structure is clean, run it live and demand the same discipline at speed."],
-    diagram:{surface:"hockey-half",markers:[{x:18,y:24,kind:"cone"},{x:18,y:76,kind:"cone"},{x:38,y:30,kind:"cone"},{x:38,y:70,kind:"cone"},{x:48,y:50,kind:"cone"},{x:30,y:40,kind:"defender"},{x:30,y:60,kind:"defender"},{x:44,y:50,kind:"defender"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[10,50],to:[24,40],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:50,kind:"coach",label:"C"},{x:14,y:52,kind:"ball"},{x:30,y:30,kind:"defender"},{x:30,y:70,kind:"defender"},{x:44,y:36,kind:"defender"},{x:44,y:64,kind:"defender"},{x:40,y:50,kind:"defender"},{x:20,y:36,kind:"player"},{x:20,y:64,kind:"player"},{x:34,y:44,kind:"player"},{x:34,y:56,kind:"player"},{x:48,y:50,kind:"player"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[15,52],to:[32,44],style:"pass"}]},
   },
   {
     id: "OFZ-001", name: "Net Drive 1-on-0", category: "Offensive Zone", duration: "8 min",
@@ -426,7 +426,7 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "One net with goalie. Players at the blue line with pucks, coach as the passive defender.",
     steps: ["Player starts at the blue line with a puck and skates hard down the wing.","Coach stands as a passive defender at the top of the circle; the player drives wide around them.","Player cuts hard to the net and takes a shot, then follows for the rebound.","Alternate wings so players drive the net from both sides."],
     coachingPoints: ["Drive wide around the defender, not straight into them.","Keep the puck on the forehand side away from the defender's stick.","Finish the drive by cutting to the net, not skating past it."],
-    diagram:{surface:"hockey-full",markers:[{x:54,y:50,kind:"coach",label:"G"},{x:30,y:50,kind:"ball"},{x:22,y:50,kind:"player"}],arrows:[{from:[32,50],to:[50,50],style:"run"},{from:[24,40],to:[36,44],style:"pass"}]},
+    diagram:{surface:"hockey-half",markers:[{x:12,y:28,kind:"player"},{x:12,y:72,kind:"player"},{x:14,y:30,kind:"ball"},{x:32,y:50,kind:"coach",label:"C"},{x:54,y:50,kind:"coach",label:"G"}],arrows:[{from:[15,32],to:[38,40],style:"run"},{from:[40,42],to:[52,50],style:"run"}]},
   },
   {
     id: "OFZ-002", name: "2-on-1 Rush", category: "Offensive Zone", duration: "10 min",
@@ -434,6 +434,6 @@ export const hockeyDrillsPart1: Array<Omit<Drill, "sport">> = [
     setup: "Full-ice setup with a goalie. Forwards at center ice, defender at the blue line.",
     steps: ["Two forwards start at center ice with a puck; one defender waits at the blue line.","Forwards attack the defender 2-on-1; the defender must choose which attacker to take.","Puck carrier reads the defender: pass if they commit, shoot if they back off.","Rotate the defender every three reps so everyone plays the defensive read."],
     coachingPoints: ["The puck carrier attacks the defender's inside shoulder to force a decision.","The trailer stays available as a passing option, not skating ahead of the play.","Finish 2-on-1s with a shot \u2014 passing it back and forth wastes the advantage."],
-    diagram:{surface:"hockey-full",markers:[{x:54,y:50,kind:"coach",label:"G"},{x:30,y:50,kind:"ball"},{x:22,y:30,kind:"player"},{x:22,y:70,kind:"player"},{x:38,y:50,kind:"defender"}],arrows:[{from:[32,50],to:[50,50],style:"run"},{from:[24,40],to:[36,44],style:"pass"}]},
+    diagram:{surface:"hockey-full",markers:[{x:50,y:40,kind:"player"},{x:50,y:60,kind:"player"},{x:52,y:44,kind:"ball"},{x:67,y:50,kind:"defender"},{x:94,y:50,kind:"coach",label:"G"}],arrows:[{from:[55,50],to:[86,50],style:"run"},{from:[52,43],to:[52,57],style:"pass"}]},
   },
 ];
