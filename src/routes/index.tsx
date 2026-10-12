@@ -104,15 +104,20 @@ function Dashboard() {
         <RecentWork />
       </div>
 
-      <footer className="container-app pb-24 pt-2 text-center text-xs leading-tight" style={{ opacity: 0.8 }}>
+      <footer className="container-app flex flex-col items-center pb-24 pt-2 text-center text-xs leading-tight" style={{ opacity: 0.9 }}>
         Website design and development by{" "}
         <a href="https://www.fivepoint0solutions.com" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
           Five Point 0 Solutions
         </a>
-        {" | "}
-        <a href="https://www.fivepoint0solutions.com" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
-          www.fivepoint0solutions.com
-        </a>
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIiIGhlaWdodD0iMTMyIiBjbGFzcz0ic2Vnbm8iPjxnIHRyYW5zZm9ybT0ic2NhbGUoNCkiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMzN2MzNoLTMzeiIvPjxwYXRoIGNsYXNzPSJxcmxpbmUiIHN0cm9rZT0iIzExMSIgZD0iTTIgMi41aDdtMSAwaDJtMiAwaDNtMyAwaDFtMyAwaDdtLTI5IDFoMW01IDBoMW0xIDBoMW0yIDBoMW0xIDBoMm0yIDBoM20yIDBoMW01IDBoMW0tMjkgMWgxbTEgMGgzbTEgMGgxbTEgMGgybTEgMGgxbTEgMGgybTcgMGgxbTEgMGgzbTEgMGgxbS0yOSAxaDFtMSAwaDNtMSAwaDFtMiAwaDNtMSAwaDFtMSAwaDRtMSAwaDFtMSAwaDFtMSAwaDNtMSAwaDFtLTI5IDFoMW0xIDBoM20xIDBoMW0xIDBoM20xIDBoMW01IDBoMm0yIDBoMW0xIDBoM20xIDBoMW0tMjkgMWgxbTUgMGgxbTQgMGgxbTUgMGgxbTIgMGgxbTEgMGgxbTUgMGgxbS0yOSAxaDdtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDdtLTE4IDFoNG0xIDBoMW0yIDBoMm0tMjEgMWgxbTIgMGgxMG0xIDBoNG0zIDBoMW0yIDBoMW0xIDBoM20tMjkgMWgzbTQgMGgxbTEgMGgybTQgMGgxbTIgMGgybTMgMGgybTEgMGgybS0yOCAxaDFtMSAwaDVtMiAwaDFtMSAwaDFtMiAwaDJtMSAwaDJtMiAwaDJtMyAwaDFtLTIzIDFoMW00IDBoMm02IDBoMW0xIDBoMW0yIDBoNG0yIDBoMW0tMjkgMWgxbTMgMGgxbTEgMGgxbTQgMGg0bTEgMGgxbTMgMGgxbTEgMGgybTQgMGgxbS0yOSAxaDNtNCAwaDNtMiAwaDVtNCAwaDhtLTI4IDFoMW0xIDBoMW0xIDBoNW0zIDBoMW0xIDBoMm0xIDBoN20xIDBoMW0xIDBoMW0tMjkgMWgxbTIgMGgzbTIgMGgxbTEgMGgzbTEgMGgzbTEgMGgxbTIgMGgxbTIgMGgxbTEgMGgxbTEgMGgxbS0yOSAxaDJtMyAwaDJtMSAwaDFtMSAwaDFtMSAwaDFtMSAwaDJtNCAwaDJtMSAwaDFtMSAwaDFtLTI2IDFoM20yIDBoMW0xIDBoMm0yIDBoMW0xIDBoMW0xIDBoMW0xIDBoMW0xIDBoMm0zIDBoMW0xIDBoMm0tMjggMWgybTIgMGg2bTIgMGgxbTIgMGgxbTEgMGg0bTQgMGgxbTIgMGgxbS0yOSAxaDJtMSAwaDNtMyAwaDRtMSAwaDFtMyAwaDJtMSAwaDFtMSAwaDFtMSAwaDJtLTI3IDFoMm0xIDBoMm0xIDBoMW0xIDBoMW0xIDBoMW0yIDBoMTVtLTIwIDFoMm00IDBoMm0xIDBoMm0xIDBoMW0zIDBoMm0tMjYgMWg3bTEgMGgxbTEgMGgybTIgMGgybTMgMGgybTEgMGgxbTEgMGgybS0yNiAxaDFtNSAwaDFtMSAwaDJtMSAwaDFtMiAwaDJtMSAwaDRtMyAwaDFtMiAwaDFtLTI4IDFoMW0xIDBoM20xIDBoMW0xIDBoMm0xIDBoNW0zIDBoN20yIDBoMW0tMjkgMWgxbTEgMGgzbTEgMGgxbTEgMGgxbTEgMGgybTMgMGg0bTEgMGgybTYgMGgxbS0yOSAxaDFtMSAwaDNtMSAwaDFtMyAwaDNtMSAwaDJtMyAwaDJtMiAwaDJtMSAwaDNtLTI5IDFoMW01IDBoMW00IDBoMW0zIDBoMW0yIDBoMW0zIDBoMm0xIDBoMm0xIDBoMW0tMjkgMWg3bTEgMGgxbTEgMGgxbTEgMGgzbTQgMGgybTEgMGgzIi8+PC9nPjwvc3ZnPg=="
+          alt="QR code: scan to open this app"
+          width={96}
+          height={96}
+          className="mt-3 rounded-md"
+          style={{ background: "#fff", padding: 4, boxShadow: "0 2px 8px rgba(0,0,0,.18)" }}
+        />
+        <div className="mt-1 text-[11px]">Scan to open</div>
       </footer>
 
     </main>
