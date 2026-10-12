@@ -7,10 +7,10 @@ type ModeCardProps = { mode: ModeConfig; className?: string };
 
 /** One action photo per mode; [file, object-position]. Swap a file in public/art/arena to change a picture. */
 const MODE_PHOTO: Record<string, [string, string]> = {
-  inspire: ["inspire-olympic.webp", "50% 60%"],
-  build: ["build-multisport.webp", "50% 40%"],
-  busywork: ["drills-football.webp", "50% 40%"],
-  challenge: ["challenge-boxing.webp", "50% 16%"],
+  inspire: ["inspire-olympic.webp", "50% 50%"],
+  build: ["build-multisport.webp", "50% 50%"],
+  busywork: ["drills-football.webp", "50% 50%"],
+  challenge: ["challenge-boxing.webp", "50% 50%"],
 };
 
 /** Animated gradient placard, sized and typeset to match the other Sidekick apps' mode cards. */
