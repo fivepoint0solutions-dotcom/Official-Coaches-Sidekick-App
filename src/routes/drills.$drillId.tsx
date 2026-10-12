@@ -130,7 +130,7 @@ function DrillDetailPage() {
               <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
             ) : null}
           </div>
-          <h1 className="text-display mt-5">{drill.name}</h1>
+          <h1 className="mt-4 text-3xl sm:text-display">{drill.name}</h1>
           <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
             <span className="flex items-center gap-2">
               <Clock3 className="size-4" />
