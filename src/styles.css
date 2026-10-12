@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Permanent+Marker&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -9,8 +10,10 @@
  * GLOBAL DESIGN SYSTEM — Coach's Sidekick
  * ============================================================
  *
- * Arena look: newsprint paper, arena-black type, glove red, goalie orange and
- * rope navy, cut into flat pennant and plate shapes (see ARENA SKIN at the end).
+ * Playbook look: the coach's hockey playbook binder — hole-punched sheets,
+ * white hockey-tape title strips with marker lettering, hand-drawn X/O play
+ * diagrams, jersey-patch buttons, pencil-sketch hockey doodles
+ * (see PLAYBOOK SKIN at the end).
  */
 
 @theme inline {
@@ -1010,125 +1013,192 @@ header.fixed.top-0::before { content: ""; position: absolute; left: 0; right: 0;
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); }
 body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 
-
 /* ============================================================
- * ARENA SKIN — flat-cut banners and plates, sport colours.
+ * PLAYBOOK SKIN — the coach's hockey playbook binder.
  * Unlayered on purpose, so it wins over the utility layer above.
  * Layout is untouched; only shapes, colours, type and pictures change.
+ * Replaces the ARENA SKIN (angled placards, pennants, barber stripes).
  * ============================================================ */
 
 :root {
-  --cut: 14px;      /* angled corner on plates */
-  --notch: 22px;    /* swallowtail depth on pennants */
-  --cw: #151922;    /* banner colourway (set per mode below) */
-  --card-glow: #F26B1D; /* trim colour on the left edge */
-  --stripe: linear-gradient(transparent, transparent);
-}
-.card-tint-inspire { --cw: #B3141F; --card-glow: #F26B1D; }
-.card-tint-build { --cw: #1C2F5E; --card-glow: #F4F1EA; }
-.card-tint-busywork { --cw: #151922; --card-glow: #F26B1D; }
-.card-tint-challenge { --cw: #C2470C; --card-glow: #F4F1EA; }
-
-@keyframes arena-stripes {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 440px 0, 0 0; }
+  --pb-paper: #FCFAF3;
+  --pb-ink: #211D14;
+  --pb-ink-soft: #5A5344;
+  --pb-red: #C8102E;
+  --pb-blue: #1E4B7A;
+  --font-marker: "Permanent Marker", "Arial Black", sans-serif;
+  --font-hand: "Caveat", cursive;
 }
 
-/* No rounded corners anywhere. Round dots, avatars and swatches stay round. */
-[class*="rounded"]:not(.rounded-full),
-button.rounded-full, a.rounded-full, [role="button"].rounded-full { border-radius: 0 !important; }
-
-/* Banner plates: angled top-right and bottom-left corners. */
-.anchor-card-gradient, .card-soft, .card-elevated, .big-cta, .glass-panel, .stat-tile,
-.chip, .badge-pill, button.rounded-full, a.rounded-full {
-  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
-}
-.chip, .badge-pill, button.rounded-full, a.rounded-full { --cut: 7px; }
-
-/* Pennant: swallowtail on the right end. Used by the mode and library cards. */
-.pennant {
-  clip-path: polygon(0 0, 100% 0, calc(100% - var(--notch)) 50%, 100% 100%, 0 100%) !important;
-  padding-right: calc(1.25rem + var(--notch));
-}
-
-/* Banner fill: solid team colour with slow barber-pole stripes and a trim bar. */
-.anchor-card-gradient, .card-soft, .card-elevated, .big-cta {
-  background-image: var(--stripe), linear-gradient(135deg, var(--cw), color-mix(in srgb, var(--cw) 72%, #000));
-  background-size: 22px 22px, 100% 100%;
-  border: 0;
-  box-shadow: inset 6px 0 0 var(--card-glow);
-}
-.anchor-card-gradient.hover-lift:hover, .card-soft:hover, .card-elevated:hover, .big-cta:hover {
-  box-shadow: inset 6px 0 0 var(--card-glow);
-}
-@media (prefers-reduced-motion: reduce) {
-  .anchor-card-gradient, .card-soft, .card-elevated, .big-cta { animation: none; }
-}
-
-/* Light plates (inputs, chips, stat tiles): paper with an ink edge. */
-.glass-panel, .stat-tile {
-  background: #F4F1EA;
-  border: 2px solid var(--brand-ink);
-  backdrop-filter: none;
-  box-shadow: none;
-}
-.chip { border: 2px solid var(--brand-ink); background: #F4F1EA; }
-
-/* Type: tall condensed headlines, plain readable body. */
-h1, h2, h3, h4, .font-display, .text-display, .text-headline, .text-title {
-  font-weight: 400 !important;
-  font-synthesis: none;
-  letter-spacing: 0.02em;
-  line-height: 1.02;
-}
-.text-display, .text-headline { text-transform: uppercase; font-style: normal !important; }
-.text-headline.italic, h1.italic { font-style: normal !important; }
-h3.font-display { font-size: 1.7rem; }
-.text-title { font-size: clamp(1.5rem, 2.2vw, 1.8rem); }
-.text-eyebrow, .badge-pill, .chip, button, .anchor-card-gradient.inline-flex {
-  font-family: "Barlow Condensed", "Barlow", Arial, sans-serif;
-  letter-spacing: 0.04em;
-}
-.text-eyebrow, .badge-pill { text-transform: uppercase; }
-button:not(.font-normal), .anchor-card-gradient.inline-flex { font-weight: 700; font-size: 1.08em; }
-.text-gradient {
-  background-image: linear-gradient(100deg, #D3202B, #F26B1D 45%, #D3202B);
-  background-size: 220% 220%;
-}
-
-/* Newsprint paper under everything. */
-body::before {
+/* Binder sheets: hole-punched playbook paper. Applies to cards, but NOT to
+   inline CTA buttons or nav pills — those get their own treatment below. */
+.card-soft,
+.card-elevated,
+.anchor-card-gradient:not(.inline-flex):not(.nav-active) {
+  animation: none !important;
+  background-color: var(--pb-paper);
   background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0.09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    var(--grad-ambient);
-  background-size: 220px 220px, 100% 100%;
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='46' height='132'><circle cx='23' cy='66' r='11' fill='none' stroke='%239aa0a8' stroke-width='3.5'/><circle cx='23' cy='66' r='7.5' fill='%23c9c1ab'/><circle cx='23' cy='66' r='7.5' fill='none' stroke='rgba(0,0,0,0.3)' stroke-width='1.4'/></svg>"),
+    linear-gradient(to right, transparent 0, transparent 40px, rgba(200,16,46,.38) 40px, rgba(200,16,46,.38) 42px, transparent 42px),
+    linear-gradient(180deg, #FDFAF4 0%, #F6F1E2 100%);
+  background-size: 46px 132px, 100% 100%, 100% 100%;
+  background-repeat: repeat-y, no-repeat, no-repeat;
+  background-position: left top, left top, left top;
+  border: 1px solid rgba(33,29,20,.28);
+  box-shadow: 0 1px 2px rgba(33,29,20,.14), 0 10px 28px -14px rgba(33,29,20,.35);
+  clip-path: none !important;
+  color: var(--pb-ink);
+  padding-left: 3.4rem;
 }
 
-/* Pictures inside banners: bleed to the edges, angled cut underneath. */
-.banner-photo {
-  max-width: none;
-  display: block;
-  width: calc(100% + 2.5rem + var(--notch));
-  margin: -1.25rem calc(-1.25rem - var(--notch)) 1rem -1.25rem;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), 0 100%);
+/* Kill the twinkle glint on sheets. */
+.anchor-card-gradient::after,
+.card-soft::after,
+.card-elevated::after,
+.big-cta::after {
+  animation: none !important;
+  opacity: 0 !important;
 }
-.hero-photo {
+
+/* Ink text on paper: counter the placard-text forced white. */
+.card-soft,
+.card-elevated,
+.anchor-card-gradient:not(.inline-flex):not(.nav-active),
+.card-soft :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a),
+.card-elevated :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a),
+.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a) {
+  color: var(--pb-ink) !important;
+}
+
+/* Dividers and frames drawn for dark cards become ink-on-paper. */
+.card-soft [class*="border-white"],
+.card-elevated [class*="border-white"],
+.anchor-card-gradient:not(.inline-flex):not(.nav-active) [class*="border-white"] {
+  border-color: rgba(33,29,20,.22) !important;
+}
+
+/* Readable fields inside sheets stay dark-on-light. */
+.card-soft :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select),
+.card-elevated :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select),
+.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select) {
+  background: #FFFDF6 !important;
+  color: var(--pb-ink) !important;
+  border: 2px solid rgba(33,29,20,.4) !important;
+  border-radius: 6px !important;
+}
+.card-soft :is(textarea, input)::placeholder,
+.card-elevated :is(textarea, input)::placeholder,
+.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(textarea, input)::placeholder {
+  color: #6B6350 !important;
+  opacity: 1 !important;
+}
+
+/* Light plates harmonized with the binder paper. */
+.glass-panel, .stat-tile {
+  background: var(--pb-paper);
+  border: 1px solid rgba(33,29,20,.25);
+  box-shadow: 0 1px 2px rgba(33,29,20,.1);
+  clip-path: none !important;
+  backdrop-filter: none;
+}
+
+/* Metadata pills become ink chips on paper. */
+.badge-pill, .chip {
+  background: var(--pb-ink) !important;
+  color: var(--pb-paper) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  clip-path: none !important;
+  font-family: var(--font-sans);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: .32rem .75rem;
+}
+
+/* Hockey-tape title strips: marker lettering on white tape. */
+.tape-strip {
+  display: inline-block;
+  font-family: var(--font-marker);
+  font-weight: 400;
+  background: linear-gradient(180deg, #FDFAF2 0%, #F2ECDA 100%);
+  color: var(--pb-ink) !important;
+  padding: .32em 1em .42em;
+  transform: rotate(-1.3deg);
+  box-shadow: 0 2px 5px rgba(33,29,20,.28);
+  clip-path: polygon(1.5% 14%, 4% 0, 96% 2%, 100% 16%, 98.5% 86%, 95% 100%, 4% 98%, 0 84%);
+  line-height: 1.25;
+}
+
+/* Marker lettering for titles across the app. */
+h1, h2, h3, h4, .font-display, .text-display, .text-headline, .text-title {
+  font-family: var(--font-marker) !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  text-transform: none !important;
+  letter-spacing: .015em;
+  line-height: 1.18;
+}
+h1.italic, .text-headline.italic { font-style: normal !important; }
+
+/* Former gradient headline span becomes rink-red marker. */
+.text-gradient {
+  background: none !important;
+  color: var(--pb-red) !important;
+}
+
+/* Jersey-patch buttons: solid fill, stitched inset edge, marker label. */
+.big-cta, .anchor-card-gradient.inline-flex {
+  animation: none !important;
+  background: var(--pb-blue) !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  clip-path: none !important;
+  box-shadow: 0 4px 14px rgba(33,29,20,.30), inset 0 1px 0 rgba(255,255,255,.18) !important;
+  color: #FCFAF3 !important;
+  font-family: var(--font-marker) !important;
+  font-weight: 400 !important;
+  letter-spacing: .02em;
+  outline: 2px dashed rgba(252,250,243,.65) !important;
+  outline-offset: -7px !important;
+}
+.big-cta *, .anchor-card-gradient.inline-flex * { color: #FCFAF3 !important; }
+
+/* Nav pill becomes an ink tab. */
+.nav-active {
+  animation: none !important;
+  background: var(--pb-ink) !important;
+  background-image: none !important;
+  border-color: var(--pb-ink) !important;
+  color: var(--pb-paper) !important;
+  clip-path: none !important;
+}
+.nav-active::after { opacity: 0 !important; animation: none !important; }
+
+/* Hand-drawn play diagram frame on mode cards. */
+.play-diagram {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
-  max-height: 28rem;
-  object-fit: cover;
-  object-position: 50% 45%;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+  border: 2px solid rgba(33,29,20,.4);
+  border-radius: 4px;
+  background: linear-gradient(180deg, #FDFBF4 0%, #F4EEDC 100%);
 }
 
-/* Readable fields inside coloured panels: cream paper field, dark ink, clear placeholder. */
-.anchor-card-gradient :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select) {
-  background: #FFF8EA !important; color: #1B1F2A !important; border: 2px solid rgba(21,25,34,.55) !important;
-  border-radius: 4px !important; font-size: 1.05rem;
+/* Pencil-sketch desk under everything: crossed sticks, faceoff X/O, puck. */
+body::before {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'><g fill='none' stroke='%23857e6c' stroke-width='7' stroke-linecap='round' opacity='0.30'><path d='M70 45 L255 265'/><path d='M255 265 L292 254 L300 292 L256 270'/><path d='M290 45 L105 265'/><path d='M105 265 L68 254 L60 292 L104 270'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><g fill='none' stroke='%23857e6c' stroke-width='6' opacity='0.28'><circle cx='150' cy='150' r='112'/><circle cx='150' cy='150' r='5' fill='%23857e6c'/><path d='M92 92 l30 30 M122 92 l-30 30' stroke-linecap='round'/><circle cx='208' cy='202' r='17'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'><g fill='none' stroke='%23857e6c' stroke-width='6' opacity='0.28'><ellipse cx='115' cy='102' rx='72' ry='40'/><path d='M43 102 L43 126'/><path d='M187 102 L187 126'/><ellipse cx='115' cy='126' rx='72' ry='40'/></g></svg>"),
+    linear-gradient(180deg, #F0EADA 0%, #E5DBC2 100%);
+  background-size: 360px 360px, 300px 300px, 230px 230px, 100% 100%;
+  background-position: 3% 6%, 94% 20%, 10% 88%, 0 0;
+  background-repeat: no-repeat;
 }
-.anchor-card-gradient :is(textarea, input)::placeholder { color: #5C5648 !important; opacity: 1 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anchor-card-gradient, .card-soft, .card-elevated, .big-cta, .tape-strip { animation: none !important; }
+}
