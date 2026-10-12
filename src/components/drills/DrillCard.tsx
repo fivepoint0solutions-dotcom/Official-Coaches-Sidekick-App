@@ -1,13 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Clock3, Users } from "lucide-react";
 import type { Drill } from "@/data/drillLibrary";
-import { SURFACE_COMPONENTS, SURFACE_VIEWBOX } from "@/components/drills/surfaces";
+import { DrillDiagram } from "@/components/drills/DrillDiagram";
 import { isUserDrillId } from "@/lib/userDrills";
 
 export function DrillCard({ drill, index }: { drill: Drill; index: number }) {
   const tint = ["card-tint-inspire", "card-tint-build", "card-tint-challenge"][index % 3];
-  const Surface = drill.diagram ? SURFACE_COMPONENTS[drill.diagram.surface] : null;
-  const box = drill.diagram ? SURFACE_VIEWBOX[drill.diagram.surface] : null;
   return (
     <Link
       to="/drills/$drillId"
@@ -24,12 +22,9 @@ export function DrillCard({ drill, index }: { drill: Drill; index: number }) {
           </div>
           <ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
-        {Surface && box ? (
-          <div
-            className="mb-4 overflow-hidden rounded-xl border border-white/25"
-            style={{ aspectRatio: `${box.w} / ${box.h}` }}
-          >
-            <Surface />
+        {drill.diagram ? (
+          <div className="mb-4 overflow-hidden rounded-lg border-2 border-[rgba(33,29,20,.35)]">
+            <DrillDiagram diagram={drill.diagram} id={drill.id} framed={false} />
           </div>
         ) : null}
         <h2 className="text-title font-bold">{drill.name}</h2>
@@ -40,7 +35,7 @@ export function DrillCard({ drill, index }: { drill: Drill; index: number }) {
           <Clock3 className="size-4" />
           {drill.duration}
         </span>
-        <span className="flex items-center justify-end gap-2">
+        <span className="flex items-center gap-2">
           <Users className="size-4" />
           {drill.ageGroup}
         </span>

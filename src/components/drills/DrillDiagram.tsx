@@ -132,31 +132,45 @@ export function Stroke({ stroke, w, h }: { stroke: DiagramStroke; w: number; h: 
 
 /** Schematic sport-surface diagram for a drill: a scaled field/court/rink with
  * player, cone and ball markers plus movement/pass arrows drawn on top. */
-export function DrillDiagram({ diagram, id }: { diagram: DrillDiagramSpec; id: string }) {
+export function DrillDiagram({
+  diagram,
+  id,
+  framed = true,
+}: {
+  diagram: DrillDiagramSpec;
+  id: string;
+  framed?: boolean;
+}) {
   const Surface = SURFACE_COMPONENTS[diagram.surface];
   const { w, h } = SURFACE_VIEWBOX[diagram.surface];
 
+  const rink = (
+    <div
+      className="relative w-full overflow-hidden rounded-xl shadow-inner"
+      style={{ aspectRatio: `${w} / ${h}` }}
+    >
+      <div className="absolute inset-0">
+        <Surface />
+      </div>
+      <svg viewBox={`0 0 ${w} ${h}`} className="absolute inset-0 h-full w-full">
+        {diagram.arrows?.map((arrow, i) => (
+          <Arrow key={i} arrow={arrow} w={w} h={h} id={`${id}-arrow-${i}`} />
+        ))}
+        {diagram.strokes?.map((stroke, i) => (
+          <Stroke key={i} stroke={stroke} w={w} h={h} />
+        ))}
+        {diagram.markers.map((marker, i) => (
+          <Marker key={i} marker={marker} w={w} h={h} />
+        ))}
+      </svg>
+    </div>
+  );
+
+  if (!framed) return rink;
+
   return (
     <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
-      <div
-        className="relative w-full overflow-hidden rounded-xl shadow-inner"
-        style={{ aspectRatio: `${w} / ${h}` }}
-      >
-        <div className="absolute inset-0">
-          <Surface />
-        </div>
-        <svg viewBox={`0 0 ${w} ${h}`} className="absolute inset-0 h-full w-full">
-          {diagram.arrows?.map((arrow, i) => (
-            <Arrow key={i} arrow={arrow} w={w} h={h} id={`${id}-arrow-${i}`} />
-          ))}
-          {diagram.strokes?.map((stroke, i) => (
-            <Stroke key={i} stroke={stroke} w={w} h={h} />
-          ))}
-          {diagram.markers.map((marker, i) => (
-            <Marker key={i} marker={marker} w={w} h={h} />
-          ))}
-        </svg>
-      </div>
+      {rink}
     </div>
   );
 }

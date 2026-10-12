@@ -1015,10 +1015,12 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 
 /* ============================================================
  * PLAYBOOK SKIN — the coach's hockey playbook binder.
- * Unlayered on purpose, so it wins over the utility layer above.
+ * Lives in the utilities layer (same as the design-system utilities it
+ * overrides) so its !important rules win by source order + specificity.
  * Layout is untouched; only shapes, colours, type and pictures change.
  * Replaces the ARENA SKIN (angled placards, pennants, barber stripes).
  * ============================================================ */
+@layer utilities {
 
 :root {
   --pb-paper: #FCFAF3;
@@ -1031,10 +1033,11 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 }
 
 /* Binder sheets: hole-punched playbook paper. Applies to cards, but NOT to
-   inline CTA buttons or nav pills — those get their own treatment below. */
+   inline CTA buttons, nav pills, or round menu buttons (those keep their
+   dark readable treatment). */
 .card-soft,
 .card-elevated,
-.anchor-card-gradient:not(.inline-flex):not(.nav-active) {
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) {
   animation: none !important;
   background-color: var(--pb-paper);
   background-image:
@@ -1060,27 +1063,28 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
   opacity: 0 !important;
 }
 
-/* Ink text on paper: counter the placard-text forced white. */
+/* Ink text on paper: beats the design system's forced-white placard text
+   (same layer, later source, matching specificity). */
 .card-soft,
 .card-elevated,
-.anchor-card-gradient:not(.inline-flex):not(.nav-active),
-.card-soft :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a),
-.card-elevated :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a),
-.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a) {
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full),
+.card-soft :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a):not(.keep-color),
+.card-elevated :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a):not(.keep-color),
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) :is(div, span, p, h1, h2, h3, h4, strong, em, li, small, label, a):not(.keep-color) {
   color: var(--pb-ink) !important;
 }
 
 /* Dividers and frames drawn for dark cards become ink-on-paper. */
 .card-soft [class*="border-white"],
 .card-elevated [class*="border-white"],
-.anchor-card-gradient:not(.inline-flex):not(.nav-active) [class*="border-white"] {
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) [class*="border-white"] {
   border-color: rgba(33,29,20,.22) !important;
 }
 
 /* Readable fields inside sheets stay dark-on-light. */
 .card-soft :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select),
 .card-elevated :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select),
-.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select) {
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) :is(textarea, input:not([type="checkbox"]):not([type="radio"]), select) {
   background: #FFFDF6 !important;
   color: var(--pb-ink) !important;
   border: 2px solid rgba(33,29,20,.4) !important;
@@ -1088,7 +1092,7 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 }
 .card-soft :is(textarea, input)::placeholder,
 .card-elevated :is(textarea, input)::placeholder,
-.anchor-card-gradient:not(.inline-flex):not(.nav-active) :is(textarea, input)::placeholder {
+.anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) :is(textarea, input)::placeholder {
   color: #6B6350 !important;
   opacity: 1 !important;
 }
@@ -1129,6 +1133,13 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
   box-shadow: 0 2px 5px rgba(33,29,20,.28);
   clip-path: polygon(1.5% 14%, 4% 0, 96% 2%, 100% 16%, 98.5% 86%, 95% 100%, 4% 98%, 0 84%);
   line-height: 1.25;
+}
+/* Tape titles inside cards: beat the forced-white placard text. */
+.anchor-card-gradient h1.tape-strip,
+.anchor-card-gradient h2.tape-strip,
+.anchor-card-gradient h3.tape-strip,
+.anchor-card-gradient p.tape-strip {
+  color: var(--pb-ink) !important;
 }
 
 /* Marker lettering for titles across the app. */
@@ -1202,3 +1213,5 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .anchor-card-gradient, .card-soft, .card-elevated, .big-cta, .tape-strip { animation: none !important; }
 }
+
+} /* end @layer utilities — PLAYBOOK SKIN */
