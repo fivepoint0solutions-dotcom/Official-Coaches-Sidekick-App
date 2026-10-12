@@ -104,6 +104,17 @@ function Dashboard() {
         <RecentWork />
       </div>
 
+      <footer className="container-app pb-24 pt-2 text-center text-xs leading-tight" style={{ opacity: 0.8 }}>
+        Website design and development by{" "}
+        <a href="https://www.fivepoint0solutions.com" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
+          Five Point 0 Solutions
+        </a>
+        {" | "}
+        <a href="https://www.fivepoint0solutions.com" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
+          www.fivepoint0solutions.com
+        </a>
+      </footer>
+
     </main>
   );
 }
