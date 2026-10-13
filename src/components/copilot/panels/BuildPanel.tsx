@@ -11,11 +11,14 @@ import { Check, Save } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
 import { useT } from "@/lib/i18n";
 import { AGE_GROUP_OPTIONS } from "@/lib/creationTypes";
+import { PracticePicker } from "@/components/practice/PracticePicker";
+import type { Drill } from "@/data/drillLibrary";
 
 export function BuildPanel({ draft, patch, onSave }: PanelProps) {
   const t = useT();
   const [loading, setLoading] = useState(false);
   const [regenIndex, setRegenIndex] = useState<number | null>(null);
+  const [describing, setDescribing] = useState(false);
   const hasIdea = Boolean(draft.context.topic || draft.context.idea);
   const isDrafted = draft.blocks.length > 0;
 
@@ -68,6 +71,25 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
     const blocks = await aiProvider.applyQuickAction(action, draft.blocks, draft.context);
     patch({ blocks });
     setLoading(false);
+  }
+
+  function buildFromDrills(category: string, drills: Drill[]) {
+    const blocks: ContentBlock[] = drills.map((drill) => ({
+      id: `drill-${drill.id}`,
+      heading: `${drill.name} (${drill.duration})`,
+      body: [
+        drill.setup,
+        drill.steps.map((step, i) => `${i + 1}. ${step}`).join("\n"),
+        drill.coachingPoints.length ? `Coaching points:\n${drill.coachingPoints.map((p) => `- ${p}`).join("\n")}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+    }));
+    patch({ context: { ...draft.context, sport: "Hockey", topic: `${category} practice` }, blocks, buildQuestion: null });
+  }
+
+  if (!hasIdea && !describing) {
+    return <PracticePicker onBuild={buildFromDrills} onDescribe={() => setDescribing(true)} />;
   }
 
   if (!hasIdea) {

@@ -22,12 +22,12 @@ export const Route = createFileRoute("/drills/")({
       {
         name: "description",
         content:
-          "Browse 107 hockey drills, then bring any drill into your practice builder.",
+          `Browse ${drillLibrary.length} hockey drills and plays, then bring any into your practice builder.`,
       },
       { property: "og:title", content: "Drill Library — Coach's Sidekick" },
       {
         property: "og:description",
-        content: "Search 107 hockey drills by skill, category, or equipment.",
+        content: `Search ${drillLibrary.length} hockey drills and plays by category, skill, or equipment.`,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -80,7 +80,7 @@ function DrillLibraryPage() {
           <p className="text-eyebrow text-interactive">Curated coaching collection</p>
           <h1 className="text-display mt-3">Drill Library</h1>
           <p className="text-lede mt-4 text-muted-foreground">
-            Search 107 field-tested hockey drills, add your own, then drop one straight
+            Search {drillLibrary.length} field-tested hockey drills and plays, add your own, then drop one straight
             into your practice plan.
           </p>
         </div>
