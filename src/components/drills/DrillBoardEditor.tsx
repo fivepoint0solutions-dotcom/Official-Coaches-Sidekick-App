@@ -34,13 +34,15 @@ const SURFACE_LABELS: Record<SurfaceId, string> = {
   "volleyball-court": "Volleyball court",
   "track-lane": "Track lane",
   "track-oval": "Track oval",
+  "hockey-rink": "Hockey rink",
   "hockey-full": "Hockey (full)",
   "hockey-half": "Hockey (half)",
 };
 
 const MARKER_TOOLS: { kind: DiagramMarker["kind"]; label: string; Icon: typeof User }[] = [
-  { kind: "player", label: "Player", Icon: User },
-  { kind: "defender", label: "Defender", Icon: Shield },
+  { kind: "player", label: "Player (O)", Icon: User },
+  { kind: "defender", label: "Defender (X)", Icon: Shield },
+  { kind: "goalie", label: "Goalie", Icon: Shield },
   { kind: "cone", label: "Cone", Icon: Triangle },
   { kind: "ball", label: "Ball", Icon: Circle },
   { kind: "coach", label: "Coach", Icon: UserCog },
@@ -316,7 +318,7 @@ export function DrillBoardEditor({ value, onChange }: Props) {
             onChange={(event) => commit({ ...value, surface: event.target.value as SurfaceId })}
             className="rounded-lg border border-white/40 bg-white/80 px-2 py-1.5 text-xs font-semibold text-foreground"
           >
-            {Object.entries(SURFACE_LABELS).map(([id, label]) => (
+            {Object.entries(SURFACE_LABELS).filter(([id]) => id !== "hockey-full" && id !== "hockey-half").map(([id, label]) => (
               <option key={id} value={id}>
                 {label}
               </option>
@@ -464,7 +466,7 @@ export function DrillBoardEditor({ value, onChange }: Props) {
           onPointerUp={handleBoardPointerUp}
         >
           {value.arrows?.map((arrow, i) => (
-            <Arrow key={i} arrow={arrow} w={w} h={h} id={`edit-arrow-${i}`} />
+            <Arrow key={i} arrow={arrow} w={w} h={h} />
           ))}
           {value.strokes?.map((stroke, i) => (
             <Stroke key={i} stroke={stroke} w={w} h={h} />
@@ -473,7 +475,7 @@ export function DrillBoardEditor({ value, onChange }: Props) {
           {arrowStart && livePoint && tool.startsWith("path-") ? (
             <polyline
               points={buildPath(tool.replace("path-", "") as PathKind, arrowStart, livePoint, w, h, flip).map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ")}
-              fill="none" stroke="#1A2236" strokeWidth={0.6} strokeDasharray="1.5 1.2"
+              fill="none" stroke="#1A2236" strokeWidth={0.6 * (w / 100)} strokeDasharray={`${1.5 * (w / 100)} ${1.2 * (w / 100)}`}
             />
           ) : arrowStart && livePoint ? (
             <line
@@ -482,8 +484,8 @@ export function DrillBoardEditor({ value, onChange }: Props) {
               x2={pct(livePoint[0], w)}
               y2={pct(livePoint[1], h)}
               stroke="#1A2236"
-              strokeWidth={0.6}
-              strokeDasharray="1.5 1.2"
+              strokeWidth={0.6 * (w / 100)}
+              strokeDasharray={`${1.5 * (w / 100)} ${1.2 * (w / 100)}`}
             />
           ) : null}
           {value.markers.map((marker, i) => (
@@ -494,7 +496,7 @@ export function DrillBoardEditor({ value, onChange }: Props) {
                 cursor: tool === "select" ? "grab" : tool === "eraser" ? "not-allowed" : undefined,
               }}
             >
-              <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={4} fill="transparent" />
+              <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={4 * (w / 100)} fill="transparent" />
               <Marker marker={marker} w={w} h={h} />
             </g>
           ))}

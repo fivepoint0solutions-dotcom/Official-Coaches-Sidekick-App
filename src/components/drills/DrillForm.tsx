@@ -12,7 +12,8 @@ import type { DrillDiagramSpec } from "./DrillDiagram";
 export type DrillFormValues = Omit<Drill, "id">;
 
 const EMPTY_DIAGRAM: DrillDiagramSpec = {
-  surface: "training-grid",
+  surface: "hockey-rink",
+  v: 2,
   markers: [],
   arrows: [],
   strokes: [],

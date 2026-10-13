@@ -12,7 +12,7 @@ export const FORMAT = "coachs-sidekick-drills";
 const LIST_SEP = " | ";
 const COLUMNS = ["sport", "name", "category", "duration", "ageGroup", "equipment", "setup", "steps", "coachingPoints"] as const;
 const COLUMN_LABELS = ["Sport", "Drill name", "Category", "Duration", "Age group", "Equipment", "Setup", "Steps (separate with |)", "Coaching points (separate with |)"];
-const MARKER_KINDS = new Set(["player", "defender", "cone", "ball", "coach"]);
+const MARKER_KINDS = new Set(["player", "defender", "goalie", "cone", "ball", "coach"]);
 const MAX_DRILLS = 300;
 
 /* ---------------------------------- export ---------------------------------- */
@@ -109,7 +109,7 @@ function cleanDiagram(raw: unknown): DrillDiagramSpec | undefined {
     .filter((s): s is Record<string, unknown> => !!s && typeof s === "object" && Array.isArray((s as Record<string, unknown>)["points"]))
     .slice(0, 40)
     .map((s) => ({ points: (s["points"] as unknown[]).map(pair).filter((p): p is [number, number] => !!p).slice(0, 400) }));
-  return { surface: surface as DrillDiagramSpec["surface"], markers, arrows, strokes };
+  return { surface: surface as DrillDiagramSpec["surface"], markers, arrows, strokes, ...(d["v"] === 2 ? { v: 2 as const } : {}) };
 }
 
 /** One loose object from a file into a drill, or null if it has no name. */
