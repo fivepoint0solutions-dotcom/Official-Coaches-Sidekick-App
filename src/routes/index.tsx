@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
@@ -80,14 +80,6 @@ function Dashboard() {
           <p className="mt-2 max-w-2xl text-base text-muted-foreground">
             {t("dashboard.subtitle")}
           </p>
-        </Reveal>
-        <Reveal delay={240} className="mt-7">
-          <Link
-            to="/create"
-            className="anchor-card-gradient card-tint-inspire group inline-flex items-center gap-2.5 rounded-[16px] px-6 py-3.5 text-base font-bold transition-refined hover-lift"
-          >
-            <Sparkles className="size-5" /> {t("nav.createSomething")}
-          </Link>
         </Reveal>
       </section>
 
