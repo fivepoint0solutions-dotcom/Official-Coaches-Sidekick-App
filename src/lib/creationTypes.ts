@@ -152,7 +152,6 @@ export const CREATION_TYPES_META: CreationTypeMeta[] = [
     icon: BookOpen,
     defaultMode: "build",
     fields: [
-      sportField,
       ageGroupField,
       topicField,
       timeField,
@@ -165,7 +164,7 @@ export const CREATION_TYPES_META: CreationTypeMeta[] = [
     id: "drill",
     icon: Boxes,
     defaultMode: "build",
-    fields: [sportField, ageGroupField, topicField, timeField, creativityField],
+    fields: [ageGroupField, topicField, timeField, creativityField],
   },
   {
     id: "drill-sheet",

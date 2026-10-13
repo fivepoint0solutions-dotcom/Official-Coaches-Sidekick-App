@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Clock3, ListChecks, Package, Pencil, Play, Trash2, Users } from "lucide-react";
+import { ArrowLeft, Clock3, ListChecks, Package, Pencil, Trash2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getDrill, type Drill } from "@/data/drillLibrary";
-import { createDraft, updateDraft } from "@/lib/draft";
 import { deleteUserDrill, getUserDrill, isUserDrillId } from "@/lib/userDrills";
 import { DrillDiagram } from "@/components/drills/DrillDiagram";
 
@@ -66,44 +65,6 @@ function DrillDetailPage() {
     );
   }
 
-  function useInPractice() {
-    if (!drill) return;
-    const draft = createDraft({
-      mode: "build",
-      type: "practice-plan",
-      context: {
-        sport: drill.sport,
-        ageGroup: drill.ageGroup,
-        timeAvailable: drill.duration,
-        topic: drill.name,
-        objective: drill.category,
-        idea: drill.setup,
-      },
-    });
-    updateDraft(draft.id, {
-      blocks: [
-        {
-          id: `${drill.id}-overview`,
-          heading: "Drill overview",
-          body: `${drill.name} · ${drill.duration} · ${drill.ageGroup}\nFocus: ${drill.category}`,
-        },
-        { id: `${drill.id}-equipment`, heading: "Equipment", body: drill.equipment },
-        { id: `${drill.id}-setup`, heading: "Setup", body: drill.setup },
-        {
-          id: `${drill.id}-instructions`,
-          heading: "Step-by-step instructions",
-          body: drill.steps.map((step, index) => `${index + 1}. ${step}`).join("\n"),
-        },
-        {
-          id: `${drill.id}-coaching`,
-          heading: "Coaching points",
-          body: drill.coachingPoints.map((point) => `• ${point}`).join("\n"),
-        },
-      ],
-    });
-    navigate({ to: "/workspace", search: { draft: draft.id, mode: undefined } });
-  }
-
   function handleDelete() {
     if (!drill) return;
     if (!window.confirm(`Delete "${drill.name}" from your drill library? This can't be undone.`))
@@ -123,15 +84,8 @@ function DrillDetailPage() {
       {/* Desktop: one big card holds the header and the drill details. Phones keep the separate header card. */}
       <div className="mt-6 lg:anchor-card-gradient lg:card-tint-build lg:rounded-3xl lg:p-10">
         <header className="anchor-card-gradient card-tint-build rounded-3xl p-7 sm:p-10 lg:contents">
-          <div className="flex flex-wrap gap-2">
-            <span className="badge-pill border border-white/40 bg-white/15">{drill.sport}</span>
-            <span className="badge-pill border border-white/40 bg-white/15">{drill.category}</span>
-            {isCustom ? (
-              <span className="badge-pill border border-white/40 bg-white/15">Your drill</span>
-            ) : null}
-          </div>
-          <h1 className="mt-4 text-3xl sm:text-display">{drill.name}</h1>
-          <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
+          <h1 className="text-xl font-bold leading-snug sm:text-2xl">{drill.name}</h1>
+          <div className="mt-3 flex flex-wrap gap-5 text-sm font-semibold">
             <span className="flex items-center gap-2">
               <Clock3 className="size-4" />
               {drill.duration}
@@ -141,10 +95,7 @@ function DrillDetailPage() {
               {drill.ageGroup}
             </span>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button variant="hero" size="lg" onClick={useInPractice}>
-              <Play /> Use in Practice
-            </Button>
+          <div className="mt-6 flex flex-wrap gap-3 empty:hidden">
             {isCustom ? (
               <>
                 <Button asChild variant="outline" size="lg" className="bg-white/80">
@@ -163,7 +114,7 @@ function DrillDetailPage() {
           <section className="mt-6 lg:mt-10">
             <h2 className="text-title">Diagram</h2>
             <div className="mt-3 w-full">
-              <DrillDiagram diagram={drill.diagram} id={drill.id} />
+              <DrillDiagram diagram={drill.diagram} id={drill.id} portraitOnMobile />
             </div>
           </section>
         ) : null}
@@ -188,7 +139,7 @@ function DrillDetailPage() {
               <ol className="mt-4 space-y-3">
                 {drill.steps.map((step, index) => (
                   <li key={step} className="flex gap-3">
-                    <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                    <span className="grid size-7 shrink-0 place-items-center rounded-full bg-foreground/85 text-sm font-bold text-background">
                       {index + 1}
                     </span>
                     <span>{step}</span>

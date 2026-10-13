@@ -1,3 +1,4 @@
+import type React from "react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 
 export type DiagramMarker = {
@@ -63,6 +64,7 @@ export function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: 
       )}
       {marker.label ? (
         <text
+          className="diagram-label"
           x={cx}
           y={cy + (marker.kind === "cone" ? r + 3 : 0.9)}
           textAnchor="middle"
@@ -136,19 +138,19 @@ export function DrillDiagram({
   diagram,
   id,
   framed = true,
+  portraitOnMobile = false,
 }: {
   diagram: DrillDiagramSpec;
   id: string;
   framed?: boolean;
+  /** On phones (<640px) turn the rink 90 degrees so it fills a tall, portrait box. */
+  portraitOnMobile?: boolean;
 }) {
   const Surface = SURFACE_COMPONENTS[diagram.surface];
   const { w, h } = SURFACE_VIEWBOX[diagram.surface];
 
-  const rink = (
-    <div
-      className="relative w-full overflow-hidden rounded-xl shadow-inner"
-      style={{ aspectRatio: `${w} / ${h}` }}
-    >
+  const drawing = (
+    <>
       <div className="absolute inset-0">
         <Surface />
       </div>
@@ -163,6 +165,32 @@ export function DrillDiagram({
           <Marker key={i} marker={marker} w={w} h={h} />
         ))}
       </svg>
+    </>
+  );
+
+  const rink = portraitOnMobile ? (
+    <div
+      className="diagram-portrait relative w-full overflow-hidden rounded-xl shadow-inner [aspect-ratio:var(--ar-port)] sm:[aspect-ratio:var(--ar-land)]"
+      style={
+        {
+          "--ar-land": `${w} / ${h}`,
+          "--ar-port": `${h} / ${w}`,
+          "--rot-w": `${(w / h) * 100}%`,
+          "--rot-h": `${(h / w) * 100}%`,
+        } as React.CSSProperties
+      }
+    >
+      {/* Below sm the landscape drawing is laid on its side inside the tall box; from sm up it fills the box normally. */}
+      <div className="absolute inset-0 max-sm:inset-auto max-sm:left-1/2 max-sm:top-1/2 max-sm:rotate-90 max-sm:[width:var(--rot-w)] max-sm:[height:var(--rot-h)] max-sm:-translate-x-1/2 max-sm:-translate-y-1/2">
+        {drawing}
+      </div>
+    </div>
+  ) : (
+    <div
+      className="relative w-full overflow-hidden rounded-xl shadow-inner"
+      style={{ aspectRatio: `${w} / ${h}` }}
+    >
+      {drawing}
     </div>
   );
 

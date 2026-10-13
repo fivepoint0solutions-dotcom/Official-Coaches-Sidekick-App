@@ -63,7 +63,7 @@ function topicOf(ctx: CreationContext) {
 }
 
 function sportOf(ctx: CreationContext) {
-  return ctx.sport?.trim() || "your team";
+  return ctx.sport?.trim() || "hockey";
 }
 
 function ageGroupOf(ctx: CreationContext) {

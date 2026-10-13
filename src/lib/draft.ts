@@ -50,7 +50,8 @@ export function createDraft(input: {
     id: `draft-${Date.now().toString(36)}-${Math.floor(Math.random() * 1e6)}`,
     mode: input.mode,
     type: input.type,
-    context: input.context ?? {},
+    // Hockey-only app: every draft defaults to hockey.
+    context: { sport: "Hockey", ...(input.context ?? {}) },
     blocks: [],
     ideas: [],
     critique: null,

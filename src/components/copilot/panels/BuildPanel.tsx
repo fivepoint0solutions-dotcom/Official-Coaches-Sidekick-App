@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Save } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
 import { useT } from "@/lib/i18n";
-import { AGE_GROUP_OPTIONS, SPORT_OPTIONS } from "@/lib/creationTypes";
+import { AGE_GROUP_OPTIONS } from "@/lib/creationTypes";
 
 export function BuildPanel({ draft, patch, onSave }: PanelProps) {
   const t = useT();
@@ -84,13 +84,6 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
             required: true,
           },
           {
-            key: "sport",
-            label: t("field.sport.label"),
-            kind: "choice",
-            options: SPORT_OPTIONS,
-            required: true,
-          },
-          {
             key: "ageGroup",
             label: t("field.ageGroup.label"),
             kind: "choice",
@@ -99,7 +92,8 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
         ]}
         cta={t("panel.build.cta")}
         ctaVariant="build"
-        onSubmit={(context) => patch({ context })}
+        // This app is hockey-only, so there is no sport picker: everything defaults to hockey.
+        onSubmit={(context) => patch({ context: { ...context, sport: "Hockey" } })}
       />
     );
   }
