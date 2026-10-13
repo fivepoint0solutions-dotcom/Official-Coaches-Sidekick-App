@@ -15,7 +15,7 @@ const MODE_PHOTOS: Record<string, { src: string; alt: string }> = {
 
 /** Playbook-binder mode card: photo taped in, tape-strip title. */
 export function ModeCard({ mode, className }: ModeCardProps) {
-  const photo = MODE_PHOTOS[mode.id] ?? MODE_PHOTOS.inspire;
+  const photo = MODE_PHOTOS[mode.id] ?? MODE_PHOTOS["inspire"]!;
   return (
     <Link
       to={mode.href}
