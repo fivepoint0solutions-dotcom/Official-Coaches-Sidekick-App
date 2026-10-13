@@ -1215,3 +1215,10 @@ body::before {
 }
 
 } /* end @layer utilities — PLAYBOOK SKIN */
+
+/* Beta banner collapse: while the beta banner is collapsed, drop the bottom
+   clearance padding the banner reserves on the page wrapper. This rule is
+   unlayered, so it beats the Tailwind pb utilities it overrides. */
+body.beta-banner-collapsed .beta-banner-clearance {
+  padding-bottom: 0;
+}

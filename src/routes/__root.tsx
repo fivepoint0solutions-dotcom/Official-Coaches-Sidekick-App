@@ -160,7 +160,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <WatermarkBackdrop />
-        <div className="relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
+        <div className="beta-banner-clearance relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
           <AppHeader />
           <div className="w-full px-4 lg:pr-8">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
