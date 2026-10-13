@@ -1263,12 +1263,6 @@ body.beta-banner-collapsed .beta-banner-clearance {
 /* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
 .rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid #1d1b16; background: #fff; padding: 0; box-shadow: none; }
 .rink-frame img { display: block; width: 100%; height: auto; border-radius: 0; }
-.rink-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
-  background:
-    linear-gradient(90deg, transparent calc(33% - 1.5px), #2B5FA8 calc(33% - 1.5px) calc(33% + 1.5px), transparent calc(33% + 1.5px)),
-    linear-gradient(90deg, transparent calc(67% - 1.5px), #2B5FA8 calc(67% - 1.5px) calc(67% + 1.5px), transparent calc(67% + 1.5px)),
-    linear-gradient(90deg, transparent calc(50% - 1.5px), #C8202B calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 1.5px)); }
-
 /* ---- Ice-rink look: backdrop is public/ice/*.svg; hockey gear scattered through the pages ---- */
 body::before, body::after { display: none !important; }
 body { background-color: #F3F8FB; }
