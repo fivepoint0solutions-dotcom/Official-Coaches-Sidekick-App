@@ -1261,8 +1261,9 @@ body.beta-banner-collapsed .beta-banner-clearance {
 .photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
 
 /* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
-.rink-frame { position: relative; display: block; overflow: hidden; border-radius: 20.6% / 33%; border: 5px solid #FFFFFF; box-shadow: 0 0 0 3px rgba(33,29,20,.6), 0 8px 16px -8px rgba(20,15,5,.5); background: #fff; }
-.rink-frame img { display: block; width: 100%; height: auto; border: 0; }
+.rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid #1d1b16; background: #fff; padding: .55rem; box-shadow: none; }
+.rink-frame img { display: block; width: 100%; height: auto; border-radius: 18% / 30%; }
+
 .rink-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
   background:
     linear-gradient(90deg, transparent calc(33% - 1.5px), #2B5FA8 calc(33% - 1.5px) calc(33% + 1.5px), transparent calc(33% + 1.5px)),
