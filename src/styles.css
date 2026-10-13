@@ -1269,3 +1269,17 @@ body.beta-banner-collapsed .beta-banner-clearance {
     linear-gradient(90deg, transparent calc(33% - 1.5px), #2B5FA8 calc(33% - 1.5px) calc(33% + 1.5px), transparent calc(33% + 1.5px)),
     linear-gradient(90deg, transparent calc(67% - 1.5px), #2B5FA8 calc(67% - 1.5px) calc(67% + 1.5px), transparent calc(67% + 1.5px)),
     linear-gradient(90deg, transparent calc(50% - 1.5px), #C8202B calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 1.5px)); }
+
+/* ---- Ice-rink look: backdrop is public/ice/*.svg; hockey gear scattered through the pages ---- */
+body::before, body::after { display: none !important; }
+body { background-color: #F3F8FB; }
+.gear-sticker { margin-left: .5rem; transform: rotate(8deg); filter: drop-shadow(0 3px 2px rgba(20,15,5,.28)); }
+.gear-strip { display: flex; align-items: flex-end; justify-content: space-around; gap: .5rem; padding: .35rem 0 .15rem; border-bottom: 3px solid rgba(43,95,168,.55); }
+.gear-strip svg { filter: drop-shadow(0 3px 2px rgba(20,15,5,.25)); }
+.gear-strip.container-app { margin-top: .5rem; margin-bottom: 1rem; }
+.hero-gear { display: none; }
+@media (min-width: 1024px) { .hero-gear { display: flex; align-items: flex-end; gap: 1rem; position: absolute; right: 2rem; top: 1.5rem; } }
+.drill-flash-puck { flex: none; align-self: center; }
+/* keep text readable over the ice: a soft white halo around page text */
+main :is(h1, h2, h3, p, li, label, a, span):not(.gradient-text):not(.text-gradient) { text-shadow: 0 0 5px rgba(255,255,255,.95), 0 0 2px rgba(255,255,255,.95); }
+main :is(.anchor-card-gradient, .drill-flash, .photo-strip-item, .tape-strip, button) *, main button { text-shadow: none; }
