@@ -1,4 +1,5 @@
 import type { ComponentType, ReactNode } from "react";
+import { HockeyRinkBody, RINK_H, RINK_W } from "./HockeyRink";
 
 export type SurfaceId =
   | "training-grid"
@@ -10,6 +11,7 @@ export type SurfaceId =
   | "volleyball-court"
   | "track-lane"
   | "track-oval"
+  | "hockey-rink"
   | "hockey-full"
   | "hockey-half";
 
@@ -23,6 +25,7 @@ export const SURFACE_VIEWBOX: Record<SurfaceId, { w: number; h: number }> = {
   "volleyball-court": { w: 100, h: 56 },
   "track-lane": { w: 100, h: 22 },
   "track-oval": { w: 100, h: 50 },
+  "hockey-rink": { w: RINK_W, h: RINK_H },
   "hockey-full": { w: 100, h: 44 },
   "hockey-half": { w: 60, h: 44 },
 };
@@ -217,6 +220,15 @@ export function HockeyHalf() {
   );
 }
 
+/** The one rink every hockey diagram is drawn on: boards touch the edges of the drawing, no padding around it. */
+export function HockeyRink() {
+  return (
+    <svg viewBox={`0 0 ${RINK_W} ${RINK_H}`} className="block h-full w-full" preserveAspectRatio="none" aria-hidden="true">
+      <HockeyRinkBody />
+    </svg>
+  );
+}
+
 export const SURFACE_COMPONENTS: Record<SurfaceId, ComponentType> = {
   "training-grid": TrainingGrid,
   "soccer-third": SoccerThird,
@@ -227,6 +239,7 @@ export const SURFACE_COMPONENTS: Record<SurfaceId, ComponentType> = {
   "volleyball-court": VolleyballCourt,
   "track-lane": TrackLane,
   "track-oval": TrackOval,
+  "hockey-rink": HockeyRink,
   "hockey-full": HockeyFull,
   "hockey-half": HockeyHalf,
 };

@@ -1224,9 +1224,6 @@ body.beta-banner-collapsed .beta-banner-clearance {
 }
 
 /* Portrait drill rink on phones: the drawing is turned on its side, so keep marker letters upright. */
-@media (max-width: 639px) {
-  .diagram-portrait .diagram-label { transform-box: fill-box; transform-origin: center; transform: rotate(-90deg); }
-}
 
 /* ---- Drill library flashcards: an overlapping stack; each card shows its name strip, tap to open the whole drill ---- */
 .drill-stack { padding-bottom: 4.5rem; max-width: 40rem; margin-inline: auto; }
