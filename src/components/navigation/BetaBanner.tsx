@@ -100,7 +100,7 @@ export function BetaBanner() {
         >
           <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-x-3 gap-y-1 px-3 pr-12 pt-2 sm:flex-row sm:py-2">
             <p
-              className="text-center text-[11px] leading-snug sm:text-xs"
+              className="text-center text-[13px] leading-snug sm:text-sm"
               style={{ color: "var(--pb-ink, #211D14)" }}
             >
               Google picks Play Store apps through beta testing — try it, tell me
@@ -109,7 +109,7 @@ export function BetaBanner() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="shrink-0 rounded-md px-3 py-1 text-sm"
+              className="shrink-0 rounded-md px-3 py-0.5 text-[13px]"
               style={{
                 fontFamily: "var(--font-marker, 'Permanent Marker', sans-serif)",
                 color: "#F7F2E3",
