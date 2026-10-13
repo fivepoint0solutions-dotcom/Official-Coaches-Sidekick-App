@@ -2,10 +2,11 @@ import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus, Search } from "lucide-react";
 import { DrillCard } from "@/components/drills/DrillCard";
+import { DrillSheet } from "@/components/drills/DrillSheet";
 import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { drillLibrary, drillSports } from "@/data/drillLibrary";
+import { drillLibrary, drillSports, type Drill } from "@/data/drillLibrary";
 import { useUserDrills } from "@/lib/userDrills";
 
 type DrillsSearch = { q?: string | undefined };
@@ -39,6 +40,7 @@ function DrillLibraryPage() {
   const [query, setQuery] = useState(q ?? "");
   const [sport, setSport] = useState("All sports");
   const [mineOnly, setMineOnly] = useState(false);
+  const [openDrill, setOpenDrill] = useState<Drill | null>(null);
   const userDrills = useUserDrills();
 
   const allDrills = useMemo(() => [...userDrills, ...drillLibrary], [userDrills]);
@@ -134,9 +136,9 @@ function DrillLibraryPage() {
         {results.length} {results.length === 1 ? "drill" : "drills"}
       </p>
       {results.length ? (
-        <section className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="drill-stack mt-6">
           {results.map((drill, index) => (
-            <DrillCard key={drill.id} drill={drill} index={index} />
+            <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
           ))}
         </section>
       ) : (
@@ -147,6 +149,7 @@ function DrillLibraryPage() {
           </p>
         </section>
       )}
+    <DrillSheet drill={openDrill} onClose={() => setOpenDrill(null)} />
     </main>
   );
 }
