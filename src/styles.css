@@ -1307,3 +1307,9 @@ a.anchor-card-gradient:hover svg.lucide-arrow-up-right { background: #1d1b16; }
 .category-tab { padding: .7rem 1.1rem; font-size: 1rem; font-weight: 800; color: #1d1b16; background: #FFFDF6; border: 2px solid rgba(33,29,20,.55); border-radius: 10px; box-shadow: 0 3px 0 rgba(33,29,20,.25); cursor: pointer; }
 .category-tab[aria-pressed="true"] { color: #fff; background: #B3141F; border-color: #1d1b16; box-shadow: 0 3px 0 #6d0b12; }
 .category-count { margin-left: .25rem; font-size: .8rem; opacity: .7; }
+
+/* No dark capsules anywhere: small labels are plain paper tags with ink text. */
+.badge-pill, .chip {
+  background: #FFFDF6 !important; color: #1d1b16 !important; border: 1.5px solid rgba(33,29,20,.5) !important; border-radius: 8px !important;
+  text-transform: none; letter-spacing: .02em; font-size: .85rem; box-shadow: none;
+}

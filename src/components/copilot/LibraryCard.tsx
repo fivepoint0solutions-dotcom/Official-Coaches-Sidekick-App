@@ -37,7 +37,7 @@ export function LibraryCard({ item, onDelete }: LibraryCardProps) {
   return (
     <div className="card-elevated group flex flex-col gap-3 p-6">
       <div className="flex items-center justify-between">
-        <span className={`badge-pill ${mode.gradientClass} text-white`}>{typeConfig.label}</span>
+        <span className="badge-pill">{typeConfig.label}</span>
         <span className="text-caption text-muted-foreground">{date}</span>
       </div>
       <div className="flex items-start gap-3">
