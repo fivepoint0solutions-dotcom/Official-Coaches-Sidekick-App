@@ -16,6 +16,7 @@ import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
 import { FeedbackFab } from "../components/navigation/FeedbackFab";
+import { BetaBanner } from "../components/navigation/BetaBanner";
 import { SwipeNav } from "../components/navigation/SwipeNav";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
@@ -159,7 +160,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <WatermarkBackdrop />
-        <div className="relative z-10 min-h-screen pt-24 lg:pt-0">
+        <div className="relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
           <AppHeader />
           <div className="w-full px-4 lg:pr-8">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
@@ -170,6 +171,7 @@ function RootComponent() {
         </div>
         <AskCoachsSidekick />
         <FeedbackFab />
+        <BetaBanner />
         <Toaster position="bottom-right" />
       </LanguageProvider>
     </QueryClientProvider>
