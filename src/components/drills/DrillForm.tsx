@@ -1,3 +1,4 @@
+import { drillCategories } from "@/data/drillLibrary";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -143,12 +144,17 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
           />
         </Field>
         <Field label="Category" required>
-          <Input
+          <select
             value={values.category}
             onChange={(event) => set("category", event.target.value)}
-            placeholder="e.g. Possession"
             required
-          />
+            className="h-11 w-full rounded-md border border-input bg-background px-3 text-base"
+          >
+            <option value="" disabled>Choose a category</option>
+            {drillCategories.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
         </Field>
         <Field label="Duration" required>
           <Input

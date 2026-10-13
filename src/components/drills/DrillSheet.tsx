@@ -39,7 +39,7 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
                 <Users className="size-4" />
                 {drill.ageGroup}
               </span>
-              <span className="opacity-75">{drill.category}</span>
+              <span className="opacity-75">{drill.category}{drill.skill && drill.skill !== drill.category ? ` · ${drill.skill}` : ""}</span>
             </div>
 
             {drill.diagram ? (

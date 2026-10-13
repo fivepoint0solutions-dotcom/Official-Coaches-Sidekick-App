@@ -7,7 +7,7 @@ import { PhotoStrip } from "@/components/PhotoStrip";
 import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { drillLibrary, drillSports, type Drill } from "@/data/drillLibrary";
+import { drillCategories, drillLibrary, drillSports, type Drill } from "@/data/drillLibrary";
 import { useUserDrills } from "@/lib/userDrills";
 
 type DrillsSearch = { q?: string | undefined };
@@ -41,6 +41,7 @@ function DrillLibraryPage() {
   const [query, setQuery] = useState(q ?? "");
   const [sport, setSport] = useState("All sports");
   const [mineOnly, setMineOnly] = useState(false);
+  const [category, setCategory] = useState("All");
   const [openDrill, setOpenDrill] = useState<Drill | null>(null);
   const userDrills = useUserDrills();
 
@@ -54,11 +55,13 @@ function DrillLibraryPage() {
     const needle = query.trim().toLowerCase();
     return allDrills.filter((drill) => {
       const sportMatches = sport === "All sports" || drill.sport === sport;
+      const categoryMatches = category === "All" || drill.category === category;
       const mineMatches = !mineOnly || userDrills.some((custom) => custom.id === drill.id);
       const haystack = [
         drill.name,
         drill.sport,
         drill.category,
+        drill.skill ?? "",
         drill.equipment,
         drill.setup,
         drill.level ?? "",
@@ -66,9 +69,9 @@ function DrillLibraryPage() {
       ]
         .join(" ")
         .toLowerCase();
-      return sportMatches && mineMatches && (!needle || haystack.includes(needle));
+      return sportMatches && categoryMatches && mineMatches && (!needle || haystack.includes(needle));
     });
-  }, [allDrills, query, sport, mineOnly, userDrills]);
+  }, [allDrills, query, sport, category, mineOnly, userDrills]);
 
   return (
     <main className="container-app py-10 lg:py-14">
@@ -138,6 +141,17 @@ function DrillLibraryPage() {
             My drills only
           </Button>
         ) : null}
+      </section>
+
+      <section aria-label="Drill categories" className="category-tabs mt-4">
+        {["All", ...drillCategories].map((option) => {
+          const count = option === "All" ? allDrills.length : allDrills.filter((drill) => drill.category === option).length;
+          return (
+            <button key={option} type="button" aria-pressed={category === option} onClick={() => setCategory(option)} className="category-tab">
+              {option} <span className="category-count">{count}</span>
+            </button>
+          );
+        })}
       </section>
 
       <DrillTransfer />

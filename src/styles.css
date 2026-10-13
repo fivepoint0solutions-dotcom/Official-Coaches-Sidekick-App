@@ -1307,3 +1307,9 @@ a.anchor-card-gradient:hover svg.lucide-arrow-up-right { background: #1d1b16; }
 .flow-cue { margin: 0 0 .75rem; display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #B3141F; }
 .flow-cue span { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: #B3141F; color: #fff; animation: cue-bob 1.6s ease-in-out infinite; }
 @keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+/* ---- Drill categories: big readable tabs ---- */
+.category-tabs { display: flex; flex-wrap: wrap; gap: .6rem; }
+.category-tab { padding: .7rem 1.1rem; font-size: 1rem; font-weight: 800; color: #1d1b16; background: #FFFDF6; border: 2px solid rgba(33,29,20,.55); border-radius: 10px; box-shadow: 0 3px 0 rgba(33,29,20,.25); cursor: pointer; }
+.category-tab[aria-pressed="true"] { color: #fff; background: #B3141F; border-color: #1d1b16; box-shadow: 0 3px 0 #6d0b12; }
+.category-count { margin-left: .25rem; font-size: .8rem; opacity: .7; }
