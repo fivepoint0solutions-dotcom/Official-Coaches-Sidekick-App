@@ -1251,7 +1251,20 @@ body.beta-banner-collapsed .beta-banner-clearance {
 /* ---- Photo strips: snapshots taped to the page ---- */
 .photo-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; align-items: start; }
 @media (min-width: 640px) { .photo-strip { gap: 1.5rem; } }
-.photo-strip-item { position: relative; margin: 0; padding: .4rem .4rem 1rem; background: #FFFDF6; border: 2px solid rgba(33,29,20,.4); box-shadow: 0 10px 18px -12px rgba(20,15,5,.55); }
+.photo-strip-item { position: relative; display: block; margin: 0; padding: .4rem .4rem 1rem; cursor: zoom-in; background: #FFFDF6; border: 2px solid rgba(33,29,20,.4); box-shadow: 0 10px 18px -12px rgba(20,15,5,.55); }
 .photo-strip-item img { display: block; width: 100%; height: 7rem; object-fit: cover; }
 @media (min-width: 640px) { .photo-strip-item img { height: 11rem; } }
 .photo-strip-tape { position: absolute; top: -.6rem; left: 50%; width: 3.2rem; height: 1.1rem; transform: translateX(-50%) rotate(-3deg); background: rgba(236, 201, 75, .85); box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+
+.photo-strip-item:focus-visible { outline: 3px solid #B3141F; outline-offset: 3px; }
+.photo-lightbox { padding: .6rem .6rem 1.4rem; background: #FFFDF6; border: 2px solid rgba(33,29,20,.5); box-shadow: 0 24px 50px -14px rgba(0,0,0,.7); }
+.photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
+
+/* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
+.rink-frame { position: relative; display: block; overflow: hidden; border-radius: 20.6% / 33%; border: 5px solid #FFFFFF; box-shadow: 0 0 0 3px rgba(33,29,20,.6), 0 8px 16px -8px rgba(20,15,5,.5); background: #fff; }
+.rink-frame img { display: block; width: 100%; height: auto; border: 0; }
+.rink-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
+  background:
+    linear-gradient(90deg, transparent calc(33% - 1.5px), #2B5FA8 calc(33% - 1.5px) calc(33% + 1.5px), transparent calc(33% + 1.5px)),
+    linear-gradient(90deg, transparent calc(67% - 1.5px), #2B5FA8 calc(67% - 1.5px) calc(67% + 1.5px), transparent calc(67% + 1.5px)),
+    linear-gradient(90deg, transparent calc(50% - 1.5px), #C8202B calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 1.5px)); }

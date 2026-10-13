@@ -25,13 +25,14 @@ export function ModeCard({ mode, className }: ModeCardProps) {
         className,
       )}
     >
-      <img
-        src={photo.src}
-        alt={photo.alt}
-        loading="lazy"
-        className="play-diagram"
-        style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
-      />
+      <span className="rink-frame">
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          loading="lazy"
+          style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+        />
+      </span>
       <div className="mt-4 flex items-center justify-between gap-3">
         <h3 className="tape-strip text-xl">{mode.label}</h3>
         <ArrowUpRight className="size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
