@@ -4,7 +4,6 @@ import { Plus, Search } from "lucide-react";
 import { DrillCard } from "@/components/drills/DrillCard";
 import { DrillSheet } from "@/components/drills/DrillSheet";
 import { PhotoStrip } from "@/components/PhotoStrip";
-import { GearStrip } from "@/components/HockeyArt";
 import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -89,9 +88,8 @@ function DrillLibraryPage() {
         </Button>
       </header>
 
-      <GearStrip className="mt-6" items={["Cone", "Puck", "Stick", "Puck", "Cone", "Net"]} />
       <PhotoStrip
-        className="mt-4"
+        className="mt-8"
         photos={[
           { src: "/img/extra-4.jpg", alt: "Player cutting around a puck during a skating drill" },
           { src: "/img/extra-1.jpg", alt: "Player taking a wrist shot", position: "60% center" },

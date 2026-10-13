@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { GearStrip } from "../components/HockeyArt";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
@@ -168,7 +167,6 @@ function RootComponent() {
             <SwipeNav>
               <Outlet />
             </SwipeNav>
-            <GearStrip className="mx-auto mt-10 max-w-3xl" items={["Skate", "Puck", "Helmet", "Cone", "Stick", "Puck", "Gloves"]} />
           </div>
         </div>
         <AskCoachsSidekick />

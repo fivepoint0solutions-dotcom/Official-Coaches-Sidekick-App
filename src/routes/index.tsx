@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { PhotoStrip } from "@/components/PhotoStrip";
-import { GearStrip, CrossedSticks, Helmet, Puck, Skate, Net, Cone, Trophy, Stick, Gloves } from "@/components/HockeyArt";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { useModes } from "@/lib/modes";
@@ -72,12 +71,6 @@ function Dashboard() {
   return (
     <main>
       <section className="container-app relative pb-4 pt-6 lg:pt-2">
-        <div className="hero-gear" aria-hidden="true">
-          <Helmet size={96} style={{ transform: "rotate(-8deg)" }} />
-          <CrossedSticks size={110} style={{ transform: "rotate(6deg)" }} />
-          <Puck size={64} style={{ transform: "rotate(-12deg)" }} />
-          <Skate size={90} style={{ transform: "rotate(10deg)" }} />
-        </div>
         <Reveal delay={80}>
           <h1 className="text-headline italic">
             {t(greetingKey)} <span className="text-gradient">{t("dashboard.headline2")}</span>
@@ -98,7 +91,6 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <GearStrip className="container-app" items={["Cone", "Puck", "Stick", "Net", "Puck", "Cone"]} />
       <section className="container-app pt-4 pb-10 lg:pb-12">
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -135,7 +127,6 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <GearStrip className="container-app" items={["Gloves", "Whistle", "Trophy", "Helmet", "Skate"]} />
       <section className="container-app pb-10" aria-label="Photos from the rink">
         <PhotoStrip
           photos={[

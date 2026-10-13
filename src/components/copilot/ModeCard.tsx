@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import type { ModeConfig } from "@/lib/modes";
 import { cn } from "@/lib/utils";
-import { Whistle, Trophy, Helmet, Clipboard } from "@/components/HockeyArt";
 
 type ModeCardProps = { mode: ModeConfig; className?: string };
 
@@ -14,12 +13,9 @@ const MODE_PHOTOS: Record<string, { src: string; alt: string }> = {
   challenge: { src: "/img/mode-challenge.jpg", alt: "Team Canada players celebrating a goal" },
 };
 
-const MODE_GEAR: Record<string, typeof Whistle> = { inspire: Clipboard, build: Helmet, busywork: Whistle, challenge: Trophy };
-
 /** Playbook-binder mode card: photo taped in, tape-strip title. */
 export function ModeCard({ mode, className }: ModeCardProps) {
   const photo = MODE_PHOTOS[mode.id] ?? MODE_PHOTOS["inspire"]!;
-  const Gear = MODE_GEAR[mode.id] ?? Whistle;
   return (
     <Link
       to={mode.href}
@@ -39,8 +35,7 @@ export function ModeCard({ mode, className }: ModeCardProps) {
       </span>
       <div className="mt-4 flex items-center justify-between gap-3">
         <h3 className="tape-strip text-xl">{mode.label}</h3>
-        <Gear size={52} className="gear-sticker" />
-        <ArrowUpRight className="ml-auto size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        <ArrowUpRight className="size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
       </div>
       <p className="mt-3 text-base leading-snug">{mode.tagline}</p>
       <p className="mt-2 text-sm leading-snug opacity-85">{mode.description}</p>
