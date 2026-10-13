@@ -1231,7 +1231,7 @@ body.beta-banner-collapsed .beta-banner-clearance {
 /* ---- Drill library flashcards: an overlapping stack; each card shows its name strip, tap to open the whole drill ---- */
 .drill-stack { padding-bottom: 4.5rem; max-width: 40rem; margin-inline: auto; }
 .drill-flash {
-  position: relative; display: flex; flex-direction: column; justify-content: flex-start; width: 100%; height: 6rem; margin-bottom: -2.15rem; padding: .7rem 1.1rem 0 1.4rem;
+  position: relative; display: flex; flex-direction: column; justify-content: flex-start; width: 100%; height: 6.25rem; margin-bottom: -1.45rem; padding: .9rem 1.1rem 0 1.5rem;
   text-align: left; cursor: pointer; overflow: hidden; color: #1b1a14;
   background: linear-gradient(180deg, #FFFDF6 0, #FBF5E4 100%);
   border: 3px solid #1d1b16; border-radius: 22px 18px 24px 16px / 18px 24px 16px 22px;
@@ -1243,7 +1243,7 @@ body.beta-banner-collapsed .beta-banner-clearance {
 .drill-flash:hover, .drill-flash:focus-visible { box-shadow: 0 16px 26px -12px rgba(20,15,5,.6); outline: none; }
 .drill-flash:active { scale: .98; }
 .drill-flash-top { display: flex; align-items: baseline; gap: .5rem; margin-top: 0; }
-.drill-flash-num { flex: none; font-size: .75rem; font-weight: 800; color: #B3141F; }
-.drill-flash-name { font-size: 1.05rem; font-weight: 800; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.drill-flash-num { flex: none; font-size: .9rem; font-weight: 800; color: #B3141F; }
+.drill-flash-name { font-size: 1.1rem; font-weight: 800; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .drill-flash-meta { display: block; margin-top: .15rem; font-size: .78rem; font-weight: 600; opacity: .7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .drill-sheet-paper { background: linear-gradient(180deg, #FFFDF6, #FBF5E4); color: #1b1a14; border-top: 8px solid #B3141F; }
