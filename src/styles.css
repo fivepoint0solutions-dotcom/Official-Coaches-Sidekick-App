@@ -1247,3 +1247,11 @@ body.beta-banner-collapsed .beta-banner-clearance {
 .drill-flash-name { font-size: 1.1rem; font-weight: 800; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .drill-flash-meta { display: block; margin-top: .15rem; font-size: .78rem; font-weight: 600; opacity: .7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .drill-sheet-paper { background: linear-gradient(180deg, #FFFDF6, #FBF5E4); color: #1b1a14; border-top: 8px solid #B3141F; }
+
+/* ---- Photo strips: snapshots taped to the page ---- */
+.photo-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; align-items: start; }
+@media (min-width: 640px) { .photo-strip { gap: 1.5rem; } }
+.photo-strip-item { position: relative; margin: 0; padding: .4rem .4rem 1rem; background: #FFFDF6; border: 2px solid rgba(33,29,20,.4); box-shadow: 0 10px 18px -12px rgba(20,15,5,.55); }
+.photo-strip-item img { display: block; width: 100%; height: 7rem; object-fit: cover; }
+@media (min-width: 640px) { .photo-strip-item img { height: 11rem; } }
+.photo-strip-tape { position: absolute; top: -.6rem; left: 50%; width: 3.2rem; height: 1.1rem; transform: translateX(-50%) rotate(-3deg); background: rgba(236, 201, 75, .85); box-shadow: 0 1px 2px rgba(0,0,0,.2); }
