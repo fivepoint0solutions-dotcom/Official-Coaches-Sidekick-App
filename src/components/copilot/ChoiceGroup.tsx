@@ -24,7 +24,7 @@ export function ChoiceGroup({ options, value, onChange, className }: ChoiceGroup
               "rounded-2xl border px-4 py-3 text-sm font-semibold transition-refined",
               selected
                 ? "border-interactive bg-interactive text-interactive-foreground shadow-subtle"
-                : "anchor-card-gradient card-tint-inspire border-transparent text-white hover:border-interactive/60",
+                : "choice-chip border-transparent hover:border-interactive/60",
             )}
           >
             {option}

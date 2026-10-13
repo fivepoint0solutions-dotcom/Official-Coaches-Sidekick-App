@@ -220,7 +220,7 @@ export const CREATION_TYPES_META: CreationTypeMeta[] = [
     id: "brainstorm",
     icon: Sparkles,
     defaultMode: "inspire",
-    fields: [topicField, { key: "sport", labelKey: "field.sportOptional.label", kind: "text" }],
+    fields: [topicField],
   },
   {
     id: "other",

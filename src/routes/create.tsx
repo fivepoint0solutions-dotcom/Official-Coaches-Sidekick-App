@@ -44,7 +44,7 @@ function CreatePage() {
 
       {!type ? (
         <Reveal delay={80}>
-          <TypePicker onSelect={setType} className="mx-auto max-w-3xl" />
+          <TypePicker onSelect={setType} className="mx-auto max-w-5xl" />
         </Reveal>
       ) : (
         <ContextWizard typeConfig={typeConfig} onComplete={complete} />

@@ -1272,3 +1272,15 @@ body.beta-banner-collapsed .beta-banner-clearance {
 /* ---- Ice-rink look: backdrop is public/ice/*.svg; hockey gear scattered through the pages ---- */
 body::before, body::after { display: none !important; }
 body { background-color: #F3F8FB; }
+
+/* ---- Rink backdrop layers: a calm wash behind the page column, and the logo at centre ice ---- */
+.rink-wash { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(246,249,251,0) 0, rgba(246,249,251,.72) 20%, rgba(246,249,251,.72) 80%, rgba(246,249,251,0) 100%); }
+@media (orientation: portrait) { .rink-wash { background: rgba(246,249,251,.5); } }
+/* the centre circle is 282/876 of the rink's short side, scaled the way object-fit: cover scales the photo */
+.rink-logo { position: absolute; left: 50%; top: 49.3%; transform: translate(-50%, -50%); height: auto; opacity: .5;
+  width: calc(0.74 * 282 * max(100vw / 1421, 100vh / 876)); }
+@media (orientation: portrait) { .rink-logo { width: calc(0.74 * 282 * max(100vw / 876, 100vh / 1421)); } }
+.choice-chip { background: #FFFDF6; color: #1d1b16; border: 2px solid rgba(33,29,20,.45) !important; box-shadow: 0 2px 0 rgba(33,29,20,.18); }
+.choice-chip:hover { background: #FBF3DF; }
+/* desktop: shorter photo frames on the mode cards so more of the page shows above the fold */
+@media (min-width: 1024px) { .rink-frame img { aspect-ratio: 2.1 / 1 !important; } }

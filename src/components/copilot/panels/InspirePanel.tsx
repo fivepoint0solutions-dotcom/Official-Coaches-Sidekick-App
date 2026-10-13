@@ -47,11 +47,10 @@ export function InspirePanel({ draft, patch }: PanelProps) {
             placeholder: t("field.topic.placeholder"),
             required: true,
           },
-          { key: "sport", label: t("field.sportOptional.label"), kind: "text" },
         ]}
         cta={t("panel.inspire.cta")}
         ctaVariant="inspire"
-        onSubmit={(context) => void generate(context)}
+        onSubmit={(context) => void generate({ ...context, sport: "Hockey" })}
       />
     );
   }
