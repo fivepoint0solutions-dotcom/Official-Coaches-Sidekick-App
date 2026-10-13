@@ -28,14 +28,16 @@ export function PhotoStrip({ photos, className = "" }: { photos: StripPhoto[]; c
       <p className="mt-3 text-center text-sm font-semibold opacity-75">Tap a photo to enlarge it.</p>
       <Dialog open={Boolean(open)} onOpenChange={(next) => !next && setOpen(null)}>
         <DialogContent
-          className="w-auto max-w-none border-0 bg-transparent p-0 shadow-none sm:rounded-none"
+          className="w-auto max-w-none cursor-zoom-out border-0 bg-transparent p-0 shadow-none sm:rounded-none [&>button]:hidden"
+          onClick={() => setOpen(null)}
           style={{ width: open ? `min(92vw, max(${Math.round(open.width * 2)}px, 20rem))` : undefined }}
         >
           <DialogTitle className="sr-only">{open?.photo.alt}</DialogTitle>
-          <DialogDescription className="sr-only">Enlarged photo. Press Escape or the close button to go back.</DialogDescription>
+          <DialogDescription className="sr-only">Enlarged photo. Tap anywhere to go back.</DialogDescription>
           {open ? (
             <div className="photo-lightbox">
               <img src={open.photo.src} alt={open.photo.alt} />
+              <p className="tap-close-hint">Tap anywhere to close</p>
             </div>
           ) : null}
         </DialogContent>

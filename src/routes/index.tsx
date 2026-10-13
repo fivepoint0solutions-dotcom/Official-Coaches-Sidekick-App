@@ -84,6 +84,7 @@ function Dashboard() {
       </section>
 
       <section className="container-app pt-4 pb-10 lg:pb-12">
+        <p className="flow-cue" aria-hidden="true">Pick a mode to start <span>↓</span></p>
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
             {modes.flatMap((mode) => {

@@ -19,7 +19,11 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
 
   return (
     <Dialog open={Boolean(drill)} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="drill-sheet max-h-[92vh] w-[calc(100%-1.25rem)] max-w-2xl gap-0 overflow-y-auto border-0 p-0 shadow-2xl sm:rounded-md">
+      <DialogContent
+        onClick={(event) => {
+          if (!(event.target as HTMLElement).closest("a, button, input, textarea, select")) onClose();
+        }}
+        className="drill-sheet cursor-pointer [&>button]:hidden max-h-[92vh] w-[calc(100%-1.25rem)] max-w-2xl gap-0 overflow-y-auto border-0 p-0 shadow-2xl sm:rounded-md">
         {drill ? (
           <div className="drill-sheet-paper px-5 pb-6 pt-5 sm:px-8">
             <DialogTitle className="pr-8 text-xl font-bold leading-snug sm:text-2xl">{drill.name}</DialogTitle>
@@ -97,6 +101,7 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
                 </Button>
               </div>
             ) : null}
+            <p className="tap-close-hint">Tap anywhere to close</p>
           </div>
         ) : null}
       </DialogContent>

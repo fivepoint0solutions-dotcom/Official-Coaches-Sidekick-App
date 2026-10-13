@@ -1284,3 +1284,26 @@ body { background-color: #F3F8FB; }
 .choice-chip:hover { background: #FBF3DF; }
 /* desktop: shorter photo frames on the mode cards so more of the page shows above the fold */
 @media (min-width: 1024px) { .rink-frame img { aspect-ratio: 2.1 / 1 !important; } }
+
+.tap-close-hint { margin: 1rem 0 0; text-align: center; font-size: .85rem; font-weight: 700; letter-spacing: .04em; color: #6b665a; }
+.photo-lightbox .tap-close-hint { margin-top: .5rem; }
+
+/* ---- Flow: one primary action colour, arrows that read as buttons, and a cue that leads the eye down the page ---- */
+button.hover-lift.bg-interactive, a.hover-lift.bg-interactive,
+:is(a, button)[class*="gradient-hero"], :is(a, button)[class*="gradient-inspire"], :is(a, button)[class*="gradient-build"], :is(a, button)[class*="gradient-busywork"], :is(a, button)[class*="gradient-challenge"] {
+  background: #B3141F !important; background-image: none !important; color: #fff !important; border: 2px solid #1d1b16 !important; border-radius: 12px !important;
+  box-shadow: 0 4px 0 #6d0b12, 0 10px 16px -8px rgba(20,15,5,.5) !important; font-weight: 800; letter-spacing: .02em; animation: none;
+}
+button.hover-lift.bg-interactive:not(:disabled), a.hover-lift.bg-interactive,
+:is(a, button)[class*="gradient-hero"], :is(a, button)[class*="gradient-inspire"]:not(:disabled), :is(a, button)[class*="gradient-build"]:not(:disabled) { animation: cta-ring 2.8s ease-out infinite; }
+button.hover-lift.bg-interactive:disabled { background: #8E98A8 !important; box-shadow: 0 4px 0 #5d6674 !important; opacity: .9; }
+button.hover-lift.bg-interactive:active, :is(a, button)[class*="gradient-hero"]:active { transform: translateY(3px); box-shadow: 0 1px 0 #6d0b12 !important; }
+@keyframes cta-ring { 0% { outline: 0 solid rgba(179,20,31,.45); outline-offset: 2px; } 70%, 100% { outline: 12px solid rgba(179,20,31,0); outline-offset: 2px; } }
+@media (prefers-reduced-motion: reduce) { :is(a, button) { animation: none !important; } }
+
+a.anchor-card-gradient svg.lucide-arrow-up-right { box-sizing: content-box; width: 1.35rem; height: 1.35rem; padding: .5rem; border-radius: 999px; background: #B3141F; color: #fff !important; opacity: 1 !important; box-shadow: 0 3px 0 #6d0b12; }
+a.anchor-card-gradient:hover svg.lucide-arrow-up-right { background: #1d1b16; }
+
+.flow-cue { margin: 0 0 .75rem; display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #B3141F; }
+.flow-cue span { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: #B3141F; color: #fff; animation: cue-bob 1.6s ease-in-out infinite; }
+@keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
