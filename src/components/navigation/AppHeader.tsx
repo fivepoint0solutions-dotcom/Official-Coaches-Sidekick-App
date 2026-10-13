@@ -88,15 +88,31 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-  function send() {
-    const subject = encodeURIComponent(
-      `Coach's Sidekick Feedback${name.trim() ? ` from ${name.trim()}` : ""}`,
-    );
-    const body = encodeURIComponent(message.trim());
-    window.location.href = `mailto:fivepoint0solutions@gmail.com?subject=${subject}&body=${body}`;
-    onClose();
-  }
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
+  async function send() {
+    if (status === "sending" || !message.trim()) return;
+    setStatus("sending");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/fivepoint0solutions@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `Coach's Sidekick Feedback${name.trim() ? ` from ${name.trim()}` : ""}`,
+          _captcha: "false",
+          _template: "table",
+          app: "Coach's Sidekick",
+          name: name.trim() || "(not given)",
+          message: message.trim(),
+        }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      setStatus("sent");
+      setTimeout(onClose, 2800);
+    } catch {
+      setStatus("error");
+    }
+  }
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
@@ -121,6 +137,13 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
             <X className="size-5" />
           </button>
         </div>
+        {status === "sent" ? (
+          <div className="mt-6 pb-2 text-center" role="status">
+            <div className="font-display text-3xl font-bold uppercase text-white">Message received!</div>
+            <p className="mt-2 text-sm text-white/90">Thanks, coach. Your feedback is on its way to the team.</p>
+          </div>
+        ) : (
+          <>
         <label className="mt-4 block text-sm font-semibold text-white/90">
           Your name (optional)
           <input
@@ -140,6 +163,9 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
             className="mt-1 w-full rounded-2xl border border-border bg-background px-4 py-2.5 text-sm font-normal text-foreground outline-none focus:border-primary"
           />
         </label>
+        {status === "error" && (
+          <p role="alert" className="mt-3 text-sm font-semibold text-white">Couldn't send just now. Check your connection and try again.</p>
+        )}
         <div className="mt-4 flex justify-end gap-2">
           <button
             type="button"
@@ -151,13 +177,15 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
           <button
             type="button"
             onClick={send}
-            disabled={!message.trim()}
+            disabled={!message.trim() || status === "sending"}
             className="rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50"
             style={{ background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.5)" }}
           >
-            Send
+            {status === "sending" ? "Sending…" : "Send"}
           </button>
         </div>
+          </>
+        )}
       </div>
     </div>
   );
