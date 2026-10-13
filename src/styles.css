@@ -1261,9 +1261,8 @@ body.beta-banner-collapsed .beta-banner-clearance {
 .photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
 
 /* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
-.rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid #1d1b16; background: #fff; padding: .55rem; box-shadow: none; }
-.rink-frame img { display: block; width: 100%; height: auto; border-radius: 18% / 30%; }
-
+.rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid #1d1b16; background: #fff; padding: 0; box-shadow: none; }
+.rink-frame img { display: block; width: 100%; height: auto; border-radius: 0; }
 .rink-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
   background:
     linear-gradient(90deg, transparent calc(33% - 1.5px), #2B5FA8 calc(33% - 1.5px) calc(33% + 1.5px), transparent calc(33% + 1.5px)),
@@ -1273,7 +1272,3 @@ body.beta-banner-collapsed .beta-banner-clearance {
 /* ---- Ice-rink look: backdrop is public/ice/*.svg; hockey gear scattered through the pages ---- */
 body::before, body::after { display: none !important; }
 body { background-color: #F3F8FB; }
-/* keep text readable over the ice: a soft white halo around page text */
-main :is(h1, h2, h3, p, li, label, a, span):not(.gradient-text):not(.text-gradient) { text-shadow: 0 0 5px rgba(255,255,255,.95), 0 0 2px rgba(255,255,255,.95); }
-main :is(.anchor-card-gradient, .drill-flash, .photo-strip-item, .tape-strip, button) *, main button { text-shadow: none; }
-main a.anchor-card-gradient, main a.anchor-card-gradient * { text-shadow: none; }
