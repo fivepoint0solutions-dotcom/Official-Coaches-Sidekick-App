@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
@@ -94,9 +94,35 @@ function Dashboard() {
       <section className="container-app pt-4 pb-10 lg:pb-12">
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
-            {modes.map((mode) => (
-              <ModeCard key={mode.id} mode={mode} />
-            ))}
+            {modes.flatMap((mode) => {
+              const card = <ModeCard key={mode.id} mode={mode} />;
+              if (mode.id !== "build") return [card];
+              return [
+                card,
+                <Link
+                  key="drills"
+                  to="/drills"
+                  className="anchor-card-gradient card-tint-build group flex flex-col p-5 transition-refined hover-lift"
+                >
+                  <span className="rink-frame">
+                    <img
+                      src="/img/extra-1.jpg"
+                      alt="Players working through a drill"
+                      loading="lazy"
+                      style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+                    />
+                  </span>
+                  <div className="mt-4 flex items-center justify-between gap-3">
+                    <h3 className="tape-strip text-xl">{t("nav.drills")}</h3>
+                    <ArrowUpRight className="size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </div>
+                  <p className="mt-3 text-base leading-snug">Browse real drills by sport</p>
+                  <p className="mt-2 text-sm leading-snug opacity-85">
+                    Search the full drill library and pull any drill straight into your practice.
+                  </p>
+                </Link>,
+              ];
+            })}
           </div>
         </Reveal>
       </section>
