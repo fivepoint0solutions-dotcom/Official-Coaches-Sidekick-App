@@ -1,5 +1,6 @@
 import type React from "react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
+import { playSteps } from "@/data/playTiming";
 
 export type DiagramMarker = {
   x: number;
@@ -49,26 +50,57 @@ export function pct(value: number, size: number) {
   return (value / 100) * size;
 }
 
+/** Position letters: the coached team shows just the letter, coloured by role (wingers, centre, defence). */
+export const ROLE_COLOR = { wing: "#EA580C", centre: "#1D4ED8", defence: "#15803D" } as const;
+export function roleOf(label?: string): keyof typeof ROLE_COLOR | null {
+  if (!label) return null;
+  if (/^(LW|RW|W)$/i.test(label)) return "wing";
+  if (/^C$/i.test(label)) return "centre";
+  if (/^(LD|RD|D)$/i.test(label)) return "defence";
+  return null;
+}
+
 /* Everything below is sized as a share of the drawing's width (k), so a marker is the same small size on any surface. */
 
-export function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: number }) {
+export function Marker({ marker, w, h, mode = "glyph" }: { marker: DiagramMarker; w: number; h: number; mode?: "glyph" | "text" | "glyph-nolabel" }) {
   const k = w / 100;
   const cx = pct(marker.x, w);
   const cy = pct(marker.y, h);
   const kind = marker.kind;
   const halo = { stroke: "#FFFFFF", strokeLinecap: "round" as const };
-  const arm = 1.35 * k;
+  const arm = 1.6 * k;
   let glyph: React.ReactNode;
+  const role = roleOf(marker.label);
+  if (mode === "text" && role) {
+    // No circle or cross: just the position letters, big and in the role colour.
+    return (
+      <text
+        className="diagram-label"
+        x={cx}
+        y={cy + 1.5 * k}
+        textAnchor="middle"
+        fontSize={4.4 * k}
+        fontWeight={900}
+        fill={ROLE_COLOR[role]}
+        stroke="#FFFFFF"
+        strokeWidth={1.3 * k}
+        paintOrder="stroke"
+        strokeLinejoin="round"
+      >
+        {marker.label}
+      </text>
+    );
+  }
   if (kind === "defender") {
     const d = `M${cx - arm},${cy - arm} L${cx + arm},${cy + arm} M${cx + arm},${cy - arm} L${cx - arm},${cy + arm}`;
     glyph = (
       <>
-        <path d={d} fill="none" strokeWidth={1.35 * k} {...halo} />
-        <path d={d} fill="none" stroke={TEAM_DEFENCE} strokeWidth={0.62 * k} strokeLinecap="round" />
+        <path d={d} fill="none" strokeWidth={1.6 * k} {...halo} />
+        <path d={d} fill="none" stroke={TEAM_DEFENCE} strokeWidth={0.8 * k} strokeLinecap="round" />
       </>
     );
   } else if (kind === "player") {
-    glyph = <circle cx={cx} cy={cy} r={1.4 * k} fill="#FFFFFF" fillOpacity={0.9} stroke={TEAM_ATTACK} strokeWidth={0.7 * k} />;
+    glyph = <circle cx={cx} cy={cy} r={1.7 * k} fill="#FFFFFF" fillOpacity={0.9} stroke={TEAM_ATTACK} strokeWidth={0.85 * k} />;
   } else if (kind === "goalie") {
     glyph = (
       <>
@@ -90,16 +122,16 @@ export function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: 
 
   // Position / name tag (LW, RW, C, LD, RD, 1, 2 …) sits beside the marker, on whichever side has room.
   let tag: React.ReactNode = null;
-  if (marker.label && kind !== "goalie") {
+  if (marker.label && kind !== "goalie" && mode !== "glyph-nolabel") {
     const left = marker.x > 84;
-    const gap = (kind === "cone" ? 1.9 : 2.2) * k;
+    const gap = (kind === "cone" ? 2.2 : 2.7) * k;
     tag = (
       <text
         className="diagram-label"
         x={left ? cx - gap : cx + gap}
         y={cy + 1.0 * k}
         textAnchor={left ? "end" : "start"}
-        fontSize={2.7 * k}
+        fontSize={3.4 * k}
         fontWeight={800}
         fill={kind === "defender" ? TEAM_DEFENCE : kind === "player" ? "#9A3412" : INK}
         stroke="#FFFFFF"
@@ -156,13 +188,13 @@ export function Arrow({ arrow, w, h }: { arrow: DiagramArrow; w: number; h: numb
   const prev = pts[pts.length - 2] ?? pts[0];
   if (!last || !prev) return null;
   const ang = Math.atan2(last[1] - prev[1], last[0] - prev[0]);
-  const head = 2.3 * k;
-  const half = 1.1 * k;
+  const head = 3.1 * k;
+  const half = 1.5 * k;
   const back = head * 0.85;
   // The line stops at the base of the head so the point stays sharp.
   const trimmed = pts.slice(0, -1).concat([[last[0] - Math.cos(ang) * back, last[1] - Math.sin(ang) * back]]);
   const style = arrow.style ?? "run";
-  const line = style === "dribble" ? wavy(trimmed, 0.5 * k, 6.2 * k) : trimmed;
+  const line = style === "dribble" ? wavy(trimmed, 0.7 * k, 7 * k) : trimmed;
   const tip = `${last[0]},${last[1]} ${last[0] - Math.cos(ang) * head + Math.sin(ang) * half},${last[1] - Math.sin(ang) * head - Math.cos(ang) * half} ${last[0] - Math.cos(ang) * head - Math.sin(ang) * half},${last[1] - Math.sin(ang) * head + Math.cos(ang) * half}`;
   return (
     <g>
@@ -170,10 +202,10 @@ export function Arrow({ arrow, w, h }: { arrow: DiagramArrow; w: number; h: numb
         points={line.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
         stroke={INK}
-        strokeWidth={0.55 * k}
+        strokeWidth={0.85 * k}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeDasharray={style === "pass" ? `${2.2 * k} ${1.7 * k}` : undefined}
+        strokeDasharray={style === "pass" ? `${3 * k} ${2.2 * k}` : undefined}
       />
       <polygon points={tip} fill={INK} />
     </g>
@@ -204,72 +236,111 @@ function toRink(spec: DrillDiagramSpec): DrillDiagramSpec {
 }
 
 
-/* ---- animation: players skate along their arrows, then the puck follows the passes (a loop that restarts on its own) ---- */
+/* ---- animation: every arrow has a step; arrows in the same step happen together, the next step starts when the last one ends ---- */
 type MotionPlan = { path: string; keyTimes: string; keyPoints: string };
 type PuckPlan = MotionPlan & { x: number; y: number; opacity: string; opacityTimes: string };
 
 const near = (a: [number, number], m: { x: number; y: number }, r = 3.4) => Math.hypot(a[0] - m.x, a[1] - m.y) <= r;
-const polyLen = (pts: [number, number][]) => pts.slice(1).reduce((t, p, i) => t + Math.hypot(p[0] - pts[i]![0], p[1] - pts[i]![1]), 0);
+const segLen = (pts: [number, number][]) => pts.slice(1).reduce((t, p, i) => t + Math.hypot(p[0] - pts[i]![0], p[1] - pts[i]![1]), 0);
+const f3 = (x: number) => Math.min(1, Math.max(0, x)).toFixed(3);
+const STEP_S = 1.7; // seconds per step
 
-function buildMotion(spec: DrillDiagramSpec, w: number, h: number) {
+function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[]) {
   const arrows = spec.arrows ?? [];
-  const used = new Set<number>();
+  // Default: everyone skates first (step 0), then the passes go one after another.
+  let passNo = 0;
+  const raw = arrows.map((a, i) => given?.[i] ?? ((a.style ?? "run") === "pass" ? 1 + passNo++ : 0));
+  const order = [...new Set(raw)].sort((x, y) => x - y);
+  const stepOf = raw.map((r) => order.indexOf(r));
+  const nSteps = Math.max(1, order.length);
+  const durS = Math.max(5, nSteps * STEP_S + 1.6);
+  const winStart = (st: number) => (st * STEP_S + 0.15) / durS;
+  const winEnd = (st: number) => ((st + 1) * STEP_S - 0.1) / durS;
+
   const rel = (pts: [number, number][]) => {
     const [x0, y0] = pts[0]!;
     return "M0,0 " + pts.slice(1).map(([x, y]) => `L${pct(x - x0, w)},${pct(y - y0, h)}`).join(" ");
   };
+  const used = new Set<number>();
   const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass";
   const moves = new Map<number, MotionPlan>();
   spec.markers.forEach((m, mi) => {
     if (m.kind === "cone" || m.kind === "ball" || m.kind === "goalie") return;
     const pts: [number, number][] = [[m.x, m.y]];
+    const segs: { len: number; step: number }[] = [];
     let at = { x: m.x, y: m.y };
     for (let hop = 0; hop < 4; hop++) {
       const ai = arrows.findIndex((a, i) => !used.has(i) && skate(a) && near(a.from, at));
       if (ai < 0) break;
       used.add(ai);
       const a = arrows[ai]!;
+      const leg: [number, number][] = [[at.x, at.y], ...(a.via ?? []), a.to];
+      segs.push({ len: segLen(leg), step: stepOf[ai]! });
       pts.push(...(a.via ?? []), a.to);
       at = { x: a.to[0], y: a.to[1] };
     }
-    if (pts.length < 2) return;
-    moves.set(mi, { path: rel(pts), keyTimes: "0;0.06;0.5;1", keyPoints: "0;0;1;1" });
+    if (!segs.length) return;
+    const total = segs.reduce((t, g) => t + g.len, 0) || 1;
+    let done = 0;
+    const times = ["0"];
+    const points = ["0"];
+    segs.forEach((g) => {
+      times.push(f3(winStart(g.step)), f3(winEnd(g.step)));
+      points.push(f3(done / total), f3((done + g.len) / total));
+      done += g.len;
+    });
+    times.push("1");
+    points.push("1");
+    // keyTimes must never go backwards
+    for (let i = 1; i < times.length; i++) if (parseFloat(times[i]!) < parseFloat(times[i - 1]!)) times[i] = times[i - 1]!;
+    moves.set(mi, { path: rel(pts), keyTimes: times.join(";"), keyPoints: points.join(";") });
   });
 
-  const passes = arrows.filter((a) => a.style === "pass");
-  const np = Math.max(1, passes.length);
-  const starts = passes.map((_, k) => 0.55 + (k * 0.4) / np);
-  const pucks: PuckPlan[] = passes.map((a, k) => {
+  const passIdx = arrows.map((a, i) => (a.style === "pass" ? i : -1)).filter((i) => i >= 0);
+  const pucks: PuckPlan[] = passIdx.map((ai, k) => {
+    const a = arrows[ai]!;
     const pts: [number, number][] = [a.from, ...(a.via ?? []), a.to];
-    const s = starts[k]!;
-    const e = Math.min(0.97, s + 0.3 / np);
-    const next = k < passes.length - 1 ? starts[k + 1]! : 1;
-    const t = (x: number) => x.toFixed(3);
-    const last = k === passes.length - 1;
-    // The puck is on the ice from the start of its pass until the next pass takes over.
-    const opacity = last ? "0;1" : "0;1;0";
-    const opacityTimes = last ? `0;${t(s)}` : `0;${t(s)};${t(next)}`;
-    return { path: rel(pts), x: a.from[0], y: a.from[1], keyTimes: `0;${t(s)};${t(e)};1`, keyPoints: "0;0;1;1", opacity, opacityTimes };
+    const st = stepOf[ai]!;
+    const s0 = winStart(st);
+    const e0 = winEnd(st);
+    const nextStart = k < passIdx.length - 1 ? winStart(stepOf[passIdx[k + 1]!]!) : 1;
+    const last = k === passIdx.length - 1;
+    return {
+      path: rel(pts), x: a.from[0], y: a.from[1],
+      keyTimes: `0;${f3(s0)};${f3(e0)};1`, keyPoints: "0;0;1;1",
+      // on the ice from the start of its pass until the next pass takes over
+      opacity: last ? "0;1" : "0;1;0",
+      opacityTimes: last ? `0;${f3(s0)}` : `0;${f3(s0)};${f3(Math.max(nextStart, e0))}`,
+    };
   });
-  // A puck that starts the play with a skater (or sits where the first pass begins) is carried along, then handed to the pass puck.
+
+  // A puck that starts the play with a skater (or where the first pass begins) rides along, then hands over to the pass puck.
   const carried = new Map<number, MotionPlan>();
   const hidden = new Set<number>();
-  const firstPass = passes[0];
+  const firstPass = passIdx.length ? arrows[passIdx[0]!]! : null;
   spec.markers.forEach((m, mi) => {
     if (m.kind !== "ball") return;
     const owner = [...moves.entries()].find(([oi]) => near([spec.markers[oi]!.x, spec.markers[oi]!.y], m, 3.6));
     if (owner) carried.set(mi, owner[1]);
     if (firstPass && (owner || near(firstPass.from, m, 4))) hidden.add(mi);
   });
-  return { moves, carried, hidden, pucks, firstStart: starts[0] ?? 1, dur: `${Math.max(7, 4 + passes.length * 1.5).toFixed(1)}s` };
+  const firstStart = passIdx.length ? winStart(stepOf[passIdx[0]!]!) : 1;
+  return { moves, carried, hidden, pucks, firstStart, dur: `${durS.toFixed(1)}s` };
 }
 
-function Legend() {
+function Legend({ roles = false }: { roles?: boolean }) {
   const dot = "inline-block align-middle";
   return (
     <p className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-semibold opacity-80" aria-label="Diagram key">
-      <span><b style={{ color: TEAM_DEFENCE }}>X</b> defence</span>
-      <span><b style={{ color: TEAM_ATTACK }}>O</b> offence</span>
+      {roles ? (
+        <>
+          <span><b style={{ color: ROLE_COLOR.wing }}>LW · RW</b> wingers</span>
+          <span><b style={{ color: ROLE_COLOR.centre }}>C</b> centre</span>
+          <span><b style={{ color: ROLE_COLOR.defence }}>LD · RD</b> defence</span>
+        </>
+      ) : null}
+      <span><b style={{ color: TEAM_DEFENCE }}>{roles ? "X · O" : "X"}</b> {roles ? "other team" : "defence"}</span>
+      {roles ? null : <span><b style={{ color: TEAM_ATTACK }}>O</b> offence</span>}
       <span><span className={dot} style={{ width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "9px solid #F59E0B" }} /> cone</span>
       <span><span className={`${dot} rounded-full`} style={{ width: 8, height: 8, background: "#111827" }} /> puck</span>
       <span>— skate</span>
@@ -303,45 +374,74 @@ export function DrillDiagram({
   const { w, h } = SURFACE_VIEWBOX[spec.surface];
   const isRink = spec.surface === "hockey-rink";
   void framed;
-  const motion = animate && isRink ? buildMotion(spec, w, h) : null;
+  const motion = animate && isRink ? buildMotion(spec, w, h, playSteps[id]) : null;
+
+  // Position letters (LW, C, RD …): the coached team shows just the letter in its role colour; the other team shows plain X / O marks.
+  const labelled = new Set(spec.markers.filter((m) => roleOf(m.label)).map((m) => m.kind));
+  const coached: DiagramMarker["kind"] | null = labelled.size === 0 ? null : labelled.size === 1 ? [...labelled][0]! : /^PKP-/.test(id) ? "defender" : "player";
+  const modeFor = (m: DiagramMarker): "glyph" | "text" | "glyph-nolabel" =>
+    !roleOf(m.label) || !coached ? "glyph" : m.kind === coached ? "text" : "glyph-nolabel";
+
+  // Plays only use part of the rink, so zoom in on the part that matters (top or bottom of the ice).
+  const isPlay = isRink && /^(PPP|PKP)-/.test(id);
+  let yMin = 0;
+  let yMax = 100;
+  if (isPlay) {
+    const ys: number[] = [...spec.markers.map((m) => m.y), ...(spec.arrows ?? []).flatMap((a) => [a.from[1], a.to[1], ...(a.via ?? []).map((v) => v[1])])];
+    yMin = Math.max(0, Math.min(...ys) - 9);
+    yMax = Math.min(100, Math.max(...ys) + 9);
+    if (yMax - yMin < 50) {
+      const grow = (50 - (yMax - yMin)) / 2;
+      yMin = Math.max(0, yMin - grow);
+      yMax = Math.min(100, yMax + grow);
+      if (yMax - yMin < 50) { if (yMin === 0) yMax = 50; else yMin = 50; }
+    }
+  }
+  const frac = (yMax - yMin) / 100;
+  const cropped = frac < 0.999;
 
   return (
     <div data-diagram={id}>
       <div
         className={isRink ? "relative block w-full overflow-hidden" : "relative w-full overflow-hidden rounded-xl shadow-inner"}
-        style={{ aspectRatio: `${w} / ${h}` }}
+        style={{ aspectRatio: `${w} / ${h * frac}` }}
       >
-        <div className="absolute inset-0">
-          <Surface />
-        </div>
-        <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
-          {spec.arrows?.map((arrow, i) => (
-            <Arrow key={i} arrow={arrow} w={w} h={h} />
-          ))}
-          {spec.strokes?.map((stroke, i) => (
-            <Stroke key={i} stroke={stroke} w={w} h={h} />
-          ))}
-          {spec.markers.map((marker, i) => {
-            const m = motion?.moves.get(i) ?? motion?.carried.get(i);
-            const fade = motion?.hidden.has(i);
-            return (
-              <g key={i}>
-                {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
-                {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
-                <Marker marker={marker} w={w} h={h} />
+        <div
+          className="absolute left-0 w-full"
+          style={cropped ? { height: `${100 / frac}%`, top: `${-(yMin / 100 / frac) * 100}%` } : { top: 0, height: "100%" }}
+        >
+          <div className="absolute inset-0">
+            <Surface />
+          </div>
+          <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
+            {spec.arrows?.map((arrow, i) => (
+              <Arrow key={i} arrow={arrow} w={w} h={h} />
+            ))}
+            {spec.strokes?.map((stroke, i) => (
+              <Stroke key={i} stroke={stroke} w={w} h={h} />
+            ))}
+            {spec.markers.map((marker, i) => {
+              const m = motion?.moves.get(i) ?? motion?.carried.get(i);
+              const fade = motion?.hidden.has(i);
+              return (
+                <g key={i}>
+                  {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
+                  {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
+                  <Marker marker={marker} w={w} h={h} mode={modeFor(marker)} />
+                </g>
+              );
+            })}
+            {motion?.pucks.map((p, i) => (
+              <g key={`puck-${i}`} opacity={0}>
+                <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
+                <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
+                <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.3 * (w / 100)} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (w / 100)} />
               </g>
-            );
-          })}
-          {motion?.pucks.map((p, i) => (
-            <g key={`puck-${i}`} opacity={0}>
-              <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
-              <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
-              <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.1 * (w / 100)} fill="#111827" stroke="#FFFFFF" strokeWidth={0.4 * (w / 100)} />
-            </g>
-          ))}
-        </svg>
+            ))}
+          </svg>
+        </div>
       </div>
-      {legend && isRink ? <Legend /> : null}
+      {legend && isRink ? <Legend roles={Boolean(coached)} /> : null}
     </div>
   );
 }
