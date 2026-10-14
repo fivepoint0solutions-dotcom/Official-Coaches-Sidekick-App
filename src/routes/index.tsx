@@ -70,20 +70,20 @@ function Dashboard() {
 
   return (
     <main>
-      <section className="container-app relative pb-4 pt-6 lg:pt-2">
+      <section className="container-app relative pb-4 pt-6 lg:-mt-3 lg:pb-0 lg:pt-0">
         <Reveal delay={80}>
           <h1 className="text-headline italic">
             {t(greetingKey)} <span className="text-gradient">{t("dashboard.headline2")}</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>
-          <p className="mt-2 max-w-2xl text-base text-muted-foreground">
+          <p className="mt-2 max-w-2xl text-base text-muted-foreground lg:hidden">
             {t("dashboard.subtitle")}
           </p>
         </Reveal>
       </section>
 
-      <section className="container-app pt-4 pb-10 lg:pb-12">
+      <section className="container-app pt-4 pb-10 lg:pt-2 lg:pb-12">
         <p className="flow-cue" aria-hidden="true">Pick a mode to start <span>↓</span></p>
         <Reveal>
           <div className="mode-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -102,7 +102,15 @@ function Dashboard() {
                       src="/img/extra-1.jpg"
                       alt="Players working through a drill"
                       loading="lazy"
+                      className="lg:hidden"
                       style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+                    />
+                    <img
+                      src="/img/extra-6.jpg"
+                      alt="Player in a blue jersey working through a drill"
+                      loading="lazy"
+                      className="hidden lg:block"
+                      style={{ objectFit: "cover", objectPosition: "center 20%" }}
                     />
                   </span>
                   <div className="mt-4 flex items-center gap-3">
@@ -119,7 +127,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <section className="container-app pb-10 lg:pb-12" aria-label="Customize your team">
+      <section className="container-app pb-10 lg:hidden" aria-label="Customize your team">
         <Reveal>
           <Link
             to="/help"
