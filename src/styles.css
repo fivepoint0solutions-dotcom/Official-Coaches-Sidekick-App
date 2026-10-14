@@ -1786,3 +1786,11 @@ html body .badge-pill, html body .chip {
   body { background: #fff !important; }
   .beta-banner-clearance { padding: 0 !important; min-height: 0 !important; }
 }
+
+/* Home page placards: the team logo watermark sits dead centre in the text area under the photo, and is easier to see. */
+.mode-grid > [data-skin="jersey"]:not(#_):not(#__)::before {
+  opacity: .26 !important;
+  background-position: 50% 100% !important;
+  background-size: auto 44% !important;
+  background-repeat: no-repeat !important;
+}
