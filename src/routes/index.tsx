@@ -99,18 +99,10 @@ function Dashboard() {
                 >
                   <span className="rink-frame">
                     <img
-                      src="/img/extra-1.jpg"
-                      alt="Players working through a drill"
-                      loading="lazy"
-                      className="lg:hidden"
-                      style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
-                    />
-                    <img
                       src="/img/extra-6.jpg"
                       alt="Player in a blue jersey working through a drill"
                       loading="lazy"
-                      className="hidden lg:block"
-                      style={{ objectFit: "cover", objectPosition: "center 20%" }}
+                      style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: "center 20%" }}
                     />
                   </span>
                   <div className="mt-4 flex items-center gap-3">
