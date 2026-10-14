@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
-import { themeSwatches, useColorTheme } from "@/lib/color-theme";
+import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
 import { cn } from "@/lib/utils";
-import { brandMark } from "@/components/brand/BrandLogo";
+import { useBrandLogo } from "@/lib/brand";
 
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
@@ -193,9 +193,6 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
 
 export function DisplaySettings() {
   const { fontScale, setFontScale } = useFontScale();
-  const { colorTheme, setColorTheme, themes } = useColorTheme();
-  const [showThemes, setShowThemes] = useState(false);
-  const current = themes.find((th) => th.id === colorTheme) ?? themes[0];
 
   return (
     <div className="mt-5 space-y-5">
@@ -226,56 +223,14 @@ export function DisplaySettings() {
         </div>
       </section>
 
-      <section>
-        <h3 className="text-base font-bold text-white">Color theme</h3>
-        <p className="mt-1 text-sm text-white/90">Now using {current?.label}.</p>
-        <button
-          type="button"
-          onClick={() => setShowThemes((o) => !o)}
-          aria-expanded={showThemes}
-          className="mt-3 w-full rounded-full px-4 py-3 text-sm font-bold text-foreground transition-transform active:scale-[0.98]"
-          style={{ background: "rgba(255,255,255,0.78)", border: "2px solid rgba(255,255,255,0.6)" }}
-        >
-          {showThemes ? "Hide" : "Show"}
-        </button>
-        {showThemes && (
-          <div className="mt-3 space-y-2" role="group" aria-label="Color theme">
-            {themes.map((th) => {
-              const on = colorTheme === th.id;
-              return (
-                <button
-                  key={th.id}
-                  type="button"
-                  onClick={() => setColorTheme(th.id)}
-                  aria-pressed={on}
-                  className="w-full rounded-2xl p-3.5 text-left text-white transition-transform active:scale-[0.98]"
-                  style={{
-                    background: on ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.14)",
-                    border: on ? "2px solid #fff" : "1px solid rgba(255,255,255,0.4)",
-                  }}
-                >
-                  <span className="flex items-center gap-3">
-                    <span className="flex shrink-0 -space-x-1" aria-hidden="true">
-                      {themeSwatches(th).map((c) => (
-                        <span key={c} className="size-5 rounded-full border border-white/70" style={{ background: c }} />
-                      ))}
-                    </span>
-                    <span className="min-w-0 flex-1 text-sm font-bold">{th.label}</span>
-                    {on && <span aria-hidden="true" className="font-extrabold">✓</span>}
-                  </span>
-                  <span className="mt-1.5 block text-xs text-white/90">{th.blurb}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </section>
+      <BrandSettings />
     </div>
   );
 }
 
 export function AppHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const logo = useBrandLogo();
   const t = useT();
   const hidden = useHideOnScroll();
 
@@ -294,7 +249,7 @@ export function AppHeader() {
           className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
         >
           <img
-            src={brandMark}
+            src={logo.src}
             alt=""
             aria-hidden="true"
             className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"

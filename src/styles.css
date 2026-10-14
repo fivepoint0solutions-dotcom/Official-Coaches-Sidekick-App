@@ -3,6 +3,9 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Brand ramp: ten shades from jet black to near white, rebuilt from the coach's own three colours (see src/lib/brand.ts). */
+:root{--b0:#030917;--b1:#0B1F4D;--b2:#153f8a;--b3:#1F5FC8;--b4:#6392db;--b5:#8fb1e7;--b6:#afc9f0;--b7:#D3E4FA;--b8:#e9f2fc;--b9:#f6fafe;--brand-ink:#030917;}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -141,18 +144,18 @@
 :root {
   /* Sports-crest palette, expressed as perceptual OKLCH design tokens. */
   --sk-bg: #EDF3F9;
-  --sk-primary: #151922;
-  --sk-primary-deep: #0B0D12;
-  --sk-secondary: #5B6478;
-  --sk-accent: #5AA2FF;
-  --sk-accent-warm: #2A6FDB;
-  --sk-sky: #2A4A8D;
-  --sk-sky-deep: #1C2F5E;
-  --sk-berry: #1C3F8F;
-  --sk-berry-deep: #0B1F4D;
-  --sk-text: #12151C;
-  --sk-hero-mid: #1F2A44;
-  --sk-hero-deep: #0B0D12;
+  --sk-primary: var(--b1);
+  --sk-primary-deep: var(--b0);
+  --sk-secondary: var(--b3);
+  --sk-accent: var(--b4);
+  --sk-accent-warm: var(--b3);
+  --sk-sky: var(--b2);
+  --sk-sky-deep: var(--b2);
+  --sk-berry: var(--b2);
+  --sk-berry-deep: var(--b1);
+  --sk-text: var(--b1);
+  --sk-hero-mid: var(--b1);
+  --sk-hero-deep: var(--b0);
   --sk-amb-1: #E8F0F8;
   --sk-amb-2: #DDE8F4;
   --sk-amb-3: #EAF1F8;
@@ -243,7 +246,7 @@
   --highlight: var(--brand-accent-warm);
   --highlight-foreground: white;
 
-  --destructive: #0B1F4D;
+  --destructive: var(--b1);
   --destructive-foreground: white;
 
   --border: color-mix(in oklab, var(--brand-primary) 16%, transparent);
@@ -1024,10 +1027,10 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 
 :root {
   --pb-paper: #F5F9FD;
-  --pb-ink: #0b0d12;
-  --pb-ink-soft: #475a78;
-  --pb-red: #1f5fc8;
-  --pb-blue: #1E4B7A;
+  --pb-ink: var(--b0);
+  --pb-ink-soft: var(--b3);
+  --pb-red: var(--b3);
+  --pb-blue: var(--b2);
   --font-marker: "Permanent Marker", "Arial Black", sans-serif;
   --font-hand: "Caveat", cursive;
 }
@@ -1042,7 +1045,7 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
   background-image: linear-gradient(180deg, #FFFFFF 0%, #EAF1F8 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  border: 3px solid #94A3B8;
+  border: 3px solid var(--b5);
   border-top: 8px solid var(--pb-red);
   border-radius: 24px;
   box-shadow: 0 2px 3px rgba(15,23,42,.12), 0 14px 28px -16px rgba(15,23,42,.45);
@@ -1089,7 +1092,7 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 .card-soft :is(textarea, input)::placeholder,
 .card-elevated :is(textarea, input)::placeholder,
 .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full) :is(textarea, input)::placeholder {
-  color: #4b5a73 !important;
+  color: var(--b3) !important;
   opacity: 1 !important;
 }
 
@@ -1105,7 +1108,7 @@ body.sk-scrolled header.fixed.top-0::before { opacity: 1; }
 /* Small labels and quick-action chips are plain paper tags with ink text. */
 .badge-pill, .chip {
   background: #FFFFFF !important;
-  color: #0b0d12 !important;
+  color: var(--b0) !important;
   border: 1.5px solid rgba(33,29,20,.5) !important;
   border-radius: 8px !important;
   clip-path: none !important;
@@ -1218,20 +1221,20 @@ body.beta-banner-collapsed .beta-banner-clearance {
 .drill-stack { padding-bottom: 4.5rem; max-width: 40rem; margin-inline: auto; }
 .drill-flash {
   position: relative; display: flex; flex-direction: column; justify-content: flex-start; width: 100%; height: 6.25rem; margin-bottom: -1.45rem; padding: .9rem 1.1rem 0 1.1rem;
-  text-align: left; cursor: pointer; overflow: hidden; color: #0b0d12;
+  text-align: left; cursor: pointer; overflow: hidden; color: var(--b0);
   background: linear-gradient(180deg, #FFFFFF 0, #EAF1F8 100%);
-  border: 3px solid #94A3B8; border-radius: 22px;
+  border: 3px solid var(--b5); border-radius: 22px;
   box-shadow: 0 12px 22px -14px rgba(20,15,5,.55), inset 0 -2px 0 rgba(0,0,0,.06);
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.drill-flash::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #1f5fc8; opacity: .9; }
+.drill-flash::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--b3); opacity: .9; }
 .drill-flash:hover, .drill-flash:focus-visible { box-shadow: 0 16px 26px -12px rgba(20,15,5,.6); outline: none; }
 .drill-flash:active { scale: .98; }
 .drill-flash-top { display: flex; align-items: baseline; gap: .5rem; margin-top: 0; }
-.drill-flash-num { flex: none; font-size: .9rem; font-weight: 800; color: #1f5fc8; }
+.drill-flash-num { flex: none; font-size: .9rem; font-weight: 800; color: var(--b3); }
 .drill-flash-name { font-size: 1.1rem; font-weight: 800; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .drill-flash-meta { display: block; margin-top: .15rem; font-size: .78rem; font-weight: 600; opacity: .7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.drill-sheet-paper { background: linear-gradient(180deg, #FFFFFF, #EAF1F8); color: #0b0d12; border-top: 8px solid #1f5fc8; }
+.drill-sheet-paper { background: linear-gradient(180deg, #FFFFFF, #EAF1F8); color: var(--b0); border-top: 8px solid var(--b3); }
 
 /* ---- Photo strips: snapshots taped to the page ---- */
 .photo-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; align-items: start; }
@@ -1241,12 +1244,12 @@ body.beta-banner-collapsed .beta-banner-clearance {
 @media (min-width: 640px) { .photo-strip-item img { height: 11rem; } }
 .photo-strip-tape { position: absolute; top: -.6rem; left: 50%; width: 3.2rem; height: 1.1rem; transform: translateX(-50%) rotate(-3deg); background: rgba(236, 201, 75, .85); box-shadow: 0 1px 2px rgba(0,0,0,.2); }
 
-.photo-strip-item:focus-visible { outline: 3px solid #1f5fc8; outline-offset: 3px; }
+.photo-strip-item:focus-visible { outline: 3px solid var(--b3); outline-offset: 3px; }
 .photo-lightbox { padding: .6rem .6rem 1.4rem; background: #FFFFFF; border: 2px solid rgba(33,29,20,.5); box-shadow: 0 24px 50px -14px rgba(0,0,0,.7); }
 .photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
 
 /* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
-.rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid #0b0d12; background: #fff; padding: 0; box-shadow: none; }
+.rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid var(--b0); background: #fff; padding: 0; box-shadow: none; }
 .rink-frame img { display: block; width: 100%; height: auto; border-radius: 0; }
 /* ---- Ice-rink look: backdrop is public/ice/*.svg; hockey gear scattered through the pages ---- */
 body::before, body::after { display: none !important; }
@@ -1256,11 +1259,11 @@ body { background-color: #F3F8FB; }
 .rink-wash { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(232,242,255,0) 0, rgba(232,242,255,.74) 20%, rgba(232,242,255,.74) 80%, rgba(232,242,255,0) 100%); }
 @media (orientation: portrait) { .rink-wash { background: rgba(246,249,251,.5); } }
 /* the centre circle is 282/876 of the rink's short side, scaled the way object-fit: cover scales the photo */
-.rink-logo { position: absolute; left: 50%; top: 49.3%; transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden; background: #2B5FC7; box-shadow: 0 0 0 3px rgba(29,78,216,.9);
+.rink-logo { position: absolute; left: 50%; top: 49.3%; transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden; background: var(--b3); box-shadow: 0 0 0 3px rgba(29,78,216,.9);
   width: calc(0.97 * 282 * max(100vw / 1421, 100vh / 876)); aspect-ratio: 1; opacity: .88; }
 @media (orientation: portrait) { .rink-logo { width: calc(0.97 * 282 * max(100vw / 876, 100vh / 1421)); } }
 .rink-logo img { position: absolute; left: 50%; top: 50%; width: 112%; height: auto; max-width: none; transform: translate(-50%, -50%); }
-.choice-chip { background: #FFFFFF; color: #0b0d12; border: 2px solid rgba(33,29,20,.45) !important; box-shadow: 0 2px 0 rgba(33,29,20,.18); }
+.choice-chip { background: #FFFFFF; color: var(--b0); border: 2px solid rgba(33,29,20,.45) !important; box-shadow: 0 2px 0 rgba(33,29,20,.18); }
 .choice-chip:hover { background: #f3f8ff; }
 /* desktop: shorter photo frames on the mode cards so more of the page shows above the fold */
 @media (min-width: 1024px) { .rink-frame img { aspect-ratio: 2.1 / 1 !important; } }
@@ -1271,43 +1274,43 @@ body { background-color: #F3F8FB; }
 /* ---- Flow: one primary action colour, arrows that read as buttons, and a cue that leads the eye down the page ---- */
 button.hover-lift.bg-interactive, a.hover-lift.bg-interactive,
 :is(a, button)[class*="gradient-hero"], :is(a, button)[class*="gradient-inspire"], :is(a, button)[class*="gradient-build"], :is(a, button)[class*="gradient-busywork"], :is(a, button)[class*="gradient-challenge"] {
-  background: #1f5fc8 !important; background-image: none !important; color: #fff !important; border: 2px solid #0b0d12 !important; border-radius: 12px !important;
-  box-shadow: 0 4px 0 #0b2a66, 0 10px 16px -8px rgba(20,15,5,.5) !important; font-weight: 800; letter-spacing: .02em; animation: none;
+  background: var(--b3) !important; background-image: none !important; color: #fff !important; border: 2px solid var(--b0) !important; border-radius: 12px !important;
+  box-shadow: 0 4px 0 var(--b1), 0 10px 16px -8px rgba(20,15,5,.5) !important; font-weight: 800; letter-spacing: .02em; animation: none;
 }
 button.hover-lift.bg-interactive:not(:disabled), a.hover-lift.bg-interactive,
 :is(a, button)[class*="gradient-hero"], :is(a, button)[class*="gradient-inspire"]:not(:disabled), :is(a, button)[class*="gradient-build"]:not(:disabled) { animation: cta-ring 2.8s ease-out infinite; }
-button.hover-lift.bg-interactive:disabled { background: #8E98A8 !important; box-shadow: 0 4px 0 #5d6674 !important; opacity: .9; }
-button.hover-lift.bg-interactive:active, :is(a, button)[class*="gradient-hero"]:active { transform: translateY(3px); box-shadow: 0 1px 0 #0b2a66 !important; }
+button.hover-lift.bg-interactive:disabled { background: var(--b4) !important; box-shadow: 0 4px 0 var(--b3) !important; opacity: .9; }
+button.hover-lift.bg-interactive:active, :is(a, button)[class*="gradient-hero"]:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--b1) !important; }
 @keyframes cta-ring { 0% { outline: 0 solid rgba(31,95,200,.45); outline-offset: 2px; } 70%, 100% { outline: 12px solid rgba(31,95,200,0); outline-offset: 2px; } }
 @media (prefers-reduced-motion: reduce) { :is(a, button) { animation: none !important; } }
 
-a.anchor-card-gradient svg.lucide-arrow-up-right { box-sizing: content-box; width: 1.35rem; height: 1.35rem; padding: .5rem; border-radius: 999px; background: #1f5fc8; color: #fff !important; opacity: 1 !important; box-shadow: 0 3px 0 #0b2a66; }
-a.anchor-card-gradient:hover svg.lucide-arrow-up-right { background: #0b0d12; }
+a.anchor-card-gradient svg.lucide-arrow-up-right { box-sizing: content-box; width: 1.35rem; height: 1.35rem; padding: .5rem; border-radius: 999px; background: var(--b3); color: #fff !important; opacity: 1 !important; box-shadow: 0 3px 0 var(--b1); }
+a.anchor-card-gradient:hover svg.lucide-arrow-up-right { background: var(--b0); }
 
-.flow-cue { margin: 0 0 .75rem; display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #1f5fc8; }
-.flow-cue span { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: #1f5fc8; color: #fff; animation: cue-bob 1.6s ease-in-out infinite; }
+.flow-cue { margin: 0 0 .75rem; display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--b3); }
+.flow-cue span { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: var(--b3); color: #fff; animation: cue-bob 1.6s ease-in-out infinite; }
 @keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
 /* ---- Drill categories: big readable tabs ---- */
 .category-tabs { display: flex; flex-wrap: wrap; gap: .6rem; }
-.category-tab { padding: .7rem 1.1rem; font-size: 1rem; font-weight: 800; color: #0b0d12; background: #FFFFFF; border: 2px solid rgba(33,29,20,.55); border-radius: 10px; box-shadow: 0 3px 0 rgba(33,29,20,.25); cursor: pointer; }
-.category-tab[aria-pressed="true"] { color: #fff; background: #1f5fc8; border-color: #0b0d12; box-shadow: 0 3px 0 #0b2a66; }
+.category-tab { padding: .7rem 1.1rem; font-size: 1rem; font-weight: 800; color: var(--b0); background: #FFFFFF; border: 2px solid rgba(33,29,20,.55); border-radius: 10px; box-shadow: 0 3px 0 rgba(33,29,20,.25); cursor: pointer; }
+.category-tab[aria-pressed="true"] { color: #fff; background: var(--b3); border-color: var(--b0); box-shadow: 0 3px 0 var(--b1); }
 .category-count { margin-left: .25rem; font-size: .8rem; opacity: .7; }
 
 /* No dark capsules anywhere: small labels are plain paper tags with ink text. */
 html body .badge-pill, html body .chip {
-  background: #FFFFFF !important; color: #0b0d12 !important; border: 1.5px solid rgba(33,29,20,.5) !important; border-radius: 8px !important;
+  background: #FFFFFF !important; color: var(--b0) !important; border: 1.5px solid rgba(33,29,20,.5) !important; border-radius: 8px !important;
   text-transform: none; letter-spacing: .02em; font-size: .85rem; box-shadow: none;
 }
 
-.practice-tray { position: sticky; bottom: 6.5rem; z-index: 25; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .9rem 1.1rem; background: #FFFFFF; border: 2px solid #0b0d12; border-radius: 12px; box-shadow: 0 6px 0 rgba(33,29,20,.3), 0 14px 26px -12px rgba(20,15,5,.55); }
+.practice-tray { position: sticky; bottom: 6.5rem; z-index: 25; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .9rem 1.1rem; background: #FFFFFF; border: 2px solid var(--b0); border-radius: 12px; box-shadow: 0 6px 0 rgba(33,29,20,.3), 0 14px 26px -12px rgba(20,15,5,.55); }
 
 /* ---- Feedback: a red goal light with a label, just above the beta banner, on the right ---- */
 @keyframes lamp-glow { 0%, 100% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 0 rgba(90,162,255,.55); } 50% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 11px rgba(90,162,255,0); } }
 .feedback-lamp {
   position: fixed; z-index: 45; display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .95rem .35rem .55rem; min-height: 48px; border-radius: 999px;
   right: max(16px, env(safe-area-inset-right)); bottom: calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)));
-  background: linear-gradient(180deg, #3B7BE0, #0B2A66); color: #FFFFFF; border: 3px solid #0b0d12; font-family: var(--font-marker, "Permanent Marker", sans-serif); font-size: 1rem; letter-spacing: .02em;
+  background: linear-gradient(180deg, var(--b4), var(--b1)); color: #FFFFFF; border: 3px solid var(--b0); font-family: var(--font-marker, "Permanent Marker", sans-serif); font-size: 1rem; letter-spacing: .02em;
   animation: lamp-glow 2.4s ease-out infinite; cursor: pointer; transition: transform .12s ease;
 }
 .feedback-lamp:active { transform: scale(.94); }
@@ -1316,33 +1319,33 @@ html body .badge-pill, html body .chip {
 
 /* ---- Build a Practice: the drill inventory, one paper card per category ---- */
 .practice-cat {
-  position: relative; display: flex; align-items: baseline; gap: .75rem; width: 100%; padding: 1rem 3.2rem 1rem 1.2rem; text-align: left; cursor: pointer; color: #0b0d12;
-  background: linear-gradient(180deg, #FFFFFF 0, #EAF1F8 100%); border: 3px solid #94A3B8; border-radius: 22px;
+  position: relative; display: flex; align-items: baseline; gap: .75rem; width: 100%; padding: 1rem 3.2rem 1rem 1.2rem; text-align: left; cursor: pointer; color: var(--b0);
+  background: linear-gradient(180deg, #FFFFFF 0, #EAF1F8 100%); border: 3px solid var(--b5); border-radius: 22px;
   box-shadow: 0 10px 18px -12px rgba(20,15,5,.55), inset 0 -2px 0 rgba(0,0,0,.06); overflow: hidden; transition: box-shadow .15s ease, scale .1s ease;
 }
-.practice-cat::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #1f5fc8; }
+.practice-cat::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--b3); }
 .practice-cat:active { scale: .985; }
 .practice-cat-name { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
 .practice-cat-meta { font-size: .85rem; font-weight: 700; opacity: .7; }
-.practice-cat-sign { position: absolute; right: 1.1rem; top: 50%; translate: 0 -50%; font-size: 1.8rem; font-weight: 800; color: #1f5fc8; line-height: 1; }
+.practice-cat-sign { position: absolute; right: 1.1rem; top: 50%; translate: 0 -50%; font-size: 1.8rem; font-weight: 800; color: var(--b3); line-height: 1; }
 
 /* ================================================================
  * COLD LAKE ICE — the drill library and the drill rows in Build a Practice are blue and white.
  * ============================================================ */
-.ice-lib { --ice: #1F5FC8; --ice-deep: #123F8F; --ice-pale: #DCEBFA; }
+.ice-lib { --ice: var(--b3); --ice-deep: var(--b2); --ice-pale: #DCEBFA; }
 .ice-lib :is(a, button).hover-lift.bg-interactive,
 .ice-lib :is(a, button)[class*="gradient-hero"] {
-  background: var(--ice) !important; background-image: linear-gradient(180deg, #3B7BE0 0%, var(--ice) 55%, var(--ice-deep) 100%) !important;
+  background: var(--ice) !important; background-image: linear-gradient(180deg, var(--b4) 0%, var(--ice) 55%, var(--ice-deep) 100%) !important;
   color: #fff !important; border: 2px solid var(--ice-deep) !important;
-  box-shadow: 0 4px 0 #0B2A66, 0 10px 16px -8px rgba(11,42,102,.5) !important; animation: ice-ring 2.8s ease-out infinite !important;
+  box-shadow: 0 4px 0 var(--b1), 0 10px 16px -8px rgba(11,42,102,.5) !important; animation: ice-ring 2.8s ease-out infinite !important;
 }
-.ice-lib :is(a, button).hover-lift.bg-interactive:active, .ice-lib :is(a, button)[class*="gradient-hero"]:active { box-shadow: 0 1px 0 #0B2A66 !important; }
-.ice-lib :is(a, button).hover-lift.bg-interactive:disabled { background: #8E98A8 !important; background-image: none !important; box-shadow: 0 4px 0 #5d6674 !important; }
+.ice-lib :is(a, button).hover-lift.bg-interactive:active, .ice-lib :is(a, button)[class*="gradient-hero"]:active { box-shadow: 0 1px 0 var(--b1) !important; }
+.ice-lib :is(a, button).hover-lift.bg-interactive:disabled { background: var(--b4) !important; background-image: none !important; box-shadow: 0 4px 0 var(--b3) !important; }
 @keyframes ice-ring { 0% { outline: 0 solid rgba(31,95,200,.45); outline-offset: 2px; } 70%, 100% { outline: 12px solid rgba(31,95,200,0); outline-offset: 2px; } }
-.ice-lib .category-tab[aria-pressed="true"] { background: var(--ice); border-color: var(--ice-deep); box-shadow: 0 3px 0 #0B2A66; }
+.ice-lib .category-tab[aria-pressed="true"] { background: var(--ice); border-color: var(--ice-deep); box-shadow: 0 3px 0 var(--b1); }
 .ice-lib .drill-flash::after { background: var(--ice); }
 .ice-lib .drill-flash-num { color: var(--ice); }
-.ice-lib .drill-flash { border-color: #9DB8DA; }
+.ice-lib .drill-flash { border-color: var(--b5); }
 
 /* Ice texture: faint skate marks and scratches, very low contrast so text stays easy to read. */
 .ice-texture, .ice-lib .drill-flash {
@@ -1353,20 +1356,20 @@ html body .badge-pill, html body .chip {
 .ice-lib .drill-flash { background-size: 170% auto, 100% 100%; }
 
 /* The little rink on each library card: turned on its side so the whole rink fits the title strip. */
-.drill-flash-rink { position: absolute; right: .8rem; top: .75rem; width: 6.6rem; height: 3.22rem; border-radius: 8px; overflow: hidden; border: 2px solid #9DB8DA; box-shadow: 0 1px 2px rgba(15,23,42,.18); background: #fff; }
+.drill-flash-rink { position: absolute; right: .8rem; top: .75rem; width: 6.6rem; height: 3.22rem; border-radius: 8px; overflow: hidden; border: 2px solid var(--b5); box-shadow: 0 1px 2px rgba(15,23,42,.18); background: #fff; }
 .drill-flash-rink-turn { position: absolute; left: 50%; top: 50%; width: 3.22rem; height: 6.6rem; transform: translate(-50%, -50%) rotate(-90deg); display: block; }
 .drill-flash-rink-turn > div { width: 100%; }
 .ice-lib .drill-flash .drill-flash-top { padding-right: 7.4rem; }
 @media (min-width: 640px) { .drill-flash-rink { width: 7.3rem; height: 3.56rem; right: 1rem; top: .6rem; } .drill-flash-rink-turn { width: 3.56rem; height: 7.3rem; } .ice-lib .drill-flash .drill-flash-top { padding-right: 8.4rem; } }
 
 /* Category finder + chips: one compact bar that stays in reach while you scroll the library. */
-.cat-bar { position: sticky; top: .5rem; z-index: 25; display: flex; flex-direction: column; gap: .5rem; padding: .6rem; border-radius: 16px; background: rgba(244,248,250,.94); backdrop-filter: blur(6px); border: 2px solid #9DB8DA; box-shadow: 0 6px 16px -10px rgba(15,23,42,.45); }
-.cat-find { display: flex; align-items: center; gap: .5rem; max-width: 18rem; padding: .35rem .7rem; border-radius: 999px; background: #fff; border: 2px solid #9DB8DA; }
-.cat-find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 16px; font-weight: 600; color: #0F172A; }
+.cat-bar { position: sticky; top: .5rem; z-index: 25; display: flex; flex-direction: column; gap: .5rem; padding: .6rem; border-radius: 16px; background: rgba(244,248,250,.94); backdrop-filter: blur(6px); border: 2px solid var(--b5); box-shadow: 0 6px 16px -10px rgba(15,23,42,.45); }
+.cat-find { display: flex; align-items: center; gap: .5rem; max-width: 18rem; padding: .35rem .7rem; border-radius: 999px; background: #fff; border: 2px solid var(--b5); }
+.cat-find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 16px; font-weight: 600; color: var(--b1); }
 .cat-scroll { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .15rem; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
 .cat-scroll .category-tab { flex: none; padding: .45rem .8rem; font-size: .9rem; border-radius: 999px; white-space: nowrap; }
 @media (min-width: 768px) { .cat-bar { flex-direction: row; align-items: center; } .cat-scroll { flex-wrap: wrap; overflow: visible; } }
-.cat-heading { scroll-margin-top: 9rem; font-size: 1.35rem; font-weight: 800; color: #123F8F; letter-spacing: .01em; }
+.cat-heading { scroll-margin-top: 9rem; font-size: 1.35rem; font-weight: 800; color: var(--b2); letter-spacing: .01em; }
 
 /* ---- Tablet and desktop layout polish ---- */
 /* Dashboard cards: never leave one card alone on a half-empty row. */
@@ -1387,7 +1390,7 @@ html body .badge-pill, html body .chip {
 @media (min-width: 1024px) {
   .lg\:anchor-card-gradient {
     background-color: var(--pb-paper); background-image: linear-gradient(180deg, #FFFFFF 0%, #EAF1F8 100%);
-    border: 3px solid #94A3B8; border-top: 8px solid var(--pb-red); border-radius: 24px;
+    border: 3px solid var(--b5); border-top: 8px solid var(--pb-red); border-radius: 24px;
     box-shadow: 0 2px 3px rgba(15,23,42,.12), 0 14px 28px -16px rgba(15,23,42,.45); color: var(--pb-ink);
   }
   .lg\:anchor-card-gradient [class*="border-white"] { border-color: rgba(33,29,20,.22) !important; }
@@ -1406,9 +1409,9 @@ html body .badge-pill, html body .chip {
  * The colours below are the team's. A team that customizes its colours and logo only has to change these variables.
  * ============================================================ */
 :root {
-  --team-primary: #1F5FC8;   /* Cold Lake Ice blue */
-  --team-deep: #123F8F;
-  --team-navy: #0B1F4D;
+  --team-primary: var(--b3);   /* Cold Lake Ice blue */
+  --team-deep: var(--b2);
+  --team-navy: var(--b1);
   --team-ice: #DCEBFA;
   --team-white: #FFFFFF;
   --team-logo: url("/ice/cold-lake-ice-logo.png");
@@ -1420,11 +1423,11 @@ html body .badge-pill, html body .chip {
 
   /* ---- DESIGN 1 · JERSEY: blue body, white shoulder panels at the top corners, the team logo as a faint watermark ---- */
   [data-skin="jersey"]:not(#_):not(#__) {
-    background-color: #C3D9F6 !important;
-    background-image: linear-gradient(180deg, #D3E4FA 0%, #B7D0F3 100%) !important;
+    background-color: var(--b7) !important;
+    background-image: linear-gradient(180deg, var(--b7) 0%, var(--b6) 100%) !important;
     border: 3px solid var(--team-deep) !important; border-top-width: 3px !important; border-radius: 20px !important;
     box-shadow: inset 0 0 0 2px rgba(255,255,255,.65), 0 2px 3px rgba(15,23,42,.14), 0 14px 28px -16px rgba(15,23,42,.5) !important;
-    color: #0F1B33 !important; animation: none !important; clip-path: none !important;
+    color: var(--b1) !important; animation: none !important; clip-path: none !important;
   }
   [data-skin="jersey"]::before {
     transform: none !important; translate: none !important; filter: none !important;
@@ -1437,13 +1440,13 @@ html body .badge-pill, html body .chip {
     background:
       linear-gradient(135deg, #FFFFFF 0 50%, rgba(255,255,255,0) 50.5%) top left / 58px 58px no-repeat,
       linear-gradient(225deg, #FFFFFF 0 50%, rgba(255,255,255,0) 50.5%) top right / 58px 58px no-repeat,
-      linear-gradient(90deg, #05080F 0%, #0B1F4D 28%, #1F5FC8 66%, #BFDDFF 100%) 0 0 / 100% 4px no-repeat !important;
+      linear-gradient(90deg, var(--b0) 0%, var(--b1) 28%, var(--b3) 66%, var(--b7) 100%) 0 0 / 100% 4px no-repeat !important;
   }
 
   /* ---- DESIGN 2 · SCOREBOARD: dark navy screen, bright white text, a thin accent line across the top ---- */
   [data-skin="scoreboard"]:not(#_):not(#__) {
     background-color: var(--team-navy) !important;
-    background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1.3px), linear-gradient(180deg, #123068 0%, var(--team-navy) 100%) !important;
+    background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1.3px), linear-gradient(180deg, var(--b2) 0%, var(--team-navy) 100%) !important;
     background-size: 7px 7px, 100% 100% !important;
     border: 2px solid var(--team-primary) !important; border-radius: 16px !important;
     box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 14px 28px -14px rgba(5,12,32,.7) !important;
@@ -1453,7 +1456,7 @@ html body .badge-pill, html body .chip {
   [data-skin="scoreboard"]::after {
     transform: none !important; translate: none !important; filter: none !important; mix-blend-mode: normal !important;
     content: "" !important; position: absolute !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: auto !important; width: auto !important; height: 4px !important; border-radius: 14px 14px 0 0; opacity: 1 !important; animation: none !important; z-index: 1;
-    background: linear-gradient(90deg, #5AA2FF 0%, #FFFFFF 50%, #5AA2FF 100%) !important;
+    background: linear-gradient(90deg, var(--b4) 0%, #FFFFFF 50%, var(--b4) 100%) !important;
   }
   [data-skin="scoreboard"] :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, a, strong, em, b, td, th, summary, dt, dd):not(.keep-color):not(.tape-strip):not(.tape-strip *):not(.rounded-full):not([class*="bg-white"]):not(.category-tab):not(.category-tab *):not(.drill-flash-rink *):not(button[class*="bg-"] *):not(button[class*="gradient"] *):not(button.category-tab *):not(#_):not(#__) {
     color: #FFFFFF !important;
@@ -1461,8 +1464,8 @@ html body .badge-pill, html body .chip {
   [data-skin="scoreboard"] button:not([class*="bg-"]):not([class*="gradient"]):not(.category-tab):not(#_):not(#__) { color: #FFFFFF !important; }
   [data-skin="scoreboard"] :is(button, [role="combobox"]):is([class*="border-border"], [class*="bg-transparent"], [class*="sweep-fill"], [role="combobox"]):not([class*="bg-white"]):not(#_):not(#__) { color: #FFFFFF !important; border-color: rgba(255,255,255,.6) !important; }
   [data-skin="scoreboard"] :is([role="menuitem"], [role="option"]):not(#_) { color: #FFFFFF !important; }
-  [data-skin="scoreboard"] :is(input, textarea, select):not(#_):not(#__) { background: #FFFFFF !important; color: #0F172A !important; border-color: #9DB8DA !important; }
-  [data-skin="scoreboard"] :is(input, textarea)::placeholder { color: #5A6B85 !important; }
+  [data-skin="scoreboard"] :is(input, textarea, select):not(#_):not(#__) { background: #FFFFFF !important; color: var(--b1) !important; border-color: var(--b5) !important; }
+  [data-skin="scoreboard"] :is(input, textarea)::placeholder { color: var(--b3) !important; }
   [data-skin="scoreboard"] :is([class*="border-white"], hr):not(#_) { border-color: rgba(255,255,255,.3) !important; }
 
   /* ---- DESIGN 3 · BOARDS & GLASS: glass across the top, white boards below, a blue kick plate along the base ---- */
@@ -1472,13 +1475,13 @@ html body .badge-pill, html body .chip {
       linear-gradient(0deg, var(--team-primary) 0 9px, var(--team-deep) 9px 11px, transparent 11px),
       repeating-linear-gradient(90deg, rgba(15,23,42,.08) 0 1px, transparent 1px 120px),
       linear-gradient(112deg, rgba(255,255,255,.7) 0 13%, rgba(255,255,255,0) 13.4% 26%, rgba(255,255,255,.35) 26.4% 31%, rgba(255,255,255,0) 31.4%),
-      linear-gradient(180deg, #C6DDF6 0%, #DCEAF8 58%, #F6F9FD 58%, #EEF3F9 100%) !important;
+      linear-gradient(180deg, var(--b7) 0%, #DCEAF8 58%, #F6F9FD 58%, #EEF3F9 100%) !important;
     background-size: 100% 100%, 100% 42%, 100% 56%, 100% 100% !important;
     background-position: 0 0, 0 100%, 0 0, 0 0 !important;
     background-repeat: no-repeat !important;
-    border: 3px solid #8FAAD0 !important; border-radius: 20px !important;
+    border: 3px solid var(--b5) !important; border-radius: 20px !important;
     box-shadow: 0 2px 3px rgba(15,23,42,.12), 0 14px 28px -16px rgba(15,23,42,.45) !important;
-    color: #0F1B33 !important; animation: none !important; clip-path: none !important;
+    color: var(--b1) !important; animation: none !important; clip-path: none !important;
   }
   :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::before, :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::after { content: none !important; }
 }
@@ -1487,9 +1490,9 @@ html body .badge-pill, html body .chip {
 @layer utilities {
   :is(.category-tab:not([aria-pressed="true"]), button.sweep-fill, a.sweep-fill, button[class*="bg-white"], a[class*="bg-white"]):not([data-state="on"]):not(#_):not(#__) {
     background-color: #DCEAF8 !important;
-    background-image: linear-gradient(180deg, #F0F6FD 0%, #D3E3F6 100%) !important;
-    border-color: #8FAAD0 !important;
-    color: #0F1B33 !important;
+    background-image: linear-gradient(180deg, #F0F6FD 0%, var(--b7) 100%) !important;
+    border-color: var(--b5) !important;
+    color: var(--b1) !important;
     box-shadow: 0 2px 0 rgba(18,63,143,.25) !important;
   }
 }
@@ -1503,9 +1506,9 @@ html body .badge-pill, html body .chip {
   --ice-gloss: linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.13) 26%, rgba(255,255,255,0) 46%);
   --ice-gloss-soft: linear-gradient(180deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,.06) 28%, rgba(255,255,255,0) 46%);
   --ice-sweep: linear-gradient(112deg, rgba(255,255,255,0) 18%, rgba(255,255,255,.16) 36%, rgba(255,255,255,.2) 42%, rgba(255,255,255,.05) 52%, rgba(255,255,255,0) 64%);
-  --ice-dark: linear-gradient(155deg, #05080F 0%, #0B1F4D 34%, #1F5FC8 76%, #7DB4FF 100%);
-  --ice-mid: linear-gradient(155deg, #0B1F4D 0%, #1F5FC8 52%, #9CC8FF 100%);
-  --ice-light: linear-gradient(160deg, #FFFFFF 0%, #E6F1FF 38%, #B4D1F3 78%, #8DB5E8 100%);
+  --ice-dark: linear-gradient(155deg, var(--b0) 0%, var(--b1) 34%, var(--b3) 76%, var(--b5) 100%);
+  --ice-mid: linear-gradient(155deg, var(--b1) 0%, var(--b3) 52%, var(--b6) 100%);
+  --ice-light: linear-gradient(160deg, #FFFFFF 0%, #E6F1FF 38%, var(--b6) 78%, var(--b5) 100%);
 }
 
 @layer utilities {
@@ -1519,20 +1522,20 @@ html body .badge-pill, html body .chip {
   .category-tab[aria-pressed="true"],
   .ice-lib :is(a, button).hover-lift.bg-interactive, .ice-lib :is(a, button)[class*="gradient-hero"],
   .practice-cat-sign, .flow-cue span {
-    background-color: #0B1F4D !important;
+    background-color: var(--b1) !important;
     background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark) !important;
     background-size: 100% 100%, 100% 100%, 100% 100% !important;
     background-repeat: no-repeat !important;
     background-position: 0 0 !important;
     color: #FFFFFF !important;
-    border: 2px solid #0B2A66 !important;
-    box-shadow: 0 3px 0 #061433, 0 10px 18px -8px rgba(5,12,32,.6), inset 0 1px 0 rgba(255,255,255,.45) !important;
+    border: 2px solid var(--b1) !important;
+    box-shadow: 0 3px 0 var(--b0), 0 10px 18px -8px rgba(5,12,32,.6), inset 0 1px 0 rgba(255,255,255,.45) !important;
     animation: none !important;
     text-shadow: 0 1px 1px rgba(2,8,24,.6);
   }
   :is(button, a, [role="button"]).bg-interactive:not(:disabled):hover { filter: brightness(1.08); }
   :is(:is(button, a, [role="button"], span, div).bg-interactive, :is(button, a).bg-primary, :is(a, button)[class*="gradient-hero"], :is(a, button)[class*="gradient-inspire"], :is(a, button)[class*="gradient-build"], :is(a, button)[class*="gradient-busywork"], :is(a, button)[class*="gradient-challenge"], .category-tab[aria-pressed="true"]) :is(span, svg, div, b, strong):not(#_):not(#__):not(#___) { color: #FFFFFF !important; }
-  :is(button, a)[class*="bg-interactive"]:disabled, :is(button, a)[class*="bg-primary"]:disabled { background-image: var(--ice-gloss-soft), linear-gradient(155deg, #2A3244 0%, #4A5A78 60%, #8FA3C4 100%) !important; box-shadow: none !important; }
+  :is(button, a)[class*="bg-interactive"]:disabled, :is(button, a)[class*="bg-primary"]:disabled { background-image: var(--ice-gloss-soft), linear-gradient(155deg, var(--b2) 0%, var(--b3) 60%, var(--b5) 100%) !important; box-shadow: none !important; }
 
   /* ---- light capsules and buttons: white melting into ice blue ---- */
   button.sweep-fill, a.sweep-fill, .category-tab:not([aria-pressed="true"]),
@@ -1544,8 +1547,8 @@ html body .badge-pill, html body .chip {
     background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-light) !important;
     background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
-    border: 2px solid #8FAAD0 !important;
-    color: #0B1226 !important;
+    border: 2px solid var(--b5) !important;
+    color: var(--b0) !important;
     box-shadow: 0 2px 0 rgba(18,63,143,.28), 0 8px 14px -8px rgba(15,23,42,.4), inset 0 1px 0 rgba(255,255,255,.9) !important;
   }
   button.sweep-fill:hover, a.sweep-fill:hover { filter: brightness(1.04); }
@@ -1554,37 +1557,37 @@ html body .badge-pill, html body .chip {
   input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), textarea {
     background-color: #F3F8FF !important;
     background-image: var(--ice-gloss-soft), linear-gradient(170deg, #FFFFFF 0%, #EEF5FF 60%, #DCEAFA 100%) !important;
-    color: #0B1226 !important;
-    border-color: #8FAAD0 !important;
+    color: var(--b0) !important;
+    border-color: var(--b5) !important;
   }
 
   /* ---- labels, thin bars and badges ---- */
-  .tape-strip, .tape-strip:is(h1, h2, h3, p) { background-image: var(--ice-gloss), linear-gradient(165deg, #FFFFFF 0%, #E8F2FF 55%, #C6DCF7 100%) !important; background-color: #EAF3FF !important; color: #0B1226 !important; }
-  .feedback-lamp { background-image: var(--ice-gloss), var(--ice-dark) !important; border-color: #0B2A66 !important; }
+  .tape-strip, .tape-strip:is(h1, h2, h3, p) { background-image: var(--ice-gloss), linear-gradient(165deg, #FFFFFF 0%, #E8F2FF 55%, var(--b7) 100%) !important; background-color: #EAF3FF !important; color: var(--b0) !important; }
+  .feedback-lamp { background-image: var(--ice-gloss), var(--ice-dark) !important; border-color: var(--b1) !important; }
   .category-count { color: inherit; }
 
   /* ---- the three container designs, re-blended (smooth, no bands) with the glass gloss ---- */
   [data-skin="jersey"]:not(#_):not(#__) {
-    background-color: #BCD6F5 !important;
-    background-image: var(--ice-gloss), var(--ice-sweep), radial-gradient(120% 90% at 100% 100%, rgba(11,31,77,.34), rgba(11,31,77,0) 62%), linear-gradient(160deg, #F3F9FF 0%, #C6DDF7 40%, #8DB4E8 100%) !important;
+    background-color: var(--b6) !important;
+    background-image: var(--ice-gloss), var(--ice-sweep), radial-gradient(120% 90% at 100% 100%, rgba(11,31,77,.34), rgba(11,31,77,0) 62%), linear-gradient(160deg, #F3F9FF 0%, var(--b7) 40%, var(--b5) 100%) !important;
     background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100% !important;
     background-repeat: no-repeat !important;
     background-position: 0 0 !important;
   }
   [data-skin="scoreboard"]:not(#_):not(#__) {
-    background-color: #0B1F4D !important;
-    background-image: var(--ice-gloss-soft), var(--ice-sweep), radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.3px), linear-gradient(155deg, #04060C 0%, #0B1F4D 46%, #1B4A9E 100%) !important;
+    background-color: var(--b1) !important;
+    background-image: var(--ice-gloss-soft), var(--ice-sweep), radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.3px), linear-gradient(155deg, var(--b0) 0%, var(--b1) 46%, var(--b2) 100%) !important;
     background-size: 100% 100%, 100% 100%, 7px 7px, 100% 100% !important;
     background-repeat: no-repeat, no-repeat, repeat, no-repeat !important;
     background-position: 0 0 !important;
   }
   :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar):not([data-skin])):not(#_):not(#__) {
-    background-color: #D9E8F8 !important;
+    background-color: var(--b7) !important;
     background-image:
-      linear-gradient(0deg, #0B2A66 0, #1F5FC8 7px, rgba(31,95,200,.35) 11px, rgba(31,95,200,0) 14px),
+      linear-gradient(0deg, var(--b1) 0, var(--b3) 7px, rgba(31,95,200,.35) 11px, rgba(31,95,200,0) 14px),
       var(--ice-gloss), var(--ice-sweep),
       repeating-linear-gradient(90deg, rgba(15,23,42,.06) 0 1px, transparent 1px 120px),
-      linear-gradient(180deg, #B6D2F4 0%, #D6E7F9 34%, #F4F9FF 64%, #E0ECF9 100%) !important;
+      linear-gradient(180deg, var(--b6) 0%, var(--b7) 34%, #F4F9FF 64%, #E0ECF9 100%) !important;
     background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100% !important;
     background-position: 0 0 !important;
     background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat !important;
@@ -1593,18 +1596,18 @@ html body .badge-pill, html body .chip {
 
 /* Banner and its chevron: the same ice, blended. */
 .beta-banner-ice {
-  background-image: var(--ice-gloss), var(--ice-sweep), linear-gradient(180deg, #FFFFFF 0%, #E4F0FF 45%, #B9D4F4 100%);
-  border-top: 3px solid #1F5FC8;
+  background-image: var(--ice-gloss), var(--ice-sweep), linear-gradient(180deg, #FFFFFF 0%, #E4F0FF 45%, var(--b6) 100%);
+  border-top: 3px solid var(--b3);
   box-shadow: 0 -8px 20px -10px rgba(5,12,32,.5), inset 0 1px 0 rgba(255,255,255,.9);
 }
 .beta-chevron {
   background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark);
-  border: 2px solid #0B2A66; border-right: none; color: #FFFFFF;
+  border: 2px solid var(--b1); border-right: none; color: #FFFFFF;
   box-shadow: -4px 4px 12px -4px rgba(5,12,32,.5), inset 0 1px 0 rgba(255,255,255,.45);
 }
 
 
-.cat-find input, .cat-find input:focus { background: transparent !important; background-image: none !important; border: 0 !important; box-shadow: none !important; }
+@layer utilities { label.cat-find input:not(#_), label.cat-find input:focus:not(#_) { background: transparent !important; background-image: none !important; border: 0 !important; box-shadow: none !important; } }
 
 /* Last flat fills: choice chips, polaroid frames, the tape on them, and the category search capsule. */
 @layer utilities {
@@ -1612,9 +1615,11 @@ html body .badge-pill, html body .chip {
     background-color: #DCEAF9 !important;
     background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-light) !important;
     background-repeat: no-repeat !important;
-    color: #0B1226 !important;
+    color: var(--b0) !important;
   }
   .choice-chip:hover { filter: brightness(1.04); }
   .photo-strip-tape { background: linear-gradient(115deg, rgba(255,255,255,.75) 0%, rgba(143,193,255,.7) 55%, rgba(31,95,200,.55) 100%) !important; backdrop-filter: blur(1px); }
-  [role="radio"][aria-checked="true"].rounded-2xl { background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark) !important; color: #FFFFFF !important; border-color: #0B2A66 !important; }
+  [role="radio"][aria-checked="true"].rounded-2xl { background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark) !important; color: #FFFFFF !important; border-color: var(--b1) !important; }
 }
+
+.rink-logo[data-custom] img { width: 86%; height: 86%; object-fit: contain; }

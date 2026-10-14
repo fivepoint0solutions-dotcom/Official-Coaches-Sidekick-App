@@ -3,6 +3,7 @@ import { DrillDiagram, isFullIceDiagram } from "@/components/drills/DrillDiagram
 import { Button } from "@/components/ui/button";
 import type { Drill } from "@/data/drillLibrary";
 import { zoneHint } from "@/lib/drillZone";
+import { useBrandLogo } from "@/lib/brand";
 
 /** One drill or play as a plain row: diagram, name, time, description, and an Add button (just a small + on phones).
  * Half-ice drills keep the rink on the left. Full-ice drills are tall and left white space beside the text, so their rink
@@ -18,6 +19,7 @@ export function DrillRow({
   onToggle: (drill: Drill) => void;
   onOpen: (drill: Drill) => void;
 }) {
+  const logo = useBrandLogo();
   const zone = zoneHint(drill);
   const full = drill.diagram ? isFullIceDiagram(drill.diagram, `row-${drill.id}`, zone) : false;
   return (
@@ -28,7 +30,7 @@ export function DrillRow({
         </div>
       ) : (
         <div className="flex items-start justify-center pt-2" aria-hidden="true">
-          <img src="/ice/cold-lake-ice-logo.png" alt="" className="w-full max-w-[9rem] object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(15,23,42,.25))" }} />
+          <img src={logo.src} alt="" className="w-full max-w-[9rem] object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(15,23,42,.25))" }} />
         </div>
       )}
       <div className="flex min-w-0 flex-col">

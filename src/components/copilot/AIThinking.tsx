@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useT, type TranslationKey } from "@/lib/i18n";
-import { brandMark } from "@/components/brand/BrandLogo";
+import { useBrandLogo } from "@/lib/brand";
 
 const PHRASE_KEYS: TranslationKey[] = [
   "thinking.phrase1",
@@ -14,6 +14,7 @@ const PHRASE_KEYS: TranslationKey[] = [
 type AIThinkingProps = { className?: string; gradientClass?: string };
 
 export function AIThinking({ className, gradientClass = "gradient-build" }: AIThinkingProps) {
+  const logo = useBrandLogo();
   const t = useT();
   const [phraseIndex, setPhraseIndex] = useState(0);
 
@@ -28,7 +29,7 @@ export function AIThinking({ className, gradientClass = "gradient-build" }: AITh
     >
       <div className={cn("relative grid size-20 place-items-center rounded-full gradient-motion", gradientClass)}>
         <span className="absolute inset-0 animate-ping rounded-full border border-primary/25" />
-        <img src={brandMark} alt="" className="relative size-16 object-contain animate-float" />
+        <img src={logo.src} alt="" className="relative size-16 object-contain animate-float" />
       </div>
       <p className="text-body text-muted-foreground" aria-live="polite">
         {t(PHRASE_KEYS[phraseIndex]!)}
