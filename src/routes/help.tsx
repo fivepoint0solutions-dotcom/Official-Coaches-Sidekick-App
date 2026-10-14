@@ -7,9 +7,10 @@ import { DisplaySettings } from "@/components/navigation/AppHeader";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/help")({
-  validateSearch: (search: Record<string, unknown>): { open?: string } => ({
-    open: typeof search.open === "string" ? search.open : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { open?: string } => {
+    const open = search["open"];
+    return typeof open === "string" ? { open } : {};
+  },
   head: () => ({ meta: [
     { title: "Help — Coach's Sidekick" },
     { name: "description", content: "A step-by-step guide to everything in Coach's Sidekick." },
