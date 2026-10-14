@@ -44,8 +44,6 @@ function useHideOnScroll() {
   return hidden;
 }
 
-}
-
 export function FeedbackModal({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
@@ -230,16 +228,15 @@ export function AppHeader() {
         </Link>
 
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
-          <LanguageSwitcher />
           <div className="relative">
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
               aria-expanded={menuOpen}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
+              className="anchor-card-gradient card-tint-inspire grid size-8 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
             >
-              {menuOpen ? <X className="size-5 text-white" /> : <Menu className="size-5 text-white" />}
+              {menuOpen ? <X className="size-4 text-white" /> : <Menu className="size-4 text-white" />}
             </button>
             {menuOpen && (
               <div className="absolute right-0 top-full z-50 mt-2 flex w-52 max-w-[70vw] flex-col items-end gap-2">
