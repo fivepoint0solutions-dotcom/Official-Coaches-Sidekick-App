@@ -233,21 +233,35 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number) {
       at = { x: a.to[0], y: a.to[1] };
     }
     if (pts.length < 2) return;
-    moves.set(mi, { path: rel(pts), keyTimes: "0;0.06;0.58;1", keyPoints: "0;0;1;1" });
+    moves.set(mi, { path: rel(pts), keyTimes: "0;0.06;0.5;1", keyPoints: "0;0;1;1" });
   });
+
   const passes = arrows.filter((a) => a.style === "pass");
+  const np = Math.max(1, passes.length);
+  const starts = passes.map((_, k) => 0.55 + (k * 0.4) / np);
   const pucks: PuckPlan[] = passes.map((a, k) => {
     const pts: [number, number][] = [a.from, ...(a.via ?? []), a.to];
-    const s = 0.62 + (k * 0.32) / Math.max(1, passes.length);
-    const e = Math.min(0.95, s + 0.3 / Math.max(1, passes.length));
-    return {
-      path: rel(pts), x: a.from[0], y: a.from[1],
-      keyTimes: `0;${s.toFixed(3)};${e.toFixed(3)};1`, keyPoints: "0;0;1;1",
-      opacity: "0;1;0;0", opacityTimes: `0;${s.toFixed(3)};${e.toFixed(3)};1`,
-    };
+    const s = starts[k]!;
+    const e = Math.min(0.97, s + 0.3 / np);
+    const next = k < passes.length - 1 ? starts[k + 1]! : 1;
+    const t = (x: number) => x.toFixed(3);
+    const last = k === passes.length - 1;
+    // The puck is on the ice from the start of its pass until the next pass takes over.
+    const opacity = last ? "0;1" : "0;1;0";
+    const opacityTimes = last ? `0;${t(s)}` : `0;${t(s)};${t(next)}`;
+    return { path: rel(pts), x: a.from[0], y: a.from[1], keyTimes: `0;${t(s)};${t(e)};1`, keyPoints: "0;0;1;1", opacity, opacityTimes };
   });
-  void polyLen;
-  return { moves, pucks, dur: `${Math.max(5, 3 + passes.length * 1.6).toFixed(1)}s` };
+  // A puck that starts the play with a skater (or sits where the first pass begins) is carried along, then handed to the pass puck.
+  const carried = new Map<number, MotionPlan>();
+  const hidden = new Set<number>();
+  const firstPass = passes[0];
+  spec.markers.forEach((m, mi) => {
+    if (m.kind !== "ball") return;
+    const owner = [...moves.entries()].find(([oi]) => near([spec.markers[oi]!.x, spec.markers[oi]!.y], m, 3.6));
+    if (owner) carried.set(mi, owner[1]);
+    if (firstPass && (owner || near(firstPass.from, m, 4))) hidden.add(mi);
+  });
+  return { moves, carried, hidden, pucks, firstStart: starts[0] ?? 1, dur: `${Math.max(7, 4 + passes.length * 1.5).toFixed(1)}s` };
 }
 
 function Legend() {
@@ -308,10 +322,12 @@ export function DrillDiagram({
             <Stroke key={i} stroke={stroke} w={w} h={h} />
           ))}
           {spec.markers.map((marker, i) => {
-            const m = motion?.moves.get(i);
+            const m = motion?.moves.get(i) ?? motion?.carried.get(i);
+            const fade = motion?.hidden.has(i);
             return (
               <g key={i}>
                 {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
+                {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
                 <Marker marker={marker} w={w} h={h} />
               </g>
             );
