@@ -1,4 +1,5 @@
-import brandMark from "@/assets/coachs-sidekick-mark.png";
+/** The app's mark is the Cold Lake Ice logo. */
+const brandMark = "/ice/cold-lake-ice-logo.png";
 import { cn } from "@/lib/utils";
 
 type BrandLogoProps = {

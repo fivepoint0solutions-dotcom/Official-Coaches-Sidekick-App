@@ -386,17 +386,17 @@ export function DrillDiagram({
 
   // Position letters (LW, C, RD …): the coached team shows just the letter in its role colour; the other team shows plain X / O marks.
   const labelled = new Set(spec.markers.filter((m) => roleOf(m.label)).map((m) => m.kind));
-  const coached: DiagramMarker["kind"] | null = labelled.size === 0 ? null : labelled.size === 1 ? [...labelled][0]! : /^PKP-/.test(base) ? "defender" : "player";
+  const coached: DiagramMarker["kind"] | null = labelled.size === 0 ? null : labelled.size === 1 ? [...labelled][0]! : /^(PKP|PKL)-/.test(base) ? "defender" : "player";
   const modeFor = (m: DiagramMarker): "glyph" | "text" | "glyph-nolabel" =>
     !roleOf(m.label) || !coached ? "glyph" : m.kind === coached ? "text" : "glyph-nolabel";
 
   // In a play, the other team is only drawn where it takes part (a pass to or from it). Players just standing around are left off.
   const ends: [number, number][] = (spec.arrows ?? []).flatMap((a) => [a.from, a.to]);
   const standingAround = (m: DiagramMarker) =>
-    /^(PPP|PKP)-/.test(base) && coached !== null && m.kind !== coached && (m.kind === "player" || m.kind === "defender") && !ends.some((e) => Math.hypot(e[0] - m.x, e[1] - m.y) <= 5.5);
+    /^(PPP|PKP|PPL|PKL)-/.test(base) && coached !== null && m.kind !== coached && (m.kind === "player" || m.kind === "defender") && !ends.some((e) => Math.hypot(e[0] - m.x, e[1] - m.y) <= 7);
 
   // Plays only use part of the rink, so zoom in on the part that matters (top or bottom of the ice).
-  const isPlay = isRink && !mini && /^(PPP|PKP)-/.test(base);
+  const isPlay = isRink && !mini && /^(PPP|PKP|PPL|PKL)-/.test(base);
   let yMin = 0;
   let yMax = 100;
   if (isPlay) {

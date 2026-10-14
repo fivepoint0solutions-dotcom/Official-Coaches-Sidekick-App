@@ -119,7 +119,7 @@ function DrillDetailPage() {
                 {playing ? <Pause /> : <Play />} {playing ? "Stop" : "Play animation"}
               </Button>
             </div>
-            <div className={`mx-auto mt-3 w-full ${/^(PPP|PKP)-/.test(drill.id) ? "max-w-[36rem]" : "max-w-[24rem]"}`}>
+            <div className={`mx-auto mt-3 w-full ${/^(PPP|PKP|PPL|PKL)-/.test(drill.id) ? "max-w-[36rem]" : "max-w-[24rem]"}`}>
               <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} />
             </div>
           </section>
