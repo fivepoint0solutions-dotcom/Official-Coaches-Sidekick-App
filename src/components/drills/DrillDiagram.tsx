@@ -63,8 +63,8 @@ export function roleOf(label?: string): keyof typeof ROLE_COLOR | null {
 
 /* Everything below is sized as a share of the drawing's width (k), so a marker is the same small size on any surface. */
 
-export function Marker({ marker, w, h, mode = "glyph" }: { marker: DiagramMarker; w: number; h: number; mode?: "glyph" | "text" | "glyph-nolabel" }) {
-  const k = w / 100;
+export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: DiagramMarker; w: number; h: number; mode?: "glyph" | "text" | "glyph-nolabel"; scale?: number }) {
+  const k = (w / 100) * scale;
   const cx = pct(marker.x, w);
   const cy = pct(marker.y, h);
   const kind = marker.kind;
@@ -182,8 +182,8 @@ function wavy(points: [number, number][], amp: number, wave: number): [number, n
   return out;
 }
 
-export function Arrow({ arrow, w, h }: { arrow: DiagramArrow; w: number; h: number; id?: string }) {
-  const k = w / 100;
+export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: number; h: number; id?: string; scale?: number }) {
+  const k = (w / 100) * scale;
   const pts = pathPoints(arrow, w, h);
   const last = pts[pts.length - 1];
   const prev = pts[pts.length - 2] ?? pts[0];
@@ -213,8 +213,8 @@ export function Arrow({ arrow, w, h }: { arrow: DiagramArrow; w: number; h: numb
   );
 }
 
-export function Stroke({ stroke, w, h }: { stroke: DiagramStroke; w: number; h: number }) {
-  const k = w / 100;
+export function Stroke({ stroke, w, h, scale = 1 }: { stroke: DiagramStroke; w: number; h: number; scale?: number }) {
+  const k = (w / 100) * scale;
   const points = stroke.points.map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ");
   return <polyline points={points} fill="none" stroke={stroke.color ?? INK} strokeWidth={0.7 * k} strokeLinecap="round" strokeLinejoin="round" />;
 }
@@ -360,6 +360,7 @@ export function DrillDiagram({
   animate = false,
   zoomable = false,
   mini = false,
+  zone = "auto",
 }: {
   diagram: DrillDiagramSpec;
   id: string;
@@ -375,8 +376,10 @@ export function DrillDiagram({
   zoomable?: boolean;
   /** A small preview: the whole rink, no zoom into the play. */
   mini?: boolean;
+  /** From the drill's own words: "full" = always the whole rink, "half" = one end only, "auto" = decide from where the players are. */
+  zone?: "auto" | "full" | "half";
 }) {
-  const base = id.replace(/^(row|mini|play|card)-/, ""); // the drill's own id, however the caller labelled this copy
+  const base = id.replace(/^(row|mini|play|card|plan|sheet)-/, ""); // the drill's own id, however the caller labelled this copy
   const spec = toRink(diagram);
   const Surface = SURFACE_COMPONENTS[spec.surface];
   const { w, h } = SURFACE_VIEWBOX[spec.surface];
@@ -395,23 +398,37 @@ export function DrillDiagram({
   const standingAround = (m: DiagramMarker) =>
     /^(PPP|PKP|PPL|PKL)-/.test(base) && coached !== null && m.kind !== coached && (m.kind === "player" || m.kind === "defender") && !ends.some((e) => Math.hypot(e[0] - m.x, e[1] - m.y) <= 7);
 
-  // Plays only use part of the rink, so zoom in on the part that matters (top or bottom of the ice).
-  const isPlay = isRink && !mini && /^(PPP|PKP|PPL|PKL)-/.test(base);
+  // Half-ice drills show only the half of the rink they use, enlarged: boards touching the edges, nothing empty.
   let yMin = 0;
   let yMax = 100;
-  if (isPlay) {
-    const ys: number[] = [...spec.markers.filter((m) => !standingAround(m)).map((m) => m.y), ...(spec.arrows ?? []).flatMap((a) => [a.from[1], a.to[1], ...(a.via ?? []).map((v) => v[1])])];
-    yMin = Math.max(0, Math.min(...ys) - 9);
-    yMax = Math.min(100, Math.max(...ys) + 9);
-    if (yMax - yMin < 50) {
-      const grow = (50 - (yMax - yMin)) / 2;
-      yMin = Math.max(0, yMin - grow);
-      yMax = Math.min(100, yMax + grow);
-      if (yMax - yMin < 50) { if (yMin === 0) yMax = 50; else yMin = 50; }
+  if (isRink && !mini && zone !== "full") {
+    const ys: number[] = [
+      ...spec.markers.filter((m) => !standingAround(m)).map((m) => m.y),
+      ...(spec.arrows ?? []).flatMap((a) => [a.from[1], a.to[1], ...(a.via ?? []).map((v) => v[1])]),
+      ...(spec.strokes ?? []).flatMap((st) => st.points.map((p) => p[1])),
+    ];
+    if (ys.length) {
+      const lo = Math.min(...ys);
+      const hi = Math.max(...ys);
+      const pad = 8;
+      const span = hi - lo + 2 * pad;
+      if (zone === "half" || span <= 56) {
+        // one end of the ice: top half or bottom half (the half the players are in), or a centred window if they sit mid-ice
+        if (hi + pad <= 56) { yMin = 0; yMax = Math.max(52, hi + pad); }
+        else if (lo - pad >= 44) { yMax = 100; yMin = Math.min(48, lo - pad); }
+        else {
+          const mid = (lo + hi) / 2;
+          const H = Math.max(52, span);
+          yMin = Math.max(0, Math.min(100 - H, mid - H / 2));
+          yMax = Math.min(100, yMin + H);
+        }
+        if (yMax - yMin > 96) { yMin = 0; yMax = 100; }
+      }
     }
   }
   const frac = (yMax - yMin) / 100;
   const cropped = frac < 0.999;
+  const boost = cropped ? 1 + (1 - frac) * 0.7 : 1; // markers, letters and arrows grow with the zoom so nothing stays tiny
 
 
   // Zoom and pan: + / − buttons, pinch, Ctrl + wheel, drag when zoomed in.
@@ -475,7 +492,7 @@ export function DrillDiagram({
   };
 
   return (
-    <div data-diagram={id}>
+    <div data-diagram={id} style={zoomable && !cropped ? { maxWidth: "24rem", marginInline: "auto" } : undefined}>
       <div
         ref={boxRef}
         className={isRink ? "relative block w-full overflow-hidden" : "relative w-full overflow-hidden rounded-xl shadow-inner"}
@@ -499,10 +516,10 @@ export function DrillDiagram({
           </div>
           <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
             {spec.arrows?.map((arrow, i) => (
-              <Arrow key={i} arrow={arrow} w={w} h={h} />
+              <Arrow key={i} arrow={arrow} w={w} h={h} scale={boost} />
             ))}
             {spec.strokes?.map((stroke, i) => (
-              <Stroke key={i} stroke={stroke} w={w} h={h} />
+              <Stroke key={i} stroke={stroke} w={w} h={h} scale={boost} />
             ))}
             {spec.markers.map((marker, i) => {
               if (standingAround(marker)) return null;
@@ -512,7 +529,7 @@ export function DrillDiagram({
                 <g key={i}>
                   {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
                   {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
-                  <Marker marker={marker} w={w} h={h} mode={modeFor(marker)} />
+                  <Marker marker={marker} w={w} h={h} mode={modeFor(marker)} scale={boost} />
                 </g>
               );
             })}
@@ -520,7 +537,7 @@ export function DrillDiagram({
               <g key={`puck-${i}`} opacity={0}>
                 <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
                 <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
-                <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.3 * (w / 100)} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (w / 100)} />
+                <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.3 * (w / 100) * boost} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (w / 100) * boost} />
               </g>
             ))}
           </svg>
