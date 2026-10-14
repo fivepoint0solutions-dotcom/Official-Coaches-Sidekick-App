@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Clock3, ListChecks, Package, Pencil, Trash2, Users } from "lucide-react";
+import { ArrowLeft, Clock3, ListChecks, Package, Pause, Pencil, Play, Trash2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getDrill, type Drill } from "@/data/drillLibrary";
 import { deleteUserDrill, getUserDrill, isUserDrillId } from "@/lib/userDrills";
@@ -34,6 +34,7 @@ function DrillDetailPage() {
   const [drill, setDrill] = useState<Drill | null>(loaderDrill);
   const [isCustom, setIsCustom] = useState(false);
   const [checked, setChecked] = useState(Boolean(loaderDrill));
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     if (loaderDrill) {
@@ -112,9 +113,14 @@ function DrillDetailPage() {
         </header>
         {drill.diagram ? (
           <section className="mt-6 lg:mt-10">
-            <h2 className="text-title">Diagram</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-title">Diagram</h2>
+              <Button type="button" variant={playing ? "outline" : "cta"} size="sm" onClick={() => setPlaying((p) => !p)}>
+                {playing ? <Pause /> : <Play />} {playing ? "Stop" : "Play animation"}
+              </Button>
+            </div>
             <div className="mx-auto mt-3 w-full max-w-[24rem]">
-              <DrillDiagram diagram={drill.diagram} id={drill.id} legend />
+              <DrillDiagram key={playing ? "anim" : "still"} diagram={drill.diagram} id={drill.id} legend animate={playing} />
             </div>
           </section>
         ) : null}

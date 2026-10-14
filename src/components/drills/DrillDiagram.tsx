@@ -203,6 +203,53 @@ function toRink(spec: DrillDiagramSpec): DrillDiagramSpec {
   };
 }
 
+
+/* ---- animation: players skate along their arrows, then the puck follows the passes (a loop that restarts on its own) ---- */
+type MotionPlan = { path: string; keyTimes: string; keyPoints: string };
+type PuckPlan = MotionPlan & { x: number; y: number; opacity: string; opacityTimes: string };
+
+const near = (a: [number, number], m: { x: number; y: number }, r = 3.4) => Math.hypot(a[0] - m.x, a[1] - m.y) <= r;
+const polyLen = (pts: [number, number][]) => pts.slice(1).reduce((t, p, i) => t + Math.hypot(p[0] - pts[i]![0], p[1] - pts[i]![1]), 0);
+
+function buildMotion(spec: DrillDiagramSpec, w: number, h: number) {
+  const arrows = spec.arrows ?? [];
+  const used = new Set<number>();
+  const rel = (pts: [number, number][]) => {
+    const [x0, y0] = pts[0]!;
+    return "M0,0 " + pts.slice(1).map(([x, y]) => `L${pct(x - x0, w)},${pct(y - y0, h)}`).join(" ");
+  };
+  const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass";
+  const moves = new Map<number, MotionPlan>();
+  spec.markers.forEach((m, mi) => {
+    if (m.kind === "cone" || m.kind === "ball" || m.kind === "goalie") return;
+    const pts: [number, number][] = [[m.x, m.y]];
+    let at = { x: m.x, y: m.y };
+    for (let hop = 0; hop < 4; hop++) {
+      const ai = arrows.findIndex((a, i) => !used.has(i) && skate(a) && near(a.from, at));
+      if (ai < 0) break;
+      used.add(ai);
+      const a = arrows[ai]!;
+      pts.push(...(a.via ?? []), a.to);
+      at = { x: a.to[0], y: a.to[1] };
+    }
+    if (pts.length < 2) return;
+    moves.set(mi, { path: rel(pts), keyTimes: "0;0.06;0.58;1", keyPoints: "0;0;1;1" });
+  });
+  const passes = arrows.filter((a) => a.style === "pass");
+  const pucks: PuckPlan[] = passes.map((a, k) => {
+    const pts: [number, number][] = [a.from, ...(a.via ?? []), a.to];
+    const s = 0.62 + (k * 0.32) / Math.max(1, passes.length);
+    const e = Math.min(0.95, s + 0.3 / Math.max(1, passes.length));
+    return {
+      path: rel(pts), x: a.from[0], y: a.from[1],
+      keyTimes: `0;${s.toFixed(3)};${e.toFixed(3)};1`, keyPoints: "0;0;1;1",
+      opacity: "0;1;0;0", opacityTimes: `0;${s.toFixed(3)};${e.toFixed(3)};1`,
+    };
+  });
+  void polyLen;
+  return { moves, pucks, dur: `${Math.max(5, 3 + passes.length * 1.6).toFixed(1)}s` };
+}
+
 function Legend() {
   const dot = "inline-block align-middle";
   return (
@@ -224,6 +271,7 @@ export function DrillDiagram({
   id,
   framed = true,
   legend = false,
+  animate = false,
 }: {
   diagram: DrillDiagramSpec;
   id: string;
@@ -233,12 +281,15 @@ export function DrillDiagram({
   portraitOnMobile?: boolean;
   /** Show the small X / O / cone / puck key under the rink. */
   legend?: boolean;
+  /** Loop the drill: players skate their arrows and the puck follows the passes. */
+  animate?: boolean;
 }) {
   const spec = toRink(diagram);
   const Surface = SURFACE_COMPONENTS[spec.surface];
   const { w, h } = SURFACE_VIEWBOX[spec.surface];
   const isRink = spec.surface === "hockey-rink";
   void framed;
+  const motion = animate && isRink ? buildMotion(spec, w, h) : null;
 
   return (
     <div data-diagram={id}>
@@ -256,8 +307,21 @@ export function DrillDiagram({
           {spec.strokes?.map((stroke, i) => (
             <Stroke key={i} stroke={stroke} w={w} h={h} />
           ))}
-          {spec.markers.map((marker, i) => (
-            <Marker key={i} marker={marker} w={w} h={h} />
+          {spec.markers.map((marker, i) => {
+            const m = motion?.moves.get(i);
+            return (
+              <g key={i}>
+                {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
+                <Marker marker={marker} w={w} h={h} />
+              </g>
+            );
+          })}
+          {motion?.pucks.map((p, i) => (
+            <g key={`puck-${i}`} opacity={0}>
+              <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
+              <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
+              <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.1 * (w / 100)} fill="#111827" stroke="#FFFFFF" strokeWidth={0.4 * (w / 100)} />
+            </g>
           ))}
         </svg>
       </div>
