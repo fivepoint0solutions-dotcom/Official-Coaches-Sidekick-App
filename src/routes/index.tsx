@@ -95,6 +95,7 @@ function Dashboard() {
                 <Link
                   key="drills"
                   to="/drills"
+                  data-skin="glass"
                   className="anchor-card-gradient card-tint-build group flex flex-col p-5 transition-refined hover-lift"
                 >
                   <span className="rink-frame">
@@ -102,7 +103,7 @@ function Dashboard() {
                       src="/img/extra-6.jpg"
                       alt="Player in a blue jersey working through a drill"
                       loading="lazy"
-                      style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: "center 20%" }}
+                      style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: "center 33%" }}
                     />
                   </span>
                   <div className="mt-4 flex items-center gap-3">
