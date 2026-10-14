@@ -269,13 +269,13 @@ function DrillBoard() {
           <text x={8 + i * 57.5 + 26.5} y={51} textAnchor="middle" fontSize={11} fontWeight={800} fill={PAPER}>{c}</text>
         </g>
       ))}
-      <rect x={8} y={68} width={344} height={170} rx={12} fill="#3F8F5A" />
+      <rect x={8} y={68} width={344} height={170} rx={12} fill="#2a6fdb" />
       <rect x={20} y={80} width={320} height={146} rx={4} fill="none" stroke={PAPER} strokeWidth={1.5} opacity={0.8} />
       <line x1={180} y1={80} x2={180} y2={226} stroke={PAPER} strokeWidth={1.5} opacity={0.8} />
       <circle cx={180} cy={153} r={22} fill="none" stroke={PAPER} strokeWidth={1.5} opacity={0.8} />
       <circle cx={90} cy={124} r={9} fill={A} stroke={PAPER} strokeWidth={1.8} />
       <circle cx={130} cy={190} r={9} fill={A} stroke={PAPER} strokeWidth={1.8} />
-      <circle cx={256} cy={136} r={9} fill="#D9534F" stroke={PAPER} strokeWidth={1.8} />
+      <circle cx={256} cy={136} r={9} fill="#1f5fc8" stroke={PAPER} strokeWidth={1.8} />
       <path d="M290 100 l-9 15 h18 z" fill={C} stroke={PAPER} strokeWidth={1.2} />
       <path d="M100 126 C 140 122 180 134 244 136" stroke={PAPER} strokeWidth={2.4} fill="none" markerEnd="url(#db-arrow)" />
       <path d="M130 180 C 140 160 150 150 164 144" stroke={PAPER} strokeWidth={2.4} fill="none" strokeDasharray="5 4" markerEnd="url(#db-arrow)" />

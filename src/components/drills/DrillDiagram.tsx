@@ -34,7 +34,7 @@ export type DrillDiagramSpec = {
   v?: 2;
 };
 
-export const TEAM_ATTACK = "#EA580C"; // orange O
+export const TEAM_ATTACK = "#2f7bff"; // orange O
 export const TEAM_DEFENCE = "#1E3A8A"; // dark-blue X
 const INK = "#0F172A";
 
@@ -42,9 +42,9 @@ export const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
   player: TEAM_ATTACK,
   defender: TEAM_DEFENCE,
   goalie: TEAM_DEFENCE,
-  cone: "#F59E0B",
+  cone: "#7fb6f5",
   ball: "#111827",
-  coach: "#6E5A8C",
+  coach: "#1c3f8f",
 };
 
 export function pct(value: number, size: number) {
@@ -52,7 +52,7 @@ export function pct(value: number, size: number) {
 }
 
 /** Position letters: the coached team shows just the letter, coloured by role (wingers, centre, defence). */
-export const ROLE_COLOR = { wing: "#EA580C", centre: "#1D4ED8", defence: "#15803D" } as const;
+export const ROLE_COLOR = { wing: "#2f7bff", centre: "#0b0d12", defence: "#1e3a8a" } as const;
 export function roleOf(label?: string): keyof typeof ROLE_COLOR | null {
   if (!label) return null;
   if (/^(LW|RW|W)$/i.test(label)) return "wing";
@@ -103,7 +103,7 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
     );
   } else if (kind === "cone") {
     const r = 1.15 * k;
-    glyph = <polygon points={`${cx},${cy - r} ${cx - r},${cy + r * 0.85} ${cx + r},${cy + r * 0.85}`} fill={MARKER_FILL.cone} stroke="#7A5416" strokeWidth={0.28 * k} strokeLinejoin="round" />;
+    glyph = <polygon points={`${cx},${cy - r} ${cx - r},${cy + r * 0.85} ${cx + r},${cy + r * 0.85}`} fill={MARKER_FILL.cone} stroke="#123f8f" strokeWidth={0.28 * k} strokeLinejoin="round" />;
   } else if (kind === "ball") {
     glyph = <circle cx={cx} cy={cy} r={0.85 * k} fill={MARKER_FILL.ball} stroke="#FFFFFF" strokeWidth={0.3 * k} />;
   } else {
@@ -124,7 +124,7 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
         textAnchor={left ? "end" : "start"}
         fontSize={3.4 * k}
         fontWeight={800}
-        fill={kind === "defender" ? TEAM_DEFENCE : kind === "player" ? "#9A3412" : INK}
+        fill={kind === "defender" ? TEAM_DEFENCE : kind === "player" ? "#1c3f8f" : INK}
         stroke="#FFFFFF"
         strokeWidth={0.8 * k}
         paintOrder="stroke"
@@ -332,7 +332,7 @@ function Legend({ roles = false }: { roles?: boolean }) {
       ) : null}
       <span><b style={{ color: TEAM_DEFENCE }}>{roles ? "X · O" : "X"}</b> {roles ? "other team" : "defence"}</span>
       {roles ? null : <span><b style={{ color: TEAM_ATTACK }}>O</b> offence</span>}
-      <span><span className={dot} style={{ width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "9px solid #F59E0B" }} /> cone</span>
+      <span><span className={dot} style={{ width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "9px solid #7fb6f5" }} /> cone</span>
       <span><span className={`${dot} rounded-full`} style={{ width: 8, height: 8, background: "#111827" }} /> puck</span>
       <span>— skate</span>
       <span>- - pass</span>

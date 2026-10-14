@@ -93,11 +93,11 @@ export function DrawUpPlaysPage() {
             <div className="space-y-4">
               <label className="block">
                 <span className="text-title">Name</span>
-                <input className="mt-1 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
+                <input className="mt-1 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
               </label>
               <label className="block">
                 <span className="text-title">Notes</span>
-                <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
+                <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
               </label>
               <div className="flex flex-wrap gap-3">
                 <Button type="button" variant={diagram ? "cta" : "outline"} size="lg" onClick={() => setDiagram(diagram ? null : BLANK)}>
@@ -112,7 +112,7 @@ export function DrawUpPlaysPage() {
           );
           const photoBlock = photo ? (
             <div>
-              <img src={photo} alt="The play you added" className="mx-auto max-h-96 w-auto rounded-lg border-2 border-[#1d1b16]" />
+              <img src={photo} alt="The play you added" className="mx-auto max-h-96 w-auto rounded-lg border-2 border-[#0b0d12]" />
               <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => setPhoto(undefined)}>Remove the photo</Button>
             </div>
           ) : null;
@@ -167,7 +167,7 @@ export function DrawUpPlaysPage() {
                 <article key={p.id} className="card-soft space-y-3 p-4">
                   <h3 className="text-title">{p.name}</h3>
                   {p.diagram ? <DrillDiagram diagram={p.diagram} id={`play-${p.id}`} framed={false} /> : null}
-                  {p.photo ? <img src={p.photo} alt={p.name} className="w-full rounded-lg border-2 border-[#1d1b16]" loading="lazy" /> : null}
+                  {p.photo ? <img src={p.photo} alt={p.name} className="w-full rounded-lg border-2 border-[#0b0d12]" loading="lazy" /> : null}
                   {p.notes ? <p className="text-body whitespace-pre-line">{p.notes}</p> : null}
                   <div className="flex gap-2">
                     <Button type="button" variant="outline" size="sm" onClick={() => start(p)}>Edit</Button>

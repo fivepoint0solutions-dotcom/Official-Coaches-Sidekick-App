@@ -91,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#F8EFDE" },
+      { name: "theme-color", content: "#f3f8ff" },
       { title: "Coach's Sidekick" },
       {
         name: "description",
@@ -131,7 +131,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "var(--background, #F7F1E8)" }}>
+    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "var(--background, #f3f8ff)" }}>
       <head>
         <HeadContent />
         {/* Apply the saved text size and color palette before first paint. */}
