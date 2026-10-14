@@ -18,7 +18,7 @@ export function ModeCard({ mode, className }: ModeCardProps) {
   return (
     <Link
       to={mode.href}
-      data-skin="glass"
+      data-skin="jersey"
       className={cn(
         "anchor-card-gradient group flex flex-col p-5 transition-refined hover-lift",
         mode.cardTintClass,

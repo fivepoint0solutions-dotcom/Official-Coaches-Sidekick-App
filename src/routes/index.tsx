@@ -95,7 +95,7 @@ function Dashboard() {
                 <Link
                   key="drills"
                   to="/drills"
-                  data-skin="glass"
+                  data-skin="jersey"
                   className="anchor-card-gradient card-tint-build group flex flex-col p-5 transition-refined hover-lift"
                 >
                   <span className="rink-frame">
