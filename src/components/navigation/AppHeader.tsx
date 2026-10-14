@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
-import { CircleHelp, Menu, X } from "lucide-react";
-import { useT } from "@/lib/i18n";
+import { CircleHelp, Globe, Menu, X } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
 import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
@@ -42,6 +49,39 @@ function useHideOnScroll() {
     return () => window.removeEventListener("scroll", mark);
   }, []);
   return hidden;
+}
+
+function LanguageSwitcher() {
+  const { language, setLanguage } = useLanguage();
+  const t = useT();
+  const current = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0]!;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={t("language.label")}
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
+        >
+          <Globe className="size-4" />
+          <span className="uppercase">{current.code}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {LANGUAGES.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => setLanguage(lang.code)}
+            className={cn("gap-2", lang.code === language && "font-semibold text-primary")}
+          >
+            <span>{lang.nativeName}</span>
+            <span className="ml-auto text-xs text-muted-foreground">{lang.englishName}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
 
 export function FeedbackModal({ onClose }: { onClose: () => void }) {
@@ -255,15 +295,44 @@ export function AppHeader() {
         )}
 
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="anchor-card-gradient card-tint-inspire hidden size-8 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95 md:grid"
-          >
-            {menuOpen ? <X className="size-4 text-white" /> : <Menu className="size-4 text-white" />}
-          </button>
+          <LanguageSwitcher />
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95 md:size-8"
+            >
+              {menuOpen ? <X className="size-5 text-white md:size-4" /> : <Menu className="size-5 text-white md:size-4" />}
+            </button>
+            {/* Phones: the menu drops down as a vertical stack, as it always did */}
+            {menuOpen && (
+              <div className="absolute right-0 top-full z-50 mt-2 flex w-52 max-w-[70vw] flex-col items-end gap-2 md:hidden">
+                {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setMenuOpen(false)}
+                    className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                    activeProps={{ className: "border-white" }}
+                  >
+                    <item.icon className="size-4" />
+                    {t(item.key)}
+                  </Link>
+                ))}
+                <Link
+                  to="/help"
+                  onClick={() => setMenuOpen(false)}
+                  className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 pl-4 pr-5 py-2.5 text-sm font-bold text-white"
+                  activeProps={{ className: "border-white" }}
+                >
+                  <CircleHelp className="size-4" />
+                  Help
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
     </header>
