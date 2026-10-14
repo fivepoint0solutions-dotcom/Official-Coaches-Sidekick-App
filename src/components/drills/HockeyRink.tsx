@@ -5,7 +5,7 @@ export const RINK_W = 572;
 export const RINK_H = 1173;
 
 const BLUE = "#1D4ED8";
-const RED = "#D62828";
+const RED = "#1f2a44";
 const BOARDS = "#94A3B8";
 const CREASE = "#DBEAFE";
 
