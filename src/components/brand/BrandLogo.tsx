@@ -1,6 +1,7 @@
-/** The app's mark is the Cold Lake Ice logo. */
+/** The app's mark: the coach's own logo, or Cold Lake Ice. Components that can use a hook should call useBrandLogo(). */
 const brandMark = "/ice/cold-lake-ice-logo.png";
 import { cn } from "@/lib/utils";
+import { useBrandLogo } from "@/lib/brand";
 
 type BrandLogoProps = {
   className?: string;
@@ -9,6 +10,7 @@ type BrandLogoProps = {
 };
 
 export function BrandLogo({ className, markClassName, compact = false }: BrandLogoProps) {
+  const logo = useBrandLogo();
   return (
     <div
       className={cn(
@@ -17,7 +19,7 @@ export function BrandLogo({ className, markClassName, compact = false }: BrandLo
       )}
     >
       <img
-        src={brandMark}
+        src={logo.src}
         alt=""
         aria-hidden="true"
         className={cn("shrink-0 object-contain", compact ? "size-11" : "size-32", markClassName)}

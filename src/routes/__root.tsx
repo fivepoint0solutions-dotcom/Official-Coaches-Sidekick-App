@@ -24,6 +24,7 @@ import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
 import { fontScaleInitScript } from "../lib/font-scale";
 import { colorThemeInitScript } from "../lib/color-theme";
+import { brandInitScript, applyBrand, readBrand } from "../lib/brand";
 import { syncThemeColor } from "../lib/theme-color";
 
 function NotFoundComponent() {
@@ -137,6 +138,7 @@ function RootShell({ children }: { children: ReactNode }) {
         {/* Apply the saved text size and color palette before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: fontScaleInitScript() }} />
         <script dangerouslySetInnerHTML={{ __html: colorThemeInitScript() }} />
+        <script dangerouslySetInnerHTML={{ __html: brandInitScript() }} />
         {/* No flash on load: the page stays hidden until the fonts are ready and the app has drawn, then fades in once. */}
         <style dangerouslySetInnerHTML={{ __html: "html.sk-pre body{opacity:0}body{transition:opacity .3s ease}" }} />
         <script dangerouslySetInnerHTML={{ __html: "(function(){var d=document.documentElement;d.classList.add('sk-pre');var f=false,r=false,x=false;function go(){if(x||!(f&&r))return;x=true;requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('sk-pre')})})}window.__skReady=function(){r=true;go()};(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){f=true;go()});setTimeout(function(){x=true;d.classList.remove('sk-pre')},3000)})();" }} />
@@ -152,6 +154,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useEffect(() => {
+    applyBrand(readBrand());
     syncThemeColor();
   }, []);
   useEffect(() => {

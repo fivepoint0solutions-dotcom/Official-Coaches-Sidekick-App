@@ -1,8 +1,11 @@
-/** Bottom of every page: the Cold Lake Ice logo and who made the app. */
+import { useBrandLogo } from "@/lib/brand";
+
+/** Bottom of every page: the team's logo and who made the app. */
 export function SiteFooter() {
+  const logo = useBrandLogo();
   return (
     <footer className="site-footer container-app flex flex-col items-center gap-2 pb-6 pt-10 text-center">
-      <img src="/ice/cold-lake-ice-logo.png" alt="Cold Lake Ice" width={96} height={84} className="h-20 w-auto object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(15,23,42,.25))" }} />
+      <img src={logo.src} alt={logo.name} width={96} height={84} className="h-20 w-auto object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(15,23,42,.25))" }} />
       <p className="text-xs font-semibold leading-snug text-foreground/80">
         Website design and development by{" "}
         <a href="https://www.fivepoint0solutions.com" target="_blank" rel="noopener noreferrer" className="font-bold underline">
