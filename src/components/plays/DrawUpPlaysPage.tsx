@@ -107,6 +107,11 @@ export function DrawUpPlaysPage() {
                 <Button type="button" variant="outline" size="icon" disabled={busy} onClick={() => fileRef.current?.click()} aria-label={photo ? "Upload a different picture" : "Upload a picture"}>
                   <Camera />
                 </Button>
+                {photo && !diagram ? (
+                  <Button type="button" variant="cta" size="lg" onClick={() => setDiagram({ ...BLANK, backgroundImage: photo })}>
+                    <PenLine /> Draw on this photo
+                  </Button>
+                ) : null}
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
               </div>
             </div>

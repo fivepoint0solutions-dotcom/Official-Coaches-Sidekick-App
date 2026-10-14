@@ -465,7 +465,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         style={{ aspectRatio: `${w} / ${h}` }}
       >
         <div className="absolute inset-0">
-          <Surface />
+          {value.backgroundImage ? <img src={value.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
         </div>
         <svg
           ref={svgRef}
