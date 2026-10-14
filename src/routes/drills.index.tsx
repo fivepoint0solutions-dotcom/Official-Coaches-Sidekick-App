@@ -74,7 +74,7 @@ function DrillLibraryPage() {
   }, [allDrills, query, sport, category, mineOnly, userDrills]);
 
   return (
-    <main className="container-app py-10 lg:py-14">
+    <main className="container-app ice-lib py-10 lg:py-14">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-3xl">
           <p className="text-eyebrow text-interactive">Curated coaching collection</p>
@@ -84,9 +84,9 @@ function DrillLibraryPage() {
             into your practice plan.
           </p>
         </div>
-        <Button asChild variant="hero" size="lg">
-          <Link to="/drills/new">
-            <Plus /> Add a drill
+        <Button asChild variant="hero" size="lg" className="max-sm:size-11 max-sm:rounded-full max-sm:p-0">
+          <Link to="/drills/new" aria-label="Add a drill">
+            <Plus /> <span className="max-sm:hidden">Add a drill</span>
           </Link>
         </Button>
       </header>
