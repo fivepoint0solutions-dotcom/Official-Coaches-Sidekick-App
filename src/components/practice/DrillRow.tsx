@@ -16,7 +16,7 @@ export function DrillRow({
   onOpen: (drill: Drill) => void;
 }) {
   return (
-    <article className="card-soft grid gap-4 p-4 sm:grid-cols-[14rem_1fr] sm:p-5">
+    <article className="card-soft grid gap-4 p-4 sm:grid-cols-[13rem_1fr] sm:p-5">
       {drill.diagram ? (
         <div className="w-full">
           <DrillDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} />

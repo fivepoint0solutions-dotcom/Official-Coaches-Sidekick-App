@@ -2,6 +2,7 @@ import type { DrillDiagramSpec } from "@/components/drills/DrillDiagram";
 import { hockeyDrillsPart1 } from "./hockeyDrills1";
 import { hockeyDrillsPart2 } from "./hockeyDrills2";
 import { hockeyPlays } from "./hockeyPlays";
+import { drillDiagrams, rinkSpec } from "./drillDiagrams";
 
 export type Drill = {
   id: string;
@@ -56,8 +57,15 @@ const CATEGORY_OF: Record<string, DrillCategory> = {
   "Small-Area Games": "Conditioning & Games",
 };
 
+/** Every drill is drawn on the one portrait rink (see HockeyRink); older landscape diagrams are turned onto it automatically. */
+const rinkDiagram = (id: string): DrillDiagramSpec | undefined => {
+  const d = drillDiagrams[id];
+  return d ? rinkSpec(d) : undefined;
+};
+
 export const drillLibrary: Drill[] = rawDrills.map((drill) => ({
   ...drill,
+  ...(() => { const diagram = rinkDiagram(drill.id); return diagram ? { diagram } : {}; })(),
   sport: "Hockey",
   skill: /^P[PK]P-/.test(drill.id) ? "Play" : drill.category,
   category: CATEGORY_OF[drill.category] ?? "Conditioning & Games",

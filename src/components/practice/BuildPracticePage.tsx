@@ -85,7 +85,7 @@ export function BuildPracticePage() {
                 </div>
               </div>
               <p className="text-sm font-semibold opacity-75">{d.category} · {d.duration} · {d.ageGroup}{d.level ? ` · ${d.level}` : ""}</p>
-              {d.diagram ? <div className="mx-auto w-full max-w-[20rem]"><DrillDiagram diagram={d.diagram} id={`plan-${d.id}`}framed={false} /></div> : null}
+              {d.diagram ? <div className="mx-auto w-full max-w-[20rem]"><DrillDiagram diagram={d.diagram} id={`plan-${d.id}`}framed={false} legend /></div> : null}
               {d.equipment ? <p className="text-body"><b>Equipment:</b> {d.equipment}</p> : null}
               <p className="text-body"><b>Setup:</b> {d.setup}</p>
               <ol className="list-decimal space-y-1.5 pl-5">{d.steps.map((s) => <li key={s} className="text-body">{s}</li>)}</ol>

@@ -43,8 +43,8 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
             </div>
 
             {drill.diagram ? (
-              <div className="mx-auto mt-4 w-full max-w-[17rem] sm:max-w-none">
-                <DrillDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} portraitOnMobile />
+              <div className="mx-auto mt-4 w-full max-w-[22rem]">
+                <DrillDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} legend />
               </div>
             ) : null}
 

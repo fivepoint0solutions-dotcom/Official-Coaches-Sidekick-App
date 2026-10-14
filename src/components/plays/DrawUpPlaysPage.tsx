@@ -8,7 +8,7 @@ import { DrillDiagram, type DrillDiagramSpec } from "@/components/drills/DrillDi
 import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
 import { deletePlay, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
 
-const BLANK: DrillDiagramSpec = { surface: "hockey-full", markers: [], arrows: [], strokes: [] };
+const BLANK: DrillDiagramSpec = { surface: "hockey-rink", v: 2, markers: [], arrows: [], strokes: [] };
 
 /** Draw Up Plays, on its own: draw a play on the rink, bring in one you already have on your phone, or type your own. */
 export function DrawUpPlaysPage() {
