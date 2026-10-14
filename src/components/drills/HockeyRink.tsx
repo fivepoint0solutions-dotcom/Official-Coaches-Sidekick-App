@@ -26,10 +26,19 @@ function FaceoffCircle({ cx, cy }: { cx: number; cy: number }) {
 }
 
 function Net({ flip }: { flip?: boolean }) {
+  // Sits on the goal line (y=75), not on the boards — like a real rink.
   return (
-    <g transform={flip ? `translate(0 ${RINK_H}) scale(1 -1)` : undefined} fill="none" stroke={BOARDS} strokeWidth={3}>
-      <path d="M247.5,0 V33 H324.5 V0" />
-      <path d="M286,0 V33" strokeWidth={4} />
+    <g transform={flip ? `translate(0 ${RINK_H}) scale(1 -1)` : undefined}>
+      {/* netting */}
+      <rect x={247.5} y={42} width={77} height={33} fill="#F1F5F9" stroke="#CBD5E1" strokeWidth={1} />
+      <path
+        d="M247.5,50.25 H324.5 M247.5,58.5 H324.5 M247.5,66.75 H324.5 M260.25,42 V75 M273,42 V75 M285.75,42 V75 M298.5,42 V75 M311.25,42 V75"
+        stroke="#CBD5E1"
+        strokeWidth={0.75}
+        fill="none"
+      />
+      {/* red frame, like a real net */}
+      <path d="M247.5,42 V75 H324.5 V42" fill="none" stroke="#DC2626" strokeWidth={4} strokeLinejoin="round" />
     </g>
   );
 }

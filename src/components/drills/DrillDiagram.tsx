@@ -32,6 +32,8 @@ export type DrillDiagramSpec = {
   strokes?: DiagramStroke[];
   /** 2 = drawn on the portrait rink (top = attacking end). Older saved diagrams are turned to match automatically. */
   v?: 2;
+  /** Optional photo (data URL) drawn as the board background instead of the surface, so you can annotate an uploaded play picture. */
+  backgroundImage?: string;
 };
 
 export const TEAM_ATTACK = "#2f7bff"; // orange O
@@ -536,11 +538,11 @@ export function DrillDiagram({
         >
           {flat ? (
             <div className="absolute" style={{ left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" }}>
-              <Surface />
+              {spec.backgroundImage ? <img src={spec.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
             </div>
           ) : (
             <div className="absolute inset-0">
-              <Surface />
+              {spec.backgroundImage ? <img src={spec.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
             </div>
           )}
           <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">

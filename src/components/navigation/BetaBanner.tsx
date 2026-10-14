@@ -98,7 +98,7 @@ export function BetaBanner() {
             <p className="text-center text-[13px] leading-snug sm:text-sm" style={{ color: "#0B1226" }}>
               Google picks Play Store apps through beta testing — try it, tell me what breaks, and you&apos;ll help get it there.
             </p>
-            <button type="button" onClick={() => setOpen(true)} className="keep-color shrink-0 rounded-full px-4 py-1 text-[13px] font-bold" style={{ backgroundImage: "linear-gradient(160deg,#FFFFFF 0%,#E4F0FF 45%,#A9CBF2 100%)", color: "#0B1226", border: "2px solid #8FC1FF", boxShadow: "0 2px 0 rgba(0,0,0,.4), inset 0 1px 0 #fff" }}>
+            <button type="button" onClick={() => setOpen(true)} className="keep-color shrink-0 rounded-full px-5 py-1.5 text-[13px] font-bold" style={{ backgroundImage: "linear-gradient(160deg,#FFFFFF 0%,#F0F7FF 50%,#CDE4FF 100%)", color: "#0A1930", border: "2px solid #FFFFFF", boxShadow: "0 2px 6px rgba(0,0,0,.5), inset 0 1px 0 #fff" }}>
               Send feedback
             </button>
           </div>

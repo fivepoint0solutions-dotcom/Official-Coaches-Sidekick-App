@@ -44,12 +44,12 @@ const MARKER_TOOLS: { kind: DiagramMarker["kind"]; label: string; Icon: typeof U
   { kind: "defender", label: "Defender (X)", Icon: Shield },
   { kind: "goalie", label: "Goalie", Icon: Shield },
   { kind: "cone", label: "Cone", Icon: Triangle },
-  { kind: "ball", label: "Ball", Icon: Circle },
+  { kind: "ball", label: "Puck", Icon: Circle },
   { kind: "coach", label: "Coach", Icon: UserCog },
 ];
 
 const ARROW_TOOLS: { style: NonNullable<DiagramArrow["style"]>; label: string }[] = [
-  { style: "run", label: "Run" },
+  { style: "run", label: "Skate" },
   { style: "pass", label: "Pass" },
   { style: "dribble", label: "Dribble" },
 ];
@@ -91,6 +91,10 @@ type Props = {
  * directly on the chosen sport surface. Edits apply live via onChange so a parent can save the result. */
 export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [toolsSeen, setToolsSeen] = useState(false);
+  // On mobile, picking a tool from the sheet closes the sheet so the rink is clear.
+  const pickTool = (t: Tool) => { setTool(t); setSheetOpen(false); setToolsSeen(true); };
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
@@ -311,7 +315,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   }
 
   const controls = (
-    <div>
+    <div className="hidden lg:block">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <label className="flex items-center gap-2 text-xs font-semibold text-foreground/90">
           Surface
@@ -356,7 +360,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           size="sm"
           variant={tool === "select" ? "default" : "outline"}
           onClick={() => {
-            setTool("select");
+            pickTool("select");
             setArrowStart(null);
           }}
           className="gap-1.5"
@@ -370,7 +374,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             size="sm"
             variant={tool === `marker-${kind}` ? "default" : "outline"}
             onClick={() => {
-              setTool(`marker-${kind}`);
+              pickTool(`marker-${kind}`);
               setArrowStart(null);
             }}
             className="gap-1.5"
@@ -385,7 +389,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             size="sm"
             variant={tool === `arrow-${style}` ? "default" : "outline"}
             onClick={() => {
-              setTool(`arrow-${style}`);
+              pickTool(`arrow-${style}`);
               setArrowStart(null);
             }}
             className="gap-1.5"
@@ -400,7 +404,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             size="sm"
             variant={tool === `path-${kind}` ? "default" : "outline"}
             onClick={() => {
-              setTool(`path-${kind}`);
+              pickTool(`path-${kind}`);
               setArrowStart(null);
               setNotice("");
             }}
@@ -419,7 +423,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           size="sm"
           variant={tool === "pen" ? "default" : "outline"}
           onClick={() => {
-            setTool("pen");
+            pickTool("pen");
             setArrowStart(null);
           }}
           className="gap-1.5"
@@ -431,7 +435,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           size="sm"
           variant={tool === "eraser" ? "default" : "outline"}
           onClick={() => {
-            setTool("eraser");
+            pickTool("eraser");
             setArrowStart(null);
           }}
           className="gap-1.5"
@@ -457,11 +461,11 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const board = (
     <div className="mx-auto w-full max-w-[23rem]" style={value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}>
       <div
-        className="relative w-full touch-none select-none overflow-hidden rounded-xl shadow-inner"
+        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}
         style={{ aspectRatio: `${w} / ${h}` }}
       >
         <div className="absolute inset-0">
-          <Surface />
+          {value.backgroundImage ? <img src={value.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
         </div>
         <svg
           ref={svgRef}
@@ -507,7 +511,34 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             </g>
           ))}
         </svg>
+        {/* Mobile: chevron at top-right opens the tool panel; pulses until first tapped */}
+        <button
+          type="button"
+          onClick={() => { setSheetOpen(true); setToolsSeen(true); }}
+          aria-label="Open drawing tools"
+          className={`anchor-card-gradient card-tint-inspire absolute left-3 top-3 grid size-12 place-items-center rounded-full border-2 border-white/30 shadow-lg lg:hidden ${!toolsSeen ? "animate-pulse" : ""}`}
+        >
+          <svg viewBox="0 0 24 24" className="size-6 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+        </button>
       </div>
+      {/* Mobile: tool panel slides in from the right */}
+      {sheetOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Drawing tools">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setSheetOpen(false)} />
+          <div className="anchor-card-gradient card-tint-inspire absolute bottom-0 left-0 top-0 w-[78vw] max-w-[20rem] overflow-y-auto border-r-2 border-white/30 p-4 pl-[max(1rem,env(safe-area-inset-left))]">
+            <div className="[&>div]:!block">
+              {controls}
+            </div>
+            <button
+              type="button"
+              onClick={() => setSheetOpen(false)}
+              className="mt-3 w-full rounded-full border-2 border-white/30 bg-white/15 py-3 text-sm font-bold text-white"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 

@@ -1,5 +1,4 @@
 import { zoneHint } from "@/lib/drillZone";
-import { isFullIceDiagram } from "@/components/drills/DrillDiagram";
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Clock3, ListChecks, Package, Pause, Pencil, Play, Trash2, Users } from "lucide-react";
@@ -36,7 +35,7 @@ function DrillDetailPage() {
   const [drill, setDrill] = useState<Drill | null>(loaderDrill);
   const [isCustom, setIsCustom] = useState(false);
   const [checked, setChecked] = useState(Boolean(loaderDrill));
-  const [playing, setPlaying] = useState(true); // plays loop on their own; the button pauses them
+  const [playing, setPlaying] = useState(false); // starts paused; the coach presses play when ready
 
   useEffect(() => {
     if (loaderDrill) {
@@ -115,23 +114,26 @@ function DrillDetailPage() {
         </header>
         {drill.diagram ? (
           <section className="mt-6 lg:mt-10">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-title">Diagram</h2>
-              <Button type="button" variant={playing ? "outline" : "cta"} size="sm" onClick={() => setPlaying((p) => !p)}>
-                {playing ? <Pause /> : <Play />} {playing ? "Stop" : "Play animation"}
-              </Button>
+            <h2 className="text-title">Diagram</h2>
+            <div className="mx-auto mt-3 w-full max-w-[36rem]">
+              <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} zone={zoneHint(drill)} />
             </div>
-            <div className={`mx-auto mt-3 w-full ${isFullIceDiagram(drill.diagram, drill.id, zoneHint(drill)) ? "max-w-[56rem]" : "max-w-[36rem]"}`}>
-              <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} zone={zoneHint(drill)} landscape={isFullIceDiagram(drill.diagram, drill.id, zoneHint(drill))} />
-            </div>
+
           </section>
         ) : null}
         <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-2 lg:gap-10 lg:border-t lg:border-foreground/20 lg:pt-8 lg:text-[0.95rem]">
           <div className="space-y-8">
             <section>
-              <h2 className="text-title flex items-center gap-2">
-                <Package className="size-5 text-interactive" /> Equipment
-              </h2>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h2 className="text-title flex items-center gap-2">
+                  <Package className="size-5 text-interactive" /> Equipment
+                </h2>
+                {drill.diagram ? (
+                  <Button type="button" variant={playing ? "outline" : "cta"} size="sm" onClick={() => setPlaying((p) => !p)}>
+                    {playing ? <Pause /> : <Play />} {playing ? "Stop" : "Play animation"}
+                  </Button>
+                ) : null}
+              </div>
               <p className="mt-3 text-body text-foreground/85">{drill.equipment}</p>
             </section>
             <section>

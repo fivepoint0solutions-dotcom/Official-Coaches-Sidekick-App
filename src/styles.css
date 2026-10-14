@@ -1697,3 +1697,50 @@ html body .badge-pill, html body .chip {
   [data-skin="scoreboard"] button.keep-color:not(#_):not(#__):not(#___), [data-skin="scoreboard"] button.keep-color :is(span, svg):not(#_):not(#__):not(#___) { color: #0B1226 !important; -webkit-text-fill-color: #0B1226 !important; }
   button.sweep-fill.rounded-xl, a.sweep-fill.rounded-xl { border-radius: 12px !important; }
 }
+
+/* ================================================================
+ * HOCKEY PUCK BUTTONS — every round button on the site is a puck:
+ * dark, glossy, with real 3D depth. Blue, white and black only.
+ * ============================================================ */
+@layer utilities {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__) {
+    background-color: #070c18 !important;
+    background-image:
+      radial-gradient(ellipse 72% 46% at 50% 14%, rgba(190,212,240,.38) 0%, rgba(190,212,240,0) 62%),
+      linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 36%),
+      linear-gradient(180deg, #26334c 0%, #0b1327 46%, #020409 100%) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border: 2px solid #04070f !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    box-shadow:
+      0 4px 0 #020409,
+      0 12px 18px -8px rgba(2,6,18,.7),
+      inset 0 2px 3px rgba(255,255,255,.3),
+      inset 0 -4px 7px rgba(0,0,0,.65) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,.75);
+  }
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__):hover {
+    filter: brightness(1.14);
+  }
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__):active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #020409,
+      0 6px 10px -6px rgba(2,6,18,.6),
+      inset 0 2px 3px rgba(255,255,255,.22),
+      inset 0 -3px 5px rgba(0,0,0,.65) !important;
+  }
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__) :is(svg, span, i):not(#_):not(#__) {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+  }
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):disabled:not(#_):not(#__) {
+    filter: grayscale(.4) brightness(.75);
+    box-shadow:
+      0 4px 0 #020409,
+      inset 0 2px 3px rgba(255,255,255,.18),
+      inset 0 -4px 7px rgba(0,0,0,.6) !important;
+  }
+}

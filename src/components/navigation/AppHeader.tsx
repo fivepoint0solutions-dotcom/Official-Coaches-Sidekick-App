@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "@tanstack/react-router";
-import { CircleHelp, Globe, Menu, X } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
+import { CircleHelp, Menu, X } from "lucide-react";
+import { useT } from "@/lib/i18n";
 import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
 import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
@@ -49,39 +42,6 @@ function useHideOnScroll() {
     return () => window.removeEventListener("scroll", mark);
   }, []);
   return hidden;
-}
-
-function LanguageSwitcher() {
-  const { language, setLanguage } = useLanguage();
-  const t = useT();
-  const current = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0]!;
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          aria-label={t("language.label")}
-          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
-        >
-          <Globe className="size-4" />
-          <span className="uppercase">{current.code}</span>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {LANGUAGES.map((lang) => (
-          <DropdownMenuItem
-            key={lang.code}
-            onClick={() => setLanguage(lang.code)}
-            className={cn("gap-2", lang.code === language && "font-semibold text-primary")}
-          >
-            <span>{lang.nativeName}</span>
-            <span className="ml-auto text-xs text-muted-foreground">{lang.englishName}</span>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
 }
 
 export function FeedbackModal({ onClose }: { onClose: () => void }) {
@@ -244,7 +204,7 @@ export function AppHeader() {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
       >
-        <div className="relative flex min-w-0 flex-1">
+        <div className="flex min-w-0 flex-1">
           <Link
             to="/"
             aria-label="Coach's Sidekick home"
@@ -268,17 +228,6 @@ export function AppHeader() {
               Coach's Sidekick
             </span>
           </Link>
-          {/* Landing page, phones: a short invitation to set the team's own colours and logo, between the logo and the menu */}
-          {onHome && (
-            <Link
-              to="/help"
-              search={{ open: "settings" }}
-              className="pointer-events-auto absolute bottom-[0.2rem] left-[6.2rem] inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-[0.3rem] text-[0.68rem] font-bold leading-none text-white sm:hidden"
-              style={{ backgroundImage: "var(--ice-gloss), var(--ice-dark)", border: "2px solid var(--b1)", boxShadow: "0 3px 8px -3px rgba(5,12,32,.6)" }}
-            >
-              <span aria-hidden="true">✦</span> Make it yours
-            </Link>
-          )}
         </div>
 
         {/* Desktop/tablet: menu links expand horizontally along the top bar */}
@@ -308,8 +257,18 @@ export function AppHeader() {
           </div>
         )}
 
+        {/* Landing page, phones: compact "Make it yours" pill in the top bar between the title and the menu button */}
+        {onHome && (
+          <Link
+            to="/help"
+            search={{ open: "settings" }}
+            className="pointer-events-auto inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2 py-[0.25rem] text-[0.62rem] font-bold leading-none text-white sm:hidden"
+            style={{ backgroundImage: "var(--ice-gloss), var(--ice-dark)", border: "2px solid var(--b1)", boxShadow: "0 3px 8px -3px rgba(5,12,32,.6)" }}
+          >
+            <span aria-hidden="true">✦</span> Make it yours
+          </Link>
+        )}
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
-          <LanguageSwitcher />
           <div className="relative">
             <button
               type="button"

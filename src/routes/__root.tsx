@@ -15,7 +15,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
 import { AppHeader } from "../components/navigation/AppHeader";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
-import { FeedbackFab } from "../components/navigation/FeedbackFab";
 import { BetaBanner } from "../components/navigation/BetaBanner";
 import { SiteFooter } from "../components/brand/SiteFooter";
 import { HockeySkins } from "../components/brand/HockeySkins";
@@ -177,7 +176,6 @@ function RootComponent() {
           </div>
         </div>
         <AskCoachsSidekick />
-        <FeedbackFab />
         <BetaBanner />
         <Toaster position="bottom-right" />
       </LanguageProvider>

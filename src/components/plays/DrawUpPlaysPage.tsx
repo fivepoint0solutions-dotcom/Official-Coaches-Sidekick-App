@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { Camera, PenLine, Trash2 } from "lucide-react";
+import { Camera, PenLine, Trash2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlayIcon } from "@/components/icons/HockeyIcons";
 import { DrillBoardEditor } from "@/components/drills/DrillBoardEditor";
@@ -100,13 +100,18 @@ export function DrawUpPlaysPage() {
                 <span className="text-title">Notes</span>
                 <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
               </label>
-              <div className="flex flex-wrap gap-3">
-                <Button type="button" variant={diagram ? "cta" : "outline"} size="lg" onClick={() => setDiagram(diagram ? null : BLANK)}>
-                  <PenLine /> {diagram ? "Remove the drawing" : "Draw it on the rink"}
+              <div className="flex flex-wrap items-center gap-2">
+                <Button type="button" variant={diagram ? "cta" : "outline"} size="icon" onClick={() => setDiagram(diagram ? null : BLANK)} aria-label={diagram ? "Remove the drawing" : "Draw it on the rink"}>
+                  <PenLine />
                 </Button>
-                <Button type="button" variant="outline" size="lg" disabled={busy} onClick={() => fileRef.current?.click()}>
-                  <Camera /> {photo ? "Upload a different picture" : "Upload a picture"}
+                <Button type="button" variant="outline" size="icon" disabled={busy} onClick={() => fileRef.current?.click()} aria-label={photo ? "Upload a different picture" : "Upload a picture"}>
+                  <Camera />
                 </Button>
+                {photo && !diagram ? (
+                  <Button type="button" variant="cta" size="lg" onClick={() => setDiagram({ ...BLANK, backgroundImage: photo })}>
+                    <PenLine /> Draw on this photo
+                  </Button>
+                ) : null}
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
               </div>
             </div>
@@ -118,9 +123,13 @@ export function DrawUpPlaysPage() {
             </div>
           ) : null;
           const actions = (
-            <div className="flex flex-wrap gap-3">
-              <Button type="button" variant="cta" size="lg" onClick={save}>Save play</Button>
-              <Button type="button" variant="outline" size="lg" onClick={cancel}>Cancel</Button>
+            <div className="flex flex-wrap items-center gap-2">
+              <Button type="button" variant="cta" size="icon" onClick={save} aria-label="Save play">
+                <Save />
+              </Button>
+              <Button type="button" variant="outline" size="icon" onClick={cancel} aria-label="Cancel">
+                <X />
+              </Button>
             </div>
           );
           if (!diagram) {
