@@ -108,7 +108,7 @@ export function DrawUpPlaysPage() {
               </label>
               <label className="block">
                 <span className="text-title">Notes</span>
-                <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
+                <textarea className="mt-1 min-h-24 lg:min-h-20 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
               </label>
               <div className="flex flex-wrap items-center gap-2">
                 <Button type="button" variant={diagram ? "cta" : "outline"} size="icon" onClick={() => setDiagram(diagram ? null : BLANK)} aria-label={diagram ? "Remove the drawing" : "Draw it on the rink"}>
@@ -153,7 +153,7 @@ export function DrawUpPlaysPage() {
               </section>
             );
           }
-          // With a drawing: the rink sits on the left and name, notes, every drawing control and Save sit to its right.
+          // With a drawing on desktop: the wide rink runs across the top, with name, notes and Save on the left under it and every drawing control on the right.
           // On a phone it stacks: name and notes, the controls, the rink (centred), then Save.
           return (
             <section className="card-soft draw-wide mx-auto max-w-7xl p-2 sm:p-7" aria-label="New play">
@@ -161,12 +161,12 @@ export function DrawUpPlaysPage() {
                 value={diagram}
                 onChange={setDiagram}
                 layout={({ controls, board, toolsButton }) => (
-                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1.9fr)_minmax(18rem,1fr)] lg:content-start lg:gap-8">
-                    <div className="order-3 lg:order-none lg:col-start-1 lg:row-span-4 lg:row-start-1">{board}</div>
-                    <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{renderFields(toolsButton)}</div>
-                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2 print:hidden">{controls}</div>
-                    {photoBlock ? <div className="order-4 lg:order-none lg:col-start-2 lg:row-start-3">{photoBlock}</div> : null}
-                    <div className="order-5 lg:order-none lg:col-start-2 lg:row-start-4">{actions}</div>
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:content-start lg:gap-x-8 lg:gap-y-4">
+                    <div className="order-3 lg:order-none lg:col-span-2 lg:col-start-1 lg:row-start-1">{board}</div>
+                    <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-2">{renderFields(toolsButton)}</div>
+                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-2 print:hidden">{controls}</div>
+                    <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-3">{actions}</div>
+                    {photoBlock ? <div className="order-4 lg:order-none lg:col-span-2 lg:col-start-1 lg:row-start-4">{photoBlock}</div> : null}
                   </div>
                 )}
               />

@@ -1794,3 +1794,19 @@ html body .badge-pill, html body .chip {
   background-size: auto 44% !important;
   background-repeat: no-repeat !important;
 }
+
+/* Logo: a small glass glint sweeps across now and then, so it reads as something you can click (desktop only). */
+@media (min-width: 1024px) {
+  .logo-shimmer::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat;
+    background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.65) 50%, transparent 62%) no-repeat;
+    background-size: 280% 100%; background-position: 130% 0;
+    animation: logoGlint 6s ease-in-out infinite;
+  }
+  @keyframes logoGlint {
+    0%, 62% { background-position: 130% 0; }
+    90%, 100% { background-position: -30% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .logo-shimmer::after { animation: none; display: none; } }
+}

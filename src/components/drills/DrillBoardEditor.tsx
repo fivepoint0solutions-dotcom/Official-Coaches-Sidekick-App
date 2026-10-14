@@ -558,7 +558,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const rink = (
     <div
       className={landscape ? "w-full min-w-0 lg:mx-auto" : "w-[min(18rem,calc(100vw-8.5rem))] shrink-0 lg:mx-auto lg:w-full lg:max-w-[23rem]"}
-      style={landscape ? { maxWidth: "min(100%, calc((100dvh - 16rem) * 2.05))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
+      style={landscape ? { maxWidth: "min(100%, max(34rem, calc((100dvh - 27rem) * 2.05)))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
     >
       <div
         className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}

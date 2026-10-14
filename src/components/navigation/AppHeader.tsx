@@ -7,6 +7,7 @@ import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
 import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
 import { useBrandLogo } from "@/lib/brand";
+import { BackButton } from "@/components/navigation/BackButton";
 
 function useHideOnScroll() {
   const [hidden, setHidden] = useState(false);
@@ -231,19 +232,21 @@ export function AppHeader() {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
       >
-        <div className="flex min-w-0 flex-1">
+        <div className="flex min-w-0 flex-1 lg:items-center">
           <Link
             to="/"
             aria-label="Coach's Sidekick home"
-            className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
+            className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto lg:flex-none"
           >
-            <img
-              src={logo.src}
-              alt=""
-              aria-hidden="true"
-              className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
-              style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
-            />
+            <span className="logo-shimmer relative inline-flex shrink-0" style={{ "--logo": `url("${logo.src}")` } as React.CSSProperties}>
+              <img
+                src={logo.src}
+                alt=""
+                aria-hidden="true"
+                className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
+                style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
+              />
+            </span>
             <span
               className={`font-display font-bold tracking-wide leading-tight min-w-0 ${menuOpen ? "md:hidden" : ""}`}
               style={{
@@ -255,6 +258,7 @@ export function AppHeader() {
               Coach's Sidekick
             </span>
           </Link>
+          {!onHome && <BackButton className="ml-8 hidden lg:inline-flex" />}
         </div>
 
         {/* Desktop/tablet: menu links expand horizontally along the top bar */}
