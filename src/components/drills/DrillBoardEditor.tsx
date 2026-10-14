@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import {
   Circle,
   Eraser,
@@ -83,11 +83,13 @@ function distance(a: [number, number], b: [number, number]) {
 type Props = {
   value: DrillDiagramSpec;
   onChange: (spec: DrillDiagramSpec) => void;
+  /** Lets a page place the controls and the rink itself (e.g. rink left, everything else to its right). */
+  layout?: (parts: { controls: ReactNode; board: ReactNode }) => ReactNode;
 };
 
 /** Interactive whiteboard: place players/cones, draw run/pass arrows, or free-draw with a pen
  * directly on the chosen sport surface. Edits apply live via onChange so a parent can save the result. */
-export function DrillBoardEditor({ value, onChange }: Props) {
+export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
@@ -308,8 +310,8 @@ export function DrillBoardEditor({ value, onChange }: Props) {
     }
   }
 
-  return (
-    <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
+  const controls = (
+    <div>
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <label className="flex items-center gap-2 text-xs font-semibold text-foreground/90">
           Surface
@@ -449,7 +451,11 @@ export function DrillBoardEditor({ value, onChange }: Props) {
         {tool.startsWith("arrow-") &&
           (arrowStart ? "Click the arrow's end point." : "Click the arrow's start point.")}
       </p>
+    </div>
+  );
 
+  const board = (
+    <div className="mx-auto w-full max-w-[23rem]">
       <div
         className="relative w-full touch-none select-none overflow-hidden rounded-xl shadow-inner"
         style={{ aspectRatio: `${w} / ${h}` }}
@@ -501,6 +507,18 @@ export function DrillBoardEditor({ value, onChange }: Props) {
             </g>
           ))}
         </svg>
+      </div>
+    </div>
+  );
+
+  if (layout) return <>{layout({ controls, board })}</>;
+
+  // Wide screens: the rink on the left, every control to the right of it. Phones: controls, then the rink, centred.
+  return (
+    <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
+      <div className="grid gap-4 lg:grid-cols-[23rem_minmax(0,1fr)] lg:items-start">
+        <div className="order-2 lg:order-1">{board}</div>
+        <div className="order-1 lg:order-2">{controls}</div>
       </div>
     </div>
   );

@@ -84,39 +84,69 @@ export function DrawUpPlaysPage() {
       </div>
 
       {editing ? (
-        <section className="card-soft mx-auto max-w-3xl space-y-4 p-5 sm:p-7" aria-label="New play">
-          <label className="block">
-            <span className="text-title">Name</span>
-            <input className="mt-1 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
-          </label>
-          <label className="block">
-            <span className="text-title">Notes</span>
-            <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
-          </label>
-
-          <div className="flex flex-wrap gap-3">
-            <Button type="button" variant={diagram ? "cta" : "outline"} size="lg" onClick={() => setDiagram(diagram ? null : BLANK)}>
-              <PenLine /> {diagram ? "Remove the drawing" : "Draw it on the rink"}
-            </Button>
-            <Button type="button" variant="outline" size="lg" disabled={busy} onClick={() => fileRef.current?.click()}>
-              <Camera /> {photo ? "Upload a different picture" : "Upload a picture"}
-            </Button>
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
-          </div>
-
-          {diagram ? <DrillBoardEditor value={diagram} onChange={setDiagram} /> : null}
-          {photo ? (
+        (() => {
+          const fields = (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-title">Name</span>
+                <input className="mt-1 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
+              </label>
+              <label className="block">
+                <span className="text-title">Notes</span>
+                <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
+              </label>
+              <div className="flex flex-wrap gap-3">
+                <Button type="button" variant={diagram ? "cta" : "outline"} size="lg" onClick={() => setDiagram(diagram ? null : BLANK)}>
+                  <PenLine /> {diagram ? "Remove the drawing" : "Draw it on the rink"}
+                </Button>
+                <Button type="button" variant="outline" size="lg" disabled={busy} onClick={() => fileRef.current?.click()}>
+                  <Camera /> {photo ? "Upload a different picture" : "Upload a picture"}
+                </Button>
+                <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
+              </div>
+            </div>
+          );
+          const photoBlock = photo ? (
             <div>
               <img src={photo} alt="The play you added" className="mx-auto max-h-96 w-auto rounded-lg border-2 border-[#1d1b16]" />
               <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => setPhoto(undefined)}>Remove the photo</Button>
             </div>
-          ) : null}
-
-          <div className="flex flex-wrap gap-3">
-            <Button type="button" variant="cta" size="lg" onClick={save}>Save play</Button>
-            <Button type="button" variant="outline" size="lg" onClick={cancel}>Cancel</Button>
-          </div>
-        </section>
+          ) : null;
+          const actions = (
+            <div className="flex flex-wrap gap-3">
+              <Button type="button" variant="cta" size="lg" onClick={save}>Save play</Button>
+              <Button type="button" variant="outline" size="lg" onClick={cancel}>Cancel</Button>
+            </div>
+          );
+          if (!diagram) {
+            return (
+              <section className="card-soft mx-auto max-w-3xl space-y-4 p-5 sm:p-7" aria-label="New play">
+                {fields}
+                {photoBlock}
+                {actions}
+              </section>
+            );
+          }
+          // With a drawing: the rink sits on the left and name, notes, every drawing control and Save sit to its right.
+          // On a phone it stacks: name and notes, the controls, the rink (centred), then Save.
+          return (
+            <section className="card-soft mx-auto max-w-6xl p-5 sm:p-7" aria-label="New play">
+              <DrillBoardEditor
+                value={diagram}
+                onChange={setDiagram}
+                layout={({ controls, board }) => (
+                  <div className="grid gap-5 lg:grid-cols-[23rem_minmax(0,1fr)] lg:content-start lg:gap-8">
+                    <div className="order-3 lg:order-none lg:col-start-1 lg:row-span-4 lg:row-start-1">{board}</div>
+                    <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{fields}</div>
+                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2">{controls}</div>
+                    {photoBlock ? <div className="order-4 lg:order-none lg:col-start-2 lg:row-start-3">{photoBlock}</div> : null}
+                    <div className="order-5 lg:order-none lg:col-start-2 lg:row-start-4">{actions}</div>
+                  </div>
+                )}
+              />
+            </section>
+          );
+        })()
       ) : (
         <>
           <div className="mb-6 flex flex-wrap gap-3">
