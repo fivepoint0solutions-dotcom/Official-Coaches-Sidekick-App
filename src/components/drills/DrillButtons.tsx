@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Check, FolderOpen, Plus, Search, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DrillDiagram } from "@/components/drills/DrillDiagram";
 import { DrillSheet } from "@/components/drills/DrillSheet";
 import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { drillCategories, drillLibrary, type Drill } from "@/data/drillLibrary";
@@ -59,10 +60,19 @@ export function DrillButtons({ className = "" }: { className?: string }) {
                   {drills.slice(0, 80).map((d) => {
                     const added = picked.includes(d.id);
                     return (
-                      <li key={d.id} className="flex flex-col gap-2 rounded-lg border-2 border-[#94A3B8] bg-white px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-                        <button type="button" className="min-w-0 text-left" onClick={() => setSheet(d)}>
-                          <span className="block truncate font-extrabold">{d.name}</span>
-                          <span className="block text-xs font-semibold opacity-70">{d.category} · {d.duration}</span>
+                      <li key={d.id} className="flex flex-col gap-2 rounded-lg border-2 border-[#94A3B8] bg-white px-3 py-2 sm:flex-row sm:items-center sm:gap-3">
+                        <button type="button" className="flex min-w-0 flex-1 items-center gap-3 text-left" onClick={() => setSheet(d)}>
+                          {d.diagram ? (
+                            <span className="relative block h-[3.22rem] w-[6.6rem] shrink-0 overflow-hidden rounded-lg border-2 border-[#94A3B8] bg-white" aria-hidden="true">
+                              <span className="drill-flash-rink-turn">
+                                <DrillDiagram diagram={d.diagram} id={`pick-${d.id}`} mini />
+                              </span>
+                            </span>
+                          ) : null}
+                          <span className="min-w-0">
+                            <span className="block truncate font-extrabold">{d.name}</span>
+                            <span className="block text-xs font-semibold opacity-70">{d.category} · {d.duration}</span>
+                          </span>
                         </button>
                         <div className="flex shrink-0 gap-2">
                           <Button type="button" size="sm" variant="outline" onClick={() => setSheet(d)}>Open</Button>
