@@ -455,7 +455,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   );
 
   const board = (
-    <div className="mx-auto w-full max-w-[23rem]">
+    <div className="mx-auto w-full max-w-[23rem]" style={value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}>
       <div
         className="relative w-full touch-none select-none overflow-hidden rounded-xl shadow-inner"
         style={{ aspectRatio: `${w} / ${h}` }}
@@ -516,7 +516,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   // Wide screens: the rink on the left, every control to the right of it. Phones: controls, then the rink, centred.
   return (
     <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
-      <div className="grid gap-4 lg:grid-cols-[23rem_minmax(0,1fr)] lg:items-start">
+      <div className="grid gap-4 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:items-start">
         <div className="order-2 lg:order-1">{board}</div>
         <div className="order-1 lg:order-2">{controls}</div>
       </div>

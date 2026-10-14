@@ -71,17 +71,21 @@ export function DrawUpPlaysPage() {
   }
 
   return (
-    <div className="container-app card-tint-inspire py-8 lg:py-10">
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
-          <span className="mt-2 shrink-0"><PlayIcon size={46} /></span>
-          <div>
-            <h1 className="tape-strip text-headline text-3xl">Draw Up Plays</h1>
-            <p className="text-body mt-2 text-muted-foreground">Draw a play on the rink, or type your own.</p>
+    <div className={editing ? "container-app card-tint-inspire py-1 lg:py-1" : "container-app card-tint-inspire py-8 lg:py-10"}>
+      {editing ? (
+        <h1 className="sr-only">Draw Up Plays</h1>
+      ) : (
+        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <span className="mt-2 shrink-0"><PlayIcon size={46} /></span>
+            <div>
+              <h1 className="tape-strip text-headline text-3xl">Draw Up Plays</h1>
+              <p className="text-body mt-2 text-muted-foreground">Draw a play on the rink, or type your own.</p>
+            </div>
           </div>
+          <DrillButtons />
         </div>
-        <DrillButtons />
-      </div>
+      )}
 
       {editing ? (
         (() => {
@@ -135,7 +139,7 @@ export function DrawUpPlaysPage() {
                 value={diagram}
                 onChange={setDiagram}
                 layout={({ controls, board }) => (
-                  <div className="grid gap-5 lg:grid-cols-[23rem_minmax(0,1fr)] lg:content-start lg:gap-8">
+                  <div className="grid gap-5 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:content-start lg:gap-8">
                     <div className="order-3 lg:order-none lg:col-start-1 lg:row-span-4 lg:row-start-1">{board}</div>
                     <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{fields}</div>
                     <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2">{controls}</div>
