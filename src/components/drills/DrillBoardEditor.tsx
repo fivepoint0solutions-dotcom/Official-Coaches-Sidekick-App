@@ -84,7 +84,7 @@ type Props = {
   value: DrillDiagramSpec;
   onChange: (spec: DrillDiagramSpec) => void;
   /** Lets a page place the controls and the rink itself (e.g. rink left, everything else to its right). */
-  layout?: (parts: { controls: ReactNode; board: ReactNode }) => ReactNode;
+  layout?: (parts: { controls: ReactNode; board: ReactNode; toolsButton: ReactNode }) => ReactNode;
 };
 
 /** Interactive whiteboard: place players/cones, draw run/pass arrows, or free-draw with a pen
@@ -511,15 +511,6 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             </g>
           ))}
         </svg>
-        {/* Mobile: chevron at top-right opens the tool panel; pulses until first tapped */}
-        <button
-          type="button"
-          onClick={() => { setSheetOpen(true); setToolsSeen(true); }}
-          aria-label="Open drawing tools"
-          className={`anchor-card-gradient card-tint-inspire absolute left-3 top-3 grid size-12 place-items-center rounded-full border-2 border-white/30 shadow-lg lg:hidden ${!toolsSeen ? "animate-pulse" : ""}`}
-        >
-          <svg viewBox="0 0 24 24" className="size-6 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-        </button>
       </div>
       {/* Mobile: tool panel slides in from the right */}
       {sheetOpen && (
@@ -542,13 +533,27 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     </div>
   );
 
-  if (layout) return <>{layout({ controls, board })}</>;
+  // Phones: the tools chevron sits with the other icon buttons, never on top of the rink.
+  const toolsButton = (
+    <Button
+      type="button"
+      variant="cta"
+      size="icon"
+      onClick={() => { setSheetOpen(true); setToolsSeen(true); }}
+      aria-label="Open drawing tools"
+      className={`lg:hidden ${!toolsSeen ? "animate-pulse" : ""}`}
+    >
+      <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+    </Button>
+  );
+
+  if (layout) return <>{layout({ controls, board, toolsButton })}</>;
 
   // Wide screens: the rink on the left, every control to the right of it. Phones: controls, then the rink, centred.
   return (
     <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
       <div className="grid gap-4 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:items-start">
-        <div className="order-2 lg:order-1">{board}</div>
+        <div className="order-2 lg:order-1"><div className="mb-2 flex lg:hidden">{toolsButton}</div>{board}</div>
         <div className="order-1 lg:order-2">{controls}</div>
       </div>
     </div>

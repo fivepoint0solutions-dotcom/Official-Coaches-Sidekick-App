@@ -90,7 +90,7 @@ export function DrawUpPlaysPage() {
 
       {editing ? (
         (() => {
-          const fields = (
+          const renderFields = (toolsButton?: React.ReactNode) => (
             <div className="space-y-4">
               <label className="block">
                 <span className="text-title">Name</span>
@@ -113,9 +113,11 @@ export function DrawUpPlaysPage() {
                   </Button>
                 ) : null}
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
+                {toolsButton}
               </div>
             </div>
           );
+          const fields = renderFields();
           const photoBlock = photo ? (
             <div>
               <img src={photo} alt="The play you added" className="mx-auto max-h-96 w-auto rounded-lg border-2 border-[#0b0d12]" />
@@ -148,10 +150,10 @@ export function DrawUpPlaysPage() {
               <DrillBoardEditor
                 value={diagram}
                 onChange={setDiagram}
-                layout={({ controls, board }) => (
+                layout={({ controls, board, toolsButton }) => (
                   <div className="grid gap-5 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:content-start lg:gap-8">
                     <div className="order-3 lg:order-none lg:col-start-1 lg:row-span-4 lg:row-start-1">{board}</div>
-                    <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{fields}</div>
+                    <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{renderFields(toolsButton)}</div>
                     <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2">{controls}</div>
                     {photoBlock ? <div className="order-4 lg:order-none lg:col-start-2 lg:row-start-3">{photoBlock}</div> : null}
                     <div className="order-5 lg:order-none lg:col-start-2 lg:row-start-4">{actions}</div>
