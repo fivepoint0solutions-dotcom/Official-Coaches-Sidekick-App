@@ -6,10 +6,10 @@ type ModeCardProps = { mode: ModeConfig; className?: string };
 
 /** One photo per mode, taped into the playbook. */
 const MODE_PHOTOS: Record<string, { src: string; alt: string }> = {
-  inspire: { src: "/img/mode-inspire.jpg", alt: "Young player stickhandling with the puck" },
-  build: { src: "/img/mode-build.jpg", alt: "Coaches running a team practice" },
-  busywork: { src: "/img/mode-busywork.jpg", alt: "Coach talking to the team at the bench" },
-  challenge: { src: "/img/mode-challenge.jpg", alt: "Team Canada players celebrating a goal" },
+  inspire: { src: "/img/mode-inspire.jpg?v=2", alt: "Cold Lake Junior B Ice logo" },
+  build: { src: "/img/mode-build.jpg?v=2", alt: "Frozen lake with cracked blue ice and snowy pines" },
+  busywork: { src: "/img/mode-busywork.jpg?v=2", alt: "The Cold Lake Junior B Ice team photo" },
+  challenge: { src: "/img/mode-challenge.jpg?v=2", alt: "Cold Lake Junior B Ice sponsor poster" },
 };
 
 /** Playbook-binder mode card: photo taped in, tape-strip title. */
