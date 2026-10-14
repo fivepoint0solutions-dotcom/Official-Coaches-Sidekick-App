@@ -1,3 +1,4 @@
+import { zoneHint } from "@/lib/drillZone";
 import { Check, Plus } from "lucide-react";
 import { DrillDiagram } from "@/components/drills/DrillDiagram";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ export function DrillRow({
     <article className="card-soft ice-lib ice-texture relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
       {drill.diagram ? (
         <div className="w-full">
-          <DrillDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} />
+          <DrillDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zoneHint(drill)} />
         </div>
       ) : null}
       <div className="flex min-w-0 flex-col">

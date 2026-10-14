@@ -1,3 +1,4 @@
+import { zoneHint } from "@/lib/drillZone";
 import { Link } from "@tanstack/react-router";
 import { Clock3, ListChecks, Package, Pencil, Trash2, Users } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -44,7 +45,7 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
 
             {drill.diagram ? (
               <div className="mx-auto mt-4 w-full max-w-[22rem]">
-                <DrillDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} legend />
+                <DrillDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} legend zone={zoneHint(drill)} />
               </div>
             ) : null}
 
