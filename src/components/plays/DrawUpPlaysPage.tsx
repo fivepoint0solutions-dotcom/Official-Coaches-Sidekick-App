@@ -91,7 +91,7 @@ export function DrawUpPlaysPage() {
       {editing ? (
         (() => {
           const renderFields = (toolsButton?: React.ReactNode) => (
-            <div className="space-y-4">
+            <div className="space-y-4 px-2 sm:px-0">
               <label className="block">
                 <span className="text-title">Name</span>
                 <input className="mt-1 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
@@ -125,7 +125,7 @@ export function DrawUpPlaysPage() {
             </div>
           ) : null;
           const actions = (
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 px-2 sm:px-0">
               <Button type="button" variant="cta" size="icon" onClick={save} aria-label="Save play">
                 <Save />
               </Button>
@@ -146,7 +146,7 @@ export function DrawUpPlaysPage() {
           // With a drawing: the rink sits on the left and name, notes, every drawing control and Save sit to its right.
           // On a phone it stacks: name and notes, the controls, the rink (centred), then Save.
           return (
-            <section className="card-soft mx-auto max-w-6xl p-5 sm:p-7" aria-label="New play">
+            <section className="card-soft draw-wide mx-auto max-w-6xl p-2 sm:p-7" aria-label="New play">
               <DrillBoardEditor
                 value={diagram}
                 onChange={setDiagram}

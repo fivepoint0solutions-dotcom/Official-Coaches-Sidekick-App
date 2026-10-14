@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import {
   Circle,
   ArrowLeftRight,
@@ -111,6 +111,12 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
   // Phones: the small tool buttons float over the ice; the chevron hides or shows them.
   const [paletteOpen, setPaletteOpen] = useState(true);
+  // "around": the rink stays centred with buttons down both sides. "left": every button on the left, rink flush right.
+  const [toolsLayout, setToolsLayout] = useState<"around" | "left">("around");
+  useEffect(() => {
+    const asked = new URLSearchParams(window.location.search).get("tools");
+    if (asked === "left" || asked === "around") setToolsLayout(asked);
+  }, []);
   const [toolsSeen, setToolsSeen] = useState(false);
   const pickTool = (t: Tool) => { setTool(t); setToolsSeen(true); };
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
@@ -355,26 +361,23 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     { label: "Corner", tool: "path-corner", glyph: pathIcon("M5 19V9a4 4 0 0 1 4-4h10") },
     { label: "S-turn", tool: "path-s", glyph: pathIcon("M5 7c6 0 6 5 7 5s1 5 7 5") },
   ];
-  const palette = paletteOpen ? (
-    <>
-      <div className="pointer-events-none absolute bottom-1 left-1 top-1 z-10 flex flex-col justify-center gap-1 lg:hidden">
-        {leftTools.map((t) => (
-          <MiniBtn key={t.tool} label={t.label} active={tool === t.tool} onClick={choose(t.tool)}>{t.glyph}</MiniBtn>
-        ))}
-      </div>
-      <div className="pointer-events-none absolute bottom-1 right-1 top-1 z-10 flex flex-col justify-center gap-1 lg:hidden">
-        {rightTools.map((t) => (
-          <MiniBtn key={t.tool} label={t.label} active={tool === t.tool} onClick={choose(t.tool)}>{t.glyph}</MiniBtn>
-        ))}
-        <MiniBtn label="Weave through cones" onClick={weaveCones}>{pathIcon("M3 12c3-6 5-6 6 0s3 6 6 0 3-6 6 0")}</MiniBtn>
-        <MiniBtn label="Flip side" active={flip} onClick={() => setFlip((f) => !f)}><ArrowLeftRight className="size-4" /></MiniBtn>
-        <MiniBtn label="Draw" active={tool === "pen"} onClick={choose("pen")}><Pencil className="size-4" /></MiniBtn>
-        <MiniBtn label="Erase" active={tool === "eraser"} onClick={choose("eraser")}><Eraser className="size-4" /></MiniBtn>
-        <MiniBtn label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-4" /></MiniBtn>
-        <MiniBtn label="Clear" onClick={clearBoard}><Trash2 className="size-4" /></MiniBtn>
-      </div>
-    </>
-  ) : null;
+  const leftButtons = leftTools.map((t) => (
+    <MiniBtn key={t.tool} label={t.label} active={tool === t.tool} onClick={choose(t.tool)}>{t.glyph}</MiniBtn>
+  ));
+  const rightButtons = [
+    ...rightTools.map((t) => (
+      <MiniBtn key={t.tool} label={t.label} active={tool === t.tool} onClick={choose(t.tool)}>{t.glyph}</MiniBtn>
+    )),
+    <MiniBtn key="weave" label="Weave through cones" onClick={weaveCones}>{pathIcon("M3 12c3-6 5-6 6 0s3 6 6 0 3-6 6 0")}</MiniBtn>,
+    <MiniBtn key="flip" label="Flip side" active={flip} onClick={() => setFlip((f) => !f)}><ArrowLeftRight className="size-4" /></MiniBtn>,
+    <MiniBtn key="pen" label="Draw" active={tool === "pen"} onClick={choose("pen")}><Pencil className="size-4" /></MiniBtn>,
+    <MiniBtn key="eraser" label="Erase" active={tool === "eraser"} onClick={choose("eraser")}><Eraser className="size-4" /></MiniBtn>,
+    <MiniBtn key="undo" label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-4" /></MiniBtn>,
+    <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-4" /></MiniBtn>,
+  ];
+  const column = (nodes: ReactNode[], key: string) => (
+    <div key={key} className="flex shrink-0 flex-col justify-between gap-1 lg:hidden">{nodes}</div>
+  );
   const hint = (
     <p className="mb-2 text-xs text-foreground/80">
       {tool === "select" && "Drag a marker to reposition it."}
@@ -531,8 +534,8 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     </div>
   );
 
-  const board = (
-    <div className="mx-auto w-full max-w-[23rem]" style={value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}>
+  const rink = (
+    <div className="w-[min(18rem,calc(100vw-8.5rem))] shrink-0 lg:mx-auto lg:w-full lg:max-w-[23rem]" style={value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}>
       <div
         className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}
         style={{ aspectRatio: `${w} / ${h}` }}
@@ -584,7 +587,22 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             </g>
           ))}
         </svg>
-        {palette}
+      </div>
+    </div>
+  );
+
+  const board = (
+    <div>
+      <div className={`flex items-stretch gap-1.5 lg:block ${paletteOpen ? (toolsLayout === "left" ? "justify-between" : "justify-center") : "justify-center"}`}>
+        {paletteOpen && toolsLayout === "around" ? column(leftButtons, "l") : null}
+        {paletteOpen && toolsLayout === "left" ? (
+          <>
+            {column(leftButtons, "l1")}
+            {column(rightButtons, "l2")}
+          </>
+        ) : null}
+        {rink}
+        {paletteOpen && toolsLayout === "around" ? column(rightButtons, "r") : null}
       </div>
       <div className="mt-2 lg:hidden">{hint}</div>
     </div>

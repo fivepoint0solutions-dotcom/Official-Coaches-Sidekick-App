@@ -1749,14 +1749,14 @@ html body .badge-pill, html body .chip {
 @layer utilities {
   button.rink-tool:not(#_):not(#__):not(#___) {
     border-radius: 9px !important;
-    background: rgba(255, 255, 255, 0.14) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
     background-image: none !important;
-    border: 1.5px solid rgba(11, 31, 77, 0.55) !important;
+    border: 1.5px solid #8fb1e7 !important;
     box-shadow: none !important;
     animation: none !important;
     color: #0B1F4D !important;
     -webkit-text-fill-color: #0B1F4D !important;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
     filter: none !important;
   }
   button.rink-tool:not(#_):not(#__):not(#___) :is(svg, span):not(#_):not(#__) {
@@ -1765,8 +1765,17 @@ html body .badge-pill, html body .chip {
     stroke: currentColor;
   }
   button.rink-tool.rink-tool-on:not(#_):not(#__):not(#___) {
-    background: rgba(31, 95, 200, 0.38) !important;
+    background: #8fb1e7 !important;
     border-color: #1F5FC8 !important;
-    box-shadow: 0 0 0 2px rgba(31, 95, 200, 0.9) !important;
+    box-shadow: 0 0 0 2px #1F5FC8 !important;
+  }
+}
+
+/* Draw page on phones: the blue card runs the full width of the screen so the tool buttons fit around the rink. */
+@media (max-width: 1023px) {
+  section.draw-wide:not(#_):not(#__) {
+    margin-inline: calc(var(--spacing-gutter) * -1 - 0.75rem) !important;
+    max-width: none !important;
+    border-radius: 14px !important;
   }
 }
