@@ -1,4 +1,6 @@
-import { Lightbulb, ListChecks, ShieldQuestion, Users, type LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+import { ListChecks, ShieldQuestion } from "lucide-react";
+import { PlayIcon, PuckIcon } from "@/components/icons/HockeyIcons";
 import { useT, type TranslationKey } from "./i18n";
 import type { CreationType, Mode, QuickAction } from "./ai";
 
@@ -7,7 +9,7 @@ export interface ModeConfig {
   label: string;
   tagline: string;
   description: string;
-  icon: LucideIcon;
+  icon: ComponentType<{ className?: string }>;
   gradientClass: string;
   cardTintClass: string;
   href: string;
@@ -15,7 +17,7 @@ export interface ModeConfig {
 
 interface ModeMeta {
   id: Mode;
-  icon: LucideIcon;
+  icon: ComponentType<{ className?: string }>;
   gradientClass: string;
   cardTintClass: string;
   href: string;
@@ -24,14 +26,14 @@ interface ModeMeta {
 const MODES_META: ModeMeta[] = [
   {
     id: "inspire",
-    icon: Lightbulb,
+    icon: PlayIcon,
     gradientClass: "gradient-inspire",
     cardTintClass: "card-tint-inspire",
     href: "/inspire",
   },
   {
     id: "build",
-    icon: Users,
+    icon: PuckIcon,
     gradientClass: "gradient-build",
     cardTintClass: "card-tint-build",
     href: "/build",

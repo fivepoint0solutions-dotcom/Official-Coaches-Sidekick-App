@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
 import type { ModeConfig } from "@/lib/modes";
 import { cn } from "@/lib/utils";
 
@@ -33,9 +32,8 @@ export function ModeCard({ mode, className }: ModeCardProps) {
           style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
         />
       </span>
-      <div className="mt-4 flex items-center justify-between gap-3">
+      <div className="mt-4 flex items-center gap-3">
         <h3 className="tape-strip text-xl">{mode.label}</h3>
-        <ArrowUpRight className="size-5 shrink-0 opacity-80 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
       </div>
       <p className="mt-3 text-base leading-snug">{mode.tagline}</p>
       <p className="mt-2 text-sm leading-snug opacity-85">{mode.description}</p>

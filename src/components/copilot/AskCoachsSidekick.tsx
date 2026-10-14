@@ -210,12 +210,12 @@ export function AskCoachsSidekick() {
         onPointerUp={handleFabPointerUp}
         onPointerCancel={handleFabPointerUp}
         aria-label={t("chat.button")}
-        className="gradient-hero gradient-motion twinkle fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-40 grid size-11 cursor-grab opacity-85 touch-none select-none place-items-center rounded-[16px] border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
+        className="gradient-hero gradient-motion twinkle fixed left-[max(16px,env(safe-area-inset-left))] z-40 grid size-11 cursor-grab opacity-85 touch-none select-none place-items-center rounded-[16px] border-[3px] border-white/60 text-white shadow-glow transition-transform hover-lift active:cursor-grabbing"
         style={
           {
             "--twinkle-duration": "26s",
-            ...(pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : {}),
-          } as CSSProperties
+            ...(pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : { bottom: "calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)))" }),
+          } as unknown as CSSProperties
         }
       >
         <Mic className="size-5" />
