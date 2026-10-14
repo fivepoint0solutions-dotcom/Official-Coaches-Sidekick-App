@@ -23,7 +23,7 @@ export const drillDiagrams4: Record<string, Diagram> = {
     arrows: [pass([21, 38], [30, 44]), run([26, 62], [24, 52])],
   },
   "SAG-003": { // king of the ring: three players, one net, each defends their own puck
-    markers: [GT, P(34, 22, "1"), P(66, 24, "2"), P(50, 32, "3"), PUCK(92, 8), PUCK(36, 23.5)],
+    markers: [GT, P(34, 22, "1"), P(66, 24, "2"), P(50, 32, "3"), PUCK(36, 23.5)],
     arrows: [carry([34, 24], [44, 16]), pass([46, 15], [51, 10])],
   },
   "SAG-004": { // 4-on-4 with two neutral bumpers on the half boards
@@ -47,7 +47,7 @@ export const drillDiagrams4: Record<string, Diagram> = {
     arrows: [pass([34, 40], [43, 43]), run([60, 38], [48, 40])],
   },
   "SAG-009": { // puck race relay: two teams in opposite corners, race around the far cone and back
-    markers: [...O([[8, 92], [14, 92], [8, 86]]), ...O([[92, 92], [86, 92], [92, 86]]), PUCK(9.8, 92.6), PUCK(90.2, 92.6), CONE(28, 14), CONE(72, 14)],
+    markers: [...O([[8, 92], [14, 92], [8, 86]]), ...X([[92, 92], [86, 92], [92, 86]]), PUCK(9.8, 92.6), PUCK(90.2, 92.6), CONE(28, 14), CONE(72, 14)],
     arrows: [carry([14, 88], [27, 17]), run([30, 17], [18, 88]), carry([86, 88], [73, 17]), run([70, 17], [82, 88])],
   },
   "SAG-010": { // keepaway box 4-on-2: ten passes scores
@@ -59,7 +59,7 @@ export const drillDiagrams4: Record<string, Diagram> = {
     arrows: [run([30, 89], [30, 9]), run([36, 9], [36, 89]), run([62, 89], [62, 9]), run([68, 9], [68, 89])],
   },
   "CND-002": { // Herbies: near blue line and back, red line and back, far blue line and back, full ice and back
-    markers: [...O(spread(14, 92, 86, 92, 5)), COACH(94, 50, "Coach")],
+    markers: [...O(spread(14, 92, 86, 92, 5)), COACH(94, 50, "Coach"), PUCK(17.8, 92.6), PUCK(35.8, 92.6), PUCK(53.8, 92.6), PUCK(71.8, 92.6), PUCK(89.8, 92.6)],
     arrows: [
       run([16, 89], [16, 67]), run([21, 67], [21, 89]),
       run([32, 89], [32, 51]), run([37, 51], [37, 89]),
@@ -69,18 +69,18 @@ export const drillDiagrams4: Record<string, Diagram> = {
   },
   "CND-003": { // puck chase sprints: coach dumps a puck into the far corner, pairs race from the blue line, winner passes back
     markers: [COACH(50, 50, "Coach"), ...O([[28, 37], [38, 37], [62, 37], [72, 37]]), PUCK(9, 7), PUCK(91, 7)],
-    arrows: [pass([47, 48], [9, 8]), run([28, 34], [11, 10]), run([38, 34], [13, 11]), pass([11, 11], [47, 50], [[26, 30]]), pass([53, 48], [91, 8]), run([62, 34], [88, 11]), run([72, 34], [90, 12])],
+    arrows: [pass([47, 48], [9, 8]), run([28, 34], [11, 10]), run([38, 34], [13, 11]), pass([11, 11], [47, 50], [[26, 30]]), pass([53, 48], [91, 8]), run([62, 34], [88, 11]), run([72, 34], [90, 12]), pass([89, 11], [53, 50], [[74, 30]])],
   },
   "CND-004": { // blue line to blue line repeats
-    markers: O(spread(14, 65.3, 86, 65.3, 5)),
+    markers: [...O(spread(14, 65.3, 86, 65.3, 5)), COACH(94, 50, "Coach"), PUCK(15.8, 65.9), PUCK(33.8, 65.9), PUCK(51.8, 65.9), PUCK(69.8, 65.9), PUCK(87.8, 65.9)],
     arrows: [run([30, 62], [30, 38]), run([36, 38], [36, 62]), run([62, 62], [62, 38]), run([68, 38], [68, 62])],
   },
   "CND-005": { // battle circuit: corner battle, net-front battle, 1-on-1 angling, full-ice sprint
-    markers: [GT, P(9, 10), D(14, 15), P(44, 14), D(54, 15), P(24, 72), PUCK(25.8, 72.6), D(36, 58), P(88, 92)],
+    markers: [GT, P(9, 10), D(14, 15), P(44, 14), D(54, 15), P(24, 72), PUCK(25.8, 72.6), D(36, 58), P(88, 92), PUCK(10.8, 10.6), PUCK(49.8, 14.6), COACH(50, 50, "Coach")],
     arrows: [carry([24, 69], [12, 44], [[18, 60]]), run([36, 56], [24, 46]), run([88, 88], [88, 10])],
   },
   "CND-006": { // goal line relay: cones on the far faceoff dots, two teams at the goal line
-    markers: [CONE(27.3, 20.5), CONE(72.6, 20.5), ...O([[20, 92], [26, 92], [32, 92]]), ...O([[68, 92], [74, 92], [80, 92]])],
+    markers: [CONE(27.3, 20.5), CONE(72.6, 20.5), ...O([[20, 92], [26, 92], [32, 92]]), ...X([[68, 92], [74, 92], [80, 92]]), PUCK(21.8, 92.6), PUCK(69.8, 92.6)],
     arrows: [run([27, 88], [27, 24]), run([31, 24], [31, 88]), run([73, 88], [73, 24]), run([69, 24], [69, 88])],
   },
   "WRM-001": { // free skate with pucks, no lines, no structure
@@ -104,7 +104,7 @@ export const drillDiagrams4: Record<string, Diagram> = {
     arrows: [run([42, 51], [42, 55]), pass([42, 57], [43, 54]), carry([41, 52], [26, 20], [[30, 44], [16, 36], [16, 28]]), pass([27, 19], [51, 10])],
   },
   "WRM-006": { // 3-pass flow: two corner lines and a blue-line line, down the wing and shoot
-    markers: [GT, P(9, 8), P(9, 14), P(91, 8), P(91, 14), P(50, 36), P(50, 41), PUCK(10.8, 8.6)],
+    markers: [GT, P(9, 8), P(9, 14), P(91, 8), P(91, 14), P(50, 36), P(50, 41), PUCK(10.8, 8.6), PUCK(92.8, 8.6)],
     arrows: [pass([11, 9], [47, 34]), pass([50, 34], [13, 11]), pass([13, 8], [88, 8], [[50, 4]]), carry([90, 12], [72, 22], [[88, 18]]), pass([71, 21], [53, 10])],
   },
 };

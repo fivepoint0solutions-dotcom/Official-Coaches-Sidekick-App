@@ -2,10 +2,10 @@ import { zoneHint } from "@/lib/drillZone";
 import { isFullIceDiagram } from "@/components/drills/DrillDiagram";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { ArrowDown, ArrowUp, ArrowRight, Save, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowRight, ClipboardList, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PuckIcon } from "@/components/icons/HockeyIcons";
-import { DrillDiagram } from "@/components/drills/DrillDiagram";
+import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
 import { DrillSheet } from "@/components/drills/DrillSheet";
 import { DrillButtons } from "@/components/drills/DrillButtons";
 import { ShareBar } from "@/components/share/ShareBar";
@@ -27,6 +27,8 @@ export function BuildPracticePage() {
   const [tab, setTab] = useState<Record<string, "drills" | "theory">>({});
   const [sheet, setSheet] = useState<Drill | null>(null);
   const [stage, setStage] = useState<"pick" | "plan">("pick");
+  // The practice tray stays collapsed to a single icon until the coach opens it.
+  const [trayOpen, setTrayOpen] = useState(false);
   const [title, setTitle] = useState("My practice");
 
   const byId = useMemo(() => new Map([...drillLibrary, ...mine].map((d) => [d.id, d])), [mine]);
@@ -94,7 +96,7 @@ export function BuildPracticePage() {
                 </div>
               </div>
               <p className="text-sm font-semibold opacity-75">{d.category} · {d.duration} · {d.ageGroup}{d.level ? ` · ${d.level}` : ""}</p>
-              {d.diagram ? <div className="mx-auto w-full max-w-[28rem]"><DrillDiagram diagram={d.diagram} id={`plan-${d.id}`} framed={false} legend zone={zoneHint(d)} landscape={isFullIceDiagram(d.diagram, `plan-${d.id}`, zoneHint(d))} /></div> : null}
+              {d.diagram ? <div className="mx-auto w-full max-w-[28rem]"><PlayableDiagram diagram={d.diagram} id={`plan-${d.id}`} framed={false} legend zone={zoneHint(d)} landscape={isFullIceDiagram(d.diagram, `plan-${d.id}`, zoneHint(d))} /></div> : null}
               {d.equipment ? <p className="text-body"><b>Equipment:</b> {d.equipment}</p> : null}
               <p className="text-body"><b>Setup:</b> {d.setup}</p>
               <ol className="list-decimal space-y-1.5 pl-5">{d.steps.map((s) => <li key={s} className="text-body">{s}</li>)}</ol>
@@ -159,10 +161,38 @@ export function BuildPracticePage() {
         </section>
 
         {picked.length ? (
-          <div className="practice-tray" role="status">
-            <p className="font-extrabold">Your practice: {picked.length} {picked.length === 1 ? "drill" : "drills"}{minutes ? ` · about ${minutes} min` : ""}</p>
-            <Button type="button" variant="cta" size="lg" onClick={() => setStage("plan")}>Build my practice <ArrowRight /></Button>
-          </div>
+          trayOpen ? (
+            <div className="sticky bottom-[6.5rem] z-[25] rounded-xl border-2 border-[#0b0d12] bg-white p-4 shadow-lg" role="status">
+              <div className="flex items-start justify-between gap-3">
+                <p className="font-extrabold">Your practice: {picked.length} {picked.length === 1 ? "drill" : "drills"}{minutes ? ` · about ${minutes} min` : ""}</p>
+                <Button type="button" size="icon" variant="outline" aria-label="Close your practice" onClick={() => setTrayOpen(false)}><X /></Button>
+              </div>
+              <ul className="mt-3 space-y-1.5">
+                {picked.map((d, i) => (
+                  <li key={d.id} className="flex items-center justify-between gap-3">
+                    <span className="min-w-0 truncate text-body">{i + 1}. {d.name} ({d.duration})</span>
+                    <Button type="button" size="icon" variant="outline" aria-label={`Remove ${d.name}`} onClick={() => removePicked(d.id)}><X /></Button>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex justify-end">
+                <Button type="button" variant="cta" size="lg" onClick={() => setStage("plan")}>Build my practice <ArrowRight /></Button>
+              </div>
+            </div>
+          ) : (
+            <div className="sticky bottom-[6.5rem] z-[25] flex justify-end">
+              <button
+                type="button"
+                onClick={() => setTrayOpen(true)}
+                aria-label={`Open your practice, ${picked.length} ${picked.length === 1 ? "drill" : "drills"}`}
+                aria-expanded={false}
+                className="relative grid size-14 place-items-center rounded-full border-2 border-[#0b0d12] bg-white shadow-lg"
+              >
+                <ClipboardList className="size-6" />
+                <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0b0d12] text-xs font-extrabold text-white">{picked.length}</span>
+              </button>
+            </div>
+          )
         ) : null}
       </div>
       <DrillSheet drill={sheet} onClose={() => setSheet(null)} />
