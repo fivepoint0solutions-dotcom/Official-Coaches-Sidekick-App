@@ -1329,7 +1329,7 @@ html body .badge-pill, html body .chip {
 /* ================================================================
  * COLD LAKE ICE — the drill library and the drill rows in Build a Practice are blue and white.
  * ============================================================ */
-.ice-lib { --ice: #1F5FC8; --ice-deep: #123F8F; --ice-light: #DCEBFA; }
+.ice-lib { --ice: #1F5FC8; --ice-deep: #123F8F; --ice-pale: #DCEBFA; }
 .ice-lib :is(a, button).hover-lift.bg-interactive,
 .ice-lib :is(a, button)[class*="gradient-hero"] {
   background: var(--ice) !important; background-image: linear-gradient(180deg, #3B7BE0 0%, var(--ice) 55%, var(--ice-deep) 100%) !important;
@@ -1605,3 +1605,16 @@ html body .badge-pill, html body .chip {
 
 
 .cat-find input, .cat-find input:focus { background: transparent !important; background-image: none !important; border: 0 !important; box-shadow: none !important; }
+
+/* Last flat fills: choice chips, polaroid frames, the tape on them, and the category search capsule. */
+@layer utilities {
+  .choice-chip, label.cat-find, .photo-strip-item {
+    background-color: #DCEAF9 !important;
+    background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-light) !important;
+    background-repeat: no-repeat !important;
+    color: #0B1226 !important;
+  }
+  .choice-chip:hover { filter: brightness(1.04); }
+  .photo-strip-tape { background: linear-gradient(115deg, rgba(255,255,255,.75) 0%, rgba(143,193,255,.7) 55%, rgba(31,95,200,.55) 100%) !important; backdrop-filter: blur(1px); }
+  [role="radio"][aria-checked="true"].rounded-2xl { background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark) !important; color: #FFFFFF !important; border-color: #0B2A66 !important; }
+}
