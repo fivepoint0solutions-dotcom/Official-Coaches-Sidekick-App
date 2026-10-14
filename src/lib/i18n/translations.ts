@@ -29,13 +29,13 @@ const en = {
   "shortcuts.saved": "{count} saved",
 
   "modes.inspire.label": "Draw Up Plays",
-  "modes.inspire.tagline": "Get ideas, not a finished plan",
+  "modes.inspire.tagline": "Draw it, import it, or type it in",
   "modes.inspire.description":
-    "Multiple approaches and angles to spark your own thinking — you pick and customize.",
+    "Draw a play on the rink, bring in one from your phone, or type your own.",
   "modes.build.label": "Build a Practice",
-  "modes.build.tagline": "Develop it together, step by step",
+  "modes.build.tagline": "Pick your drills, then build it",
   "modes.build.description":
-    "Answer a few quick questions and shape a practice collaboratively — you're in every decision.",
+    "Open a category, add drills from the library, read the theory, and build your practice.",
   "modes.busywork.label": "Handle the Busywork",
   "modes.busywork.tagline": "Skip straight to the finished material",
   "modes.busywork.description":
@@ -230,13 +230,13 @@ const es: Dictionary = {
   "shortcuts.saved": "{count} guardados",
 
   "modes.inspire.label": "Dibuja Jugadas",
-  "modes.inspire.tagline": "Recibe ideas, no un plan terminado",
+  "modes.inspire.tagline": "Dibújala, impórtala o escríbela",
   "modes.inspire.description":
-    "Varios enfoques y ángulos para estimular tu propio pensamiento — tú eliges y personalizas.",
+    "Dibuja una jugada en la pista, trae una de tu teléfono o escribe la tuya.",
   "modes.build.label": "Construyamos una práctica",
-  "modes.build.tagline": "Desarróllala paso a paso, en equipo",
+  "modes.build.tagline": "Elige tus ejercicios y arma la práctica",
   "modes.build.description":
-    "Responde unas preguntas rápidas y da forma a una práctica de manera colaborativa — tú decides en cada paso.",
+    "Abre una categoría, añade ejercicios de la biblioteca, lee la teoría y arma tu práctica.",
   "modes.busywork.label": "Encárgate del papeleo",
   "modes.busywork.tagline": "Ve directo al material terminado",
   "modes.busywork.description":
@@ -429,13 +429,13 @@ const fr: Dictionary = {
   "shortcuts.saved": "{count} enregistrés",
 
   "modes.inspire.label": "Élabore des jeux",
-  "modes.inspire.tagline": "Des idées, pas un plan tout fait",
+  "modes.inspire.tagline": "Dessinez-le, importez-le ou écrivez-le",
   "modes.inspire.description":
-    "Plusieurs approches et angles pour nourrir votre réflexion — à vous de choisir et d'adapter.",
+    "Dessinez un jeu sur la patinoire, importez-en un depuis votre téléphone ou écrivez le vôtre.",
   "modes.build.label": "Construisons un entraînement",
-  "modes.build.tagline": "Développez-le étape par étape, à deux",
+  "modes.build.tagline": "Choisissez vos exercices, puis construisez",
   "modes.build.description":
-    "Répondez à quelques questions rapides et façonnez un entraînement en collaboration — vous décidez à chaque étape.",
+    "Ouvrez une catégorie, ajoutez des exercices de la bibliothèque, lisez la théorie et construisez votre entraînement.",
   "modes.busywork.label": "Occupe-toi des tâches",
   "modes.busywork.tagline": "Passez directement au document terminé",
   "modes.busywork.description":
@@ -629,13 +629,13 @@ const pt: Dictionary = {
   "shortcuts.saved": "{count} salvos",
 
   "modes.inspire.label": "Crie Jogadas",
-  "modes.inspire.tagline": "Receba ideias, não um plano pronto",
+  "modes.inspire.tagline": "Desenhe, importe ou escreva",
   "modes.inspire.description":
-    "Várias abordagens e ângulos para estimular seu próprio raciocínio — você escolhe e personaliza.",
+    "Desenhe uma jogada na pista, traga uma do seu celular ou escreva a sua.",
   "modes.build.label": "Vamos construir um treino",
-  "modes.build.tagline": "Desenvolva passo a passo, em conjunto",
+  "modes.build.tagline": "Escolha seus exercícios e monte o treino",
   "modes.build.description":
-    "Responda algumas perguntas rápidas e molde um treino de forma colaborativa — você decide em cada etapa.",
+    "Abra uma categoria, adicione exercícios da biblioteca, leia a teoria e monte seu treino.",
   "modes.busywork.label": "Cuide da parte burocrática",
   "modes.busywork.tagline": "Vá direto ao material pronto",
   "modes.busywork.description":
@@ -827,11 +827,11 @@ const zh: Dictionary = {
   "shortcuts.saved": "已保存 {count} 项",
 
   "modes.inspire.label": "设计战术",
-  "modes.inspire.tagline": "获得灵感，而非现成方案",
-  "modes.inspire.description": "多种思路和角度，激发你自己的想法——由你来挑选和调整。",
+  "modes.inspire.tagline": "画出来、导入或手动输入",
+  "modes.inspire.description": "在冰场上画战术，导入手机里的战术，或自己输入。",
   "modes.build.label": "陪我一起制定训练",
-  "modes.build.tagline": "一步步共同完成",
-  "modes.build.description": "回答几个简单的问题，共同打造一次训练——每一步都由你决定。",
+  "modes.build.tagline": "先选练习，再生成训练",
+  "modes.build.description": "打开一个分类，从练习库添加练习，阅读理论，然后生成你的训练。",
   "modes.busywork.label": "帮我搞定杂务",
   "modes.busywork.tagline": "直接生成成品材料",
   "modes.busywork.description": "训练表、对手分析报告、评分标准、团队通知——实用的东西，快速搞定。",
