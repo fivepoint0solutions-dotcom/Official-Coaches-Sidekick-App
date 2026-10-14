@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { ModeCard } from "@/components/copilot/ModeCard";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
@@ -115,6 +116,41 @@ function Dashboard() {
               ];
             })}
           </div>
+        </Reveal>
+      </section>
+
+      <section className="container-app pb-10 lg:pb-12" aria-label="Customize your team">
+        <Reveal>
+          <Link
+            to="/help"
+            search={{ open: "settings" }}
+            className="anchor-card-gradient card-tint-inspire group flex flex-col gap-5 p-5 transition-refined hover-lift sm:flex-row sm:items-center"
+          >
+            <span className="rink-frame shrink-0 sm:w-60">
+              <img
+                src="/img/extra-6.jpg"
+                alt="A team wearing their own team colours"
+                loading="lazy"
+                style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+              />
+            </span>
+            <div className="min-w-0">
+              <h3 className="tape-strip inline-block text-xl">Make it yours</h3>
+              <p className="mt-3 text-base leading-snug">Set your team colours and logo — the whole app dresses in them.</p>
+              <div className="mt-3 flex gap-2" aria-hidden="true">
+                <span className="size-8 rounded-full border-2 border-white/60" style={{ background: "linear-gradient(135deg, var(--primary), var(--primary))" }} />
+                <span className="size-8 rounded-full border-2 border-white/60" style={{ background: "#f4f1e8" }} />
+                <span className="size-8 rounded-full border-2 border-white/60" style={{ background: "#101820" }} />
+              </div>
+              <span
+                className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white transition-transform active:scale-[0.98]"
+                style={{ background: "rgba(255,255,255,0.25)", border: "2px solid rgba(255,255,255,0.7)" }}
+              >
+                Customize your team
+                <ArrowRight className="size-4" />
+              </span>
+            </div>
+          </Link>
         </Reveal>
       </section>
 

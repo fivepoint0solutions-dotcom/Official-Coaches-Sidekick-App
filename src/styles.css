@@ -1509,6 +1509,8 @@ html body .badge-pill, html body .chip {
   --ice-dark: linear-gradient(155deg, var(--b0) 0%, var(--b1) 34%, var(--b3) 76%, var(--b5) 100%);
   --ice-mid: linear-gradient(155deg, var(--b1) 0%, var(--b3) 52%, var(--b6) 100%);
   --ice-light: linear-gradient(160deg, #FFFFFF 0%, #E6F1FF 38%, var(--b6) 78%, var(--b5) 100%);
+  /* Label ramp for pale ice plates: black through navy into blue. */
+  --ramp-label: linear-gradient(100deg, var(--b0) 0%, var(--b1) 38%, var(--b2) 62%, var(--b3) 84%, var(--b4) 100%);
 }
 
 @layer utilities {
@@ -1552,6 +1554,22 @@ html body .badge-pill, html body .chip {
     box-shadow: 0 2px 0 rgba(18,63,143,.28), 0 8px 14px -8px rgba(15,23,42,.4), inset 0 1px 0 rgba(255,255,255,.9) !important;
   }
   button.sweep-fill:hover, a.sweep-fill:hover { filter: brightness(1.04); }
+
+  /* A scoreboard panel is dark, but the buttons sitting on it are still pale ice
+     plates — so their label must never be white-on-ice. The team ramp (black
+     through navy into blue) is painted through the glyphs over the same plate. */
+  [data-skin="scoreboard"] :is(button, a, [role="button"]):is(.sweep-fill, .category-tab:not([aria-pressed="true"]), .bg-secondary, .bg-background, .bg-card, .bg-popover, [class*="bg-white"]):not([data-state="on"]):not(.keep-color):not(#_):not(#__) {
+    background-image: var(--ramp-label), var(--ice-gloss), var(--ice-sweep), var(--ice-light) !important;
+    background-clip: text, border-box, border-box, border-box !important;
+    -webkit-background-clip: text, border-box, border-box, border-box !important;
+    color: transparent !important;
+    border-color: var(--b5) !important;
+    text-shadow: none !important;
+  }
+  /* Icons keep their own ink; nested labels stay transparent so the ramp shows through them. */
+  [data-skin="scoreboard"] :is(button, a, [role="button"]):is(.sweep-fill, .category-tab:not([aria-pressed="true"]), .bg-secondary, .bg-background, .bg-card, .bg-popover, [class*="bg-white"]) :is(svg, i) { color: var(--b1) !important; }
+  [data-skin="scoreboard"] :is(button, a, [role="button"]):is(.sweep-fill, .category-tab:not([aria-pressed="true"]), .bg-secondary, .bg-background, .bg-card, .bg-popover, [class*="bg-white"]) :is(span, b, strong, em, small):not(.keep-color) { color: transparent !important; }
+  [data-skin="scoreboard"] :is(button, a, [role="button"]):is(.sweep-fill, .category-tab:not([aria-pressed="true"]), .bg-secondary, .bg-background, .bg-card, .bg-popover, [class*="bg-white"])::before { background-color: color-mix(in oklab, var(--b1) 12%, transparent) !important; }
 
   /* ---- form fields: ice white with a faint sheen (still clearly fields) ---- */
   input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), textarea {

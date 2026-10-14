@@ -9,10 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
 import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
-import { cn } from "@/lib/utils";
 import { useBrandLogo } from "@/lib/brand";
 
 function useHideOnScroll() {
@@ -241,7 +241,7 @@ export function AppHeader() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
+        className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
       >
         <Link
           to="/"
@@ -256,7 +256,7 @@ export function AppHeader() {
             style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
           />
           <span
-            className="font-display font-bold tracking-wide leading-tight min-w-0"
+            className={`font-display font-bold tracking-wide leading-tight min-w-0 ${menuOpen ? "md:hidden" : ""}`}
             style={{
               color: "var(--primary)",
               fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
@@ -267,6 +267,33 @@ export function AppHeader() {
           </span>
         </Link>
 
+        {/* Desktop/tablet: menu links expand horizontally along the top bar */}
+        {menuOpen && (
+          <div className="pointer-events-auto hidden md:flex md:flex-wrap md:items-center md:justify-end md:gap-2">
+            {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMenuOpen(false)}
+                className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 px-4 py-2 text-sm font-bold text-white"
+                activeProps={{ className: "border-white" }}
+              >
+                <item.icon className="size-4" />
+                {t(item.key)}
+              </Link>
+            ))}
+            <Link
+              to="/help"
+              onClick={() => setMenuOpen(false)}
+              className="anchor-card-gradient card-tint-inspire flex items-center gap-2 rounded-full border-2 border-white/25 px-4 py-2 text-sm font-bold text-white"
+              activeProps={{ className: "border-white" }}
+            >
+              <CircleHelp className="size-4" />
+              Help
+            </Link>
+          </div>
+        )}
+
         <div className="pointer-events-auto flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
           <div className="relative">
@@ -275,12 +302,13 @@ export function AppHeader() {
               onClick={() => setMenuOpen((o) => !o)}
               aria-expanded={menuOpen}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95"
+              className="anchor-card-gradient card-tint-inspire grid size-10 place-items-center rounded-full border-2 border-white/30 shadow-lg transition-transform active:scale-95 md:size-8"
             >
-              {menuOpen ? <X className="size-5 text-white" /> : <Menu className="size-5 text-white" />}
+              {menuOpen ? <X className="size-5 text-white md:size-4" /> : <Menu className="size-5 text-white md:size-4" />}
             </button>
+            {/* Phones: the menu drops down as a vertical stack, as it always did */}
             {menuOpen && (
-              <div className="absolute right-0 top-full z-50 mt-2 flex w-52 max-w-[70vw] flex-col items-end gap-2">
+              <div className="absolute right-0 top-full z-50 mt-2 flex w-52 max-w-[70vw] flex-col items-end gap-2 md:hidden">
                 {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
                   <Link
                     key={item.to}

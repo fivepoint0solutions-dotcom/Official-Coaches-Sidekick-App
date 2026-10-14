@@ -7,6 +7,10 @@ import { DisplaySettings } from "@/components/navigation/AppHeader";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/help")({
+  validateSearch: (search: Record<string, unknown>): { open?: string } => {
+    const open = search["open"];
+    return typeof open === "string" ? { open } : {};
+  },
   head: () => ({ meta: [
     { title: "Help — Coach's Sidekick" },
     { name: "description", content: "A step-by-step guide to everything in Coach's Sidekick." },
@@ -102,8 +106,9 @@ function Topic({ topic, open, onToggle }: { topic: GuideTopic; open: boolean; on
 }
 
 function HelpPage() {
+  const search = Route.useSearch();
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const [open, setOpen] = useState<Record<string, boolean>>(() => (search.open ? { [search.open]: true } : {}));
   const q = query.trim().toLowerCase();
   const toggle = (id: string) => setOpen((o) => ({ ...o, [id]: !o[id] }));
 
