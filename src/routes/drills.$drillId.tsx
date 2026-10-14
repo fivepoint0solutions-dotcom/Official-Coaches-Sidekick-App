@@ -84,9 +84,9 @@ function DrillDetailPage() {
       >
         <ArrowLeft className="size-4" /> Back to Drill Library
       </Link>
-      {/* Desktop: one big card holds the header and the drill details. Phones keep the separate header card. */}
-      <div className="mt-6 lg:anchor-card-gradient lg:card-tint-build lg:rounded-3xl lg:p-10">
-        <header className="anchor-card-gradient card-tint-build rounded-3xl p-7 sm:p-10 lg:contents">
+      {/* One card holds the header and the drill details (it takes one of the three hockey designs). */}
+      <div className="card-soft mt-6 rounded-3xl p-6 sm:p-8 lg:p-10">
+        <header>
           <h1 className="text-xl font-bold leading-snug sm:text-2xl">{drill.name}</h1>
           <div className="mt-3 flex flex-wrap gap-5 text-sm font-semibold">
             <span className="flex items-center gap-2">
@@ -126,7 +126,7 @@ function DrillDetailPage() {
             </div>
           </section>
         ) : null}
-        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-2 lg:gap-10 lg:border-t lg:border-white/25 lg:pt-8 lg:text-[0.95rem]">
+        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-2 lg:gap-10 lg:border-t lg:border-foreground/20 lg:pt-8 lg:text-[0.95rem]">
           <div className="space-y-8">
             <section>
               <h2 className="text-title flex items-center gap-2">
