@@ -73,23 +73,13 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
   let glyph: React.ReactNode;
   const role = roleOf(marker.label);
   if (mode === "text" && role) {
-    // No circle or cross: just the position letters, big and in the role colour.
+    // No circle or cross: just the position letters, big, extra bold and in the role colour (heavier than any line on the diagram).
+    const common = { className: "diagram-label", x: cx, y: cy + 1.5 * k, textAnchor: "middle" as const, fontSize: 4.6 * k, fontWeight: 900, strokeLinejoin: "round" as const };
     return (
-      <text
-        className="diagram-label"
-        x={cx}
-        y={cy + 1.5 * k}
-        textAnchor="middle"
-        fontSize={4.4 * k}
-        fontWeight={900}
-        fill={ROLE_COLOR[role]}
-        stroke="#FFFFFF"
-        strokeWidth={1.3 * k}
-        paintOrder="stroke"
-        strokeLinejoin="round"
-      >
-        {marker.label}
-      </text>
+      <g>
+        <text {...common} fill="#FFFFFF" stroke="#FFFFFF" strokeWidth={1.7 * k}>{marker.label}</text>
+        <text {...common} fill={ROLE_COLOR[role]} stroke={ROLE_COLOR[role]} strokeWidth={0.55 * k}>{marker.label}</text>
+      </g>
     );
   }
   if (kind === "defender") {
@@ -195,7 +185,7 @@ export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: numb
   // The line stops at the base of the head so the point stays sharp.
   const trimmed = pts.slice(0, -1).concat([[last[0] - Math.cos(ang) * back, last[1] - Math.sin(ang) * back]]);
   const style = arrow.style ?? "run";
-  const line = style === "dribble" ? wavy(trimmed, 0.7 * k, 7 * k) : trimmed;
+  const line = style === "dribble" ? wavy(trimmed, 0.6 * k, 7 * k) : trimmed;
   const tip = `${last[0]},${last[1]} ${last[0] - Math.cos(ang) * head + Math.sin(ang) * half},${last[1] - Math.sin(ang) * head - Math.cos(ang) * half} ${last[0] - Math.cos(ang) * head - Math.sin(ang) * half},${last[1] - Math.sin(ang) * head + Math.cos(ang) * half}`;
   return (
     <g>
@@ -203,7 +193,7 @@ export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: numb
         points={line.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
         stroke={INK}
-        strokeWidth={0.85 * k}
+        strokeWidth={0.6 * k}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray={style === "pass" ? `${3 * k} ${2.2 * k}` : undefined}
