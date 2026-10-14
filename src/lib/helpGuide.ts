@@ -268,8 +268,8 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         diagram: { kind: "drill-board" },
         steps: [
           "In the drill form, tap Draw a diagram. A board appears.",
-          "Tap a marker tool (Player, Defender, Cone, Ball or Coach), then tap the board to drop one.",
-          "Tap an arrow tool (Run, Pass or Dribble), tap where it starts, then tap where it ends.",
+          "Tap a marker tool (Player, Defender, Goalie, Cone, Puck or Coach), then tap the board to drop one.",
+          "Tap an arrow tool (Skate or Pass), tap where it starts, then tap where it ends.",
           "Tap Pen, then press and drag to draw a freehand line.",
           "Tap Select, then drag a marker to move it.",
           "Tap Eraser, then tap a marker, arrow or line to remove it.",

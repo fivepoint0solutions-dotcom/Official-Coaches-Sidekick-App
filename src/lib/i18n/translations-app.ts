@@ -651,4 +651,6 @@ export const APP_ROWS: [string, string, string, string][] = [
   ["Blue, white and black, blended like ice.", "Azul, blanco y negro, fundidos como el hielo.", "Bleu, blanc et noir, fondus comme de la glace.", "नीला, सफ़ेद और काला, बर्फ़ की तरह घुले-मिले।"],
   ["Color theme", "Tema de color", "Thème de couleurs", "रंग-रूप"],
   ["Show", "Mostrar", "Afficher", "दिखाएँ"],
+  ["Tap a marker tool (Player, Defender, Goalie, Cone, Puck or Coach), then tap the board to drop one.", "Toca una herramienta de marcador (Jugador, Defensa, Portero, Cono, Disco o Entrenador) y luego toca el tablero para colocarlo.", "Touchez un outil de repère (Joueur, Défenseur, Gardien, Cône, Rondelle ou Entraîneur), puis touchez le tableau pour en déposer un.", "कोई मार्कर औज़ार छुएँ (खिलाड़ी, डिफ़ेंडर, गोलकीपर, शंकु, पक या कोच), फिर उसे रखने के लिए बोर्ड छुएँ।"],
+  ["Tap an arrow tool (Skate or Pass), tap where it starts, then tap where it ends.", "Toca una herramienta de flecha (Patinar o Pase), toca donde empieza y luego donde termina.", "Touchez un outil de flèche (Patinage ou Passe), touchez où elle commence, puis où elle se termine.", "कोई तीर औज़ार छुएँ (स्केट या पास), जहाँ वह शुरू होता है वहाँ छुएँ, फिर जहाँ खत्म होता है वहाँ छुएँ।"],
 ];

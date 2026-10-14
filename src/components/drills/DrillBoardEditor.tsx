@@ -52,7 +52,6 @@ const MARKER_TOOLS: { kind: DiagramMarker["kind"]; label: string; Icon: typeof U
 const ARROW_TOOLS: { style: NonNullable<DiagramArrow["style"]>; label: string }[] = [
   { style: "run", label: "Skate" },
   { style: "pass", label: "Pass" },
-  { style: "dribble", label: "Dribble" },
 ];
 
 type Tool =
@@ -349,7 +348,6 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     coach: icon(<><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /></>),
     skate: icon(<path d="M4.5 19L18 6M18 6h-7M18 6v7" />),
     pass: icon(<><path d="M4.5 19L15 8.5" strokeDasharray="2.4 3" /><path d="M18 6h-7M18 6v7" /></>),
-    dribble: icon(<><path d="M3.5 17.5c2-5 3.5-5 5 0s3 5 5 0" /><path d="M14 9l6 .5-.5 6" /></>),
   };
   const pathIcon = (d: string) => (
     <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
@@ -365,7 +363,6 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     { label: "Coach", tool: "marker-coach", glyph: ico.coach },
     { label: "Skate arrow", tool: "arrow-run", glyph: ico.skate },
     { label: "Pass arrow (dashed)", tool: "arrow-pass", glyph: ico.pass },
-    { label: "Dribble arrow (wavy)", tool: "arrow-dribble", glyph: ico.dribble },
   ];
   const rightTools: { label: string; tool: Tool; glyph: ReactNode }[] = [
     { label: "Straight line", tool: "path-line", glyph: pathIcon("M5 19L19 5") },
