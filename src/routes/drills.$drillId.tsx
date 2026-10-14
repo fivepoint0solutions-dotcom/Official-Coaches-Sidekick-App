@@ -120,7 +120,7 @@ function DrillDetailPage() {
               </Button>
             </div>
             <div className={`mx-auto mt-3 w-full ${/^(PPP|PKP)-/.test(drill.id) ? "max-w-[36rem]" : "max-w-[24rem]"}`}>
-              <DrillDiagram key={playing ? "anim" : "still"} diagram={drill.diagram} id={drill.id} legend animate={playing} />
+              <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} />
             </div>
           </section>
         ) : null}

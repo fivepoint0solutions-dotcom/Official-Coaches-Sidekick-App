@@ -1,4 +1,5 @@
-import type React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 import { playSteps } from "@/data/playTiming";
 
@@ -357,6 +358,7 @@ export function DrillDiagram({
   framed = true,
   legend = false,
   animate = false,
+  zoomable = false,
 }: {
   diagram: DrillDiagramSpec;
   id: string;
@@ -368,6 +370,8 @@ export function DrillDiagram({
   legend?: boolean;
   /** Loop the drill: players skate their arrows and the puck follows the passes. */
   animate?: boolean;
+  /** Zoom buttons, pinch and drag to look closer at the diagram. */
+  zoomable?: boolean;
 }) {
   const spec = toRink(diagram);
   const Surface = SURFACE_COMPONENTS[spec.surface];
@@ -382,12 +386,17 @@ export function DrillDiagram({
   const modeFor = (m: DiagramMarker): "glyph" | "text" | "glyph-nolabel" =>
     !roleOf(m.label) || !coached ? "glyph" : m.kind === coached ? "text" : "glyph-nolabel";
 
+  // In a play, the other team is only drawn where it takes part (a pass to or from it). Players just standing around are left off.
+  const ends: [number, number][] = (spec.arrows ?? []).flatMap((a) => [a.from, a.to]);
+  const standingAround = (m: DiagramMarker) =>
+    /^(PPP|PKP)-/.test(id) && coached !== null && m.kind !== coached && (m.kind === "player" || m.kind === "defender") && !ends.some((e) => Math.hypot(e[0] - m.x, e[1] - m.y) <= 5.5);
+
   // Plays only use part of the rink, so zoom in on the part that matters (top or bottom of the ice).
   const isPlay = isRink && /^(PPP|PKP)-/.test(id);
   let yMin = 0;
   let yMax = 100;
   if (isPlay) {
-    const ys: number[] = [...spec.markers.map((m) => m.y), ...(spec.arrows ?? []).flatMap((a) => [a.from[1], a.to[1], ...(a.via ?? []).map((v) => v[1])])];
+    const ys: number[] = [...spec.markers.filter((m) => !standingAround(m)).map((m) => m.y), ...(spec.arrows ?? []).flatMap((a) => [a.from[1], a.to[1], ...(a.via ?? []).map((v) => v[1])])];
     yMin = Math.max(0, Math.min(...ys) - 9);
     yMax = Math.min(100, Math.max(...ys) + 9);
     if (yMax - yMin < 50) {
@@ -400,13 +409,84 @@ export function DrillDiagram({
   const frac = (yMax - yMin) / 100;
   const cropped = frac < 0.999;
 
+
+  // Zoom and pan: + / − buttons, pinch, Ctrl + wheel, drag when zoomed in.
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState({ s: 1, tx: 0, ty: 0 });
+  const pointers = useRef(new Map<number, { x: number; y: number }>());
+  const pinchRef = useRef<{ dist: number } | null>(null);
+  const clampZoom = (s: number, tx: number, ty: number) => {
+    const ns = Math.min(4, Math.max(1, s));
+    const lim = (ns - 1) * 100;
+    return { s: ns, tx: Math.min(0, Math.max(-lim, tx)), ty: Math.min(0, Math.max(-lim, ty)) };
+  };
+  const zoomAt = (factor: number, fx = 0.5, fy = 0.5) =>
+    setZoom((z) => {
+      const ns = Math.min(4, Math.max(1, z.s * factor));
+      const px = (fx * 100 - z.tx) / z.s;
+      const py = (fy * 100 - z.ty) / z.s;
+      return ns === 1 ? { s: 1, tx: 0, ty: 0 } : clampZoom(ns, fx * 100 - px * ns, fy * 100 - py * ns);
+    });
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!zoomable || !el) return undefined;
+    const onWheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const r = el.getBoundingClientRect();
+      zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [zoomable]);
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (!zoomable || (e.target as HTMLElement).closest("button")) return;
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.current.size === 2) {
+      const [a, b] = [...pointers.current.values()];
+      pinchRef.current = { dist: Math.hypot(a!.x - b!.x, a!.y - b!.y) };
+    }
+    if (zoom.s > 1 || pointers.current.size > 1) (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const prev = pointers.current.get(e.pointerId);
+    if (!prev || !boxRef.current) return;
+    const r = boxRef.current.getBoundingClientRect();
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.current.size === 2 && pinchRef.current) {
+      const [a, b] = [...pointers.current.values()];
+      const dist = Math.hypot(a!.x - b!.x, a!.y - b!.y);
+      const factor = dist / (pinchRef.current.dist || dist);
+      pinchRef.current = { dist };
+      zoomAt(factor, ((a!.x + b!.x) / 2 - r.left) / r.width, ((a!.y + b!.y) / 2 - r.top) / r.height);
+    } else if (pointers.current.size === 1 && zoom.s > 1) {
+      const dx = ((e.clientX - prev.x) / r.width) * 100;
+      const dy = ((e.clientY - prev.y) / r.height) * 100;
+      setZoom((z) => clampZoom(z.s, z.tx + dx, z.ty + dy));
+    }
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2) pinchRef.current = null;
+  };
+
   return (
     <div data-diagram={id}>
       <div
+        ref={boxRef}
         className={isRink ? "relative block w-full overflow-hidden" : "relative w-full overflow-hidden rounded-xl shadow-inner"}
-        style={{ aspectRatio: `${w} / ${h * frac}` }}
+        style={{ aspectRatio: `${w} / ${h * frac}`, ...(zoomable ? { touchAction: zoom.s > 1 ? "none" : "pan-y" } : {}) }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
       >
         <div
+          className="absolute inset-0"
+          style={zoom.s > 1 ? { transform: `translate(${zoom.tx}%, ${zoom.ty}%) scale(${zoom.s})`, transformOrigin: "0 0" } : undefined}
+        >
+        <div
+          key={animate ? "anim" : "still"}
           className="absolute left-0 w-full"
           style={cropped ? { height: `${100 / frac}%`, top: `${-(yMin / 100 / frac) * 100}%` } : { top: 0, height: "100%" }}
         >
@@ -421,6 +501,7 @@ export function DrillDiagram({
               <Stroke key={i} stroke={stroke} w={w} h={h} />
             ))}
             {spec.markers.map((marker, i) => {
+              if (standingAround(marker)) return null;
               const m = motion?.moves.get(i) ?? motion?.carried.get(i);
               const fade = motion?.hidden.has(i);
               return (
@@ -440,6 +521,14 @@ export function DrillDiagram({
             ))}
           </svg>
         </div>
+        </div>
+        {zoomable ? (
+          <div className="absolute right-2 top-2 z-10 flex gap-1.5">
+            <button type="button" aria-label="Zoom in" onClick={() => zoomAt(1.4)} className="grid size-9 place-items-center rounded-lg border-2 border-[#94A3B8] bg-white/95 text-[#0F172A] shadow"><ZoomIn className="size-5" /></button>
+            <button type="button" aria-label="Zoom out" onClick={() => zoomAt(1 / 1.4)} disabled={zoom.s <= 1} className="grid size-9 place-items-center rounded-lg border-2 border-[#94A3B8] bg-white/95 text-[#0F172A] shadow disabled:opacity-40"><ZoomOut className="size-5" /></button>
+            {zoom.s > 1 ? <button type="button" aria-label="Reset zoom" onClick={() => setZoom({ s: 1, tx: 0, ty: 0 })} className="grid size-9 place-items-center rounded-lg border-2 border-[#94A3B8] bg-white/95 text-[#0F172A] shadow"><RotateCcw className="size-5" /></button> : null}
+          </div>
+        ) : null}
       </div>
       {legend && isRink ? <Legend roles={Boolean(coached)} /> : null}
     </div>
