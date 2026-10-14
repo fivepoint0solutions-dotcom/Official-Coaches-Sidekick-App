@@ -120,8 +120,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         steps: [
           "On the Dashboard, tap Draw Up Plays.",
           "Tap Draw a new play, name it, and draw it on the rink: drop players and cones, draw skating and passing lines.",
-          "Already have a play on your phone? Tap Bring in one from my phone and pick the picture.",
-          "Or just type the play in as notes. Tap Save play.",
+          "Or just type the play in as notes. You can upload a picture of one too. Tap Save play.",
           "Your plays are listed under My plays. Tap Edit to change one or the bin to delete it.",
         ],
         tips: ["Plays stay in Draw Up Plays. They are never pulled into a practice unless you add a drill yourself."],
@@ -136,7 +135,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
           "Inside a category, Drills shows every drill with its diagram. Tap Add to practice on the ones you want, or See the whole drill to read it first.",
           "Theory is the short version of that category: what to teach and why, with diagrams.",
           "When you have your drills, tap Build my practice. Every drill appears in full: setup, steps, coaching points and diagram. Reorder or remove drills, then tap Save or Print.",
-          "Need one that is not in the library? Tap Upload a drill at the top of the page.",
+          "Need one that is not in the library? Tap Open a drill to pick one from the library, or Upload a drill to bring in your own. Both are at the top of every planning page.",
         ],
       },
       {

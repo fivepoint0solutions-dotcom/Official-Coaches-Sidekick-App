@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PuckIcon } from "@/components/icons/HockeyIcons";
 import { DrillDiagram } from "@/components/drills/DrillDiagram";
 import { DrillSheet } from "@/components/drills/DrillSheet";
-import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
+import { DrillButtons } from "@/components/drills/DrillButtons";
 import { DrillRow } from "@/components/practice/DrillRow";
 import { TheoryView } from "@/components/practice/TheoryView";
 import { drillCategories, drillLibrary, drillsInCategory, type Drill, type DrillCategory } from "@/data/drillLibrary";
@@ -55,7 +55,7 @@ export function BuildPracticePage() {
           <p className="text-body mt-2 text-muted-foreground">Pick your drills, read the theory, then build your practice.</p>
         </div>
       </div>
-      <UploadDrillButton />
+      <DrillButtons />
     </div>
   );
 
@@ -67,7 +67,7 @@ export function BuildPracticePage() {
           <div className="flex flex-wrap items-center gap-3 print:hidden">
             <label className="min-w-0 flex-1">
               <span className="sr-only">Practice name</span>
-              <input className="w-full rounded-lg border-2 border-[#1d1b16] bg-[#FFFDF6] px-3 py-2 text-lg font-extrabold" value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input className="w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-lg font-extrabold" value={title} onChange={(e) => setTitle(e.target.value)} />
             </label>
             <Button type="button" variant="outline" size="lg" onClick={() => setStage("pick")}>Back to drills</Button>
             <Button type="button" variant="cta" size="lg" onClick={savePractice}><Save /> Save</Button>
