@@ -108,6 +108,15 @@ type Props = {
  * directly on the chosen sport surface. Edits apply live via onChange so a parent can save the result. */
 export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
+  // On desktop the hockey rink lies sideways (wide); on phones it stays upright.
+  const [wide, setWide] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setWide(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   // "around": the rink stays centred with buttons down both sides. "left": every button on the left, rink flush right.
   const [toolsLayout, setToolsLayout] = useState<"around" | "left">("around");
   useEffect(() => {
@@ -126,6 +135,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
 
   const { w, h } = SURFACE_VIEWBOX[value.surface];
   const Surface = SURFACE_COMPONENTS[value.surface];
+  const landscape = wide && value.surface === "hockey-rink" && !value.backgroundImage;
 
   function pushHistory() {
     setHistory((prev) => [...prev.slice(-(HISTORY_LIMIT - 1)), value]);
@@ -164,9 +174,11 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     const svg = svgRef.current;
     if (!svg) return [0, 0];
     const rect = svg.getBoundingClientRect();
-    const x = clamp(((event.clientX - rect.left) / rect.width) * 100, 0, 100);
-    const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 0, 100);
-    return [x, y];
+    const fx = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+    const fy = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+    // Sideways rink: the board is turned a quarter turn, so a click maps back to the upright drawing.
+    if (landscape) return [(1 - fy) * 100, fx * 100];
+    return [fx * 100, fy * 100];
   }
 
   function nearestMarkerIndex(point: [number, number]) {
@@ -544,11 +556,18 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   );
 
   const rink = (
-    <div className="w-[min(18rem,calc(100vw-8.5rem))] shrink-0 lg:mx-auto lg:w-full lg:max-w-[23rem]" style={value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}>
+    <div
+      className={landscape ? "w-full min-w-0 lg:mx-auto" : "w-[min(18rem,calc(100vw-8.5rem))] shrink-0 lg:mx-auto lg:w-full lg:max-w-[23rem]"}
+      style={landscape ? { maxWidth: "min(100%, calc((100dvh - 16rem) * 2.05))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
+    >
       <div
         className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}
-        style={{ aspectRatio: `${w} / ${h}` }}
+        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}` }}
       >
+        <div
+          className={landscape ? "absolute" : "contents"}
+          style={landscape ? { left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" } : undefined}
+        >
         <div className="absolute inset-0">
           {value.backgroundImage ? <img src={value.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
         </div>
@@ -592,10 +611,13 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
               }}
             >
               <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={4 * (w / 100)} fill="transparent" />
-              <Marker marker={marker} w={w} h={h} />
+              <g transform={landscape ? `rotate(90 ${pct(marker.x, w)} ${pct(marker.y, h)})` : undefined}>
+                <Marker marker={marker} w={w} h={h} />
+              </g>
             </g>
           ))}
         </svg>
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { Camera, PenLine, Trash2, Save, X } from "lucide-react";
+import { Camera, PenLine, Plus, Trash2, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlayIcon } from "@/components/icons/HockeyIcons";
 import { DrillBoardEditor } from "@/components/drills/DrillBoardEditor";
 import { type DrillDiagramSpec } from "@/components/drills/DrillDiagram";
 import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
 import { DrillButtons } from "@/components/drills/DrillButtons";
-import { deletePlay, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
+import { ShareBar } from "@/components/share/ShareBar";
+import { deletePlay, listPlays, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
 
 const BLANK: DrillDiagramSpec = { surface: "hockey-rink", v: 2, markers: [], arrows: [], strokes: [] };
 
@@ -15,10 +16,10 @@ const BLANK: DrillDiagramSpec = { surface: "hockey-rink", v: 2, markers: [], arr
 export function DrawUpPlaysPage() {
   const plays = usePlays();
   const fileRef = useRef<HTMLInputElement>(null);
-  const [editing, setEditing] = useState<string | "new" | null>(null);
+  const [editing, setEditing] = useState<string | "new" | null>("new");
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
-  const [diagram, setDiagram] = useState<DrillDiagramSpec | null>(null);
+  const [diagram, setDiagram] = useState<DrillDiagramSpec | null>(BLANK);
   const [photo, setPhoto] = useState<string | undefined>();
   const [busy, setBusy] = useState(false);
 
@@ -28,10 +29,16 @@ export function DrawUpPlaysPage() {
     setNotes(play?.notes ?? "");
     setDiagram(play?.diagram ?? null);
     setPhoto(play?.photo);
+    if (play) window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  /** Back to a fresh, empty rink. */
   function cancel() {
-    setEditing(null);
+    setEditing("new");
+    setName("");
+    setNotes("");
+    setDiagram(BLANK);
+    setPhoto(undefined);
   }
 
   async function onPhoto(e: React.ChangeEvent<HTMLInputElement>) {
@@ -68,30 +75,33 @@ export function DrawUpPlaysPage() {
       return;
     }
     toast.success("Play saved");
-    setEditing(null);
+    if (editing === "new") setEditing(listPlays()[0]?.id ?? "new"); // stay on it, so Print / PDF / Send work right away
   }
 
   return (
-    <div className={editing ? "container-app card-tint-inspire py-1 lg:py-1" : "container-app card-tint-inspire py-8 lg:py-10"}>
-      {editing ? (
-        <h1 className="sr-only">Draw Up Plays</h1>
-      ) : (
-        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <span className="mt-2 shrink-0"><PlayIcon size={46} /></span>
-            <div>
-              <h1 className="tape-strip text-headline text-3xl">Draw Up Plays</h1>
-              <p className="text-body mt-2 text-muted-foreground">Draw a play on the rink, or type your own.</p>
-            </div>
-          </div>
-          <DrillButtons />
+    <div className="container-app card-tint-inspire py-3 lg:py-3">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3 print:hidden">
+        <div className="flex items-center gap-3">
+          <span className="shrink-0"><PlayIcon size={38} /></span>
+          <h1 className="tape-strip text-headline text-2xl">Draw Up Plays</h1>
         </div>
-      )}
+        <div className="flex flex-wrap items-center gap-3">
+          <DrillButtons />
+          <ShareBar title={name || "Play"} text={`${name || "Play"}${notes.trim() ? `\n\n${notes.trim()}` : ""}`} />
+        </div>
+      </div>
+
+      {name.trim() || notes.trim() ? (
+        <div className="hidden print:block">
+          <h2 className="text-headline">{name}</h2>
+          {notes.trim() ? <p className="text-body mt-2 whitespace-pre-line">{notes}</p> : null}
+        </div>
+      ) : null}
 
       {editing ? (
         (() => {
           const renderFields = (toolsButton?: React.ReactNode) => (
-            <div className="space-y-4 px-2 sm:px-0">
+            <div className="space-y-4 px-2 sm:px-0 print:hidden">
               <label className="block">
                 <span className="text-title">Name</span>
                 <input className="mt-1 w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
@@ -125,12 +135,12 @@ export function DrawUpPlaysPage() {
             </div>
           ) : null;
           const actions = (
-            <div className="flex flex-wrap items-center gap-2 px-2 sm:px-0">
-              <Button type="button" variant="cta" size="icon" onClick={save} aria-label="Save play">
-                <Save />
+            <div className="flex flex-wrap items-center gap-2 px-2 sm:px-0 print:hidden">
+              <Button type="button" variant="cta" size="lg" onClick={save}>
+                <Save /> Save play
               </Button>
-              <Button type="button" variant="outline" size="icon" onClick={cancel} aria-label="Cancel">
-                <X />
+              <Button type="button" variant="outline" size="lg" onClick={cancel}>
+                <Plus /> New play
               </Button>
             </div>
           );
@@ -146,15 +156,15 @@ export function DrawUpPlaysPage() {
           // With a drawing: the rink sits on the left and name, notes, every drawing control and Save sit to its right.
           // On a phone it stacks: name and notes, the controls, the rink (centred), then Save.
           return (
-            <section className="card-soft draw-wide mx-auto max-w-6xl p-2 sm:p-7" aria-label="New play">
+            <section className="card-soft draw-wide mx-auto max-w-7xl p-2 sm:p-7" aria-label="New play">
               <DrillBoardEditor
                 value={diagram}
                 onChange={setDiagram}
                 layout={({ controls, board, toolsButton }) => (
-                  <div className="grid gap-5 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:content-start lg:gap-8">
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1.9fr)_minmax(18rem,1fr)] lg:content-start lg:gap-8">
                     <div className="order-3 lg:order-none lg:col-start-1 lg:row-span-4 lg:row-start-1">{board}</div>
                     <div className="order-1 lg:order-none lg:col-start-2 lg:row-start-1">{renderFields(toolsButton)}</div>
-                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2">{controls}</div>
+                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-2 print:hidden">{controls}</div>
                     {photoBlock ? <div className="order-4 lg:order-none lg:col-start-2 lg:row-start-3">{photoBlock}</div> : null}
                     <div className="order-5 lg:order-none lg:col-start-2 lg:row-start-4">{actions}</div>
                   </div>
@@ -163,13 +173,9 @@ export function DrawUpPlaysPage() {
             </section>
           );
         })()
-      ) : (
-        <>
-          <div className="mb-6 flex flex-wrap gap-3">
-            <Button type="button" variant="cta" size="lg" onClick={() => start()}><PenLine /> Draw a new play</Button>
+      ) : null}
 
-          </div>
-
+      <div className="mt-8 print:hidden">
           <h2 className="text-title mb-3">My plays</h2>
           {plays.length === 0 ? (
             <p className="text-body">No plays yet. Draw one, add a photo, or type your own notes.</p>
@@ -189,8 +195,7 @@ export function DrawUpPlaysPage() {
               ))}
             </div>
           )}
-        </>
-      )}
+      </div>
     </div>
   );
 }

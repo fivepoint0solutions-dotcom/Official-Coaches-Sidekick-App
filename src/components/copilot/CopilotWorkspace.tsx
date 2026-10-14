@@ -11,6 +11,7 @@ import { BuildPanel } from "./panels/BuildPanel";
 import { BusyworkPanel } from "./panels/BusyworkPanel";
 import { ChallengePanel } from "./panels/ChallengePanel";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { ShareBar } from "@/components/share/ShareBar";
 
 type CopilotWorkspaceProps = {
   draftId?: string | undefined;
@@ -88,6 +89,13 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
       {draft.mode === "build" && <BuildPanel {...panelProps} />}
       {draft.mode === "busywork" && <BusyworkPanel {...panelProps} />}
       {draft.mode === "challenge" && <ChallengePanel {...panelProps} />}
+      {(draft.mode === "busywork" || draft.mode === "challenge") && (draft.blocks ?? []).length > 0 ? (
+        <ShareBar
+          className="mt-6"
+          title={config.label}
+          text={(draft.blocks ?? []).map((b) => `${b.heading}\n${b.body}`).join("\n\n")}
+        />
+      ) : null}
     </div>
   );
 }

@@ -1779,3 +1779,10 @@ html body .badge-pill, html body .chip {
     border-radius: 14px !important;
   }
 }
+
+/* Printing and Save as PDF: just the page content, no header, floating buttons or banners. */
+@media print {
+  header, .fixed { display: none !important; }
+  body { background: #fff !important; }
+  .beta-banner-clearance { padding: 0 !important; min-height: 0 !important; }
+}

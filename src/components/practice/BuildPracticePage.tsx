@@ -2,12 +2,13 @@ import { zoneHint } from "@/lib/drillZone";
 import { isFullIceDiagram } from "@/components/drills/DrillDiagram";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { ArrowDown, ArrowUp, ArrowRight, Printer, Save, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowRight, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PuckIcon } from "@/components/icons/HockeyIcons";
 import { DrillDiagram } from "@/components/drills/DrillDiagram";
 import { DrillSheet } from "@/components/drills/DrillSheet";
 import { DrillButtons } from "@/components/drills/DrillButtons";
+import { ShareBar } from "@/components/share/ShareBar";
 import { DrillRow } from "@/components/practice/DrillRow";
 import { TheoryView } from "@/components/practice/TheoryView";
 import { drillCategories, drillLibrary, drillsInCategory, type Drill, type DrillCategory } from "@/data/drillLibrary";
@@ -48,8 +49,14 @@ export function BuildPracticePage() {
     toast.success("Practice saved", { description: "Find it under My Practices." });
   }
 
+  const practiceText = [
+    title.trim() || "My practice",
+    `${picked.length} ${picked.length === 1 ? "drill" : "drills"}${minutes ? ` · about ${minutes} min` : ""}`,
+    ...picked.map((d, i) => `${i + 1}. ${d.name} (${d.duration})\n   Setup: ${d.setup}\n${d.steps.map((st, n) => `   ${n + 1}) ${st}`).join("\n")}`),
+  ].join("\n\n");
+
   const header = (
-    <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+    <div className="mb-6 flex flex-wrap items-start justify-between gap-4 print:hidden">
       <div className="flex items-start gap-3">
         <span className="mt-2 shrink-0"><PuckIcon size={46} /></span>
         <div>
@@ -73,8 +80,8 @@ export function BuildPracticePage() {
             </label>
             <Button type="button" variant="outline" size="lg" onClick={() => setStage("pick")}>Back to drills</Button>
             <Button type="button" variant="cta" size="lg" onClick={savePractice}><Save /> Save</Button>
-            <Button type="button" variant="outline" size="lg" onClick={() => window.print()}><Printer /> Print</Button>
           </div>
+          <ShareBar title={title.trim() || "My practice"} text={practiceText} />
           <p className="font-extrabold">{picked.length} {picked.length === 1 ? "drill" : "drills"}{minutes ? ` · about ${minutes} min` : ""}</p>
           {picked.map((d, i) => (
             <article key={d.id} className="card-soft space-y-3 p-5 sm:p-6">
