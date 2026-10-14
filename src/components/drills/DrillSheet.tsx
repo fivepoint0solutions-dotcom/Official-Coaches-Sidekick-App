@@ -5,7 +5,7 @@ import { Clock3, ListChecks, Package, Pencil, Trash2, Users } from "lucide-react
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Drill } from "@/data/drillLibrary";
-import { DrillDiagram } from "@/components/drills/DrillDiagram";
+import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
 import { deleteUserDrill, isUserDrillId } from "@/lib/userDrills";
 
 /** Popup with the whole drill: name, time, age, rink diagram, equipment, setup, steps and coaching points. */
@@ -46,7 +46,7 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
 
             {drill.diagram ? (
               <div className="mx-auto mt-4 w-full max-w-[22rem]">
-                <DrillDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} legend zone={zoneHint(drill)} landscape={isFullIceDiagram(drill.diagram, `sheet-${drill.id}`, zoneHint(drill))} />
+                <PlayableDiagram diagram={drill.diagram} id={`sheet-${drill.id}`} framed={false} legend zone={zoneHint(drill)} landscape={isFullIceDiagram(drill.diagram, `sheet-${drill.id}`, zoneHint(drill))} />
               </div>
             ) : null}
 

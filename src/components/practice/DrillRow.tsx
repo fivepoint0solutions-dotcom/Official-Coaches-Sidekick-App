@@ -1,5 +1,6 @@
 import { Check, Plus } from "lucide-react";
-import { DrillDiagram, isFullIceDiagram } from "@/components/drills/DrillDiagram";
+import { isFullIceDiagram } from "@/components/drills/DrillDiagram";
+import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
 import { Button } from "@/components/ui/button";
 import type { Drill } from "@/data/drillLibrary";
 import { zoneHint } from "@/lib/drillZone";
@@ -26,7 +27,7 @@ export function DrillRow({
     <article className="card-soft ice-lib ice-texture relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
       {drill.diagram && !full ? (
         <div className="w-full">
-          <DrillDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} />
+          <PlayableDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} />
         </div>
       ) : (
         <div className="flex items-start justify-center pt-2" aria-hidden="true">
@@ -42,7 +43,7 @@ export function DrillRow({
         <p className="text-body mt-2 max-sm:line-clamp-4 max-sm:text-sm">{drill.setup}</p>
         {drill.diagram && full ? (
           <div className="mt-3 w-full">
-            <DrillDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} landscape />
+            <PlayableDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} landscape />
           </div>
         ) : null}
         <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-4 sm:gap-3">

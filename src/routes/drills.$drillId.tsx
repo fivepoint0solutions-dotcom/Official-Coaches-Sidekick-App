@@ -36,7 +36,7 @@ function DrillDetailPage() {
   const [drill, setDrill] = useState<Drill | null>(loaderDrill);
   const [isCustom, setIsCustom] = useState(false);
   const [checked, setChecked] = useState(Boolean(loaderDrill));
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true); // plays loop on their own; the button pauses them
 
   useEffect(() => {
     if (loaderDrill) {

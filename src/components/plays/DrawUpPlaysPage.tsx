@@ -4,7 +4,8 @@ import { Camera, PenLine, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlayIcon } from "@/components/icons/HockeyIcons";
 import { DrillBoardEditor } from "@/components/drills/DrillBoardEditor";
-import { DrillDiagram, type DrillDiagramSpec } from "@/components/drills/DrillDiagram";
+import { type DrillDiagramSpec } from "@/components/drills/DrillDiagram";
+import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
 import { DrillButtons } from "@/components/drills/DrillButtons";
 import { deletePlay, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
 
@@ -166,7 +167,7 @@ export function DrawUpPlaysPage() {
               {plays.map((p) => (
                 <article key={p.id} className="card-soft space-y-3 p-4">
                   <h3 className="text-title">{p.name}</h3>
-                  {p.diagram ? <DrillDiagram diagram={p.diagram} id={`play-${p.id}`} framed={false} /> : null}
+                  {p.diagram ? <PlayableDiagram diagram={p.diagram} id={`play-${p.id}`} framed={false} /> : null}
                   {p.photo ? <img src={p.photo} alt={p.name} className="w-full rounded-lg border-2 border-[#0b0d12]" loading="lazy" /> : null}
                   {p.notes ? <p className="text-body whitespace-pre-line">{p.notes}</p> : null}
                   <div className="flex gap-2">
