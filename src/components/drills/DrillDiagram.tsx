@@ -515,7 +515,7 @@ export function DrillDiagram({
   };
 
   return (
-    <div data-diagram={id} style={zoomable && !cropped ? { maxWidth: "24rem", marginInline: "auto" } : undefined}>
+    <div data-diagram={id} style={zoomable && !cropped && !flat ? { maxWidth: "24rem", marginInline: "auto" } : undefined}>
       <div
         ref={boxRef}
         className={isRink ? "relative block w-full overflow-hidden" : "relative w-full overflow-hidden rounded-xl shadow-inner"}
@@ -536,7 +536,7 @@ export function DrillDiagram({
         >
           {flat ? (
             <div className="absolute" style={{ left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" }}>
-              <Surface />
+              <Surface logoTurn={90} />
             </div>
           ) : (
             <div className="absolute inset-0">
