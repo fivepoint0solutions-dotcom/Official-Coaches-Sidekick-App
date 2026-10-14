@@ -85,7 +85,7 @@ function Dashboard() {
       <section className="container-app pt-4 pb-10 lg:pb-12">
         <p className="flow-cue" aria-hidden="true">Pick a mode to start <span>↓</span></p>
         <Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="mode-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             {modes.flatMap((mode) => {
               const card = <ModeCard key={mode.id} mode={mode} />;
               if (mode.id !== "build") return [card];
