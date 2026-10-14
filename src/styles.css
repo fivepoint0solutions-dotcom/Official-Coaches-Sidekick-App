@@ -1744,3 +1744,29 @@ html body .badge-pill, html body .chip {
       inset 0 -4px 7px rgba(0,0,0,.6) !important;
   }
 }
+
+/* Phone draw tools: small, identical, see-through buttons that sit on the ice so the rink shows through. */
+@layer utilities {
+  button.rink-tool:not(#_):not(#__):not(#___) {
+    border-radius: 9px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    background-image: none !important;
+    border: 1.5px solid rgba(11, 31, 77, 0.55) !important;
+    box-shadow: none !important;
+    animation: none !important;
+    color: #0B1F4D !important;
+    -webkit-text-fill-color: #0B1F4D !important;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.9) !important;
+    filter: none !important;
+  }
+  button.rink-tool:not(#_):not(#__):not(#___) :is(svg, span):not(#_):not(#__) {
+    color: #0B1F4D !important;
+    -webkit-text-fill-color: #0B1F4D !important;
+    stroke: currentColor;
+  }
+  button.rink-tool.rink-tool-on:not(#_):not(#__):not(#___) {
+    background: rgba(31, 95, 200, 0.38) !important;
+    border-color: #1F5FC8 !important;
+    box-shadow: 0 0 0 2px rgba(31, 95, 200, 0.9) !important;
+  }
+}
