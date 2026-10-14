@@ -109,16 +109,13 @@ type Props = {
  * directly on the chosen sport surface. Edits apply live via onChange so a parent can save the result. */
 export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
-  // Phones: the small tool buttons float over the ice; the chevron hides or shows them.
-  const [paletteOpen, setPaletteOpen] = useState(true);
   // "around": the rink stays centred with buttons down both sides. "left": every button on the left, rink flush right.
   const [toolsLayout, setToolsLayout] = useState<"around" | "left">("around");
   useEffect(() => {
     const asked = new URLSearchParams(window.location.search).get("tools");
     if (asked === "left" || asked === "around") setToolsLayout(asked);
   }, []);
-  const [toolsSeen, setToolsSeen] = useState(false);
-  const pickTool = (t: Tool) => { setTool(t); setToolsSeen(true); };
+  const pickTool = (t: Tool) => setTool(t);
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
@@ -339,21 +336,36 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   }
 
   // ── Phones: every tool as one small, identical, see-through button on the rink itself ──
+  const icon = (children: ReactNode) => (
+    <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
+  );
+  // Each button draws the same thing you will see on the rink.
+  const ico = {
+    player: icon(<circle cx="12" cy="12" r="6.5" fill="#FFFFFF" stroke="#1F5FC8" strokeWidth={2.6} />),
+    defender: icon(<path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="#B3261E" strokeWidth={2.8} />),
+    goalie: icon(<><circle cx="12" cy="12" r="8" fill="#0B1F4D" stroke="none" /><text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="800" fill="#FFFFFF" stroke="none">G</text></>),
+    cone: icon(<path d="M12 4.5l7 14H5z" fill="#F59E0B" stroke="#123f8f" strokeWidth={1.6} />),
+    puck: icon(<circle cx="12" cy="12" r="4.5" fill="#0B1F4D" stroke="none" />),
+    coach: icon(<><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /></>),
+    skate: icon(<path d="M4.5 19L18 6M18 6h-7M18 6v7" />),
+    pass: icon(<><path d="M4.5 19L15 8.5" strokeDasharray="2.4 3" /><path d="M18 6h-7M18 6v7" /></>),
+    dribble: icon(<><path d="M3.5 17.5c2-5 3.5-5 5 0s3 5 5 0" /><path d="M14 9l6 .5-.5 6" /></>),
+  };
   const pathIcon = (d: string) => (
-    <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
+    <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
   );
   const choose = (next: Tool) => () => { pickTool(next); setArrowStart(null); setNotice(""); };
   const leftTools: { label: string; tool: Tool; glyph: ReactNode }[] = [
-    { label: "Move", tool: "select", glyph: <MousePointer2 className="size-4" /> },
-    { label: "Player (O)", tool: "marker-player", glyph: "O" },
-    { label: "Defender (X)", tool: "marker-defender", glyph: "X" },
-    { label: "Goalie", tool: "marker-goalie", glyph: "G" },
-    { label: "Cone", tool: "marker-cone", glyph: "C" },
-    { label: "Puck", tool: "marker-ball", glyph: "PK" },
-    { label: "Coach", tool: "marker-coach", glyph: "CO" },
-    { label: "Skate arrow", tool: "arrow-run", glyph: "SK" },
-    { label: "Pass arrow", tool: "arrow-pass", glyph: "P" },
-    { label: "Dribble arrow", tool: "arrow-dribble", glyph: "D" },
+    { label: "Move", tool: "select", glyph: <MousePointer2 className="size-5" /> },
+    { label: "Player", tool: "marker-player", glyph: ico.player },
+    { label: "Defender", tool: "marker-defender", glyph: ico.defender },
+    { label: "Goalie", tool: "marker-goalie", glyph: ico.goalie },
+    { label: "Cone", tool: "marker-cone", glyph: ico.cone },
+    { label: "Puck", tool: "marker-ball", glyph: ico.puck },
+    { label: "Coach", tool: "marker-coach", glyph: ico.coach },
+    { label: "Skate arrow", tool: "arrow-run", glyph: ico.skate },
+    { label: "Pass arrow (dashed)", tool: "arrow-pass", glyph: ico.pass },
+    { label: "Dribble arrow (wavy)", tool: "arrow-dribble", glyph: ico.dribble },
   ];
   const rightTools: { label: string; tool: Tool; glyph: ReactNode }[] = [
     { label: "Straight line", tool: "path-line", glyph: pathIcon("M5 19L19 5") },
@@ -369,11 +381,11 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       <MiniBtn key={t.tool} label={t.label} active={tool === t.tool} onClick={choose(t.tool)}>{t.glyph}</MiniBtn>
     )),
     <MiniBtn key="weave" label="Weave through cones" onClick={weaveCones}>{pathIcon("M3 12c3-6 5-6 6 0s3 6 6 0 3-6 6 0")}</MiniBtn>,
-    <MiniBtn key="flip" label="Flip side" active={flip} onClick={() => setFlip((f) => !f)}><ArrowLeftRight className="size-4" /></MiniBtn>,
-    <MiniBtn key="pen" label="Draw" active={tool === "pen"} onClick={choose("pen")}><Pencil className="size-4" /></MiniBtn>,
-    <MiniBtn key="eraser" label="Erase" active={tool === "eraser"} onClick={choose("eraser")}><Eraser className="size-4" /></MiniBtn>,
-    <MiniBtn key="undo" label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-4" /></MiniBtn>,
-    <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-4" /></MiniBtn>,
+    <MiniBtn key="flip" label="Flip side" active={flip} onClick={() => setFlip((f) => !f)}><ArrowLeftRight className="size-5" /></MiniBtn>,
+    <MiniBtn key="pen" label="Draw" active={tool === "pen"} onClick={choose("pen")}><Pencil className="size-5" /></MiniBtn>,
+    <MiniBtn key="eraser" label="Erase" active={tool === "eraser"} onClick={choose("eraser")}><Eraser className="size-5" /></MiniBtn>,
+    <MiniBtn key="undo" label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-5" /></MiniBtn>,
+    <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-5" /></MiniBtn>,
   ];
   const column = (nodes: ReactNode[], key: string) => (
     <div key={key} className="flex shrink-0 flex-col justify-between gap-1 lg:hidden">{nodes}</div>
@@ -593,48 +605,34 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
 
   const board = (
     <div>
-      <div className={`flex items-stretch gap-1.5 lg:block ${paletteOpen ? (toolsLayout === "left" ? "justify-between" : "justify-center") : "justify-center"}`}>
-        {paletteOpen && toolsLayout === "around" ? column(leftButtons, "l") : null}
-        {paletteOpen && toolsLayout === "left" ? (
+      <div className={`flex items-stretch gap-1.5 lg:block ${toolsLayout === "left" ? "justify-between" : "justify-center"}`}>
+        {toolsLayout === "around" ? column(leftButtons, "l") : null}
+        {toolsLayout === "left" ? (
           <>
             {column(leftButtons, "l1")}
             {column(rightButtons, "l2")}
           </>
         ) : null}
         {rink}
-        {paletteOpen && toolsLayout === "around" ? column(rightButtons, "r") : null}
+        {toolsLayout === "around" ? column(rightButtons, "r") : null}
       </div>
       <div className="mt-2 lg:hidden">{hint}</div>
     </div>
   );
 
-  // Phones: the chevron (with the eraser) sits with the other icon buttons and hides or shows the floating tools.
+  // Phones: every tool sits beside the rink, so the only extra button up top is a one-tap eraser.
   const toolsButton = (
-    <>
-      <Button
-        type="button"
-        variant="cta"
-        size="icon"
-        onClick={() => { setPaletteOpen((o) => !o); setToolsSeen(true); }}
-        aria-label={paletteOpen ? "Hide drawing tools" : "Show drawing tools"}
-        aria-pressed={paletteOpen}
-        className={`lg:hidden ${!toolsSeen && !paletteOpen ? "animate-pulse" : ""}`}
-      >
-        <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={paletteOpen ? "m9 18 6-6-6-6" : "m15 18-6-6 6-6"} /></svg>
-      </Button>
-      {/* The eraser stays one tap away on phones, so there is no need to open the tool panel to rub something out. */}
-      <Button
-        type="button"
-        variant={tool === "eraser" ? "cta" : "outline"}
-        size="icon"
-        onClick={() => setTool(tool === "eraser" ? "select" : "eraser")}
-        aria-label="Eraser"
-        aria-pressed={tool === "eraser"}
-        className="lg:hidden"
-      >
-        <Eraser />
-      </Button>
-    </>
+    <Button
+      type="button"
+      variant={tool === "eraser" ? "cta" : "outline"}
+      size="icon"
+      onClick={() => setTool(tool === "eraser" ? "select" : "eraser")}
+      aria-label="Eraser"
+      aria-pressed={tool === "eraser"}
+      className="lg:hidden"
+    >
+      <Eraser />
+    </Button>
   );
 
   if (layout) return <>{layout({ controls, board, toolsButton })}</>;
