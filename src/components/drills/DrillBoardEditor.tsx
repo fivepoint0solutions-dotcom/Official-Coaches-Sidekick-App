@@ -535,16 +535,30 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
 
   // Phones: the tools chevron sits with the other icon buttons, never on top of the rink.
   const toolsButton = (
-    <Button
-      type="button"
-      variant="cta"
-      size="icon"
-      onClick={() => { setSheetOpen(true); setToolsSeen(true); }}
-      aria-label="Open drawing tools"
-      className={`lg:hidden ${!toolsSeen ? "animate-pulse" : ""}`}
-    >
-      <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-    </Button>
+    <>
+      <Button
+        type="button"
+        variant="cta"
+        size="icon"
+        onClick={() => { setSheetOpen(true); setToolsSeen(true); }}
+        aria-label="Open drawing tools"
+        className={`lg:hidden ${!toolsSeen ? "animate-pulse" : ""}`}
+      >
+        <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+      </Button>
+      {/* The eraser stays one tap away on phones, so there is no need to open the tool panel to rub something out. */}
+      <Button
+        type="button"
+        variant={tool === "eraser" ? "cta" : "outline"}
+        size="icon"
+        onClick={() => setTool(tool === "eraser" ? "select" : "eraser")}
+        aria-label="Eraser"
+        aria-pressed={tool === "eraser"}
+        className="lg:hidden"
+      >
+        <Eraser />
+      </Button>
+    </>
   );
 
   if (layout) return <>{layout({ controls, board, toolsButton })}</>;
