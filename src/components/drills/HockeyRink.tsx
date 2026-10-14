@@ -5,7 +5,6 @@ export const RINK_W = 572;
 export const RINK_H = 1173;
 
 const BLUE = "#1D4ED8";
-const TEAM_BLUE = "#2B5FC7"; // Cold Lake Ice blue: fills whatever the logo does not cover at centre ice
 const RED = "#D62828";
 const BOARDS = "#94A3B8";
 const CREASE = "#DBEAFE";
@@ -44,7 +43,7 @@ function Crease({ flip }: { flip?: boolean }) {
 }
 
 /** The rink drawing, in a 572 x 1173 coordinate space. Render inside an <svg viewBox="0 0 572 1173">. */
-export function HockeyRinkBody({ logoTurn = 0 }: { logoTurn?: number }) {
+export function HockeyRinkBody() {
   return (
     <g>
       <path
@@ -61,14 +60,8 @@ export function HockeyRinkBody({ logoTurn = 0 }: { logoTurn?: number }) {
       <rect x={0} y={759} width={RINK_W} height={14} fill={BLUE} />
       <rect x={0} y={582} width={RINK_W} height={8} fill={RED} />
       {/* centre circle */}
-      <defs>
-        <clipPath id="rink-centre-clip">
-          <circle cx={285.5} cy={585.5} r={68.5} />
-        </clipPath>
-      </defs>
-      <circle cx={285.5} cy={585.5} r={68.5} fill={TEAM_BLUE} />
-      <g clipPath="url(#rink-centre-clip)"><image href="/ice/cold-lake-ice-logo.png" x={205.5} y={515} width={160} height={140.5} preserveAspectRatio="xMidYMid slice" transform={`rotate(${logoTurn} 285.5 585.5)`} /></g>
       <circle cx={285.5} cy={585.5} r={68.5} fill="none" stroke={BLUE} strokeWidth={3} />
+      <circle cx={285.5} cy={585.5} r={8} fill={BLUE} />
       {/* end-zone faceoff circles */}
       <FaceoffCircle cx={156} cy={241} />
       <FaceoffCircle cx={415} cy={241} />

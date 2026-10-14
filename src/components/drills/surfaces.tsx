@@ -221,15 +221,15 @@ export function HockeyHalf() {
 }
 
 /** The one rink every hockey diagram is drawn on: boards touch the edges of the drawing, no padding around it. */
-export function HockeyRink({ logoTurn = 0 }: { logoTurn?: number } = {}) {
+export function HockeyRink() {
   return (
     <svg viewBox={`0 0 ${RINK_W} ${RINK_H}`} className="block h-full w-full" preserveAspectRatio="none" aria-hidden="true">
-      <HockeyRinkBody logoTurn={logoTurn} />
+      <HockeyRinkBody />
     </svg>
   );
 }
 
-export const SURFACE_COMPONENTS: Record<SurfaceId, ComponentType<{ logoTurn?: number }>> = {
+export const SURFACE_COMPONENTS: Record<SurfaceId, ComponentType> = {
   "training-grid": TrainingGrid,
   "soccer-third": SoccerThird,
   "basketball-full": BasketballFull,

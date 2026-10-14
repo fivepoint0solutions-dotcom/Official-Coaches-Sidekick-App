@@ -536,7 +536,7 @@ export function DrillDiagram({
         >
           {flat ? (
             <div className="absolute" style={{ left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" }}>
-              <Surface logoTurn={90} />
+              <Surface />
             </div>
           ) : (
             <div className="absolute inset-0">
