@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "@tanstack/react-router";
 import { CircleHelp, Menu, X } from "lucide-react";
-import { useT } from "@/lib/i18n";
+import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { FONT_SCALES, useFontScale } from "@/lib/font-scale";
 import { BrandSettings } from "@/components/brand/BrandSettings";
 import { NAV_ITEMS } from "@/lib/nav";
@@ -153,9 +153,36 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
 
 export function DisplaySettings() {
   const { fontScale, setFontScale } = useFontScale();
+  const { language, setLanguage } = useLanguage();
+  const t = useT();
 
   return (
     <div className="mt-5 space-y-5">
+      <section>
+        <h3 className="text-base font-bold text-white">{t("language.label")}</h3>
+        <div className="mt-3 grid grid-cols-2 gap-2" role="group" aria-label={t("language.label")}>
+          {LANGUAGES.map((lang) => {
+            const on = language === lang.code;
+            return (
+              <button
+                key={lang.code}
+                type="button"
+                onClick={() => setLanguage(lang.code)}
+                aria-pressed={on}
+                lang={lang.code}
+                className="rounded-full px-4 py-3 text-sm font-bold text-white transition-transform active:scale-[0.98]"
+                style={{
+                  background: on ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.14)",
+                  border: on ? "2px solid #fff" : "1px solid rgba(255,255,255,0.4)",
+                }}
+              >
+                {lang.nativeName}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
       <section>
         <h3 className="text-base font-bold text-white">Text size</h3>
         <p className="mt-1 text-sm text-white/90">Make the words bigger everywhere in the app.</p>

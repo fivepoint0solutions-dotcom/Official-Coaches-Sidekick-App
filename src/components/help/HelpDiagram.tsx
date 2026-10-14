@@ -69,7 +69,7 @@ function Bar({ w = 344, menuOpen = false }: { w?: number; menuOpen?: boolean }) 
 }
 
 function TopBar({ notes, noDots }: { notes?: string[][] | undefined; noDots?: boolean | undefined }) {
-  const rows = notes ?? [["Logo and name", "Tap to go back Home"], ["EN", "Change the language"], ["Three lines", "Opens the menu"], ["Dots", "Show which page you are on"]];
+  const rows = notes ?? [["Logo and name", "Tap to go back Home"], ["Three lines", "Opens the menu"], ["Dots", "Show which page you are on"]];
   const showDots = !noDots;
   return (
     <svg viewBox={`0 0 360 ${showDots ? 262 : 196}`} role="img" aria-label="The bar at the top of every screen">

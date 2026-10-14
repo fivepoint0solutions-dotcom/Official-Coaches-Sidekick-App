@@ -14,6 +14,7 @@ import {
   type LanguageCode,
 } from "./languages";
 import { TRANSLATIONS, type TranslationKey } from "./translations";
+import { setDomLanguage, startDomTranslation } from "./dom";
 
 export type { LanguageCode } from "./languages";
 export { LANGUAGES } from "./languages";
@@ -57,6 +58,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLanguageState(next);
     if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, next);
   }, []);
+
+  // Anything not written through t() is translated by looking up its English wording.
+  useEffect(() => startDomTranslation(), []);
+  useEffect(() => {
+    setDomLanguage(language);
+    if (typeof document !== "undefined") document.documentElement.lang = language;
+  }, [language]);
 
   const value = useMemo(() => ({ language, setLanguage }), [language, setLanguage]);
 
