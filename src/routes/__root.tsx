@@ -1,1 +1,184 @@
-aW1wb3J0IHsgUXVlcnlDbGllbnQsIFF1ZXJ5Q2xpZW50UHJvdmlkZXIgfSBmcm9tICJAdGFuc3RhY2svcmVhY3QtcXVlcnkiOwppbXBvcnQgewogIE91dGxldCwKICBMaW5rLAogIGNyZWF0ZVJvb3RSb3V0ZVdpdGhDb250ZXh0LAogIHVzZVJvdXRlciwKICBIZWFkQ29udGVudCwKICBTY3JpcHRzLAogIHR5cGUgRXJyb3JDb21wb25lbnRQcm9wcywKfSBmcm9tICJAdGFuc3RhY2svcmVhY3Qtcm91dGVyIjsKaW1wb3J0IHsgdXNlRWZmZWN0LCB0eXBlIFJlYWN0Tm9kZSB9IGZyb20gInJlYWN0IjsKCmltcG9ydCBhcHBDc3MgZnJvbSAiLi4vc3R5bGVzLmNzcz91cmwiOwppbXBvcnQgeyByZXBvcnRMb3ZhYmxlRXJyb3IgfSBmcm9tICIuLi9saWIvbG92YWJsZS1lcnJvci1yZXBvcnRpbmciOwppbXBvcnQgeyBXYXRlcm1hcmtCYWNrZHJvcCB9IGZyb20gIi4uL2NvbXBvbmVudHMvbW90aW9uL1dhdGVybWFya0JhY2tkcm9wIjsKaW1wb3J0IHsgQXBwSGVhZGVyIH0gZnJvbSAiLi4vY29tcG9uZW50cy9uYXZpZ2F0aW9uL0FwcEhlYWRlciI7CmltcG9ydCB7IEFza0NvYWNoc1NpZGVraWNrIH0gZnJvbSAiLi4vY29tcG9uZW50cy9jb3BpbG90L0Fza0NvYWNoc1NpZGVraWNrIjsKaW1wb3J0IHsgQmV0YUJhbm5lciB9IGZyb20gIi4uL2NvbXBvbmVudHMvbmF2aWdhdGlvbi9CZXRhQmFubmVyIjsKaW1wb3J0IHsgU2l0ZUZvb3RlciB9IGZyb20gIi4uL2NvbXBvbmVudHMvYnJhbmQvU2l0ZUZvb3RlciI7CmltcG9ydCB7IEhvY2tleVNraW5zIH0gZnJvbSAiLi4vY29tcG9uZW50cy9icmFuZC9Ib2NrZXlTa2lucyI7CmltcG9ydCB7IFN3aXBlTmF2IH0gZnJvbSAiLi4vY29tcG9uZW50cy9uYXZpZ2F0aW9uL1N3aXBlTmF2IjsKaW1wb3J0IHsgVG9hc3RlciB9IGZyb20gIi4uL2NvbXBvbmVudHMvdWkvc29ubmVyIjsKaW1wb3J0IHsgTGFuZ3VhZ2VQcm92aWRlciB9IGZyb20gIi4uL2xpYi9pMThuIjsKaW1wb3J0IHsgZm9udFNjYWxlSW5pdFNjcmlwdCB9IGZyb20gIi4uL2xpYi9mb250LXNjYWxlIjsKaW1wb3J0IHsgY29sb3JUaGVtZUluaXRTY3JpcHQgfSBmcm9tICIuLi9saWIvY29sb3ItdGhlbWUiOwppbXBvcnQgeyBicmFuZEluaXRTY3JpcHQsIGFwcGx5QnJhbmQsIHJlYWRCcmFuZCB9IGZyb20gIi4uL2xpYi9icmFuZCI7CmltcG9ydCB7IHN5bmNUaGVtZUNvbG9yIH0gZnJvbSAiLi4vbGliL3RoZW1lLWNvbG9yIjsKCmZ1bmN0aW9uIE5vdEZvdW5kQ29tcG9uZW50KCkgewogIHJldHVybiAoCiAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBtaW4taC1zY3JlZW4gaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGJnLWJhY2tncm91bmQgcHgtNCI+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYXgtdy1tZCB0ZXh0LWNlbnRlciI+CiAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC03eGwgZm9udC1ib2xkIHRleHQtZm9yZWdyb3VuZCI+NDA0PC9oMT4KICAgICAgICA8aDIgY2xhc3NOYW1lPSJtdC00IHRleHQteGwgZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmQiPlBhZ2Ugbm90IGZvdW5kPC9oMj4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgVGhlIHBhZ2UgeW91J3JlIGxvb2tpbmcgZm9yIGRvZXNuJ3QgZXhpc3Qgb3IgaGFzIGJlZW4gbW92ZWQuCiAgICAgICAgPC9wPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC02Ij4KICAgICAgICAgIDxMaW5rCiAgICAgICAgICAgIHRvPSIvIgogICAgICAgICAgICBjbGFzc05hbWU9ImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciByb3VuZGVkLW1kIGJnLXByaW1hcnkgcHgtNCBweS0yIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1wcmltYXJ5LWZvcmVncm91bmQgdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6YmctcHJpbWFyeS85MCIKICAgICAgICAgID4KICAgICAgICAgICAgR28gaG9tZQogICAgICAgICAgPC9MaW5rPgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICk7Cn0KCmZ1bmN0aW9uIEVycm9yQ29tcG9uZW50KHsgZXJyb3IsIHJlc2V0IH06IEVycm9yQ29tcG9uZW50UHJvcHMpIHsKICBjb25zb2xlLmVycm9yKGVycm9yKTsKICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTsKICB1c2VFZmZlY3QoKCkgPT4gewogICAgcmVwb3J0TG92YWJsZUVycm9yKGVycm9yLCB7IGJvdW5kYXJ5OiAidGFuc3RhY2tfcm9vdF9lcnJvcl9jb21wb25lbnQiIH0pOwogIH0sIFtlcnJvcl0pOwoKICByZXR1cm4gKAogICAgPGRpdiBjbGFzc05hbWU9ImZsZXggbWluLWgtc2NyZWVuIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBiZy1iYWNrZ3JvdW5kIHB4LTQiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctbWQgdGV4dC1jZW50ZXIiPgogICAgICAgIDxoMSBjbGFzc05hbWU9InRleHQteGwgZm9udC1zZW1pYm9sZCB0cmFja2luZy10aWdodCB0ZXh0LWZvcmVncm91bmQiPgogICAgICAgICAgVGhpcyBwYWdlIGRpZG4ndCBsb2FkCiAgICAgICAgPC9oMT4KICAgICAgICA8cCBjbGFzc05hbWU9Im10LTIgdGV4dC1zbSB0ZXh0LW11dGVkLWZvcmVncm91bmQiPgogICAgICAgICAgU29tZXRoaW5nIHdlbnQgd3Jvbmcgb24gb3VyIGVuZC4gWW91IGNhbiB0cnkgcmVmcmVzaGluZyBvciBoZWFkIGJhY2sgaG9tZS4KICAgICAgICA8L3A+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTYgZmxleCBmbGV4LXdyYXAganVzdGlmeS1jZW50ZXIgZ2FwLTIiPgogICAgICAgICAgPGJ1dHRvbgogICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB7CiAgICAgICAgICAgICAgcm91dGVyLmludmFsaWRhdGUoKTsKICAgICAgICAgICAgICByZXNldCgpOwogICAgICAgICAgICB9fQogICAgICAgICAgICBjbGFzc05hbWU9ImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciByb3VuZGVkLW1kIGJnLXByaW1hcnkgcHgtNCBweS0yIHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1wcmltYXJ5LWZvcmVncm91bmQgdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6YmctcHJpbWFyeS85MCIKICAgICAgICAgID4KICAgICAgICAgICAgVHJ5IGFnYWluCiAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgIDxhCiAgICAgICAgICAgIGhyZWY9Ii8iCiAgICAgICAgICAgIGNsYXNzTmFtZT0iaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbWQgYm9yZGVyIGJvcmRlci1pbnB1dCBiZy1iYWNrZ3JvdW5kIHB4LTQgcHktMiB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1hY2NlbnQiCiAgICAgICAgICA+CiAgICAgICAgICAgIEdvIGhvbWUKICAgICAgICAgIDwvYT4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApOwp9CgpleHBvcnQgY29uc3QgUm91dGUgPSBjcmVhdGVSb290Um91dGVXaXRoQ29udGV4dDx7IHF1ZXJ5Q2xpZW50OiBRdWVyeUNsaWVudCB9PigpKHsKICBoZWFkOiAoKSA9PiAoewogICAgbWV0YTogWwogICAgICB7IGNoYXJTZXQ6ICJ1dGYtOCIgfSwKICAgICAgeyBuYW1lOiAidmlld3BvcnQiLCBjb250ZW50OiAid2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiIH0sCiAgICAgIHsgbmFtZTogInRoZW1lLWNvbG9yIiwgY29udGVudDogIiNmM2Y4ZmYiIH0sCiAgICAgIHsgdGl0bGU6ICJDb2FjaCdzIFNpZGVraWNrIiB9LAogICAgICB7CiAgICAgICAgbmFtZTogImRlc2NyaXB0aW9uIiwKICAgICAgICBjb250ZW50OgogICAgICAgICAgIkFuIEFJIGNvYWNoaW5nIGFzc2lzdGFudCB0aGF0IGFtcGxpZmllcyB5b3VyIHN0cmF0ZWd5LCBleHBlcnRpc2UgYW5kIGNvbmZpZGVuY2UuIFlvdSdyZSBzdGlsbCB0aGUgY29hY2gg4oCUIEFJIGp1c3QgaGVscHMgeW91IGRvIG1vcmUgd2l0aCB5b3VyIGdhbWUgcGxhbi4iLAogICAgICB9LAogICAgICB7IHByb3BlcnR5OiAib2c6dGl0bGUiLCBjb250ZW50OiAiQ29hY2gncyBTaWRla2ljayIgfSwKICAgICAgewogICAgICAgIHByb3BlcnR5OiAib2c6ZGVzY3JpcHRpb24iLAogICAgICAgIGNvbnRlbnQ6ICJZb3UncmUgc3RpbGwgdGhlIGNvYWNoLiBBSSBqdXN0IGhlbHBzIHlvdSBkbyBtb3JlIHdpdGggeW91ciBnYW1lIHBsYW4uIiwKICAgICAgfSwKICAgICAgeyBwcm9wZXJ0eTogIm9nOnR5cGUiLCBjb250ZW50OiAid2Vic2l0ZSIgfSwKICAgICAgeyBuYW1lOiAidHdpdHRlcjpjYXJkIiwgY29udGVudDogInN1bW1hcnlfbGFyZ2VfaW1hZ2UiIH0sCiAgICBdLAogICAgbGlua3M6IFsKICAgICAgewogICAgICAgIHJlbDogInN0eWxlc2hlZXQiLAogICAgICAgIGhyZWY6IGFwcENzcywKICAgICAgfSwKICAgICAgeyByZWw6ICJwcmVjb25uZWN0IiwgaHJlZjogImh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20iIH0sCiAgICAgIHsgcmVsOiAicHJlY29ubmVjdCIsIGhyZWY6ICJodHRwczovL2ZvbnRzLmdzdGF0aWMuY29tIiwgY3Jvc3NPcmlnaW46ICJhbm9ueW1vdXMiIH0sCiAgICAgIHsKICAgICAgICByZWw6ICJzdHlsZXNoZWV0IiwKICAgICAgICBocmVmOiAiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1CZWJhcytOZXVlJmZhbWlseT1CYXJsb3crQ29uZGVuc2VkOndnaHRANjAwOzcwMCZmYW1pbHk9QmFybG93Oml0YWwsd2dodEAwLDQwMDswLDUwMDswLDYwMDswLDcwMDsxLDQwMCZkaXNwbGF5PWJsb2NrIiwKICAgICAgfSwKICAgICAgeyByZWw6ICJpY29uIiwgaHJlZjogIi9mYXZpY29uLnBuZyIsIHR5cGU6ICJpbWFnZS9wbmciIH0sCiAgICAgIHsgcmVsOiAibWFuaWZlc3QiLCBocmVmOiAiL21hbmlmZXN0Lmpzb24iIH0sCiAgICAgIHsgcmVsOiAiYXBwbGUtdG91Y2gtaWNvbiIsIGhyZWY6ICIvaWNvbi0xOTIucG5nIiB9LAogICAgXSwKICB9KSwKCiAgc2hlbGxDb21wb25lbnQ6IFJvb3RTaGVsbCwKICBjb21wb25lbnQ6IFJvb3RDb21wb25lbnQsCiAgbm90Rm91bmRDb21wb25lbnQ6IE5vdEZvdW5kQ29tcG9uZW50LAogIGVycm9yQ29tcG9uZW50OiBFcnJvckNvbXBvbmVudCwKfSk7CgpmdW5jdGlvbiBSb290U2hlbGwoeyBjaGlsZHJlbiB9OiB7IGNoaWxkcmVuOiBSZWFjdE5vZGUgfSkgewogIHJldHVybiAoCiAgICA8aHRtbCBsYW5nPSJlbiIgc3VwcHJlc3NIeWRyYXRpb25XYXJuaW5nIHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogInZhcigtLWJhY2tncm91bmQsICNmM2Y4ZmYpIiB9fT4KICAgICAgPGhlYWQ+CiAgICAgICAgPEhlYWRDb250ZW50IC8+CiAgICAgICAgey8qIEFwcGx5IHRoZSBzYXZlZCB0ZXh0IHNpemUgYW5kIGNvbG9yIHBhbGV0dGUgYmVmb3JlIGZpcnN0IHBhaW50LiAqL30KICAgICAgICA8c2NyaXB0IGRhbmdlcm91c2x5U2V0SW5uZXJIVE1MPXt7IF9faHRtbDogZm9udFNjYWxlSW5pdFNjcmlwdCgpIH19IC8+CiAgICAgICAgPHNjcmlwdCBkYW5nZXJvdXNseVNldElubmVySFRNTD17eyBfX2h0bWw6IGNvbG9yVGhlbWVJbml0U2NyaXB0KCkgfX0gLz4KICAgICAgICA8c2NyaXB0IGRhbmdlcm91c2x5U2V0SW5uZXJIVE1MPXt7IF9faHRtbDogYnJhbmRJbml0U2NyaXB0KCkgfX0gLz4KICAgICAgICB7LyogTm8gZmxhc2ggb24gbG9hZDogdGhlIHBhZ2Ugc3RheXMgaGlkZGVuIHVudGlsIHRoZSBmb250cyBhcmUgcmVhZHkgYW5kIHRoZSBhcHAgaGFzIGRyYXduLCB0aGVuIGZhZGVzIGluIG9uY2UuICovfQogICAgICAgIDxzdHlsZSBkYW5nZXJvdXNseVNldElubmVySFRNTD17eyBfX2h0bWw6ICJodG1sLnNrLXByZSBib2R5e29wYWNpdHk6MH1ib2R5e3RyYW5zaXRpb246b3BhY2l0eSAuM3MgZWFzZX0iIH19IC8+CiAgICAgICAgPHNjcmlwdCBkYW5nZXJvdXNseVNldElubmVySFRNTD17eyBfX2h0bWw6ICIoZnVuY3Rpb24oKXt2YXIgZD1kb2N1bWVudC5kb2N1bWVudEVsZW1lbnQ7ZC5jbGFzc0xpc3QuYWRkKCdzay1wcmUnKTt2YXIgZj1mYWxzZSxyPWZhbHNlLHg9ZmFsc2U7ZnVuY3Rpb24gZ28oKXtpZih4fHwhKGYmJnIpKXJldHVybjt4PXRydWU7cmVxdWVzdEFuaW1hdGlvbkZyYW1lKGZ1bmN0aW9uKCl7cmVxdWVzdEFuaW1hdGlvbkZyYW1lKGZ1bmN0aW9uKCl7ZC5jbGFzc0xpc3QucmVtb3ZlKCdzay1wcmUnKX0pfSl9d2luZG93Ll9fc2tSZWFkeT1mdW5jdGlvbigpe3I9dHJ1ZTtnbygpfTsoZG9jdW1lbnQuZm9udHMmJmRvY3VtZW50LmZvbnRzLnJlYWR5P2RvY3VtZW50LmZvbnRzLnJlYWR5OlByb21pc2UucmVzb2x2ZSgpKS50aGVuKGZ1bmN0aW9uKCl7Zj10cnVlO2dvKCl9KTtzZXRUaW1lb3V0KGZ1bmN0aW9uKCl7eD10cnVlO2QuY2xhc3NMaXN0LnJlbW92ZSgnc2stcHJlJyl9LDMwMDApfSkoKTsiIH19IC8+CiAgICAgIDwvaGVhZD4KICAgICAgPGJvZHk+CiAgICAgICAge2NoaWxkcmVufQogICAgICAgIDxTY3JpcHRzIC8+CiAgICAgIDwvYm9keT4KICAgIDwvaHRtbD4KICApOwp9CgpmdW5jdGlvbiBSb290Q29tcG9uZW50KCkgewogIGNvbnN0IHsgcXVlcnlDbGllbnQgfSA9IFJvdXRlLnVzZVJvdXRlQ29udGV4dCgpOwogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBhcHBseUJyYW5kKHJlYWRCcmFuZCgpKTsKICAgIHN5bmNUaGVtZUNvbG9yKCk7CiAgfSwgW10pOwogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICAod2luZG93IGFzIHVua25vd24gYXMgeyBfX3NrUmVhZHk/OiAoKSA9PiB2b2lkIH0pLl9fc2tSZWFkeT8uKCk7CiAgfSwgW10pOwoKICByZXR1cm4gKAogICAgPFF1ZXJ5Q2xpZW50UHJvdmlkZXIgY2xpZW50PXtxdWVyeUNsaWVudH0+CiAgICAgIDxMYW5ndWFnZVByb3ZpZGVyPgogICAgICAgIDxIb2NrZXlTa2lucyAvPgogICAgICAgIDxXYXRlcm1hcmtCYWNrZHJvcCAvPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJiZXRhLWJhbm5lci1jbGVhcmFuY2UgcmVsYXRpdmUgei0xMCBtaW4taC1zY3JlZW4gcHQtMjQgcGItMjQgc206cGItMTIgbGc6cHQtMCI+CiAgICAgICAgICA8QXBwSGVhZGVyIC8+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0idy1mdWxsIHB4LTQgbGc6cHItOCI+CiAgICAgICAgICAgIHsvKiBSZXF1aXJlZDogbmVzdGVkIHJvdXRlcyByZW5kZXIgaGVyZS4gUmVtb3ZpbmcgPE91dGxldCAvPiBicmVha3MgYWxsIGNoaWxkIHJvdXRlcy4gKi99CiAgICAgICAgICAgIDxTd2lwZU5hdj4KICAgICAgICAgICAgICA8T3V0bGV0IC8+CiAgICAgICAgICAgIDwvU3dpcGVOYXY+CiAgICAgICAgICAgIDxTaXRlRm9vdGVyIC8+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8QXNrQ29hY2hzU2lkZWtpY2sgLz4KICAgICAgICA8QmV0YUJhbm5lciAvPgogICAgICAgIDxUb2FzdGVyIHBvc2l0aW9uPSJib3R0b20tcmlnaHQiIC8+CiAgICAgIDwvTGFuZ3VhZ2VQcm92aWRlcj4KICAgIDwvUXVlcnlDbGllbnRQcm92aWRlcj4KICApOwp9Cg==
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Outlet,
+  Link,
+  createRootRouteWithContext,
+  useRouter,
+  HeadContent,
+  Scripts,
+  type ErrorComponentProps,
+} from "@tanstack/react-router";
+import { useEffect, type ReactNode } from "react";
+
+import appCss from "../styles.css?url";
+import { reportLovableError } from "../lib/lovable-error-reporting";
+import { WatermarkBackdrop } from "../components/motion/WatermarkBackdrop";
+import { AppHeader } from "../components/navigation/AppHeader";
+import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
+import { BetaBanner } from "../components/navigation/BetaBanner";
+import { SiteFooter } from "../components/brand/SiteFooter";
+import { HockeySkins } from "../components/brand/HockeySkins";
+import { SwipeNav } from "../components/navigation/SwipeNav";
+import { Toaster } from "../components/ui/sonner";
+import { LanguageProvider } from "../lib/i18n";
+import { fontScaleInitScript } from "../lib/font-scale";
+import { colorThemeInitScript } from "../lib/color-theme";
+import { brandInitScript, applyBrand, readBrand } from "../lib/brand";
+import { syncThemeColor } from "../lib/theme-color";
+
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Go home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
+  console.error(error);
+  const router = useRouter();
+  useEffect(() => {
+    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+  }, [error]);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong on our end. You can try refreshing or head back home.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Try again
+          </button>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Go home
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#f3f8ff" },
+      { title: "Coach's Sidekick" },
+      {
+        name: "description",
+        content:
+          "An AI coaching assistant that amplifies your strategy, expertise and confidence. You're still the coach — AI just helps you do more with your game plan.",
+      },
+      { property: "og:title", content: "Coach's Sidekick" },
+      {
+        property: "og:description",
+        content: "You're still the coach. AI just helps you do more with your game plan.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "stylesheet",
+        href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block",
+      },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "manifest", href: "/manifest.json" },
+      { rel: "apple-touch-icon", href: "/icon-192.png" },
+    ],
+  }),
+
+  shellComponent: RootShell,
+  component: RootComponent,
+  notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
+});
+
+function RootShell({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "var(--background, #f3f8ff)" }}>
+      <head>
+        <HeadContent />
+        {/* Apply the saved text size and color palette before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: fontScaleInitScript() }} />
+        <script dangerouslySetInnerHTML={{ __html: colorThemeInitScript() }} />
+        <script dangerouslySetInnerHTML={{ __html: brandInitScript() }} />
+        {/* No flash on load: the page stays hidden until the fonts are ready and the app has drawn, then fades in once. */}
+        <style dangerouslySetInnerHTML={{ __html: "html.sk-pre body{opacity:0}body{transition:opacity .3s ease}" }} />
+        <script dangerouslySetInnerHTML={{ __html: "(function(){var d=document.documentElement;d.classList.add('sk-pre');var f=false,r=false,x=false;function go(){if(x||!(f&&r))return;x=true;requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('sk-pre')})})}window.__skReady=function(){r=true;go()};(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){f=true;go()});setTimeout(function(){x=true;d.classList.remove('sk-pre')},3000)})();" }} />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    applyBrand(readBrand());
+    syncThemeColor();
+  }, []);
+  useEffect(() => {
+    (window as unknown as { __skReady?: () => void }).__skReady?.();
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <HockeySkins />
+        <WatermarkBackdrop />
+        <div className="beta-banner-clearance relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
+          <AppHeader />
+          <div className="w-full px-4 lg:pr-8">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <SwipeNav>
+              <Outlet />
+            </SwipeNav>
+            <SiteFooter />
+          </div>
+        </div>
+        <AskCoachsSidekick />
+        <BetaBanner />
+        <Toaster position="bottom-right" />
+      </LanguageProvider>
+    </QueryClientProvider>
+  );
+}
