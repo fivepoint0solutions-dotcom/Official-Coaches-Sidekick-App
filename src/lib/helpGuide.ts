@@ -27,10 +27,10 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         id: "top-bar",
         title: "The bar at the top of every screen",
         intro: "The same bar sits at the top of every page, so you always know where to tap.",
-        diagram: { kind: "top-bar", noDots: true, notes: [["Logo and name", "Tap to go back to the Dashboard"], ["EN", "Change the language"], ["Three lines", "Opens the menu"]] },
+        diagram: { kind: "top-bar", noDots: true, notes: [["Logo and name", "Tap to go back to the Dashboard"], ["Three lines", "Opens the menu"]] },
         steps: [
           "Tap the logo and \"Coach's Sidekick\" on the left to jump back to the Dashboard from anywhere.",
-          "Tap EN (the small globe) to change the language: English, Español, Français or हिन्दी.",
+          "To change the language, open Help and scroll to Settings: English, Español, Français or हिन्दी.",
           "Tap the round button with three lines on the right to open the menu.",
         ],
         tips: ["Scroll down and the bar slides out of the way so you can see more. Scroll up a little and it slides back."],
@@ -329,10 +329,9 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         title: "Changing the language",
         intro: "The app can be used in four languages.",
         steps: [
-          "Tap EN (the globe) in the top bar.",
-          "Choose English, Español, Français or हिन्दी. Menus and buttons change straight away.",
+          "Open Help from the menu and scroll to Settings.",
+          "Under Language, choose English, Español, Français or हिन्दी. Menus and buttons change straight away.",
         ],
-        tips: ["This help guide is written in English."],
       },
       {
         id: "trouble",
