@@ -17,6 +17,7 @@ import { AppHeader } from "../components/navigation/AppHeader";
 import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
 import { FeedbackFab } from "../components/navigation/FeedbackFab";
 import { BetaBanner } from "../components/navigation/BetaBanner";
+import { SiteFooter } from "../components/brand/SiteFooter";
 import { SwipeNav } from "../components/navigation/SwipeNav";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
@@ -167,6 +168,7 @@ function RootComponent() {
             <SwipeNav>
               <Outlet />
             </SwipeNav>
+            <SiteFooter />
           </div>
         </div>
         <AskCoachsSidekick />

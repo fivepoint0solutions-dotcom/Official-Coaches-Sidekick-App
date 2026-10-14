@@ -73,6 +73,15 @@ function DrillLibraryPage() {
     });
   }, [allDrills, query, sport, category, mineOnly, userDrills]);
 
+  // With "All" and no search, the list is grouped under its category headings (Power Play, Penalty Kill, Offense …).
+  const grouped = category === "All" && !query.trim();
+  const groups = useMemo(() => {
+    if (!grouped) return [];
+    const order = [...drillCategories, ...Array.from(new Set(results.map((d) => d.category))).filter((c) => !(drillCategories as readonly string[]).includes(c))];
+    return order.map((c) => ({ name: c, drills: results.filter((d) => d.category === c) })).filter((g) => g.drills.length);
+  }, [grouped, results]);
+  const catOptions = ["All", ...drillCategories];
+
   return (
     <main className="container-app ice-lib py-10 lg:py-14">
       <header className="flex flex-wrap items-end justify-between gap-4">
@@ -91,80 +100,73 @@ function DrillLibraryPage() {
         </Button>
       </header>
 
-      <PhotoStrip
-        className="mt-8"
-        photos={[
-          { src: "/img/extra-4.jpg", alt: "Player cutting around a puck during a skating drill" },
-          { src: "/img/extra-1.jpg", alt: "Player taking a wrist shot", position: "60% center" },
-          { src: "/img/extra-6.jpg", alt: "Defenseman holding position on the ice", position: "center 30%" },
-        ]}
-      />
 
-      <section
-        aria-label="Drill filters"
-        className="glass-panel mt-8 grid gap-4 p-4 md:grid-cols-[1fr_auto]"
-      >
-        <label className="relative block">
-          <span className="sr-only">Search drills</span>
-          <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
+
+      <section aria-label="Find a drill" className="cat-bar mt-6">
+        <label className="cat-find">
+          <span className="sr-only">Search drills or categories</span>
+          <Search className="size-4 shrink-0 opacity-60" />
+          <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search by drill, skill, equipment…"
-            className="pl-11"
+            placeholder="Search drills or categories"
+            enterKeyHint="search"
           />
         </label>
-        {sports.length > 1 ? (
-          <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter by sport">
-            {["All sports", ...sports].map((option) => (
-              <Button
-                key={option}
-                type="button"
-                size="sm"
-                variant={sport === option ? "default" : "outline"}
-                onClick={() => setSport(option)}
-                className="shrink-0 rounded-full"
-              >
-                {option}
-              </Button>
-            ))}
-          </div>
-        ) : null}
-        {userDrills.length ? (
-          <Button
-            type="button"
-            size="sm"
-            variant={mineOnly ? "default" : "outline"}
-            onClick={() => setMineOnly((value) => !value)}
-            className="shrink-0 rounded-full md:col-start-2 md:justify-self-start"
-          >
-            My drills only
-          </Button>
-        ) : null}
+        <div className="cat-scroll" role="group" aria-label="Pick a category">
+          {catOptions.map((option) => {
+            const count = option === "All" ? allDrills.length : allDrills.filter((drill) => drill.category === option).length;
+            return (
+              <button key={option} type="button" aria-pressed={category === option} onClick={() => setCategory(option)} className="category-tab">
+                {option} <span className="category-count">{count}</span>
+              </button>
+            );
+          })}
+        </div>
       </section>
 
-      <section aria-label="Drill categories" className="category-tabs mt-4">
-        {["All", ...drillCategories].map((option) => {
-          const count = option === "All" ? allDrills.length : allDrills.filter((drill) => drill.category === option).length;
-          return (
-            <button key={option} type="button" aria-pressed={category === option} onClick={() => setCategory(option)} className="category-tab">
-              {option} <span className="category-count">{count}</span>
-            </button>
-          );
-        })}
-      </section>
 
-      <DrillTransfer />
+      {sports.length > 1 || userDrills.length ? (
+        <section aria-label="More filters" className="mt-3 flex flex-wrap items-center gap-2">
+          {sports.length > 1
+            ? ["All sports", ...sports].map((option) => (
+                <Button key={option} type="button" size="sm" variant={sport === option ? "default" : "outline"} onClick={() => setSport(option)} className="shrink-0 rounded-full">
+                  {option}
+                </Button>
+              ))
+            : null}
+          {userDrills.length ? (
+            <Button type="button" size="sm" variant={mineOnly ? "default" : "outline"} onClick={() => setMineOnly((value) => !value)} className="shrink-0 rounded-full">
+              My drills only
+            </Button>
+          ) : null}
+        </section>
+      ) : null}
 
       <p className="mt-6 text-sm font-semibold text-muted-foreground">
         {results.length} {results.length === 1 ? "drill" : "drills"}
       </p>
       {results.length ? (
-        <section className="drill-stack mt-6">
-          {results.map((drill, index) => (
-            <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
-          ))}
-        </section>
+        grouped ? (
+          groups.map((g) => (
+            <section key={g.name} aria-label={g.name} className="mt-8">
+              <h2 className="cat-heading">
+                {g.name} <span className="category-count">{g.drills.length}</span>
+              </h2>
+              <div className="drill-stack mt-4">
+                {g.drills.map((drill, index) => (
+                  <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
+                ))}
+              </div>
+            </section>
+          ))
+        ) : (
+          <section className="drill-stack mt-6">
+            {results.map((drill, index) => (
+              <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
+            ))}
+          </section>
+        )
       ) : (
         <section className="py-20 text-center">
           <h2 className="text-headline">No drills found</h2>
@@ -173,6 +175,17 @@ function DrillLibraryPage() {
           </p>
         </section>
       )}
+      <div className="mt-10">
+        <DrillTransfer />
+      </div>
+      <PhotoStrip
+        className="mt-10"
+        photos={[
+          { src: "/img/extra-4.jpg", alt: "Player cutting around a puck during a skating drill" },
+          { src: "/img/extra-1.jpg", alt: "Player taking a wrist shot", position: "60% center" },
+          { src: "/img/extra-6.jpg", alt: "Defenseman holding position on the ice", position: "center 30%" },
+        ]}
+      />
     <DrillSheet drill={openDrill} onClose={() => setOpenDrill(null)} />
     </main>
   );
