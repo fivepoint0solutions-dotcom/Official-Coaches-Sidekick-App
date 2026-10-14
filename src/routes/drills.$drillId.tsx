@@ -1,4 +1,5 @@
 import { zoneHint } from "@/lib/drillZone";
+import { isFullIceDiagram } from "@/components/drills/DrillDiagram";
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Clock3, ListChecks, Package, Pause, Pencil, Play, Trash2, Users } from "lucide-react";
@@ -120,8 +121,8 @@ function DrillDetailPage() {
                 {playing ? <Pause /> : <Play />} {playing ? "Stop" : "Play animation"}
               </Button>
             </div>
-            <div className="mx-auto mt-3 w-full max-w-[36rem]">
-              <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} zone={zoneHint(drill)} />
+            <div className={`mx-auto mt-3 w-full ${isFullIceDiagram(drill.diagram, drill.id, zoneHint(drill)) ? "max-w-[56rem]" : "max-w-[36rem]"}`}>
+              <DrillDiagram diagram={drill.diagram} id={drill.id} legend zoomable animate={playing} zone={zoneHint(drill)} landscape={isFullIceDiagram(drill.diagram, drill.id, zoneHint(drill))} />
             </div>
           </section>
         ) : null}
