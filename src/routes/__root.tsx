@@ -18,6 +18,7 @@ import { AskCoachsSidekick } from "../components/copilot/AskCoachsSidekick";
 import { FeedbackFab } from "../components/navigation/FeedbackFab";
 import { BetaBanner } from "../components/navigation/BetaBanner";
 import { SiteFooter } from "../components/brand/SiteFooter";
+import { HockeySkins } from "../components/brand/HockeySkins";
 import { SwipeNav } from "../components/navigation/SwipeNav";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
@@ -160,6 +161,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <HockeySkins />
         <WatermarkBackdrop />
         <div className="beta-banner-clearance relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
           <AppHeader />
