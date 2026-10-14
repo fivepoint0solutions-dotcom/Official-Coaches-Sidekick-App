@@ -1703,7 +1703,7 @@ html body .badge-pill, html body .chip {
  * dark, glossy, with real 3D depth. Blue, white and black only.
  * ============================================================ */
 @layer utilities {
-  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(#_):not(#__) {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__) {
     background-color: #070c18 !important;
     background-image:
       radial-gradient(ellipse 72% 46% at 50% 14%, rgba(190,212,240,.38) 0%, rgba(190,212,240,0) 62%),
@@ -1721,10 +1721,10 @@ html body .badge-pill, html body .chip {
       inset 0 -4px 7px rgba(0,0,0,.65) !important;
     text-shadow: 0 1px 2px rgba(0,0,0,.75);
   }
-  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(#_):not(#__):hover {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__):hover {
     filter: brightness(1.14);
   }
-  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(#_):not(#__):active {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__):active {
     transform: translateY(2px);
     box-shadow:
       0 2px 0 #020409,
@@ -1732,11 +1732,11 @@ html body .badge-pill, html body .chip {
       inset 0 2px 3px rgba(255,255,255,.22),
       inset 0 -3px 5px rgba(0,0,0,.65) !important;
   }
-  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(#_):not(#__) :is(svg, span, i):not(#_):not(#__) {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):not(#_):not(#__) :is(svg, span, i):not(#_):not(#__) {
     color: #FFFFFF !important;
     -webkit-text-fill-color: #FFFFFF !important;
   }
-  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):disabled:not(#_):not(#__) {
+  :is(button, a, [role="button"]).rounded-full:not(.nav-pill):not(.nav-active):not([class*="gradient-"]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color):disabled:not(#_):not(#__) {
     filter: grayscale(.4) brightness(.75);
     box-shadow:
       0 4px 0 #020409,

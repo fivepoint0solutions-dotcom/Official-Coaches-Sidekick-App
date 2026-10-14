@@ -44,12 +44,12 @@ const MARKER_TOOLS: { kind: DiagramMarker["kind"]; label: string; Icon: typeof U
   { kind: "defender", label: "Defender (X)", Icon: Shield },
   { kind: "goalie", label: "Goalie", Icon: Shield },
   { kind: "cone", label: "Cone", Icon: Triangle },
-  { kind: "ball", label: "Ball", Icon: Circle },
+  { kind: "ball", label: "Puck", Icon: Circle },
   { kind: "coach", label: "Coach", Icon: UserCog },
 ];
 
 const ARROW_TOOLS: { style: NonNullable<DiagramArrow["style"]>; label: string }[] = [
-  { style: "run", label: "Run" },
+  { style: "run", label: "Skate" },
   { style: "pass", label: "Pass" },
   { style: "dribble", label: "Dribble" },
 ];
