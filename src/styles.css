@@ -1373,7 +1373,7 @@ html body .badge-pill, html body .chip {
 
 /* ---- Tablet and desktop layout polish ---- */
 /* Dashboard cards: never leave one card alone on a half-empty row. */
-.mode-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - .5rem); }
+@media (min-width: 640px) { .mode-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - .5rem); } }
 @media (min-width: 1024px) {
   .mode-grid > * { grid-column: span 2; width: auto; }
   .mode-grid > :nth-child(4) { grid-column: 2 / span 2; }
@@ -1641,3 +1641,59 @@ html body .badge-pill, html body .chip {
 }
 
 .rink-logo[data-custom] img { width: 86%; height: 86%; object-fit: contain; }
+
+/* Nested designs keep their own contrast: a light jersey or glass panel sitting on a dark scoreboard (a chat bubble in the chat panel,
+   a card in a dark section) always has dark text, whatever the panel around it does. */
+@layer utilities {
+  [data-skin="scoreboard"] :is([data-skin="jersey"], [data-skin="glass"]) :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, a, strong, em, b):not(.keep-color):not(.rounded-full):not([class*="bg-interactive"]):not(#_):not(#__):not(#___) { color: #0B1226 !important; }
+  [data-skin="scoreboard"] :is([data-skin="jersey"], [data-skin="glass"]):not(#_):not(#__) { color: #0B1226 !important; }
+  /* Suggestion chips and starter chips: dark ice pills with white words, readable on any panel. */
+  html body .chip:not(#_):not(#__), [data-skin] button.chip:not(#_):not(#__) {
+    background-color: #0B1F4D !important;
+    background-image: var(--ice-gloss), var(--ice-sweep), var(--ice-dark) !important;
+    color: #FFFFFF !important; border: 2px solid var(--b1) !important; -webkit-text-fill-color: #FFFFFF !important; background-clip: border-box !important; -webkit-background-clip: border-box !important;
+    border-radius: 999px; padding: .5rem .9rem; font-weight: 700; white-space: normal; max-width: 100%; text-align: left;
+  }
+  /* Buttons inside light panels (the chat's suggested actions) read as dark ink on pale ice, never ice on ice. */
+  [data-skin="jersey"] button.bg-card, [data-skin="glass"] button.bg-card { color: #0B1226 !important; -webkit-text-fill-color: #0B1226 !important; background-clip: border-box !important; -webkit-background-clip: border-box !important; }
+}
+
+/* Dark ice buttons always have white words — even inside a card whose ink-coloured text rule would otherwise win. */
+@layer utilities {
+  :is(button, a, [role="button"], span, div).bg-interactive:not(#_):not(#__):not(#___),
+  :is(button, a, [role="button"], span, div).bg-primary:not(#_):not(#__):not(#___),
+  :is(button, a, [role="button"]).bg-accent:not(#_):not(#__):not(#___),
+  :is(button, a, [role="button"]).bg-highlight:not(#_):not(#__):not(#___),
+  :is(button, a, [role="button"], span, div).bg-destructive:not(#_):not(#__):not(#___),
+  :is(a, button)[class*="gradient-hero"]:not(#_):not(#__):not(#___),
+  :is(a, button)[class*="gradient-inspire"]:not(#_):not(#__):not(#___),
+  :is(a, button)[class*="gradient-build"]:not(#_):not(#__):not(#___),
+  :is(a, button)[class*="gradient-busywork"]:not(#_):not(#__):not(#___),
+  :is(a, button)[class*="gradient-challenge"]:not(#_):not(#__):not(#___),
+  .category-tab[aria-pressed="true"]:not(#_):not(#__):not(#___),
+  .ice-lib :is(a, button).hover-lift.bg-interactive:not(#_):not(#__):not(#___),
+  .ice-lib :is(a, button)[class*="gradient-hero"]:not(#_):not(#__):not(#___),
+  .practice-cat-sign:not(#_):not(#__):not(#___),
+  .flow-cue span:not(#_):not(#__):not(#___) { color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; background-clip: border-box !important; -webkit-background-clip: border-box !important; }
+  :is(button, a, [role="button"], span, div).bg-interactive:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(button, a, [role="button"], span, div).bg-primary:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(button, a, [role="button"]).bg-accent:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(button, a, [role="button"]).bg-highlight:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(button, a, [role="button"], span, div).bg-destructive:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(a, button)[class*="gradient-hero"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(a, button)[class*="gradient-inspire"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(a, button)[class*="gradient-build"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(a, button)[class*="gradient-busywork"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  :is(a, button)[class*="gradient-challenge"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  .category-tab[aria-pressed="true"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  .ice-lib :is(a, button).hover-lift.bg-interactive:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  .ice-lib :is(a, button)[class*="gradient-hero"]:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  .practice-cat-sign:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p),
+  .flow-cue span:not(#_):not(#__):not(#___) :is(span, svg, div, b, strong, p) { color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; }
+}
+
+@layer utilities {
+  /* Light buttons on dark panels keep dark words; outline buttons keep their rounded corners (the panel radius token is 0). */
+  [data-skin="scoreboard"] button.keep-color:not(#_):not(#__):not(#___), [data-skin="scoreboard"] button.keep-color :is(span, svg):not(#_):not(#__):not(#___) { color: #0B1226 !important; -webkit-text-fill-color: #0B1226 !important; }
+  button.sweep-fill.rounded-xl, a.sweep-fill.rounded-xl { border-radius: 12px !important; }
+}

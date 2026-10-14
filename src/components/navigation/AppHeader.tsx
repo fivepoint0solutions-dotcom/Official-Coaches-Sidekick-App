@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { CircleHelp, Globe, Menu, X } from "lucide-react";
 import {
   DropdownMenu,
@@ -233,6 +233,7 @@ export function AppHeader() {
   const logo = useBrandLogo();
   const t = useT();
   const hidden = useHideOnScroll();
+  const onHome = useLocation({ select: (l) => l.pathname === "/" });
 
   return (
     <header
@@ -243,29 +244,42 @@ export function AppHeader() {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
       >
-        <Link
-          to="/"
-          aria-label="Coach's Sidekick home"
-          className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
-        >
-          <img
-            src={logo.src}
-            alt=""
-            aria-hidden="true"
-            className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
-            style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
-          />
-          <span
-            className={`font-display font-bold tracking-wide leading-tight min-w-0 ${menuOpen ? "md:hidden" : ""}`}
-            style={{
-              color: "var(--primary)",
-              fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
-              filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
-            }}
+        <div className="relative flex min-w-0 flex-1">
+          <Link
+            to="/"
+            aria-label="Coach's Sidekick home"
+            className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto"
           >
-            Coach's Sidekick
-          </span>
-        </Link>
+            <img
+              src={logo.src}
+              alt=""
+              aria-hidden="true"
+              className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
+              style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
+            />
+            <span
+              className={`font-display font-bold tracking-wide leading-tight min-w-0 ${menuOpen ? "md:hidden" : ""}`}
+              style={{
+                color: "var(--primary)",
+                fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
+                filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
+              }}
+            >
+              Coach's Sidekick
+            </span>
+          </Link>
+          {/* Landing page, phones: a short invitation to set the team's own colours and logo, between the logo and the menu */}
+          {onHome && (
+            <Link
+              to="/help"
+              search={{ open: "settings" }}
+              className="pointer-events-auto absolute bottom-[0.2rem] left-[6.2rem] inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-[0.3rem] text-[0.68rem] font-bold leading-none text-white sm:hidden"
+              style={{ backgroundImage: "var(--ice-gloss), var(--ice-dark)", border: "2px solid var(--b1)", boxShadow: "0 3px 8px -3px rgba(5,12,32,.6)" }}
+            >
+              <span aria-hidden="true">✦</span> Make it yours
+            </Link>
+          )}
+        </div>
 
         {/* Desktop/tablet: menu links expand horizontally along the top bar */}
         {menuOpen && (
