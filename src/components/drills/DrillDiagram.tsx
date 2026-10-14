@@ -351,42 +351,9 @@ function Legend({ roles = false }: { roles?: boolean }) {
   );
 }
 
-/** Schematic drill diagram: the rink fills the box edge to edge, with small X / O players, cones, pucks and arrows on top. */
-export function DrillDiagram({
-  diagram,
-  id,
-  framed = true,
-  legend = false,
-  animate = false,
-  zoomable = false,
-  mini = false,
-  zone = "auto",
-}: {
-  diagram: DrillDiagramSpec;
-  id: string;
-  /** Kept for older callers. The rink itself never gets padding or a frame. */
-  framed?: boolean;
-  /** Ignored: the rink is always the same tall drawing. */
-  portraitOnMobile?: boolean;
-  /** Show the small X / O / cone / puck key under the rink. */
-  legend?: boolean;
-  /** Loop the drill: players skate their arrows and the puck follows the passes. */
-  animate?: boolean;
-  /** Zoom buttons, pinch and drag to look closer at the diagram. */
-  zoomable?: boolean;
-  /** A small preview: the whole rink, no zoom into the play. */
-  mini?: boolean;
-  /** From the drill's own words: "full" = always the whole rink, "half" = one end only, "auto" = decide from where the players are. */
-  zone?: "auto" | "full" | "half";
-}) {
-  const base = id.replace(/^(row|mini|play|card|plan|sheet)-/, ""); // the drill's own id, however the caller labelled this copy
-  const spec = toRink(diagram);
-  const Surface = SURFACE_COMPONENTS[spec.surface];
-  const { w, h } = SURFACE_VIEWBOX[spec.surface];
+/** Who is the coached team, who is just standing around, and which part of the rink the drill needs. */
+function analyze(spec: DrillDiagramSpec, base: string, zone: "auto" | "full" | "half", mini: boolean) {
   const isRink = spec.surface === "hockey-rink";
-  void framed;
-  const motion = animate && isRink ? buildMotion(spec, w, h, playSteps[base]) : null;
-
   // Position letters (LW, C, RD …): the coached team shows just the letter in its role colour; the other team shows plain X / O marks.
   const labelled = new Set(spec.markers.filter((m) => roleOf(m.label)).map((m) => m.kind));
   const coached: DiagramMarker["kind"] | null = labelled.size === 0 ? null : labelled.size === 1 ? [...labelled][0]! : /^(PKP|PKL)-/.test(base) ? "defender" : "player";
@@ -426,9 +393,75 @@ export function DrillDiagram({
       }
     }
   }
+  return { coached, modeFor, standingAround, yMin, yMax };
+}
+
+/** True when the drill needs the whole rink (so a landscape layout is worth using). */
+export function isFullIceDiagram(diagram: DrillDiagramSpec, id: string, zone: "auto" | "full" | "half" = "auto"): boolean {
+  const spec = toRink(diagram);
+  if (spec.surface !== "hockey-rink") return false;
+  const base = id.replace(/^(row|mini|play|card|plan|sheet)-/, "");
+  const { yMin, yMax } = analyze(spec, base, zone, false);
+  return yMax - yMin >= 99.9;
+}
+
+/** Turn a portrait-rink drawing a quarter turn so it lies flat (top of the rink on the left); the text stays upright. */
+function toLandscape(spec: DrillDiagramSpec): DrillDiagramSpec {
+  const pt = ([x, y]: [number, number]): [number, number] => [y, 100 - x];
+  return {
+    ...spec,
+    markers: spec.markers.map((m) => { const [x, y] = pt([m.x, m.y]); return { ...m, x, y }; }),
+    ...(spec.arrows ? { arrows: spec.arrows.map((a) => ({ ...a, from: pt(a.from), to: pt(a.to), ...(a.via ? { via: a.via.map(pt) } : {}) })) } : {}),
+    ...(spec.strokes ? { strokes: spec.strokes.map((st) => ({ ...st, points: st.points.map(pt) })) } : {}),
+  };
+}
+
+/** Schematic drill diagram: the rink fills the box edge to edge, with small X / O players, cones, pucks and arrows on top. */
+export function DrillDiagram({
+  diagram,
+  id,
+  framed = true,
+  legend = false,
+  animate = false,
+  zoomable = false,
+  mini = false,
+  zone = "auto",
+  landscape = false,
+}: {
+  diagram: DrillDiagramSpec;
+  id: string;
+  /** Kept for older callers. The rink itself never gets padding or a frame. */
+  framed?: boolean;
+  /** Ignored: the rink is always the same tall drawing. */
+  portraitOnMobile?: boolean;
+  /** Show the small X / O / cone / puck key under the rink. */
+  legend?: boolean;
+  /** Loop the drill: players skate their arrows and the puck follows the passes. */
+  animate?: boolean;
+  /** Zoom buttons, pinch and drag to look closer at the diagram. */
+  zoomable?: boolean;
+  /** A small preview: the whole rink, no zoom into the play. */
+  mini?: boolean;
+  /** From the drill's own words: "full" = always the whole rink, "half" = one end only, "auto" = decide from where the players are. */
+  zone?: "auto" | "full" | "half";
+  /** Lay a full-ice rink on its side (wide, not tall). Ignored for half-ice drills. */
+  landscape?: boolean;
+}) {
+  const base = id.replace(/^(row|mini|play|card|plan|sheet)-/, ""); // the drill's own id, however the caller labelled this copy
+  const spec = toRink(diagram);
+  const Surface = SURFACE_COMPONENTS[spec.surface];
+  const { w, h } = SURFACE_VIEWBOX[spec.surface];
+  const isRink = spec.surface === "hockey-rink";
+  void framed;
+  const { coached, modeFor, standingAround, yMin, yMax } = analyze(spec, base, zone, mini);
   const frac = (yMax - yMin) / 100;
   const cropped = frac < 0.999;
-  const boost = cropped ? 1 + (1 - frac) * 0.7 : 1; // markers, letters and arrows grow with the zoom so nothing stays tiny
+  const flat = landscape && isRink && !cropped; // lying on its side
+  const rspec = flat ? toLandscape(spec) : spec;
+  const W = flat ? h : w; // size of the drawing space (swapped when lying flat)
+  const H = flat ? w : h;
+  const motion = animate && isRink ? buildMotion(rspec, W, H, playSteps[base]) : null;
+  const boost = flat ? 0.7 : cropped ? 1 + (1 - frac) * 0.7 : 1; // markers, letters and arrows grow with the zoom so nothing stays tiny
 
 
   // Zoom and pan: + / − buttons, pinch, Ctrl + wheel, drag when zoomed in.
@@ -496,7 +529,7 @@ export function DrillDiagram({
       <div
         ref={boxRef}
         className={isRink ? "relative block w-full overflow-hidden" : "relative w-full overflow-hidden rounded-xl shadow-inner"}
-        style={{ aspectRatio: `${w} / ${h * frac}`, ...(zoomable ? { touchAction: zoom.s > 1 ? "none" : "pan-y" } : {}) }}
+        style={{ aspectRatio: flat ? `${W} / ${H}` : `${w} / ${h * frac}`, ...(zoomable ? { touchAction: zoom.s > 1 ? "none" : "pan-y" } : {}) }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -511,25 +544,31 @@ export function DrillDiagram({
           className="absolute left-0 w-full"
           style={cropped ? { height: `${100 / frac}%`, top: `${-(yMin / 100 / frac) * 100}%` } : { top: 0, height: "100%" }}
         >
-          <div className="absolute inset-0">
-            <Surface />
-          </div>
-          <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
-            {spec.arrows?.map((arrow, i) => (
-              <Arrow key={i} arrow={arrow} w={w} h={h} scale={boost} />
+          {flat ? (
+            <div className="absolute" style={{ left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" }}>
+              <Surface />
+            </div>
+          ) : (
+            <div className="absolute inset-0">
+              <Surface />
+            </div>
+          )}
+          <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
+            {rspec.arrows?.map((arrow, i) => (
+              <Arrow key={i} arrow={arrow} w={W} h={H} scale={boost} />
             ))}
-            {spec.strokes?.map((stroke, i) => (
-              <Stroke key={i} stroke={stroke} w={w} h={h} scale={boost} />
+            {rspec.strokes?.map((stroke, i) => (
+              <Stroke key={i} stroke={stroke} w={W} h={H} scale={boost} />
             ))}
-            {spec.markers.map((marker, i) => {
-              if (standingAround(marker)) return null;
+            {rspec.markers.map((marker, i) => {
+              if (standingAround(spec.markers[i]!)) return null;
               const m = motion?.moves.get(i) ?? motion?.carried.get(i);
               const fade = motion?.hidden.has(i);
               return (
                 <g key={i}>
                   {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
                   {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
-                  <Marker marker={marker} w={w} h={h} mode={modeFor(marker)} scale={boost} />
+                  <Marker marker={marker} w={W} h={H} mode={modeFor(spec.markers[i]!)} scale={boost} />
                 </g>
               );
             })}
@@ -537,7 +576,7 @@ export function DrillDiagram({
               <g key={`puck-${i}`} opacity={0}>
                 <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
                 <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
-                <circle cx={pct(p.x, w)} cy={pct(p.y, h)} r={1.3 * (w / 100) * boost} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (w / 100) * boost} />
+                <circle cx={pct(p.x, W)} cy={pct(p.y, H)} r={1.3 * (W / 100) * boost} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (W / 100) * boost} />
               </g>
             ))}
           </svg>
