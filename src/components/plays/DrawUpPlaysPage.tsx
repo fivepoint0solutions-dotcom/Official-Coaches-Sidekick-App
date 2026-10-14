@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PlayIcon } from "@/components/icons/HockeyIcons";
 import { DrillBoardEditor } from "@/components/drills/DrillBoardEditor";
 import { DrillDiagram, type DrillDiagramSpec } from "@/components/drills/DrillDiagram";
-import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
+import { DrillButtons } from "@/components/drills/DrillButtons";
 import { deletePlay, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
 
 const BLANK: DrillDiagramSpec = { surface: "hockey-rink", v: 2, markers: [], arrows: [], strokes: [] };
@@ -77,21 +77,21 @@ export function DrawUpPlaysPage() {
           <span className="mt-2 shrink-0"><PlayIcon size={46} /></span>
           <div>
             <h1 className="tape-strip text-headline text-3xl">Draw Up Plays</h1>
-            <p className="text-body mt-2 text-muted-foreground">Draw a play, bring in one you already have, or type your own.</p>
+            <p className="text-body mt-2 text-muted-foreground">Draw a play on the rink, or type your own.</p>
           </div>
         </div>
-        <UploadDrillButton />
+        <DrillButtons />
       </div>
 
       {editing ? (
         <section className="card-soft mx-auto max-w-3xl space-y-4 p-5 sm:p-7" aria-label="New play">
           <label className="block">
             <span className="text-title">Name</span>
-            <input className="mt-1 w-full rounded-lg border-2 border-[#1d1b16] bg-[#FFFDF6] px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
+            <input className="mt-1 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-lg font-bold" value={name} onChange={(e) => setName(e.target.value)} placeholder="1-3-1 power play" />
           </label>
           <label className="block">
             <span className="text-title">Notes</span>
-            <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#1d1b16] bg-[#FFFDF6] px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
+            <textarea className="mt-1 min-h-24 w-full rounded-lg border-2 border-[#1d1b16] bg-white px-3 py-2 text-base" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Who goes where, what to look for" />
           </label>
 
           <div className="flex flex-wrap gap-3">
@@ -99,7 +99,7 @@ export function DrawUpPlaysPage() {
               <PenLine /> {diagram ? "Remove the drawing" : "Draw it on the rink"}
             </Button>
             <Button type="button" variant="outline" size="lg" disabled={busy} onClick={() => fileRef.current?.click()}>
-              <Camera /> {photo ? "Choose a different photo" : "Add a photo from my phone"}
+              <Camera /> {photo ? "Upload a different picture" : "Upload a picture"}
             </Button>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
           </div>
@@ -121,10 +121,7 @@ export function DrawUpPlaysPage() {
         <>
           <div className="mb-6 flex flex-wrap gap-3">
             <Button type="button" variant="cta" size="lg" onClick={() => start()}><PenLine /> Draw a new play</Button>
-            <Button type="button" variant="outline" size="lg" onClick={() => fileRef.current?.click()}>
-              <Camera /> Bring in one from my phone
-            </Button>
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onPhoto} />
+
           </div>
 
           <h2 className="text-title mb-3">My plays</h2>

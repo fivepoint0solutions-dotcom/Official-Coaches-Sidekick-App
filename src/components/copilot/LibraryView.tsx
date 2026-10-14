@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { StickAndPuck } from "@/components/StickAndPuck";
-import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
+import { DrillButtons } from "@/components/drills/DrillButtons";
 import { deleteLibraryItem, useLibrary, type LibraryCategory } from "@/lib/library";
 import { LibraryCard } from "./LibraryCard";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ export function LibraryView({ category }: LibraryViewProps) {
           <h1 className="text-headline">{t(TITLE_KEYS[key])}</h1>
           <p className="text-body mt-2 text-muted-foreground">{t(SUBTITLE_KEYS[key])}</p>
         </div>
-        <UploadDrillButton />
+        <DrillButtons />
       </div>
 
       {items.length === 0 ? (

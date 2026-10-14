@@ -29,9 +29,9 @@ const en = {
   "shortcuts.saved": "{count} saved",
 
   "modes.inspire.label": "Draw Up Plays",
-  "modes.inspire.tagline": "Draw it, import it, or type it in",
+  "modes.inspire.tagline": "Draw it or type it in",
   "modes.inspire.description":
-    "Draw a play on the rink, bring in one from your phone, or type your own.",
+    "Draw a play on the rink, or type your own.",
   "modes.build.label": "Build a Practice",
   "modes.build.tagline": "Pick your drills, then build it",
   "modes.build.description":
@@ -230,9 +230,9 @@ const es: Dictionary = {
   "shortcuts.saved": "{count} guardados",
 
   "modes.inspire.label": "Dibuja Jugadas",
-  "modes.inspire.tagline": "Dibújala, impórtala o escríbela",
+  "modes.inspire.tagline": "Dibújala o escríbela",
   "modes.inspire.description":
-    "Dibuja una jugada en la pista, trae una de tu teléfono o escribe la tuya.",
+    "Dibuja una jugada en la pista o escribe la tuya.",
   "modes.build.label": "Construyamos una práctica",
   "modes.build.tagline": "Elige tus ejercicios y arma la práctica",
   "modes.build.description":
@@ -429,9 +429,9 @@ const fr: Dictionary = {
   "shortcuts.saved": "{count} enregistrés",
 
   "modes.inspire.label": "Élabore des jeux",
-  "modes.inspire.tagline": "Dessinez-le, importez-le ou écrivez-le",
+  "modes.inspire.tagline": "Dessinez-le ou écrivez-le",
   "modes.inspire.description":
-    "Dessinez un jeu sur la patinoire, importez-en un depuis votre téléphone ou écrivez le vôtre.",
+    "Dessinez un jeu sur la patinoire ou écrivez le vôtre.",
   "modes.build.label": "Construisons un entraînement",
   "modes.build.tagline": "Choisissez vos exercices, puis construisez",
   "modes.build.description":
@@ -629,9 +629,9 @@ const pt: Dictionary = {
   "shortcuts.saved": "{count} salvos",
 
   "modes.inspire.label": "Crie Jogadas",
-  "modes.inspire.tagline": "Desenhe, importe ou escreva",
+  "modes.inspire.tagline": "Desenhe ou escreva",
   "modes.inspire.description":
-    "Desenhe uma jogada na pista, traga uma do seu celular ou escreva a sua.",
+    "Desenhe uma jogada na pista ou escreva a sua.",
   "modes.build.label": "Vamos construir um treino",
   "modes.build.tagline": "Escolha seus exercícios e monte o treino",
   "modes.build.description":
@@ -827,8 +827,8 @@ const zh: Dictionary = {
   "shortcuts.saved": "已保存 {count} 项",
 
   "modes.inspire.label": "设计战术",
-  "modes.inspire.tagline": "画出来、导入或手动输入",
-  "modes.inspire.description": "在冰场上画战术，导入手机里的战术，或自己输入。",
+  "modes.inspire.tagline": "画出来或手动输入",
+  "modes.inspire.description": "在冰场上画战术，或自己输入。",
   "modes.build.label": "陪我一起制定训练",
   "modes.build.tagline": "先选练习，再生成训练",
   "modes.build.description": "打开一个分类，从练习库添加练习，阅读理论，然后生成你的训练。",

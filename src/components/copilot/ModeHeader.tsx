@@ -1,6 +1,6 @@
 import type { ModeConfig } from "@/lib/modes";
 import { StickAndPuck } from "@/components/StickAndPuck";
-import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
+import { DrillButtons } from "@/components/drills/DrillButtons";
 
 type ModeHeaderProps = { mode: ModeConfig };
 
@@ -14,7 +14,7 @@ export function ModeHeader({ mode }: ModeHeaderProps) {
           <p className="text-body mt-2 text-muted-foreground">{mode.description}</p>
         </div>
       </div>
-      <UploadDrillButton />
+      <DrillButtons />
     </div>
   );
 }

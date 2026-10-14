@@ -1,0 +1,114 @@
+import { useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
+import { Check, FolderOpen, Plus, Search, Upload } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DrillSheet } from "@/components/drills/DrillSheet";
+import { DrillTransfer } from "@/components/drills/DrillTransfer";
+import { drillCategories, drillLibrary, type Drill } from "@/data/drillLibrary";
+import { useUserDrills } from "@/lib/userDrills";
+import { addPicked, removePicked, usePicked } from "@/lib/practiceDrills";
+
+/** The two drill buttons on every planning page. Open a drill: pick one from the drill library. Upload a drill: bring your own. */
+export function DrillButtons({ className = "" }: { className?: string }) {
+  const [open, setOpen] = useState<null | "library" | "own">(null);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string>("All");
+  const [sheet, setSheet] = useState<Drill | null>(null);
+  const picked = usePicked();
+  const mine = useUserDrills();
+
+  const drills = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return [...mine, ...drillLibrary].filter(
+      (d) => (category === "All" || d.category === category) && (!q || `${d.name} ${d.category} ${d.skill ?? ""}`.toLowerCase().includes(q)),
+    );
+  }, [mine, query, category]);
+
+  return (
+    <div className={`flex flex-wrap gap-3 ${className}`}>
+      <Button type="button" variant="cta" size="lg" onClick={() => setOpen("library")}>
+        <FolderOpen /> Open a drill
+      </Button>
+      <Button type="button" variant="outline" size="lg" className="!border-2 !border-[#94A3B8] !bg-white !text-[#17171c]" onClick={() => setOpen("own")}>
+        <Upload /> Upload a drill
+      </Button>
+
+      <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
+        <DialogContent className="max-h-[88vh] w-[calc(100vw-1.5rem)] max-w-2xl overflow-x-hidden overflow-y-auto">
+          {open === "library" ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-headline">Open a drill</DialogTitle>
+                <DialogDescription>Pick one from the drill library. Open it to read it, or add it to your practice.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3">
+                <label className="flex items-center gap-2 rounded-lg border-2 border-[#94A3B8] bg-white px-3 py-2">
+                  <Search className="size-4 opacity-70" />
+                  <input className="w-full bg-transparent text-base outline-none" placeholder="Search drills" value={query} onChange={(e) => setQuery(e.target.value)} />
+                </label>
+                <div className="category-tabs" role="radiogroup" aria-label="Category">
+                  {["All", ...drillCategories].map((c) => (
+                    <button key={c} type="button" role="radio" aria-checked={category === c} aria-pressed={category === c} className="category-tab !px-3 !py-2 !text-sm" onClick={() => setCategory(c)}>
+                      {c}
+                    </button>
+                  ))}
+                </div>
+                <ul className="space-y-2">
+                  {drills.slice(0, 80).map((d) => {
+                    const added = picked.includes(d.id);
+                    return (
+                      <li key={d.id} className="flex flex-col gap-2 rounded-lg border-2 border-[#94A3B8] bg-white px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                        <button type="button" className="min-w-0 text-left" onClick={() => setSheet(d)}>
+                          <span className="block truncate font-extrabold">{d.name}</span>
+                          <span className="block text-xs font-semibold opacity-70">{d.category} · {d.duration}</span>
+                        </button>
+                        <div className="flex shrink-0 gap-2">
+                          <Button type="button" size="sm" variant="outline" onClick={() => setSheet(d)}>Open</Button>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant={added ? "outline" : "cta"}
+                            aria-pressed={added}
+                            onClick={() => {
+                              if (added) removePicked(d.id);
+                              else {
+                                addPicked(d.id);
+                                toast.success(`Added: ${d.name}`);
+                              }
+                            }}
+                          >
+                            {added ? <Check /> : <Plus />} {added ? "Added" : "Add"}
+                          </Button>
+                        </div>
+                      </li>
+                    );
+                  })}
+                  {drills.length === 0 ? <li className="text-sm font-semibold opacity-75">No drills match that.</li> : null}
+                </ul>
+              </div>
+            </>
+          ) : null}
+          {open === "own" ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-headline">Upload a drill</DialogTitle>
+                <DialogDescription>Upload your own: a file, a spreadsheet or a photo. It goes into your drills.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <DrillTransfer />
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/drills/new" onClick={() => setOpen(null)}>Type one in myself</Link>
+                </Button>
+              </div>
+            </>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+      <DrillSheet drill={sheet} onClose={() => setSheet(null)} />
+    </div>
+  );
+}
+
+export default DrillButtons;

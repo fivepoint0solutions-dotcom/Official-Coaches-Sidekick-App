@@ -34,8 +34,8 @@ export function BetaBanner() {
         aria-label="Beta tester invitation"
         className="fixed inset-x-0 bottom-0 z-40"
         style={{
-          background: "linear-gradient(180deg, #F7F2E3 0%, #F1EBD8 100%)",
-          borderTop: "2px dashed rgba(33,29,20,0.45)",
+          background: "linear-gradient(180deg, #FFFFFF 0%, #EAF1F8 100%)",
+          borderTop: "5px solid #C8102E",
           boxShadow: "0 -8px 20px -10px rgba(33,29,20,0.45)",
           paddingBottom: "max(8px, env(safe-area-inset-bottom))",
         }}
@@ -50,9 +50,9 @@ export function BetaBanner() {
             className="shrink-0 rounded-md px-3 py-0.5 text-[13px]"
             style={{
               fontFamily: "var(--font-marker, 'Permanent Marker', sans-serif)",
-              color: "#F7F2E3",
-              background: "var(--pb-ink, #211D14)",
-              border: "2px dashed rgba(247,242,227,0.65)",
+              color: "#FFFFFF",
+              background: "#17171c",
+              border: "2px solid #17171c",
               transform: "rotate(-1deg)",
             }}
           >
