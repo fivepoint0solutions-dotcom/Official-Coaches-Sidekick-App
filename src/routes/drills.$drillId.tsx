@@ -113,8 +113,8 @@ function DrillDetailPage() {
         {drill.diagram ? (
           <section className="mt-6 lg:mt-10">
             <h2 className="text-title">Diagram</h2>
-            <div className="mt-3 w-full">
-              <DrillDiagram diagram={drill.diagram} id={drill.id} portraitOnMobile />
+            <div className="mx-auto mt-3 w-full max-w-[24rem]">
+              <DrillDiagram diagram={drill.diagram} id={drill.id} legend />
             </div>
           </section>
         ) : null}

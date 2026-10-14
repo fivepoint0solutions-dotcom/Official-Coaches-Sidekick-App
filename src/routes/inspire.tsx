@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CopilotWorkspace } from "@/components/copilot/CopilotWorkspace";
+import { DrawUpPlaysPage } from "@/components/plays/DrawUpPlaysPage";
 
 export const Route = createFileRoute("/inspire")({
   head: () => ({ meta: [
     { title: "Draw Up Plays — Coach's Sidekick" },
-    { name: "description", content: "Turn a coaching goal into practical plays and fresh team ideas." },
+    { name: "description", content: "Draw a play, bring in one you already have, or type your own." },
     { property: "og:title", content: "Draw Up Plays — Coach's Sidekick" },
-    { property: "og:description", content: "Turn a coaching goal into practical plays and fresh team ideas." },
+    { property: "og:description", content: "Draw a play, bring in one you already have, or type your own." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
-  component: () => <CopilotWorkspace mode="inspire" />,
+  component: DrawUpPlaysPage,
 });

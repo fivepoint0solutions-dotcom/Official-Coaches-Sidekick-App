@@ -1312,3 +1312,28 @@ html body .badge-pill, html body .chip {
 }
 
 .practice-tray { position: sticky; bottom: 6.5rem; z-index: 25; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .9rem 1.1rem; background: #FFFDF6; border: 2px solid #1d1b16; border-radius: 12px; box-shadow: 0 6px 0 rgba(33,29,20,.3), 0 14px 26px -12px rgba(20,15,5,.55); }
+
+/* ---- Feedback: a red goal light with a label, just above the beta banner, on the right ---- */
+@keyframes lamp-glow { 0%, 100% { box-shadow: 0 6px 14px -4px rgba(120,10,20,.6), 0 0 0 0 rgba(255,59,48,.55); } 50% { box-shadow: 0 6px 14px -4px rgba(120,10,20,.6), 0 0 0 11px rgba(255,59,48,0); } }
+.feedback-lamp {
+  position: fixed; z-index: 45; display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .95rem .35rem .55rem; min-height: 48px; border-radius: 999px;
+  right: max(16px, env(safe-area-inset-right)); bottom: calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)));
+  background: linear-gradient(180deg, #E11D2E, #A60F1D); color: #FFFFFF; border: 3px solid #1d1b16; font-family: var(--font-marker, "Permanent Marker", sans-serif); font-size: 1rem; letter-spacing: .02em;
+  animation: lamp-glow 2.4s ease-out infinite; cursor: pointer; transition: transform .12s ease;
+}
+.feedback-lamp:active { transform: scale(.94); }
+.feedback-lamp > span { color: #FFFFFF; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+@media (prefers-reduced-motion: reduce) { .feedback-lamp { animation: none; } }
+
+/* ---- Build a Practice: the drill inventory, one paper card per category ---- */
+.practice-cat {
+  position: relative; display: flex; align-items: baseline; gap: .75rem; width: 100%; padding: 1rem 3.2rem 1rem 1.6rem; text-align: left; cursor: pointer; color: #1b1a14;
+  background: linear-gradient(180deg, #FFFDF6 0, #FBF5E4 100%); border: 3px solid #1d1b16; border-radius: 22px 18px 24px 16px / 18px 24px 16px 22px;
+  box-shadow: 0 10px 18px -12px rgba(20,15,5,.55), inset 0 -2px 0 rgba(0,0,0,.06); overflow: hidden; transition: box-shadow .15s ease, scale .1s ease;
+}
+.practice-cat::before { content: ""; position: absolute; left: .8rem; top: 0; bottom: 0; width: 2px; background: rgba(200,60,50,.55); }
+.practice-cat::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #B3141F; }
+.practice-cat:active { scale: .985; }
+.practice-cat-name { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
+.practice-cat-meta { font-size: .85rem; font-weight: 700; opacity: .7; }
+.practice-cat-sign { position: absolute; right: 1.1rem; top: 50%; translate: 0 -50%; font-size: 1.8rem; font-weight: 800; color: #B3141F; line-height: 1; }

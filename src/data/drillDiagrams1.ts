@@ -48,7 +48,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "SKT-009": { // six cones down the middle, three metres apart, weave on one foot
     markers: [...spread(50, 27, 50, 73, 6).map(([x, y]) => CONE(x, y)), P(44, 92), P(56, 92)],
-    arrows: [run([50, 86], [50, 8], [[44, 73], [56, 64], [44, 55], [56, 46], [44, 36], [56, 27]])],
+    arrows: [run([50, 86], [50, 16], [[44, 73], [56, 64], [44, 55], [56, 46], [44, 36], [56, 27]])],
   },
   "SKT-010": { // players around the centre circle, backward crossovers with a puck, coach in the middle
     markers: [...[0, 72, 144, 216, 288].flatMap((a) => { const [x, y] = onEllipse(CC[0], CC[1], 12, 5.84, a); return [P(x, y), PUCK(x + 1.9, y + 1.2)]; }), COACH(50, 49.9)],

@@ -1,6 +1,7 @@
 import type { DrillDiagramSpec } from "@/components/drills/DrillDiagram";
+import { rinkSpec } from "./drillDiagrams";
+import { theoryDiagrams } from "./theoryDiagrams";
 import type { DrillCategory } from "./drillLibrary";
-import { CONE, D, P, PUCK, carry, pass, run } from "./diagramKit";
 
 export type TheoryDiagram = { title: string; caption: string; diagram: DrillDiagramSpec };
 export type CategoryTheory = {
@@ -27,9 +28,9 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     whyItMatters: "Power plays decide close games. A team that scores on one in five power plays wins far more often than a team that does not, and the habits you build here (patience, puck movement, picking a shot) carry into five-on-five play.",
     diagrams: [
-      { title: "The 1-3-1", caption: "One at the point, three across the middle, one in front. It stretches the box wide and deep.", diagram: { surface: "hockey-half", markers: [P(44, 50, "P"), P(30, 14, "F"), P(27, 50, "B"), P(30, 86, "F"), P(18, 50, "N"), D(22, 38), D(22, 62), D(33, 40), D(33, 60), PUCK(46, 52)], arrows: [pass([44, 50], [32, 17]), pass([30, 17], [28, 48]), pass([28, 52], [30, 83])] } },
-      { title: "The overload", caption: "Three on the strong side pull the box over; the weak side opens for the one-timer.", diagram: { surface: "hockey-half", markers: [P(16, 18, "C"), P(30, 24, "W"), P(26, 44, "S"), P(18, 76, "F"), P(44, 64, "P"), D(20, 30), D(28, 40), D(22, 56), D(34, 52), PUCK(17, 20)], arrows: [pass([16, 20], [28, 24]), pass([30, 26], [26, 42]), pass([26, 46], [19, 74])] } },
-      { title: "Getting in", caption: "A drop pass at speed beats a standing box: carry, drop, and attack the line together.", diagram: { surface: "hockey-full", markers: [P(52, 24), P(52, 40), P(56, 32), P(48, 32), D(74, 22), D(74, 44), D(82, 28), D(82, 38), PUCK(58, 24)], arrows: [run([52, 24], [66, 24]), pass([66, 26], [60, 32]), run([60, 32], [76, 32])] } },
+      { title: "The 1-3-1", caption: "One at the point, three across the middle, one in front. It stretches the box wide and deep.", diagram: rinkSpec(theoryDiagrams["The 1-3-1"]!) },
+      { title: "The overload", caption: "Three on the strong side pull the box over; the weak side opens for the one-timer.", diagram: rinkSpec(theoryDiagrams["The overload"]!) },
+      { title: "Getting in", caption: "A drop pass at speed beats a standing box: carry, drop, and attack the line together.", diagram: rinkSpec(theoryDiagrams["Getting in"]!) },
     ],
   },
   "Penalty Kill": {
@@ -47,9 +48,9 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     whyItMatters: "A strong penalty kill takes the other team's best advantage away and often swings momentum. Killing a penalty gives the whole bench a lift, and the habits (gap control, communication, shot blocking) make you better at five-on-five.",
     diagrams: [
-      { title: "The box", caption: "Two high, two low. The box shifts as one toward the puck and keeps the slot closed.", diagram: { surface: "hockey-half", markers: [P(22, 38), P(22, 62), P(33, 38), P(33, 62), D(44, 50, "P"), D(30, 14), D(27, 50), D(30, 86), D(18, 50), PUCK(46, 52)], arrows: [run([33, 38], [32, 32]), run([33, 62], [32, 66])] } },
-      { title: "The diamond", caption: "One high player pressures the puck while the others protect the slot.", diagram: { surface: "hockey-half", markers: [P(36, 50, "H"), P(26, 32, "W"), P(26, 68, "W"), P(18, 50, "L"), D(44, 50, "P"), D(30, 14), D(27, 50), D(30, 86), D(20, 28), PUCK(46, 52)], arrows: [run([36, 50], [43, 50])] } },
-      { title: "The clear", caption: "Hard and flat around the boards, never up the middle.", diagram: { surface: "hockey-half", markers: [P(12, 64, "D"), P(34, 8, "W"), D(20, 52, "F"), PUCK(14, 66)], arrows: [pass([14, 66], [30, 94]), pass([30, 94], [52, 94])] } },
+      { title: "The box", caption: "Two high, two low. The box shifts as one toward the puck and keeps the slot closed.", diagram: rinkSpec(theoryDiagrams["The box"]!) },
+      { title: "The diamond", caption: "One high player pressures the puck while the others protect the slot.", diagram: rinkSpec(theoryDiagrams["The diamond"]!) },
+      { title: "The clear", caption: "Hard and flat around the boards, never up the middle.", diagram: rinkSpec(theoryDiagrams["The clear"]!) },
     ],
   },
   Offense: {
@@ -60,7 +61,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Enter with control, then support.", "Use the whole width: wide players pull defenders apart.", "Cycle low to wear a defender down.", "Always get a body to the net.", "Shoot with purpose; a rebound is a second chance."],
     whyItMatters: "Teams score from structure, not luck. A clear offensive plan means players know where to be even when the play changes.",
-    diagrams: [{ title: "3-on-2 rush", caption: "Three attackers use width and one drives the net against two defenders.", diagram: { surface: "hockey-full", markers: [P(62, 12), P(62, 22), P(60, 32), D(80, 18), D(80, 30), PUCK(63, 22)], arrows: [carry([62, 22], [76, 22]), pass([76, 22], [78, 12]), run([62, 12], [84, 14]), run([60, 32], [84, 26])] } }],
+    diagrams: [{ title: "3-on-2 rush", caption: "Three attackers use width and one drives the net against two defenders.", diagram: rinkSpec(theoryDiagrams["3-on-2 rush"]!) }],
   },
   Defense: {
     tagline: "Winning the puck back",
@@ -70,7 +71,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Gap control: stay a stick-length ahead of the attacker.", "Take the inside lane away first.", "Stick on the ice, body between the man and the net.", "Talk early and often.", "Win the puck, then move it quickly."],
     whyItMatters: "Most games are decided by who wins the puck battles in their own end. Strong defensive habits keep chances low and give your offence the puck more often.",
-    diagrams: [{ title: "Gap and angle", caption: "The defender keeps the gap tight and steers the attacker to the boards.", diagram: { surface: "hockey-half", markers: [P(24, 50, "D"), D(46, 40, "A"), PUCK(44, 42)], arrows: [run([46, 40], [32, 30]), run([24, 50], [30, 38])] } }],
+    diagrams: [{ title: "Gap and angle", caption: "The defender keeps the gap tight and steers the attacker to the boards.", diagram: rinkSpec(theoryDiagrams["Gap and angle"]!) }],
   },
   Shooting: {
     tagline: "Getting the puck on net",
@@ -80,7 +81,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Weight transfer: push from the back foot through the puck.", "Quick release beats a perfect windup.", "Pick a corner before you shoot.", "Shoot through traffic; a screen is a weapon.", "Follow the shot."],
     whyItMatters: "A shot is only a chance if it is on net. Players who shoot with intent create the rebounds and tips that win games.",
-    diagrams: [{ title: "Shot lanes", caption: "Shoot through the lanes between defenders, with a screen in front of the goalie.", diagram: { surface: "hockey-half", markers: [P(40, 40, "S"), P(16, 50, "T"), D(30, 36), D(30, 60), PUCK(41, 42)], arrows: [pass([41, 42], [15, 50])] } }],
+    diagrams: [{ title: "Shot lanes", caption: "Shoot through the lanes between defenders, with a screen in front of the goalie.", diagram: rinkSpec(theoryDiagrams["Shot lanes"]!) }],
   },
   Passing: {
     tagline: "Moving the puck with purpose",
@@ -90,7 +91,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Pass to the stick, not the body.", "Receive with soft hands and the blade open.", "Lead the receiver into open ice.", "Pass and move: give-and-go.", "Use the boards and the seam."],
     whyItMatters: "Teams that pass well keep the puck and tire out their opponent. Passing is the base of every power play and every breakout.",
-    diagrams: [{ title: "Give and go", caption: "Pass, then skate into the open lane to take the return pass.", diagram: { surface: "hockey-full", markers: [P(30, 30, "1"), P(40, 14, "2"), D(46, 28), PUCK(31, 31)], arrows: [pass([31, 31], [40, 16]), run([30, 30], [50, 24]), pass([40, 16], [50, 24])] } }],
+    diagrams: [{ title: "Give and go", caption: "Pass, then skate into the open lane to take the return pass.", diagram: rinkSpec(theoryDiagrams["Give and go"]!) }],
   },
   Skating: {
     tagline: "The foundation of everything",
@@ -100,7 +101,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Knees bent, chest up, head up.", "Push to the side, not just back.", "Use inside and outside edges.", "Crossovers for speed and turns.", "Stops and starts: quick feet win races."],
     whyItMatters: "A player who skates well has more time and more options. Skating improves every other part of your game.",
-    diagrams: [{ title: "Edge work", caption: "Weave through cones to build edge control and tight turns.", diagram: { surface: "hockey-full", markers: [CONE(20, 20), CONE(35, 30), CONE(50, 20), CONE(65, 30), CONE(80, 20), P(8, 26)], arrows: [run([10, 26], [20, 28]), run([22, 24], [34, 26]), run([36, 28], [49, 24]), run([51, 22], [64, 26])] } }],
+    diagrams: [{ title: "Edge work", caption: "Weave through cones to build edge control and tight turns.", diagram: rinkSpec(theoryDiagrams["Edge work"]!) }],
   },
   Goaltending: {
     tagline: "The last line of defence",
@@ -110,7 +111,7 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Stay square and on the angle.", "Track the puck with your eyes and your chest.", "T-push and shuffle to move post to post.", "Control rebounds, and cover when you can.", "Reset your feet after every save."],
     whyItMatters: "Goalies see more shots than anyone. A consistent goalie gives the whole team confidence.",
-    diagrams: [{ title: "Playing the angle", caption: "The goalie moves out from the net and stays on the line between the puck and the middle of the net.", diagram: { surface: "hockey-half", markers: [P(16, 50, "G"), D(40, 30, "S"), PUCK(41, 32)], arrows: [run([14, 50], [20, 44]), pass([41, 32], [16, 50])] } }],
+    diagrams: [{ title: "Playing the angle", caption: "The goalie moves out from the net and stays on the line between the puck and the middle of the net.", diagram: rinkSpec(theoryDiagrams["Playing the angle"]!) }],
   },
   "Conditioning & Games": {
     tagline: "Fitness with a puck",
@@ -120,6 +121,6 @@ export const categoryTheory: Record<DrillCategory, CategoryTheory> = {
     ],
     keyIdeas: ["Warm up with purpose.", "Short, hard intervals beat long, slow ones.", "Small-area games teach decisions.", "Keep the score close.", "Finish with a cool-down."],
     whyItMatters: "Players who are fit make better decisions in the third period. Small games keep young players engaged while they learn.",
-    diagrams: [{ title: "Small-area game", caption: "3-on-3 in a tight space with two nets, built for quick touches and fast decisions.", diagram: { surface: "hockey-half", markers: [P(30, 30), P(36, 50), P(30, 70), D(20, 36), D(24, 50), D(20, 64), PUCK(31, 32)], arrows: [pass([31, 32], [36, 48]), run([30, 70], [24, 60])] } }],
+    diagrams: [{ title: "Small-area game", caption: "3-on-3 in a tight space with two nets, built for quick touches and fast decisions.", diagram: rinkSpec(theoryDiagrams["Small-area game"]!) }],
   },
 };

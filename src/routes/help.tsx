@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown, Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { GuideDiagram } from "@/components/help/HelpDiagram";
 import { GUIDE_GROUPS, type GuideTopic } from "@/lib/helpGuide";
 import { DisplaySettings } from "@/components/navigation/AppHeader";
@@ -50,7 +50,7 @@ function Pill({
         style={{ minHeight: 64 }}
       >
         <span className="min-w-0 flex-1 text-base font-bold leading-tight text-white">{title}</span>
-        <ChevronDown className={cn("size-5 shrink-0 text-white transition-transform", open && "rotate-180")} />
+        <span aria-hidden="true" className="shrink-0 text-2xl font-extrabold leading-none text-white">{open ? "−" : "+"}</span>
       </button>
       {open && <div className="space-y-3 px-5 pb-5">{children}</div>}
     </div>

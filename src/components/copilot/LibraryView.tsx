@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { StickAndPuck } from "@/components/StickAndPuck";
+import { UploadDrillButton } from "@/components/drills/UploadDrillButton";
 import { deleteLibraryItem, useLibrary, type LibraryCategory } from "@/lib/library";
 import { LibraryCard } from "./LibraryCard";
 import { Button } from "@/components/ui/button";
@@ -30,20 +31,21 @@ export function LibraryView({ category }: LibraryViewProps) {
 
   return (
     <div className="container-app py-8 lg:py-10">
-      <div className="mb-8">
-        <h1 className="text-headline">{t(TITLE_KEYS[key])}</h1>
-        <p className="text-body mt-2 text-muted-foreground">{t(SUBTITLE_KEYS[key])}</p>
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-headline">{t(TITLE_KEYS[key])}</h1>
+          <p className="text-body mt-2 text-muted-foreground">{t(SUBTITLE_KEYS[key])}</p>
+        </div>
+        <UploadDrillButton />
       </div>
 
       {items.length === 0 ? (
         <div className="card-soft flex flex-col items-center gap-4 p-10 text-center">
-          <span className="gradient-hero gradient-motion grid size-14 place-items-center rounded-2xl text-white">
-            <Sparkles className="size-6" />
-          </span>
+          <StickAndPuck size={52} />
           <p className="text-title">{t("library.emptyTitle")}</p>
           <p className="text-body max-w-sm text-muted-foreground">{t("library.emptyBody")}</p>
-          <Button asChild variant="hero" size="lg">
-            <Link to="/create">{t("nav.createSomething")}</Link>
+          <Button asChild variant="cta" size="lg">
+            <Link to={category === "idea" ? "/inspire" : "/build"}>{category === "idea" ? "Draw up a play" : "Build a practice"}</Link>
           </Button>
         </div>
       ) : (

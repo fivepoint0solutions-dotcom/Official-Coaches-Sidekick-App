@@ -73,7 +73,7 @@ export function Marker({ marker, w, h }: { marker: DiagramMarker; w: number; h: 
     glyph = (
       <>
         <circle cx={cx} cy={cy} r={1.85 * k} fill={TEAM_DEFENCE} stroke="#FFFFFF" strokeWidth={0.35 * k} />
-        <text x={cx} y={cy + 0.9 * k} textAnchor="middle" fontSize={2.5 * k} fontWeight={800} fill="#FFFFFF" className="diagram-label">
+        <text x={cx} y={cy + 0.9 * k} textAnchor="middle" fontSize={2.8 * k} fontWeight={800} fill="#FFFFFF" className="diagram-label">
           G
         </text>
       </>
@@ -162,7 +162,7 @@ export function Arrow({ arrow, w, h }: { arrow: DiagramArrow; w: number; h: numb
   // The line stops at the base of the head so the point stays sharp.
   const trimmed = pts.slice(0, -1).concat([[last[0] - Math.cos(ang) * back, last[1] - Math.sin(ang) * back]]);
   const style = arrow.style ?? "run";
-  const line = style === "dribble" ? wavy(trimmed, 0.62 * k, 3.6 * k) : trimmed;
+  const line = style === "dribble" ? wavy(trimmed, 0.5 * k, 6.2 * k) : trimmed;
   const tip = `${last[0]},${last[1]} ${last[0] - Math.cos(ang) * head + Math.sin(ang) * half},${last[1] - Math.sin(ang) * head - Math.cos(ang) * half} ${last[0] - Math.cos(ang) * head - Math.sin(ang) * half},${last[1] - Math.sin(ang) * head + Math.cos(ang) * half}`;
   return (
     <g>
