@@ -26,7 +26,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "SKT-005": { // line up on the goal line facing up ice, backward c-cuts to the blue line
     markers: row(spread(16, 91, 84, 91, 5)),
-    arrows: [run([32, 86], [32, 68]), run([68, 86], [68, 68])],
+    arrows: [run([32, 86], [32, 68]), run([68, 86], [68, 68]), run([32, 68], [32, 88]), run([68, 68], [68, 88])],
   },
   "SKT-006": { // cones on the four neutral-zone dots, two lines at centre ice, half with pucks
     markers: [CONE(27.3, 41), CONE(72.6, 41), CONE(27.3, 59), CONE(72.6, 59), P(44, 49), P(44, 53), P(56, 49), P(56, 53), PUCK(45.8, 49), PUCK(54.2, 53)],
@@ -60,7 +60,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "SHT-002": { // down the boards with a puck, coach slides a second puck into the path, sweep shot on the move
     markers: [G(), P(90, 12), P(90, 7), P(93, 16), PUCK(88.2, 12.6), COACH(86, 23, "Coach"), PUCK(83, 24.5)],
-    arrows: [carry([89, 14], [82, 20], [[88, 18]]), pass([82, 23], [76, 22]), pass([72, 20], [53, 10])],
+    arrows: [carry([89, 14], [82, 20], [[88, 18]]), pass([82, 23], [76, 22]), pass([72, 20], [53, 10]), run([70, 20], [55, 12])],
   },
   "SHT-003": { // line in the slot with pucks, forehand then backhand lifts at the net
     markers: [G(), P(50, 28), P(50, 33), P(50, 38), P(50, 43), PUCK(51.8, 28.6)],
@@ -68,7 +68,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "SHT-004": { // passers at the half boards, shooters in the slot, catch-and-release
     markers: [G(), P(90, 24, "P"), P(90, 29, "P"), P(40, 20, "S"), P(40, 26, "S"), PUCK(88.2, 24.6)],
-    arrows: [pass([88, 24], [43, 22]), pass([38, 20], [48, 9])],
+    arrows: [pass([88, 24], [43, 22]), pass([38, 20], [48, 9]), run([40, 20], [50, 12])],
   },
   "SHT-005": { // passer at the goal line, shooters at the top of the circle, one-timers
     markers: [G(), P(84, 6.5, "P"), P(68, 22), P(68, 27), P(68, 32), PUCK(82.2, 7.4)],
@@ -80,51 +80,51 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "SHT-007": { // full ice: far net with goalie, players at the far blue line, slap shots
     markers: [G(), P(30, 36), P(40, 36), P(50, 36), P(60, 36), P(70, 36), PUCK(31.8, 37)],
-    arrows: [run([50, 33], [50, 24]), pass([50, 22], [50, 11])],
+    arrows: [run([50, 33], [50, 24]), pass([50, 22], [50, 11]), run([50, 22], [50, 16])],
   },
   "SHT-008": { // shooter at the point, tipper at the top of the crease
-    markers: [G(), P(38, 36, "S"), P(50, 13, "T"), PUCK(39.8, 37)],
-    arrows: [pass([39, 35], [50, 15])],
+    markers: [G(), P(38, 36, "S"), P(50, 13, "T"), D(56, 13), PUCK(39.8, 37)],
+    arrows: [pass([39, 35], [50, 15]), pass([50, 14], [50, 10])],
   },
   "SHT-009": { // shootout moves from centre ice, one deke, one shot
-    markers: [G(), P(44, 50), P(50, 53), P(56, 50), PUCK(45.8, 50.8)],
+    markers: [G(), P(44, 50), P(50, 53), P(56, 50), PUCK(45.8, 50.8), PUCK(51.8, 53.8), PUCK(57.8, 50.8)],
     arrows: [carry([44, 48], [50, 28], [[47, 38]]), carry([50, 27], [56, 22], [[53, 24]]), pass([55, 21], [51, 10])],
   },
   "SHT-010": { // three cones in the slot triangle, passer at the half boards, one-second release
     markers: [G(), CONE(40, 24), CONE(60, 24), CONE(50, 16), P(40, 26), P(60, 26), P(50, 18), P(90, 22, "P"), PUCK(88.2, 22.6)],
-    arrows: [pass([88, 22], [62, 25]), pass([60, 23], [53, 11])],
+    arrows: [pass([88, 22], [62, 25]), pass([60, 23], [53, 11]), run([62, 24], [88, 12]), run([88, 12], [62, 24])],
   },
   "PAS-001": { // pairs across the ice, forehand to forehand, five metres apart
-    markers: [P(20, 25), P(20, 36), P(80, 25), P(80, 36), P(20, 63), P(20, 74), P(80, 63), P(80, 74), P(50, 20), P(50, 31), PUCK(21.8, 25.6), PUCK(81.8, 25.6)],
+    markers: [P(20, 25), P(20, 36), P(80, 25), P(80, 36), P(20, 63), P(20, 74), P(80, 63), P(80, 74), P(50, 20), P(50, 31), PUCK(21.8, 25.6), PUCK(81.8, 25.6), PUCK(21.8, 63.6), PUCK(81.8, 63.6), PUCK(51.8, 20.6)],
     arrows: [pass([20, 28], [20, 33]), pass([80, 28], [80, 33]), pass([20, 66], [20, 71]), pass([80, 66], [80, 71]), pass([50, 23], [50, 28])],
   },
   "PAS-002": { // same pairs, backhand to backhand
-    markers: [P(20, 25), P(20, 36), P(80, 25), P(80, 36), P(20, 63), P(20, 74), P(80, 63), P(80, 74), PUCK(18.2, 25.6)],
-    arrows: [pass([20, 28], [20, 33]), pass([80, 28], [80, 33]), pass([20, 66], [20, 71]), pass([80, 66], [80, 71])],
+    markers: [P(20, 25), P(20, 36), P(80, 25), P(80, 36), P(20, 63), P(20, 74), P(80, 63), P(80, 74), PUCK(18.2, 25.6), P(50, 20), P(50, 31), PUCK(51.8, 20.6), PUCK(81.8, 25.6), PUCK(21.8, 63.6), PUCK(81.8, 63.6)],
+    arrows: [pass([20, 28], [20, 33]), pass([80, 28], [80, 33]), pass([20, 66], [20, 71]), pass([80, 66], [80, 71]), pass([50, 23], [50, 28])],
   },
   "PAS-003": { // two lines at opposite blue lines, exchange the pass at the red line
-    markers: [P(34, 65.3), P(34, 70), P(66, 34.6), P(66, 30), P(66, 65.3), P(66, 70), P(34, 34.6), P(34, 30), PUCK(35.8, 66)],
+    markers: [P(34, 65.3), P(34, 70), P(66, 34.6), P(66, 30), P(66, 65.3), P(66, 70), P(34, 34.6), P(34, 30), PUCK(35.8, 66), PUCK(67.8, 35.2)],
     arrows: [run([34, 62], [38, 50]), run([66, 38], [62, 50]), pass([40, 50], [60, 50]), run([62, 48], [66, 36])],
   },
   "PAS-004": { // down the wing, give to the coach at the half boards, sprint past, return pass, shoot
     markers: [G(), P(90, 9), P(90, 5), P(93, 13), PUCK(88.2, 9.6), COACH(84, 24, "Coach")],
-    arrows: [carry([89, 12], [85, 21], [[88, 17]]), pass([84, 22], [82, 30], [[88, 26]]), run([83, 20], [74, 28], [[85, 25]]), run([72, 28], [58, 14])],
+    arrows: [carry([89, 12], [85, 21], [[88, 17]]), pass([84, 22], [82, 30], [[88, 26]]), run([83, 20], [74, 28], [[85, 25]]), run([72, 28], [58, 14]), pass([58, 14], [50, 10])],
   },
   "PAS-005": { // pairs along the boards ten metres apart, bank pass off the boards
     markers: [P(12, 22), P(12, 42), P(88, 58), P(88, 78), PUCK(13.8, 22.6), PUCK(86.2, 58.6)],
-    arrows: [pass([13, 24], [4, 33], [[4, 33]]), pass([87, 60], [96, 69]), run([12, 44], [12, 50])],
+    arrows: [pass([13, 24], [12, 40], [[4, 33]]), pass([87, 60], [88, 76], [[96, 69]]), run([12, 44], [12, 50])],
   },
   "PAS-006": { // saucer pass over two sticks laid flat between the pair
-    markers: [P(34, 30), P(66, 30), P(34, 66), P(66, 66), CONE(46, 30), CONE(54, 30), CONE(46, 66), CONE(54, 66), PUCK(35.8, 30.6)],
-    arrows: [pass([36, 29], [64, 29]), pass([64, 31], [36, 31]), pass([36, 65], [64, 65])],
+    markers: [P(34, 30), P(66, 30), P(34, 66), P(66, 66), CONE(46, 30), CONE(54, 30), CONE(46, 66), CONE(54, 66), PUCK(35.8, 30.6), PUCK(35.8, 66.6)],
+    arrows: [pass([36, 29], [64, 29]), pass([64, 31], [36, 31]), pass([36, 65], [64, 65]), pass([64, 67], [36, 67])],
   },
   "PAS-007": { // two D at the points with pucks, two forwards in front, D-to-D then a low shot to tip
-    markers: [G(), P(30, 36, "D"), P(70, 36, "D"), P(45, 13), P(56, 13), D(50, 17), PUCK(31.8, 36.8)],
-    arrows: [pass([32, 36], [68, 36]), pass([68, 34], [50, 12]), pass([71, 36], [32, 36])],
+    markers: [G(), P(30, 36, "D"), P(70, 36, "D"), P(45, 13), P(56, 13), PUCK(31.8, 36.8)],
+    arrows: [pass([32, 36], [68, 36]), pass([71, 36], [32, 36]), pass([68, 34], [50, 12])], // D-to-D, D-to-D again, then the shot (arrow order = time order)
   },
   "PAS-008": { // full ice: D behind the net, winger on the near blue line, forward breaking at the far blue line
     markers: [G(50, 91.5), P(50, 97, "D"), P(86, 65.3, "W"), P(40, 34.6, "F"), PUCK(51.8, 97.4)],
-    arrows: [pass([52, 96], [86, 68], [[92, 88]]), pass([85, 63], [44, 36]), run([40, 33], [46, 14])],
+    arrows: [pass([52, 96], [86, 68], [[92, 88]]), pass([85, 63], [44, 36]), run([40, 33], [46, 14]), pass([46, 14], [50, 10])],
   },
   "PAS-009": { // one-touch circle at centre ice, one defender in the middle
     markers: [...[0, 72, 144, 216, 288].map((a) => { const [x, y] = onEllipse(CC[0], CC[1], 12, 5.84, a); return P(x, y); }), D(50, 49.9), PUCK(63, 50.6)],

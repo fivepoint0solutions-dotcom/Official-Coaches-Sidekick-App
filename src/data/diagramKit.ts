@@ -1,5 +1,5 @@
 // Tiny helpers for writing rink diagrams. Coordinates are percentages of the portrait rink (x across, y down);
-// the top of the picture is the attacking end. P = attacker (orange O) · D = defender (dark-blue X) · G = goalie in the crease.
+// the top of the picture is the attacking end. P = attacker (blue O, or a role letter) · D = other team (red X) · G = goalie in the crease.
 export const P = (x: number, y: number, label?: string) => ({ x, y, kind: "player" as const, ...(label ? { label } : {}) });
 export const D = (x: number, y: number, label?: string) => ({ x, y, kind: "defender" as const, ...(label ? { label } : {}) });
 export const G = (x = 50, y = 8.6) => ({ x, y, kind: "goalie" as const, label: "G" });

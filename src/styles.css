@@ -1152,10 +1152,23 @@ h1, h2, h3, h4, .font-display, .text-display, .text-headline, .text-title {
 }
 h1.italic, .text-headline.italic { font-style: normal !important; }
 
-/* Former gradient headline span becomes rink-red marker. */
+/* Headline gradient: blue + white + black only, slow breathing shimmer. Mostly deep
+   blue/black so it stays readable; white is just a narrow moving highlight, never a band. */
+@keyframes textBreathe {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 .text-gradient {
-  background: none !important;
-  color: var(--pb-red) !important;
+  background-image: linear-gradient(100deg, #030917 0%, #0B1F4D 28%, #1F5FC8 46%, #6392db 56%, #FFFFFF 62%, #1F5FC8 70%, #0B1F4D 86%, #030917 100%) !important;
+  background-size: 220% 100% !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textBreathe 14s ease-in-out infinite !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient { animation: none !important; background-position: 30% 50% !important; }
 }
 
 /* Jersey-patch buttons: solid fill, stitched inset edge, marker label. */
@@ -1215,6 +1228,11 @@ body.beta-banner-collapsed .beta-banner-clearance {
   padding-bottom: 0;
 }
 
+/* The beta banner must never cover content: reserve its measured height + room. */
+.beta-banner-clearance {
+  padding-bottom: calc(var(--beta-banner-h, 96px) + 2rem);
+}
+
 /* Portrait drill rink on phones: the drawing is turned on its side, so keep marker letters upright. */
 
 /* ---- Drill library flashcards: an overlapping stack; each card shows its name strip, tap to open the whole drill ---- */
@@ -1260,7 +1278,7 @@ body { background-color: #F3F8FB; }
 @media (orientation: portrait) { .rink-wash { background: rgba(246,249,251,.5); } }
 /* the centre circle is 282/876 of the rink's short side, scaled the way object-fit: cover scales the photo */
 .rink-logo { position: absolute; left: 50%; top: 49.3%; transform: translate(-50%, -50%); border-radius: 50%; overflow: hidden; background: var(--b3); box-shadow: 0 0 0 3px rgba(29,78,216,.9);
-  width: calc(0.97 * 282 * max(100vw / 1421, 100vh / 876)); aspect-ratio: 1; opacity: .88; }
+  width: calc(0.97 * 282 * max(100vw / 1421, 100vh / 876)); aspect-ratio: 1; opacity: .25; }
 @media (orientation: portrait) { .rink-logo { width: calc(0.97 * 282 * max(100vw / 876, 100vh / 1421)); } }
 .rink-logo img { position: absolute; left: 50%; top: 50%; width: 112%; height: auto; max-width: none; transform: translate(-50%, -50%); }
 .choice-chip { background: #FFFFFF; color: var(--b0); border: 2px solid rgba(33,29,20,.45) !important; box-shadow: 0 2px 0 rgba(33,29,20,.18); }
@@ -1302,8 +1320,6 @@ html body .badge-pill, html body .chip {
   background: #FFFFFF !important; color: var(--b0) !important; border: 1.5px solid rgba(33,29,20,.5) !important; border-radius: 8px !important;
   text-transform: none; letter-spacing: .02em; font-size: .85rem; box-shadow: none;
 }
-
-.practice-tray { position: sticky; bottom: 6.5rem; z-index: 25; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .9rem 1.1rem; background: #FFFFFF; border: 2px solid var(--b0); border-radius: 12px; box-shadow: 0 6px 0 rgba(33,29,20,.3), 0 14px 26px -12px rgba(20,15,5,.55); }
 
 /* ---- Feedback: a red goal light with a label, just above the beta banner, on the right ---- */
 @keyframes lamp-glow { 0%, 100% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 0 rgba(90,162,255,.55); } 50% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 11px rgba(90,162,255,0); } }
@@ -1431,8 +1447,8 @@ html body .badge-pill, html body .chip {
   }
   [data-skin="jersey"]::before {
     transform: none !important; translate: none !important; filter: none !important;
-    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: .1 !important;
-    background: var(--team-logo) no-repeat 94% 50% / auto 78%;
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: .16 !important;
+    background: var(--team-logo) no-repeat 50% 50% / auto 60%;
   }
   [data-skin="jersey"]::after {
     transform: none !important; translate: none !important; filter: none !important; mix-blend-mode: normal !important;
@@ -1455,8 +1471,9 @@ html body .badge-pill, html body .chip {
   [data-skin="scoreboard"]::before { content: none !important; }
   [data-skin="scoreboard"]::after {
     transform: none !important; translate: none !important; filter: none !important; mix-blend-mode: normal !important;
-    content: "" !important; position: absolute !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: auto !important; width: auto !important; height: 4px !important; border-radius: 14px 14px 0 0; opacity: 1 !important; animation: none !important; z-index: 1;
+    content: "" !important; position: absolute !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: auto !important; width: auto !important; height: 5px !important; border-radius: 14px 14px 0 0; opacity: 1 !important; animation: none !important; z-index: 1;
     background: linear-gradient(90deg, var(--b4) 0%, #FFFFFF 50%, var(--b4) 100%) !important;
+    box-shadow: 0 0 10px rgba(147, 197, 253, .9) !important;
   }
   [data-skin="scoreboard"] :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, a, strong, em, b, td, th, summary, dt, dd):not(.keep-color):not(.tape-strip):not(.tape-strip *):not(.rounded-full):not([class*="bg-white"]):not(.category-tab):not(.category-tab *):not(.drill-flash-rink *):not(button[class*="bg-"] *):not(button[class*="gradient"] *):not(button.category-tab *):not(#_):not(#__) {
     color: #FFFFFF !important;
@@ -1472,7 +1489,7 @@ html body .badge-pill, html body .chip {
   :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin])):not(#_):not(#__) {
     background-color: #E6EFF9 !important;
     background-image:
-      linear-gradient(0deg, var(--team-primary) 0 9px, var(--team-deep) 9px 11px, transparent 11px),
+      linear-gradient(0deg, var(--team-primary) 0 12px, var(--team-deep) 12px 14px, transparent 14px),
       repeating-linear-gradient(90deg, rgba(15,23,42,.08) 0 1px, transparent 1px 120px),
       linear-gradient(112deg, rgba(255,255,255,.7) 0 13%, rgba(255,255,255,0) 13.4% 26%, rgba(255,255,255,.35) 26.4% 31%, rgba(255,255,255,0) 31.4%),
       linear-gradient(180deg, var(--b7) 0%, #DCEAF8 58%, #F6F9FD 58%, #EEF3F9 100%) !important;
@@ -1602,7 +1619,7 @@ html body .badge-pill, html body .chip {
   :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar):not([data-skin])):not(#_):not(#__) {
     background-color: var(--b7) !important;
     background-image:
-      linear-gradient(0deg, var(--b1) 0, var(--b3) 7px, rgba(31,95,200,.35) 11px, rgba(31,95,200,0) 14px),
+      linear-gradient(0deg, var(--b1) 0, var(--b3) 10px, rgba(31,95,200,.35) 14px, rgba(31,95,200,0) 17px),
       var(--ice-gloss), var(--ice-sweep),
       repeating-linear-gradient(90deg, rgba(15,23,42,.06) 0 1px, transparent 1px 120px),
       linear-gradient(180deg, var(--b6) 0%, var(--b7) 34%, #F4F9FF 64%, #E0ECF9 100%) !important;
@@ -1787,26 +1804,69 @@ html body .badge-pill, html body .chip {
   .beta-banner-clearance { padding: 0 !important; min-height: 0 !important; }
 }
 
-/* Home page placards: the team logo watermark sits dead centre in the text area under the photo, and is easier to see. */
+/* Home page placards: the team logo watermark sits dead centre in the card, and is easier to see. */
 .mode-grid > [data-skin="jersey"]:not(#_):not(#__)::before {
-  opacity: .26 !important;
-  background-position: 50% 100% !important;
-  background-size: auto 44% !important;
+  opacity: .22 !important;
+  background-position: 50% 50% !important;
+  background-size: auto 55% !important;
   background-repeat: no-repeat !important;
 }
 
-/* Logo: a small glass glint sweeps across now and then, so it reads as something you can click (desktop only). */
+/* Logo: a faint, slow, near-constant glint — a soft glow breathing almost imperceptibly, never a sweeping streak (desktop only). */
 @media (min-width: 1024px) {
   .logo-shimmer::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat;
-    background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.65) 50%, transparent 62%) no-repeat;
-    background-size: 280% 100%; background-position: 130% 0;
-    animation: logoGlint 6s ease-in-out infinite;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,255,255,.28), rgba(255,255,255,0) 70%);
+    opacity: .25;
+    animation: logoGlint 14s ease-in-out infinite;
   }
   @keyframes logoGlint {
-    0%, 62% { background-position: 130% 0; }
-    90%, 100% { background-position: -30% 0; }
+    0%, 100% { opacity: .25; }
+    50% { opacity: .6; }
   }
   @media (prefers-reduced-motion: reduce) { .logo-shimmer::after { animation: none; display: none; } }
+}
+
+/* ================================================================
+ * OCT 14 — ALIVE TEXT, CENTERED LOGO IN EVERY PLACARD, PUCK BACK BUTTON.
+ * Blue / white / black only. No red anywhere in app chrome.
+ * ============================================================ */
+@layer utilities {
+  /* Small hockey-puck Back button: one 56px circle, glossy black, arrow + BACK inside. */
+  .back-puck:not(#_):not(#__) {
+    background-color: #070c18 !important;
+    background-image:
+      radial-gradient(ellipse 72% 46% at 50% 14%, rgba(190, 212, 240, .38) 0%, rgba(190, 212, 240, 0) 62%),
+      linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, 0) 36%),
+      linear-gradient(180deg, #26334c 0%, #0b1327 46%, #020409 100%) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border: 2px solid #04070f !important;
+    color: #FFFFFF !important;
+    box-shadow:
+      0 4px 0 #020409,
+      0 12px 18px -8px rgba(2, 6, 18, .7),
+      inset 0 2px 3px rgba(255, 255, 255, .3),
+      inset 0 -4px 7px rgba(0, 0, 0, .65) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .75);
+  }
+
+  /* ICE logo centered in EVERY placard: jersey, boards & glass, and scoreboard
+     all carry the same centred faint watermark behind their text. */
+  [data-skin="glass"]::before {
+    content: "" !important;
+    position: absolute !important; inset: 0 !important; z-index: -1 !important;
+    border-radius: inherit !important; opacity: .1 !important;
+    background: var(--team-logo) no-repeat 50% 50% / auto 55% !important;
+  }
+  [data-skin="scoreboard"]::before {
+    content: "" !important;
+    position: absolute !important; inset: 0 !important; z-index: 0 !important;
+    border-radius: inherit !important; opacity: .15 !important;
+    background: var(--team-logo) no-repeat 50% 50% / auto 55% !important;
+    pointer-events: none !important;
+  }
+  /* Scoreboard content stays above its watermark. */
+  [data-skin="scoreboard"] > * { position: relative; z-index: 1; }
 }

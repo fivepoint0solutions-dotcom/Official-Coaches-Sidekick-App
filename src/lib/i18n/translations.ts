@@ -17,7 +17,7 @@ const en = {
   "dashboard.greeting.morning": "Good morning, Coach.",
   "dashboard.greeting.afternoon": "Good afternoon, Coach.",
   "dashboard.greeting.evening": "Good evening, Coach.",
-  "dashboard.headline2": "Let's build today's game plan.",
+  "dashboard.headline2": "What's the game plan?",
   "dashboard.subtitle":
     "Bring your expertise. Choose a mode below, and let's turn your idea into something even better — together.",
   "dashboard.recentWork": "Recent work",

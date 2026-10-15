@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button";
 import {
   Arrow,
   Marker,
+  ROLE_COLOR,
+  roleOf,
   Stroke,
   pct,
   type DiagramArrow,
@@ -40,13 +42,33 @@ const SURFACE_LABELS: Record<SurfaceId, string> = {
   "hockey-half": "Hockey (half)",
 };
 
-const MARKER_TOOLS: { kind: DiagramMarker["kind"]; label: string; Icon: typeof User }[] = [
-  { kind: "player", label: "Player (O)", Icon: User },
-  { kind: "defender", label: "Defender (X)", Icon: Shield },
-  { kind: "goalie", label: "Goalie", Icon: Shield },
-  { kind: "cone", label: "Cone", Icon: Triangle },
-  { kind: "ball", label: "Puck", Icon: Circle },
-  { kind: "coach", label: "Coach", Icon: UserCog },
+type PositionLabel = "LW" | "RW" | "C" | "LD" | "RD";
+
+/** Designated positions: same toolbar as X / O, for the drills where the spot matters. */
+const POSITIONS: { label: PositionLabel; name: string; color: string }[] = [
+  { label: "LW", name: "Left wing", color: ROLE_COLOR.wing },
+  { label: "RW", name: "Right wing", color: ROLE_COLOR.wing },
+  { label: "C", name: "Centre", color: ROLE_COLOR.centre },
+  { label: "LD", name: "Left defence", color: ROLE_COLOR.defence },
+  { label: "RD", name: "Right defence", color: ROLE_COLOR.defence },
+];
+
+const MARKER_TOOLS: { tool: Tool; label: string; glyph: ReactNode }[] = [
+  { tool: "marker-player", label: "Player (O)", glyph: <User className="size-3.5" /> },
+  { tool: "marker-defender", label: "Defender (X)", glyph: <Shield className="size-3.5" /> },
+  ...POSITIONS.map((p) => ({
+    tool: `marker-player-${p.label}` as Tool,
+    label: p.name,
+    glyph: (
+      <span className="text-[13px] font-extrabold leading-none" style={{ color: p.color }}>
+        {p.label}
+      </span>
+    ),
+  })),
+  { tool: "marker-goalie", label: "Goalie", glyph: <Shield className="size-3.5" /> },
+  { tool: "marker-cone", label: "Cone", glyph: <Triangle className="size-3.5" /> },
+  { tool: "marker-ball", label: "Puck", glyph: <Circle className="size-3.5" /> },
+  { tool: "marker-coach", label: "Coach", glyph: <UserCog className="size-3.5" /> },
 ];
 
 const ARROW_TOOLS: { style: NonNullable<DiagramArrow["style"]>; label: string }[] = [
@@ -59,6 +81,7 @@ type Tool =
   | "eraser"
   | "pen"
   | `marker-${DiagramMarker["kind"]}`
+  | `marker-player-${PositionLabel}`
   | `arrow-${NonNullable<DiagramArrow["style"]>}`
   | `path-${PathKind}`;
 
@@ -126,6 +149,19 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const pickTool = (t: Tool) => setTool(t);
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  // While a marker is being dragged, the page itself must not scroll (phones
+  // otherwise pan side-to-side / up-and-down instead of moving the marker).
+  useEffect(() => {
+    if (dragIndex === null) return;
+    const prevOverflow = document.body.style.overflow;
+    const prevTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.touchAction = prevTouchAction;
+    };
+  }, [dragIndex]);
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
   const [livePoint, setLivePoint] = useState<[number, number] | null>(null);
   const [drawingStroke, setDrawingStroke] = useState<[number, number][] | null>(null);
@@ -254,8 +290,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     }
 
     if (tool.startsWith("marker-")) {
-      const kind = tool.replace("marker-", "") as DiagramMarker["kind"];
-      commit({ ...value, markers: [...value.markers, { x: point[0], y: point[1], kind }] });
+      const rest = tool.replace("marker-", ""); // "player" | "player-LW" | "defender" | "goalie" | …
+      const [kind, label] = rest.split("-") as [DiagramMarker["kind"], string | undefined];
+      commit({ ...value, markers: [...value.markers, { x: point[0], y: point[1], kind, ...(label ? { label } : {}) }] });
       return;
     }
 
@@ -350,16 +387,16 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const icon = (children: ReactNode) => (
     <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
   );
-  // Each button draws the same thing you will see on the rink.
+  // Each button draws the same thing you will see on the rink (same colours as DrillDiagram).
   const ico = {
-    player: icon(<circle cx="12" cy="12" r="6.5" fill="#FFFFFF" stroke="#1F5FC8" strokeWidth={2.6} />),
-    defender: icon(<path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="#B3261E" strokeWidth={2.8} />),
-    goalie: icon(<><circle cx="12" cy="12" r="8" fill="#0B1F4D" stroke="none" /><text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="800" fill="#FFFFFF" stroke="none">G</text></>),
-    cone: icon(<path d="M12 4.5l7 14H5z" fill="#F59E0B" stroke="#123f8f" strokeWidth={1.6} />),
-    puck: icon(<circle cx="12" cy="12" r="4.5" fill="#0B1F4D" stroke="none" />),
-    coach: icon(<><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /></>),
-    skate: icon(<path d="M4.5 19L18 6M18 6h-7M18 6v7" />),
-    pass: icon(<><path d="M4.5 19L15 8.5" strokeDasharray="2.4 3" /><path d="M18 6h-7M18 6v7" /></>),
+    player: icon(<circle cx="12" cy="12" r="6.5" fill="#FFFFFF" stroke="#2563EB" strokeWidth={2.6} />),
+    defender: icon(<path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="#DC2626" strokeWidth={2.8} />),
+    goalie: icon(<><circle cx="12" cy="12" r="8" fill="#CA8A04" stroke="none" /><text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="800" fill="#FFFFFF" stroke="none">G</text></>),
+    cone: icon(<path d="M12 4.5l7 14H5z" fill="#F59E0B" stroke="#92400E" strokeWidth={1.6} />),
+    puck: icon(<circle cx="12" cy="12" r="4.5" fill="#111827" stroke="none" />),
+    coach: icon(<rect x="6.5" y="6.5" width="11" height="11" rx="1.5" transform="rotate(45 12 12)" fill="#DB2777" stroke="none" />),
+    skate: icon(<path d="M4.5 19L18 6M18 6h-7M18 6v7" stroke="#0F172A" />),
+    pass: icon(<><path d="M4.5 19L15 8.5" strokeDasharray="2.4 3" stroke="#0E7490" /><path d="M18 6h-7M18 6v7" stroke="#0E7490" /></>),
   };
   const pathIcon = (d: string) => (
     <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
@@ -369,6 +406,11 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     { label: "Move", tool: "select", glyph: <MousePointer2 className="size-5" /> },
     { label: "Player", tool: "marker-player", glyph: ico.player },
     { label: "Defender", tool: "marker-defender", glyph: ico.defender },
+    ...POSITIONS.map((p) => ({
+      label: p.name,
+      tool: `marker-player-${p.label}` as Tool,
+      glyph: <span style={{ color: p.color }}>{p.label}</span>,
+    })),
     { label: "Goalie", tool: "marker-goalie", glyph: ico.goalie },
     { label: "Cone", tool: "marker-cone", glyph: ico.cone },
     { label: "Puck", tool: "marker-ball", glyph: ico.puck },
@@ -397,7 +439,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-5" /></MiniBtn>,
   ];
   const column = (nodes: ReactNode[], key: string) => (
-    <div key={key} className="flex shrink-0 flex-col justify-between gap-1 lg:hidden">{nodes}</div>
+    <div key={key} className="flex max-h-[calc(100dvh-13rem)] shrink-0 flex-col justify-between gap-1 overflow-y-auto py-1 lg:hidden">{nodes}</div>
   );
   const hint = (
     <p className="mb-2 text-xs text-foreground/80">
@@ -464,19 +506,19 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         >
           <MousePointer2 className="size-3.5" /> Move
         </Button>
-        {MARKER_TOOLS.map(({ kind, label, Icon }) => (
+        {MARKER_TOOLS.map(({ tool: t, label, glyph }) => (
           <Button
-            key={kind}
+            key={t}
             type="button"
             size="sm"
-            variant={tool === `marker-${kind}` ? "default" : "outline"}
+            variant={tool === t ? "default" : "outline"}
             onClick={() => {
-              pickTool(`marker-${kind}`);
+              pickTool(t);
               setArrowStart(null);
             }}
             className="gap-1.5"
           >
-            <Icon className="size-3.5" /> {label}
+            {glyph} {label}
           </Button>
         ))}
         {ARROW_TOOLS.map(({ style, label }) => (
@@ -561,8 +603,8 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       style={landscape ? { maxWidth: "min(100%, max(34rem, calc((100dvh - 27rem) * 2.05)))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
     >
       <div
-        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}
-        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}` }}
+        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${dragIndex !== null || tool !== "select" ? "touch-none" : "touch-pan-y"}`}
+        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}`, touchAction: dragIndex !== null ? "none" : undefined }}
       >
         <div
           className={landscape ? "absolute" : "contents"}
@@ -578,6 +620,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           onPointerDown={handleBoardPointerDown}
           onPointerMove={handleBoardPointerMove}
           onPointerUp={handleBoardPointerUp}
+          onPointerCancel={handleBoardPointerUp}
         >
           {value.arrows?.map((arrow, i) => (
             <Arrow key={i} arrow={arrow} w={w} h={h} scale={1.8} />
@@ -612,7 +655,8 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
             >
               <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={6 * (w / 100)} fill="transparent" />
               <g transform={landscape ? `rotate(90 ${pct(marker.x, w)} ${pct(marker.y, h)})` : undefined}>
-                <Marker marker={marker} w={w} h={h} scale={marker.kind === "cone" ? 3 : 1.8} />
+                {/* Designated spots (LW, RW, C, LD, RD) show as just the bold letters, like the drill library — no O / X. */}
+                <Marker marker={marker} w={w} h={h} scale={marker.kind === "cone" ? 3 : 1.8} mode={roleOf(marker.label) ? "text" : "glyph"} />
               </g>
             </g>
           ))}

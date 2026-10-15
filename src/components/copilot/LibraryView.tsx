@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { StickAndPuck } from "@/components/StickAndPuck";
-import { DrillButtons } from "@/components/drills/DrillButtons";
 import { deleteLibraryItem, useLibrary, type LibraryCategory } from "@/lib/library";
 import { LibraryCard } from "./LibraryCard";
 import { Button } from "@/components/ui/button";
@@ -33,10 +32,9 @@ export function LibraryView({ category }: LibraryViewProps) {
     <div className="container-app py-8 lg:py-10">
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-headline">{t(TITLE_KEYS[key])}</h1>
+          <h1 className="text-headline text-gradient">{t(TITLE_KEYS[key])}</h1>
           <p className="text-body mt-2 text-muted-foreground">{t(SUBTITLE_KEYS[key])}</p>
         </div>
-        <DrillButtons />
       </div>
 
       {items.length === 0 ? (

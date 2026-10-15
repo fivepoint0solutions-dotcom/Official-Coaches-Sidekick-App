@@ -5,7 +5,7 @@ type Play = Omit<Drill, "sport">;
 export const hockeyPlays: Play[] = [
   // ---------------- POWER PLAY ----------------
   {
-    id: "PPP-001", name: "1-3-1 Power Play", category: "Power Play", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PPP-001", name: "1-3-1 Power Play", category: "Power Play", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Attacking zone with a goalie. Five attackers in the 1-3-1 shape against four penalty killers in a box.",
     steps: [
       "Set the shape: one player at the point, three across the middle (left flank, bumper in the slot, right flank), one in front of the net.",
@@ -16,7 +16,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The 1-3-1 stretches the box both ways: wide with the flanks, deep with the net-front.", "Move the puck on one touch; if it sits for two seconds the box has time to close.", "The bumper is the quarterback of the middle — always show a stick target."],
   },
   {
-    id: "PPP-002", name: "Overload Power Play", category: "Power Play", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PPP-002", name: "Overload Power Play", category: "Power Play", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Attacking zone with a goalie. Put three attackers on the strong side against a box that has to shift to cover them.",
     steps: [
       "Load the strong side: one player in the corner, one on the half wall, one in the slot; a weak-side shooter at the far post and a point player up top.",
@@ -27,7 +27,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The overload draws the box to one side; the weak-side pass is the payoff.", "Make the penalty killers chase — keep passes sharp and short until the cross-ice look appears.", "The far-post shooter stays patient and keeps the stick on the ice ready."],
   },
   {
-    id: "PPP-003", name: "4-1 Spread Power Play", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PPP-003", name: "4-1 Spread Power Play", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Attacking zone with a goalie. Four players spread around the outside, one in front of the net.",
     steps: [
       "Spread two players at the points and two on the low circle tops; one attacker stays in front of the goalie.",
@@ -38,7 +38,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The spread is a patient shape — the goal is a clean shooting lane, not a rushed shot.", "The net-front player faces the shooter and stays out of the goalie's eyes only when the shot comes.", "Low players read the shot: crash if it is on net, hold if it is wide."],
   },
   {
-    id: "PPP-004", name: "5-on-3 Triangle", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "advanced",
+    id: "PPP-004", name: "5-on-3 Triangle", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "advanced",
     setup: "Attacking zone with a goalie. Five attackers against three penalty killers.",
     steps: [
       "Place a point player on top, wall players on both half boards and two shooters low at the circles.",
@@ -71,7 +71,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["Receive the puck with the blade open, already aimed at the net.", "A quick release beats a perfect shot — the goalie needs to be moving.", "Passers lead the bumper with soft, flat passes."],
   },
   {
-    id: "PPP-007", name: "Drop-Pass Power Play Entry", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, cones", level: "intermediate",
+    id: "PPP-007", name: "Drop-Pass Power Play Entry", category: "Power Play", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks", level: "intermediate",
     setup: "Full ice. Power play unit in the neutral zone, four penalty killers waiting at the offensive blue line.",
     steps: [
       "The puck carrier skates up the wall at speed toward the blue line.",
@@ -86,7 +86,7 @@ export const hockeyPlays: Play[] = [
     setup: "Attacking zone with a goalie. Faceoff dot, centre and two defencemen at the points, two wingers.",
     steps: [
       "The centre wins the draw back to the point defenceman.",
-      "The point shoots through traffic while the second winger drives to the net.",
+      "The point shoots through traffic — or slides it across to the other point for the shot — while the second winger drives to the net.",
       "On a lost draw, the wingers pressure and the centre supports for the second puck.",
       "Rotate centres and run it from both dots."
     ],
@@ -95,7 +95,7 @@ export const hockeyPlays: Play[] = [
 
   // ---------------- PENALTY KILL ----------------
   {
-    id: "PKP-001", name: "Box Penalty Kill", category: "Penalty Kill", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "beginner",
+    id: "PKP-001", name: "Box Penalty Kill", category: "Penalty Kill", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "beginner",
     setup: "Defensive zone with a goalie. Four penalty killers in a box against a five-player power play.",
     steps: [
       "Set the box: two killers high near the top of the circles, two low near the dots.",
@@ -106,7 +106,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The box is a shape, not a position — it moves with the puck.", "Sticks on the ice, in the lanes, eyes on the puck and your man.", "Never chase out of the box unless the puck is in a clear pressure situation."],
   },
   {
-    id: "PKP-002", name: "Diamond Penalty Kill", category: "Penalty Kill", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PKP-002", name: "Diamond Penalty Kill", category: "Penalty Kill", duration: "12 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Defensive zone with a goalie. Four killers in a diamond: one high, two wide, one low.",
     steps: [
       "Place a forward at the top, two players at the wide points of the diamond, and one low in front of the net.",
@@ -117,7 +117,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The diamond is built to pressure — the high player attacks smartly.", "Wide players stay inside the passing lanes to the point.", "The low player owns the crease and the slot."],
   },
   {
-    id: "PKP-003", name: "Triangle-Plus-One Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PKP-003", name: "Triangle-Plus-One Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Defensive zone with a goalie. Three killers form a triangle in front of the net; the fourth pressures.",
     steps: [
       "Three killers form a tight triangle protecting the front of the net.",
@@ -128,7 +128,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The triangle stays tight — take away the middle of the ice first.", "The pressure player makes the carrier hurry but does not chase behind the play.", "Triangle players stay on the inside of their man."],
   },
   {
-    id: "PKP-004", name: "Aggressive Pressure Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U15–U18", equipment: "Pucks, cones, goalie", level: "advanced",
+    id: "PKP-004", name: "Aggressive Pressure Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U15–U18", equipment: "Pucks, goalie", level: "advanced",
     setup: "Defensive zone with a goalie. Two forwards pressure high, two defencemen hold the net.",
     steps: [
       "Both forwards attack the puck carrier together, forcing quick decisions.",
@@ -139,7 +139,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["Pressure only works if the forwards go as a pair.", "Defencemen communicate loudly: “Mine” or “Releasing.”", "Know when to stop pressuring — if the puck is gone, retreat to your shape."],
   },
   {
-    id: "PKP-005", name: "5-on-3 Triangle Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "advanced",
+    id: "PKP-005", name: "5-on-3 Triangle Penalty Kill", category: "Penalty Kill", duration: "10 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "advanced",
     setup: "Defensive zone with a goalie. Three killers against five attackers.",
     steps: [
       "Form a triangle with one killer high and two low on either side of the net.",
@@ -150,7 +150,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["The slot is the whole game; concede the perimeter.", "Stay on the inside of the attackers and keep the triangle tight.", "Clear without icing whenever possible — a break gives the next shift fresh legs."],
   },
   {
-    id: "PKP-006", name: "Rim Clear Under Pressure", category: "Penalty Kill", duration: "8 min", ageGroup: "U13–U18", equipment: "Pucks, cones", level: "intermediate",
+    id: "PKP-006", name: "Rim Clear Under Pressure", category: "Penalty Kill", duration: "8 min", ageGroup: "U13–U18", equipment: "Pucks", level: "intermediate",
     setup: "Defensive zone with pucks. One defenceman retrieves, one forechecker applies pressure.",
     steps: [
       "The defenceman retrieves the puck behind the net with the forechecker closing.",
@@ -161,7 +161,7 @@ export const hockeyPlays: Play[] = [
     coachingPoints: ["Hard and flat on the glass — never up the middle.", "Make the decision before the forechecker arrives.", "Wingers support the wall so the clear is a pass, not a dump."],
   },
   {
-    id: "PKP-007", name: "Shot-Block Lanes", category: "Penalty Kill", duration: "8 min", ageGroup: "U13–U18", equipment: "Pucks, cones, goalie", level: "intermediate",
+    id: "PKP-007", name: "Shot-Block Lanes", category: "Penalty Kill", duration: "8 min", ageGroup: "U13–U18", equipment: "Pucks, goalie", level: "intermediate",
     setup: "Defensive zone with a goalie. Two blockers in the lanes, one point shooter, one tip player.",
     steps: [
       "The point shooter winds up; the first blocker takes the lane with chest and stick.",
