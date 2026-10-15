@@ -47,7 +47,7 @@ export function QuickCapture({
       <Button
         type="button"
         variant={ctaVariant}
-        size="lg"
+        size="default"
         className="w-full"
         disabled={!canSubmit}
         onClick={() => onSubmit(context)}

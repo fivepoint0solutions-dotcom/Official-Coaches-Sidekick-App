@@ -161,7 +161,7 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
           />
           <Button
             variant="build"
-            size="lg"
+            size="default"
             onClick={() =>
               onSave(
                 draft.context.topic

@@ -47,10 +47,13 @@ export function DrillRow({
           </div>
         ) : null}
         <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-4 sm:gap-3">
+          <Button type="button" variant="outline" size="sm" onClick={() => onOpen(drill)} className="max-sm:h-10 max-sm:px-3 max-sm:text-xs">
+            See the whole drill
+          </Button>
           <Button
             type="button"
             variant={added ? "outline" : "cta"}
-            size="lg"
+            size="default"
             aria-pressed={added}
             aria-label={added ? `${drill.name} is added to your practice` : `Add ${drill.name} to your practice`}
             onClick={() => onToggle(drill)}
@@ -58,9 +61,6 @@ export function DrillRow({
           >
             {added ? <Check /> : <Plus />}
             <span className="max-sm:hidden">{added ? "Added" : "Add to practice"}</span>
-          </Button>
-          <Button type="button" variant="outline" size="lg" onClick={() => onOpen(drill)} className="max-sm:h-10 max-sm:px-3 max-sm:text-xs">
-            See the whole drill
           </Button>
         </div>
       </div>

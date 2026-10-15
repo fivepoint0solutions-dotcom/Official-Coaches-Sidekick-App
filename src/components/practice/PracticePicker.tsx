@@ -80,7 +80,7 @@ export function PracticePicker({
             Your practice: {picked.length} {picked.length === 1 ? "drill" : "drills"}
             {minutes ? ` · about ${minutes} min` : ""}
           </p>
-          <Button type="button" variant="cta" size="lg" onClick={() => category && onBuild(category, picked)}>
+          <Button type="button" variant="cta" size="default" onClick={() => category && onBuild(category, picked)}>
             Build my practice <ArrowRight />
           </Button>
         </div>

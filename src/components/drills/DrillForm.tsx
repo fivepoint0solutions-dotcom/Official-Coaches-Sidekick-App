@@ -213,7 +213,7 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
       />
 
 
-      <Button type="submit" variant="hero" size="lg" disabled={!requiredFilled}>
+      <Button type="submit" variant="hero" size="default" disabled={!requiredFilled}>
         {submitLabel}
       </Button>
     </form>

@@ -92,7 +92,7 @@ function DrillLibraryPage() {
             into your practice plan.
           </p>
         </div>
-        <Button asChild variant="hero" size="lg" className="max-sm:size-11 max-sm:rounded-full max-sm:p-0">
+        <Button asChild variant="hero" size="default" className="max-sm:size-11 max-sm:rounded-full max-sm:p-0">
           <Link to="/drills/new" aria-label="Add a drill">
             <Plus /> <span className="max-sm:hidden">Add a drill</span>
           </Link>

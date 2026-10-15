@@ -70,8 +70,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
         </div>
         <Button
           variant="busywork"
-          size="lg"
-          className="w-full"
+          size="default"
           disabled={!canGenerate}
           onClick={() => void generate()}
         >
@@ -97,7 +96,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
         />
         <Button
           variant="busywork"
-          size="lg"
+          size="default"
           onClick={() => onSave(`${draft.context.topic ?? typeConfig.label} — ${typeConfig.label}`)}
         >
           {draft.savedLibraryId ? <Check /> : <Save />}{" "}

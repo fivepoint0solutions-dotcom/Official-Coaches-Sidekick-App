@@ -42,7 +42,7 @@ export function LibraryView({ category }: LibraryViewProps) {
           <StickAndPuck size={52} />
           <p className="text-title">{t("library.emptyTitle")}</p>
           <p className="text-body max-w-sm text-muted-foreground">{t("library.emptyBody")}</p>
-          <Button asChild variant="cta" size="lg">
+          <Button asChild variant="cta" size="default">
             <Link to={category === "idea" ? "/inspire" : "/build"}>{category === "idea" ? "Draw up a play" : "Build a practice"}</Link>
           </Button>
         </div>

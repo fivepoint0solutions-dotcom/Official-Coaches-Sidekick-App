@@ -116,7 +116,7 @@ export function DrawUpPlaysPage() {
                   <Camera />
                 </Button>
                 {photo && !diagram ? (
-                  <Button type="button" variant="cta" size="lg" onClick={() => setDiagram({ ...BLANK, backgroundImage: photo })}>
+                  <Button type="button" variant="cta" size="default" onClick={() => setDiagram({ ...BLANK, backgroundImage: photo })}>
                     <PenLine /> Draw on this photo
                   </Button>
                 ) : null}
@@ -134,11 +134,11 @@ export function DrawUpPlaysPage() {
           ) : null;
           const actions = (
             <div className="flex flex-wrap items-center gap-2 px-2 sm:px-0 print:hidden">
-              <Button type="button" variant="cta" size="lg" onClick={save}>
-                <Save /> Save play
-              </Button>
-              <Button type="button" variant="outline" size="lg" onClick={cancel}>
+              <Button type="button" variant="outline" size="sm" onClick={cancel}>
                 <Plus /> New play
+              </Button>
+              <Button type="button" variant="cta" size="default" onClick={save}>
+                <Save /> Save play
               </Button>
             </div>
           );

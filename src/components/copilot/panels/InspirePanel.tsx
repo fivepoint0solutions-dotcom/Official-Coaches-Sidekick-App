@@ -60,7 +60,7 @@ export function InspirePanel({ draft, patch }: PanelProps) {
   if (draft.ideas.length === 0) {
     return (
       <div className="flex justify-center">
-        <Button variant="inspire" size="lg" onClick={() => void generate()}>
+        <Button variant="inspire" size="default" onClick={() => void generate()}>
           {t("panel.inspire.cta")}
         </Button>
       </div>

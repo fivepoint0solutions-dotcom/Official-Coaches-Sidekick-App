@@ -97,7 +97,7 @@ export function DrillTransfer() {
         </div>
       </div>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         <input
           ref={fileRef}
           type="file"
@@ -106,14 +106,13 @@ export function DrillTransfer() {
           onChange={onPick}
           aria-label="Choose a file to upload"
         />
-        <Button type="button" variant="hero" size="lg" className="h-14 text-base" disabled={busy} onClick={() => fileRef.current?.click()}>
+        <Button type="button" variant="hero" size="sm" disabled={busy} onClick={() => fileRef.current?.click()}>
           <Upload /> {busy ? "Reading…" : "Upload a file"}
         </Button>
         <Button
           type="button"
           variant="outline"
-          size="lg"
-          className="h-14 text-base"
+          size="sm"
           disabled={!mine.length}
           onClick={() => downloadFile(`coachs-sidekick-drills-${today()}.json`, drillsToJson(mine), "application/json")}
         >
@@ -122,8 +121,7 @@ export function DrillTransfer() {
         <Button
           type="button"
           variant="outline"
-          size="lg"
-          className="h-14 text-base"
+          size="sm"
           disabled={!mine.length}
           onClick={() => downloadFile(`coachs-sidekick-drills-${today()}.csv`, drillsToCsv(mine), "text/csv")}
         >
@@ -132,8 +130,7 @@ export function DrillTransfer() {
         <Button
           type="button"
           variant="outline"
-          size="lg"
-          className="h-14 text-base"
+          size="sm"
           onClick={() => downloadFile("coachs-sidekick-drill-template.csv", CSV_TEMPLATE, "text/csv")}
         >
           <FileUp /> Blank template
@@ -175,12 +172,12 @@ export function DrillTransfer() {
             ))}
             {preview.drills.length > 40 && <li className="text-muted-foreground">…and {preview.drills.length - 40} more</li>}
           </ul>
-          <div className="mt-3 flex flex-wrap gap-3">
-            <Button type="button" variant="hero" size="lg" className="h-12 text-base" onClick={addAll}>
-              Add {preview.drills.length === 1 ? "it" : "them all"} to my library
-            </Button>
-            <Button type="button" variant="outline" size="lg" className="h-12 text-base" onClick={() => setPreview(null)}>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button type="button" variant="outline" size="sm" onClick={() => setPreview(null)}>
               Cancel
+            </Button>
+            <Button type="button" variant="hero" size="default" onClick={addAll}>
+              Add {preview.drills.length === 1 ? "it" : "them all"} to my library
             </Button>
           </div>
         </div>
