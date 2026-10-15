@@ -296,7 +296,7 @@ function DrillForm() {
   return (
     <svg viewBox="0 0 360 344" role="img" aria-label="The Add a drill form">
       <rect x={8} y={4} width={344} height={238} rx={14} fill={INK} opacity={0.06} />
-      {field(18, 12, 160, "Sport")}
+      {field(18, 12, 160, "Hockey")}
       {field(186, 12, 156, "Category")}
       {field(18, 40, 324, "Drill name")}
       {field(18, 68, 160, "Age group")}

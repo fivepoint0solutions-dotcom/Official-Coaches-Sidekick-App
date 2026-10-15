@@ -87,7 +87,7 @@ export function DrillTransfer() {
   }
 
   return (
-    <section aria-label="Upload or download drills" className="glass-panel mt-6 p-5 md:p-6">
+    <section aria-label="Upload or download drills" data-skin="scoreboard" className="glass-panel relative mt-6 p-5 md:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="max-w-2xl">
           <h2 className="text-title">Upload or download drills</h2>
@@ -106,7 +106,7 @@ export function DrillTransfer() {
           onChange={onPick}
           aria-label="Choose a file to upload"
         />
-        <Button type="button" variant="hero" size="sm" disabled={busy} onClick={() => fileRef.current?.click()}>
+        <Button type="button" variant="stick" size="sm" disabled={busy} onClick={() => fileRef.current?.click()}>
           <Upload /> {busy ? "Reading…" : "Upload a file"}
         </Button>
         <Button
@@ -176,7 +176,7 @@ export function DrillTransfer() {
             <Button type="button" variant="outline" size="sm" onClick={() => setPreview(null)}>
               Cancel
             </Button>
-            <Button type="button" variant="hero" size="default" onClick={addAll}>
+            <Button type="button" variant="blade" size="default" onClick={addAll}>
               Add {preview.drills.length === 1 ? "it" : "them all"} to my library
             </Button>
           </div>
