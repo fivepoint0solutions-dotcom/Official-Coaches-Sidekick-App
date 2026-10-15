@@ -580,12 +580,12 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           onPointerUp={handleBoardPointerUp}
         >
           {value.arrows?.map((arrow, i) => (
-            <Arrow key={i} arrow={arrow} w={w} h={h} />
+            <Arrow key={i} arrow={arrow} w={w} h={h} scale={1.8} />
           ))}
           {value.strokes?.map((stroke, i) => (
-            <Stroke key={i} stroke={stroke} w={w} h={h} />
+            <Stroke key={i} stroke={stroke} w={w} h={h} scale={1.8} />
           ))}
-          {drawingStroke ? <Stroke stroke={{ points: drawingStroke }} w={w} h={h} /> : null}
+          {drawingStroke ? <Stroke stroke={{ points: drawingStroke }} w={w} h={h} scale={1.8} /> : null}
           {arrowStart && livePoint && tool.startsWith("path-") ? (
             <polyline
               points={buildPath(tool.replace("path-", "") as PathKind, arrowStart, livePoint, w, h, flip).map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ")}
@@ -610,9 +610,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
                 cursor: tool === "select" ? "grab" : tool === "eraser" ? "not-allowed" : undefined,
               }}
             >
-              <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={4 * (w / 100)} fill="transparent" />
+              <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={6 * (w / 100)} fill="transparent" />
               <g transform={landscape ? `rotate(90 ${pct(marker.x, w)} ${pct(marker.y, h)})` : undefined}>
-                <Marker marker={marker} w={w} h={h} />
+                <Marker marker={marker} w={w} h={h} scale={marker.kind === "cone" ? 3 : 1.8} />
               </g>
             </g>
           ))}
