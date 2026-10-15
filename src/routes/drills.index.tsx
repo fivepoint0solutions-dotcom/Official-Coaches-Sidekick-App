@@ -7,7 +7,7 @@ import { PhotoStrip } from "@/components/PhotoStrip";
 import { DrillTransfer } from "@/components/drills/DrillTransfer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { drillCategories, drillLibrary, drillSports, type Drill } from "@/data/drillLibrary";
+import { drillCategories, drillLibrary, type Drill } from "@/data/drillLibrary";
 import { useUserDrills } from "@/lib/userDrills";
 
 type DrillsSearch = { q?: string | undefined };
@@ -39,22 +39,16 @@ export const Route = createFileRoute("/drills/")({
 function DrillLibraryPage() {
   const { q } = Route.useSearch();
   const [query, setQuery] = useState(q ?? "");
-  const [sport, setSport] = useState("All sports");
   const [mineOnly, setMineOnly] = useState(false);
   const [category, setCategory] = useState("All");
   const [openDrill, setOpenDrill] = useState<Drill | null>(null);
   const userDrills = useUserDrills();
 
   const allDrills = useMemo(() => [...userDrills, ...drillLibrary], [userDrills]);
-  const sports = useMemo(
-    () => Array.from(new Set([...drillSports, ...userDrills.map((drill) => drill.sport)])),
-    [userDrills],
-  );
 
   const results = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return allDrills.filter((drill) => {
-      const sportMatches = sport === "All sports" || drill.sport === sport;
       const categoryMatches = category === "All" || drill.category === category;
       const mineMatches = !mineOnly || userDrills.some((custom) => custom.id === drill.id);
       const haystack = [
@@ -69,9 +63,9 @@ function DrillLibraryPage() {
       ]
         .join(" ")
         .toLowerCase();
-      return sportMatches && categoryMatches && mineMatches && (!needle || haystack.includes(needle));
+      return categoryMatches && mineMatches && (!needle || haystack.includes(needle));
     });
-  }, [allDrills, query, sport, category, mineOnly, userDrills]);
+  }, [allDrills, query, category, mineOnly, userDrills]);
 
   // With "All" and no search, the list is grouped under its category headings (Power Play, Penalty Kill, Offense …).
   const grouped = category === "All" && !query.trim();
@@ -92,7 +86,7 @@ function DrillLibraryPage() {
             into your practice plan.
           </p>
         </div>
-        <Button asChild variant="hero" size="default" className="max-sm:size-11 max-sm:rounded-full max-sm:p-0">
+        <Button asChild variant="stick" size="default" className="max-sm:size-11 max-sm:rounded-full max-sm:p-0">
           <Link to="/drills/new" aria-label="Add a drill">
             <Plus /> <span className="max-sm:hidden">Add a drill</span>
           </Link>
@@ -125,20 +119,11 @@ function DrillLibraryPage() {
       </section>
 
 
-      {sports.length > 1 || userDrills.length ? (
+      {userDrills.length ? (
         <section aria-label="More filters" className="mt-3 flex flex-wrap items-center gap-2">
-          {sports.length > 1
-            ? ["All sports", ...sports].map((option) => (
-                <Button key={option} type="button" size="sm" variant={sport === option ? "default" : "outline"} onClick={() => setSport(option)} className="shrink-0 rounded-full">
-                  {option}
-                </Button>
-              ))
-            : null}
-          {userDrills.length ? (
-            <Button type="button" size="sm" variant={mineOnly ? "default" : "outline"} onClick={() => setMineOnly((value) => !value)} className="shrink-0 rounded-full">
-              My drills only
-            </Button>
-          ) : null}
+          <Button type="button" size="sm" variant={mineOnly ? "stick" : "rink"} onClick={() => setMineOnly((value) => !value)} className="shrink-0 rounded-full">
+            My drills only
+          </Button>
         </section>
       ) : null}
 
@@ -152,7 +137,7 @@ function DrillLibraryPage() {
               <h2 className="cat-heading">
                 {g.name} <span className="category-count">{g.drills.length}</span>
               </h2>
-              <div className="drill-stack mt-4">
+              <div className="drill-stack placard-list mt-4">
                 {g.drills.map((drill, index) => (
                   <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
                 ))}
@@ -160,7 +145,7 @@ function DrillLibraryPage() {
             </section>
           ))
         ) : (
-          <section className="drill-stack mt-6">
+          <section className="drill-stack placard-list mt-6">
             {results.map((drill, index) => (
               <DrillCard key={drill.id} drill={drill} index={index} onOpen={setOpenDrill} />
             ))}
