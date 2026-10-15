@@ -6,7 +6,6 @@ import { PlayIcon } from "@/components/icons/HockeyIcons";
 import { DrillBoardEditor } from "@/components/drills/DrillBoardEditor";
 import { type DrillDiagramSpec } from "@/components/drills/DrillDiagram";
 import { PlayableDiagram } from "@/components/drills/PlayableDiagram";
-import { DrillButtons } from "@/components/drills/DrillButtons";
 import { ShareBar } from "@/components/share/ShareBar";
 import { deletePlay, listPlays, savePlay, shrinkPhoto, usePlays, type UserPlay } from "@/lib/userPlays";
 
@@ -86,7 +85,6 @@ export function DrawUpPlaysPage() {
           <h1 className="tape-strip text-headline text-2xl">Draw Up Plays</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <DrillButtons />
           <ShareBar title={name || "Play"} text={`${name || "Play"}${notes.trim() ? `\n\n${notes.trim()}` : ""}`} />
         </div>
       </div>
@@ -175,7 +173,7 @@ export function DrawUpPlaysPage() {
         })()
       ) : null}
 
-      <div className="mt-8 print:hidden">
+      <div className="card-soft mt-8 p-5 sm:p-6 print:hidden">
           <h2 className="text-title mb-3">My plays</h2>
           {plays.length === 0 ? (
             <p className="text-body">No plays yet. Draw one, add a photo, or type your own notes.</p>

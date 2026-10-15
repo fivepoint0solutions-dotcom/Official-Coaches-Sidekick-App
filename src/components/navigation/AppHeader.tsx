@@ -230,35 +230,34 @@ export function AppHeader() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-3 px-4 pt-3 pb-4 pointer-events-none md:max-w-7xl"
+        className="mx-auto flex w-full max-w-md flex-wrap items-center justify-between gap-2 px-3 pt-2 pb-3 pointer-events-none sm:gap-3 sm:px-4 sm:pt-3 sm:pb-4 md:max-w-7xl"
       >
         <div className="flex min-w-0 flex-1 lg:items-center">
           <Link
             to="/"
             aria-label="Coach's Sidekick home"
-            className="group flex min-w-0 flex-1 items-center gap-2.5 pointer-events-auto lg:flex-none"
+            className="group flex min-w-0 flex-1 items-center gap-2 pointer-events-auto sm:gap-2.5 lg:flex-none"
           >
             <span className="logo-shimmer relative inline-flex shrink-0" style={{ "--logo": `url("${logo.src}")` } as React.CSSProperties}>
               <img
                 src={logo.src}
                 alt=""
                 aria-hidden="true"
-                className="h-[5.25rem] w-auto shrink-0 object-contain md:h-24"
+                className="h-12 w-auto shrink-0 object-contain sm:h-[5.25rem] md:h-24"
                 style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))" }}
               />
             </span>
             <span
-              className={`font-display font-bold tracking-wide leading-tight min-w-0 ${menuOpen ? "md:hidden" : ""}`}
+              className={`font-display font-bold tracking-wide leading-none min-w-0 whitespace-nowrap truncate text-[0.95rem] sm:text-[1.05rem] md:text-[1.4rem] ${menuOpen ? "md:hidden" : ""}`}
               style={{
                 color: "var(--primary)",
-                fontSize: "clamp(1.05rem, 4.2vw, 1.4rem)",
                 filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
               }}
             >
               Coach's Sidekick
             </span>
           </Link>
-          {!onHome && <BackButton className="ml-8 hidden lg:inline-flex" />}
+          {!onHome && <BackButton className="ml-2 sm:ml-4" />}
         </div>
 
         {/* Desktop/tablet: menu links expand horizontally along the top bar */}

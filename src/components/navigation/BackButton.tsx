@@ -1,7 +1,10 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
-/** A big, hard-to-miss Back button in the site's hockey-puck look: glossy black pill, blue puck with a white arrow, bold label. */
+/**
+ * Back button, whole site, mobile + desktop the same: a small hockey puck.
+ * One 56px circle — arrow stacked over BACK, both inside the puck — never a big oval.
+ */
 export function BackButton({ className = "" }: { className?: string }) {
   const router = useRouter();
   const navigate = useNavigate();
@@ -16,12 +19,12 @@ export function BackButton({ className = "" }: { className?: string }) {
       type="button"
       onClick={goBack}
       aria-label="Go back"
-      className={`pointer-events-auto inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-1.5 pl-1.5 pr-5 font-display text-base font-bold uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 active:scale-95 ${className}`}
+      className={`back-puck pointer-events-auto grid size-14 shrink-0 cursor-pointer place-items-center rounded-full transition-transform hover:-translate-x-0.5 active:scale-95 ${className}`}
     >
-      <span className="grid size-8 place-items-center rounded-full border-2 border-white/80" style={{ background: "var(--b3)" }} aria-hidden="true">
-        <ArrowLeft className="size-5" strokeWidth={3} />
+      <span className="flex flex-col items-center justify-center leading-none text-white">
+        <ArrowLeft className="size-3.5" strokeWidth={3.5} aria-hidden="true" />
+        <span className="mt-0.5 text-[10px] font-black tracking-[0.14em]">BACK</span>
       </span>
-      Back
     </button>
   );
 }

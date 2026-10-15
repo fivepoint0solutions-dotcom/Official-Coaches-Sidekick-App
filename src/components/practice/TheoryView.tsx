@@ -39,7 +39,7 @@ export function TheoryView({ category }: { category: DrillCategory }) {
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3" aria-label={`${category} diagrams`}>
         {theory.diagrams.map((item, index) => (
           <figure key={item.title} className="card-soft p-4">
-            <DrillDiagram diagram={item.diagram} id={`theory-${category}-${index}`} framed={false} />
+            <DrillDiagram diagram={item.diagram} id={`theory-${category}-${index}`} framed={false} landscape />
             <figcaption className="mt-3">
               <p className="text-title">{item.title}</p>
               <p className="text-body mt-1">{item.caption}</p>
