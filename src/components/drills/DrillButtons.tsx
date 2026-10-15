@@ -30,7 +30,7 @@ export function DrillButtons({ className = "" }: { className?: string }) {
 
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
-      <Button type="button" variant="outline" size="sm" className="!border-2 !border-[#94A3B8] !bg-white !text-[#17171c]" onClick={() => setOpen("own")}>
+      <Button type="button" variant="rink" size="sm" onClick={() => setOpen("own")}>
         <Upload /> Upload a drill
       </Button>
       <Button type="button" variant="cta" size="default" onClick={() => setOpen("library")}>

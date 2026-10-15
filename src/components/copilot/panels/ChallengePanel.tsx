@@ -42,7 +42,7 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
 
   if (!draft.critique) {
     return (
-      <div className="card-soft mx-auto max-w-xl space-y-6 p-8 animate-pop">
+      <div className="card-soft placard placard-light mx-auto max-w-xl space-y-6 p-8 animate-pop">
         <div>
           <h2 className="text-title mb-2">{t("panel.challenge.title")}</h2>
           <p className="text-body text-muted-foreground">{t("panel.challenge.subtitle")}</p>

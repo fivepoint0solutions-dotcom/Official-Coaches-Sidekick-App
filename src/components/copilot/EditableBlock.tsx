@@ -25,7 +25,7 @@ export function EditableBlock({
   const [editing, setEditing] = useState(false);
 
   return (
-    <div className={cn("card-soft group p-6", className)}>
+    <div className={cn("card-soft placard group p-6", className)}>
       <div className="mb-3 flex items-start justify-between gap-3">
         {editing ? (
           <Input

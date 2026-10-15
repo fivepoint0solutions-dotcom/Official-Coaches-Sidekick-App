@@ -69,7 +69,7 @@ export function InspirePanel({ draft, patch }: PanelProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="placard-list grid gap-5 sm:grid-cols-2">
         {draft.ideas.map((idea) => (
           <IdeaCard key={idea.id} idea={idea} onUse={useIdea} />
         ))}

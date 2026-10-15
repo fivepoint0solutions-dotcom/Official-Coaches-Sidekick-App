@@ -60,7 +60,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
           <h2 className="text-title mb-3">{t("panel.busywork.title")}</h2>
           <TypePicker value={draft.type} onSelect={setType} types={BUSYWORK_TYPES} />
         </div>
-        <div className="card-soft space-y-5 p-7">
+        <div className="card-soft placard placard-light space-y-5 p-7">
           {typeConfig.fields.slice(0, 3).map((field) => (
             <div key={field.key} className="space-y-2">
               <label className="text-sm font-semibold">{field.label}</label>
@@ -69,7 +69,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
           ))}
         </div>
         <Button
-          variant="busywork"
+          variant="stick"
           size="default"
           disabled={!canGenerate}
           onClick={() => void generate()}
@@ -81,7 +81,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="placard-list space-y-5">
       {draft.blocks.map((block, i) => (
         <EditableBlock
           key={block.id}
@@ -95,7 +95,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
           onAction={(a) => void quickAction(a)}
         />
         <Button
-          variant="busywork"
+          variant="blade"
           size="default"
           onClick={() => onSave(`${draft.context.topic ?? typeConfig.label} — ${typeConfig.label}`)}
         >

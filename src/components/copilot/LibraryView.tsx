@@ -38,7 +38,7 @@ export function LibraryView({ category }: LibraryViewProps) {
       </div>
 
       {items.length === 0 ? (
-        <div className="card-soft flex flex-col items-center gap-4 p-10 text-center">
+        <div className="card-soft placard placard-light flex flex-col items-center gap-4 p-10 text-center">
           <StickAndPuck size={52} />
           <p className="text-title">{t("library.emptyTitle")}</p>
           <p className="text-body max-w-sm text-muted-foreground">{t("library.emptyBody")}</p>
@@ -47,7 +47,7 @@ export function LibraryView({ category }: LibraryViewProps) {
           </Button>
         </div>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="placard-list grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <LibraryCard key={item.id} item={item} onDelete={deleteLibraryItem} />
           ))}

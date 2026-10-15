@@ -20,7 +20,7 @@ export function ModeCard({ mode, className }: ModeCardProps) {
       to={mode.href}
       data-skin="jersey"
       className={cn(
-        "anchor-card-gradient group flex flex-col p-5 transition-refined hover-lift",
+        "anchor-card-gradient placard group flex flex-col p-5 transition-refined hover-lift",
         mode.cardTintClass,
         className,
       )}

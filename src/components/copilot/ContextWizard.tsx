@@ -57,7 +57,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
         ))}
       </div>
 
-      <div className="card-soft space-y-7 p-8">
+      <div className="card-soft placard placard-light space-y-7 p-8">
         {step.map((field) => (
           <div key={field.key} className="space-y-3">
             <label className="text-title block">
