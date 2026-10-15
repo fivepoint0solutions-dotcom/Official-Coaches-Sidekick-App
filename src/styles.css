@@ -1835,7 +1835,7 @@ html body .badge-pill, html body .chip {
 @layer utilities {
   /* Small hockey-puck Back button: one 56px circle with the real puck photo as its face,
      arrow + BACK inside. No white anywhere — the cutout is transparent. */
-  .back-puck:not(#_):not(#__) {
+  .back-puck:not(#_):not(#__):not(#___) {
     background-color: #070c18 !important;
     background-image: url("/__l5e/assets-v1/da7b2cfe-204e-40bf-90e2-4a637d6dcf59/back-puck.png") !important;
     background-size: 118% auto !important;
