@@ -108,7 +108,7 @@ export const drillDiagrams3: Record<string, Diagram> = {
   },
   "GLT-007": { // post integration and wraps: goalie on the post, shooter wraps from the corner
     markers: [G(44, 9), P(10, 8), PUCK(11.8, 8.6), P(70, 22)],
-    arrows: [carry([12, 7], [58, 5], [[30, 4.6]]), run([46, 9], [57, 9]), pass([70, 20], [57, 10]), pass([58, 5], [68, 20])],
+    arrows: [carry([12, 7], [58, 5], [[30, 4.6]]), run([46, 9], [57, 9]), pass([58, 5], [68, 20]), pass([70, 20], [57, 10])], // wrap, feed to the second shooter, then the one-timer (arrow order = time order)
   },
   "GLT-008": { // puck handling behind the net: coach rims it, goalie stops it behind the net and sets it for the D
     markers: [GT, D(36, 4.8, "D"), D(64, 4.8, "D"), COACH(88, 26, "Coach"), PUCK(86.2, 26.6), D(78, 15)],

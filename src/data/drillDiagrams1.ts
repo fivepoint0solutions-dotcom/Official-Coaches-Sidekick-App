@@ -120,7 +120,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "PAS-007": { // two D at the points with pucks, two forwards in front, D-to-D then a low shot to tip
     markers: [G(), P(30, 36, "D"), P(70, 36, "D"), P(45, 13), P(56, 13), PUCK(31.8, 36.8)],
-    arrows: [pass([32, 36], [68, 36]), pass([68, 34], [50, 12]), pass([71, 36], [32, 36])],
+    arrows: [pass([32, 36], [68, 36]), pass([71, 36], [32, 36]), pass([68, 34], [50, 12])], // D-to-D, D-to-D again, then the shot (arrow order = time order)
   },
   "PAS-008": { // full ice: D behind the net, winger on the near blue line, forward breaking at the far blue line
     markers: [G(50, 91.5), P(50, 97, "D"), P(86, 65.3, "W"), P(40, 34.6, "F"), PUCK(51.8, 97.4)],
