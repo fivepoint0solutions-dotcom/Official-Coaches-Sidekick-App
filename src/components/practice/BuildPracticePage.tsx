@@ -74,19 +74,19 @@ export function BuildPracticePage() {
     return (
       <div className="container-app card-tint-build py-8 lg:py-10">
         {header}
-        <div className="mx-auto max-w-3xl space-y-6 pb-16">
+        <div className="placard-list mx-auto max-w-3xl space-y-6 pb-16">
           <div className="flex flex-wrap items-center gap-2 print:hidden">
             <label className="min-w-0 flex-1">
               <span className="sr-only">Practice name</span>
               <input className="w-full rounded-lg border-2 border-[#0b0d12] bg-white px-3 py-2 text-lg font-extrabold" value={title} onChange={(e) => setTitle(e.target.value)} />
             </label>
             <Button type="button" variant="outline" size="sm" onClick={() => setStage("pick")}>Back to drills</Button>
-            <Button type="button" variant="cta" size="default" onClick={savePractice}><Save /> Save</Button>
+            <Button type="button" variant="blade" size="default" onClick={savePractice}><Save /> Save</Button>
           </div>
           <ShareBar title={title.trim() || "My practice"} text={practiceText} />
           <p className="font-extrabold">{picked.length} {picked.length === 1 ? "drill" : "drills"}{minutes ? ` · about ${minutes} min` : ""}</p>
           {picked.map((d, i) => (
-            <article key={d.id} className="card-soft space-y-3 p-5 sm:p-6">
+            <article key={d.id} className="card-soft placard space-y-3 p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <h2 className="text-title">{i + 1}. {d.name}</h2>
                 <div className="flex gap-1 print:hidden">
@@ -146,7 +146,7 @@ export function BuildPracticePage() {
                         </button>
                       </div>
                       {current === "drills" ? (
-                        <div className="space-y-4">
+                        <div className="placard-list space-y-4">
                           {list.map((d) => <DrillRow key={d.id} drill={d} added={pickedIds.includes(d.id)} onToggle={(x) => togglePicked(x.id)} onOpen={setSheet} />)}
                         </div>
                       ) : (
@@ -176,7 +176,7 @@ export function BuildPracticePage() {
                 ))}
               </ul>
               <div className="mt-4 flex justify-end">
-                <Button type="button" variant="cta" size="default" onClick={() => setStage("plan")}>Build my practice <ArrowRight /></Button>
+                <Button type="button" variant="stick" size="default" className="btn-roomy" onClick={() => setStage("plan")}>Build my practice <ArrowRight /></Button>
               </div>
             </div>
           ) : (

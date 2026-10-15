@@ -24,7 +24,7 @@ export function DrillRow({
   const zone = zoneHint(drill);
   const full = drill.diagram ? isFullIceDiagram(drill.diagram, `row-${drill.id}`, zone) : false;
   return (
-    <article className="card-soft ice-lib ice-texture relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
+    <article className="card-soft ice-lib ice-texture placard relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
       {drill.diagram && !full ? (
         <div className="w-full">
           <PlayableDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} />

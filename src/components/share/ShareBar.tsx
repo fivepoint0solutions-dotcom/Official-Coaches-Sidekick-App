@@ -35,7 +35,7 @@ export function ShareBar({ title, text, className = "" }: { title: string; text:
       <Button type="button" variant="outline" size="sm" onClick={pdf}>
         <FileDown /> Save as PDF
       </Button>
-      <Button type="button" variant="cta" size="default" onClick={send}>
+      <Button type="button" variant="puck" size="default" onClick={send}>
         <Send /> Send
       </Button>
     </div>

@@ -10,26 +10,30 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground shadow-subtle hover:bg-primary/90",
-        /** Primary CTA — violet, with a lifting hover. */
-        cta: "bg-interactive text-interactive-foreground shadow-subtle hover-lift hover:bg-interactive/92",
-        /** Animated hero gradient — the single most important action on a screen. */
-        hero: "gradient-hero gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
+        /** Primary CTA — Hockey Stick Angle: angular beveled dark blue + cyan glow edge. */
+        cta: "btn-hockey btn-stick",
+        /** Hockey Stick Angle — primary actions (Save play, Build my practice). */
+        stick: "btn-hockey btn-stick",
+        /** Ice Rink Silhouette — white pill, dark blue border, faint rink markings. Light secondary actions (Print, Save as PDF). */
+        rink: "btn-hockey btn-rink",
+        /** Puck / Faceoff Circle — black rounded block, blue outline, faceoff dot. Strong dark actions (Send). */
+        puck: "btn-hockey btn-puck",
+        /** Skate Blade Edge — metallic silver-blue pointed hexagon. Confirm / finalize actions (Confirm, Save). */
+        blade: "btn-hockey btn-blade",
+        /** Confirm / finalize CTA — Skate Blade Edge. */
+        hero: "btn-hockey btn-blade",
         /** Warm secondary — coral. */
         coral: "bg-accent text-accent-foreground shadow-subtle hover:bg-accent/90",
         /** Natural highlight — teal, used sparingly. */
         teal: "bg-highlight text-highlight-foreground shadow-subtle hover:bg-highlight/90",
-        /** Mode gradients — Inspire / Build / Busywork / Challenge. */
-        inspire:
-          "gradient-inspire gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
-        build:
-          "gradient-build gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
-        busywork:
-          "gradient-busywork gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
-        challenge:
-          "gradient-challenge gradient-motion twinkle border-2 border-white/50 text-white shadow-glow hover-lift",
+        /** Mode primaries — all four modes use the Hockey Stick Angle primary. */
+        inspire: "btn-hockey btn-stick",
+        build: "btn-hockey btn-stick",
+        busywork: "btn-hockey btn-stick",
+        challenge: "btn-hockey btn-stick",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "sweep-fill border border-border-strong bg-transparent text-foreground hover:border-interactive hover:text-interactive",
+        /** Light secondary — Ice Rink Silhouette. */
+        outline: "btn-hockey btn-rink",
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "bg-transparent hover:bg-secondary hover:text-secondary-foreground",
         link: "h-auto p-0 link-underline font-normal",

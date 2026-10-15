@@ -144,27 +144,30 @@ export function DrawUpPlaysPage() {
           );
           if (!diagram) {
             return (
-              <section className="card-soft mx-auto max-w-3xl space-y-4 p-5 sm:p-7" aria-label="New play">
+              <section className="card-soft placard placard-light mx-auto max-w-3xl space-y-4 p-5 sm:p-7" aria-label="New play">
                 {fields}
                 {photoBlock}
                 {actions}
               </section>
             );
           }
-          // With a drawing on desktop: the wide rink runs across the top, with name, notes and Save on the left under it and every drawing control on the right.
-          // On a phone it stacks: name and notes, the controls, the rink (centred), then Save.
+          // With a drawing on desktop: the tool columns flank the rink on BOTH
+          // sides (players left, arrows/paths right), with name, notes and
+          // Save underneath. On a phone it stacks: name and notes, the
+          // controls, the rink (centred), then Save.
           return (
             <section className="card-soft draw-wide mx-auto max-w-7xl p-2 sm:p-7" aria-label="New play">
               <DrillBoardEditor
                 value={diagram}
                 onChange={setDiagram}
-                layout={({ controls, board, toolsButton }) => (
-                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:content-start lg:gap-x-8 lg:gap-y-4">
-                    <div className="order-3 lg:order-none lg:col-span-2 lg:col-start-1 lg:row-start-1">{board}</div>
-                    <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-2">{renderFields(toolsButton)}</div>
-                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-2 print:hidden">{controls}</div>
-                    <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-3">{actions}</div>
-                    {photoBlock ? <div className="order-4 lg:order-none lg:col-span-2 lg:col-start-1 lg:row-start-4">{photoBlock}</div> : null}
+                layout={({ controlsLeft, controlsRight, board, toolsButton }) => (
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,15rem)] lg:content-start lg:gap-x-6 lg:gap-y-4">
+                    <div className="order-1 lg:order-none lg:col-span-3 lg:col-start-1 lg:row-start-2">{renderFields(toolsButton)}</div>
+                    <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-1">{board}</div>
+                    <div className="order-3 lg:order-none lg:col-start-1 lg:row-start-1 print:hidden">{controlsLeft}</div>
+                    <div className="order-4 lg:order-none lg:col-start-3 lg:row-start-1 print:hidden">{controlsRight}</div>
+                    <div className="order-5 lg:order-none lg:col-span-3 lg:col-start-1 lg:row-start-3">{actions}</div>
+                    {photoBlock ? <div className="order-6 lg:order-none lg:col-span-3 lg:col-start-1 lg:row-start-4">{photoBlock}</div> : null}
                   </div>
                 )}
               />
@@ -178,9 +181,9 @@ export function DrawUpPlaysPage() {
           {plays.length === 0 ? (
             <p className="text-body">No plays yet. Draw one, add a photo, or type your own notes.</p>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="placard-list grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {plays.map((p) => (
-                <article key={p.id} className="card-soft space-y-3 p-4">
+                <article key={p.id} className="card-soft placard space-y-3 p-4">
                   <h3 className="text-title">{p.name}</h3>
                   {p.diagram ? <PlayableDiagram diagram={p.diagram} id={`play-${p.id}`} framed={false} /> : null}
                   {p.photo ? <img src={p.photo} alt={p.name} className="w-full rounded-lg border-2 border-[#0b0d12]" loading="lazy" /> : null}

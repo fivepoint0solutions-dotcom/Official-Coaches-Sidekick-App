@@ -28,7 +28,7 @@ export function PracticePicker({
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 pb-28">
-      <section className="card-soft p-5 sm:p-7">
+      <section data-skin="jersey" className="card-soft relative p-5 sm:p-7">
         <h2 className="text-headline">What is this practice about?</h2>
         <p className="text-body mt-1">Pick one. You will see only the drills and plays for it.</p>
         <div className="category-tabs mt-4" role="radiogroup" aria-label="Practice focus">
@@ -63,7 +63,7 @@ export function PracticePicker({
           </div>
 
           {tab === "drills" ? (
-            <div className="space-y-4">
+            <div className="placard-list space-y-4">
               {drills.map((drill) => (
                 <DrillRow key={drill.id} drill={drill} added={picked.some((d) => d.id === drill.id)} onToggle={toggle} onOpen={setOpen} />
               ))}
@@ -80,7 +80,7 @@ export function PracticePicker({
             Your practice: {picked.length} {picked.length === 1 ? "drill" : "drills"}
             {minutes ? ` · about ${minutes} min` : ""}
           </p>
-          <Button type="button" variant="cta" size="default" onClick={() => category && onBuild(category, picked)}>
+          <Button type="button" variant="stick" size="default" className="btn-roomy" onClick={() => category && onBuild(category, picked)}>
             Build my practice <ArrowRight />
           </Button>
         </div>
