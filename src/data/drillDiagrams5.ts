@@ -18,16 +18,16 @@ export const drillDiagrams5: Record<string, Diagram> = {
     arrows: [pass([47, 35], [15, 24]), pass([16, 25], [47, 26]), pass([53, 26], [85, 24]), pass([87, 22], [54, 10])],
   },
   "PPP-002": { // overload: three on the strong side, weak-side one-timer
-    markers: [GT, P(12, 14, "LW"), P(22, 26, "C"), P(30, 35, "LD"), P(72, 22, "RW"), P(62, 35, "RD"), D(30, 22, "C"), D(42, 20, "RW"), D(34, 12, "LD"), D(46, 14, "RD"), PUCK(13.8, 14.6)],
-    arrows: [pass([14, 15], [21, 25]), pass([23, 28], [29, 34]), pass([32, 35], [69, 24]), pass([72, 20], [54, 10])],
+    markers: [GT, P(12, 14, "LW"), P(22, 26, "C"), P(32, 19, "LD"), P(72, 22, "RW"), P(62, 35, "RD"), D(30, 22, "C"), D(42, 20, "RW"), D(34, 12, "LD"), D(46, 14, "RD"), PUCK(13.8, 14.6)],
+    arrows: [pass([14, 15], [21, 25]), pass([23, 28], [31, 19]), pass([31, 19], [69, 24]), pass([72, 20], [54, 10])],
   },
   "PPP-003": { // 4-1 spread: four around the outside, one in front
     markers: [GT, P(36, 36, "LD"), P(64, 36, "RD"), P(10, 22, "LW"), P(90, 22, "RW"), P(50, 14, "C"), ...boxTop(), PUCK(34.2, 37.6)],
     arrows: [pass([34, 35], [12, 23]), pass([12, 20], [36, 11], [[26, 14]]), pass([62, 36], [88, 23]), pass([49, 14], [50, 11])],
   },
   "PPP-004": { // 5-on-3 triangle: five attackers against three killers
-    markers: [GT, P(36, 36, "LD"), P(64, 36, "RD"), P(10, 22, "LW"), P(90, 22, "RW"), P(50, 12, "C"), D(42, 15, "LD"), D(58, 15, "RD"), D(50, 23, "C"), PUCK(34.2, 37.6)],
-    arrows: [pass([37, 35], [64, 35]), pass([66, 34], [88, 23]), pass([88, 20], [52, 11])],
+    markers: [GT, P(36, 36, "LD"), P(66, 20, "RD"), P(10, 22, "LW"), P(90, 22, "RW"), P(34, 20, "C"), D(42, 15, "LD"), D(58, 15, "RD"), D(50, 23, "C"), PUCK(34.2, 37.6)],
+    arrows: [pass([37, 35], [12, 23]), pass([12, 23], [88, 23]), pass([88, 23], [36, 20]), pass([36, 20], [50, 11])],
   },
   "PPP-005": { // half-wall seam play: passer on the half wall, slot shooter, four passive killers in a box
     markers: [GT, P(10, 23, "LW"), P(50, 18, "C"), D(38, 23, "C"), D(62, 23, "RW"), D(40, 12, "LD"), D(60, 12, "RD"), PUCK(11.8, 23.6)],
@@ -39,7 +39,7 @@ export const drillDiagrams5: Record<string, Diagram> = {
   },
   "PPP-007": { // drop-pass entry: carry wide, drop it back to the trailing man
     markers: [GT, P(52, 50, "C"), P(24, 50, "LW"), P(78, 54, "RW"), P(42, 60, "LD"), P(62, 58, "RD"), PUCK(53.8, 50.6), D(28, 35, "LD"), D(42, 35, "C"), D(58, 35, "RW"), D(72, 35, "RD")],
-    arrows: [carry([52, 47], [86, 44], [[70, 46]]), pass([86, 43], [66, 54]), pass([62, 56], [80, 40]), run([24, 48], [14, 30])],
+    arrows: [carry([52, 47], [84, 38], [[70, 44]]), pass([84, 38], [66, 54]), carry([62, 56], [82, 30], [[74, 44]]), run([24, 48], [14, 30])],
   },
   "PPP-008": { // offensive-zone faceoff play: win it back to the point, cross to the other D for a shot, wingers go to the net
     markers: [GT, P(TL[0], 18.8, "C"), D(TL[0], 22.2, "C"), P(32, 36, "LD"), P(60, 36, "RD"), P(14, 24, "LW"), P(46, 22, "RW"), D(20, 30, "LW"), D(40, 30, "RW"), PUCK(TL[0] + 0.6, TL[1])],
@@ -66,16 +66,16 @@ export const drillDiagrams5: Record<string, Diagram> = {
     arrows: [run([50, 74], [50, 70])],
   },
   "PKP-006": { // rim clear under pressure: D retrieves, forechecker applies pressure, rim it up the boards
-    markers: [D(36, 90, "LD"), P(26, 80, "C"), PUCK(37.8, 90.6)],
-    arrows: [run([26, 82], [34, 88]), pass([34, 90], [6, 72]), pass([6, 70], [6, 46])],
+    markers: [D(36, 94, "LD"), P(26, 80, "C"), PUCK(37.8, 94.6), P(10, 48, "LW")],
+    arrows: [run([26, 82], [34, 92]), pass([36, 94], [10, 48], [[6, 72], [6, 46]]), pass([10, 48], [10, 28])],
   },
   "PKP-007": { // shot-block lanes: two blockers, a point shooter, a tip player in front
     markers: [GB, D(42, 79, "LD"), D(58, 79, "RD"), P(50, 64, "LD"), P(50, 86, "C"), PUCK(51.8, 64.6)],
-    arrows: [pass([50, 66], [50, 84]), run([42, 77], [46, 72]), run([58, 77], [54, 72])],
+    arrows: [pass([50, 66], [50, 84]), run([42, 77], [46, 72]), run([58, 77], [54, 72]), pass([50, 84], [22, 62])],
   },
-  "PKP-008": { // defensive-zone faceoff: centre and four killers set for the draw, win it back to the D
-    markers: [GB, D(BL[0], 77.6, "C"), P(BL[0], 81, "C"), D(14, 80, "LW"), D(39, 80, "RW"), D(23, 88, "LD"), D(37, 88, "RD"), P(20, 68, "LD"), P(36, 68, "RD"), P(10, 72, "LW"), P(46, 72, "RW"), PUCK(BL[0], BL[1])],
-    arrows: [pass([BL[0], 79], [36, 86])],
+  "PKP-008": { // defensive-zone faceoff: centre, winger and two D set for the draw, win it back to the D
+    markers: [GB, D(BL[0], 77.6, "C"), P(BL[0], 81, "C"), D(14, 80, "LW"), D(23, 88, "LD"), D(37, 88, "RD"), P(20, 68, "LD"), P(36, 68, "RD"), P(10, 72, "LW"), P(46, 72, "RW"), PUCK(BL[0], BL[1])],
+    arrows: [pass([BL[0], 79], [36, 86]), pass([37, 86], [8, 62])],
   },
 };
 void COACH;
