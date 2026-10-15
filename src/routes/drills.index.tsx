@@ -86,8 +86,7 @@ function DrillLibraryPage() {
     <main className="container-app ice-lib py-10 lg:py-14">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-3xl">
-          <p className="text-eyebrow text-interactive">Curated coaching collection</p>
-          <h1 className="text-display mt-3">Drill Library</h1>
+          <h1 className="text-display text-gradient mt-3">Drill Library</h1>
           <p className="text-lede mt-4 text-muted-foreground">
             Search {drillLibrary.length} field-tested hockey drills and plays, add your own, then drop one straight
             into your practice plan.

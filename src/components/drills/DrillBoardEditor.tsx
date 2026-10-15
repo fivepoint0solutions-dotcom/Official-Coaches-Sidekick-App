@@ -149,6 +149,19 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const pickTool = (t: Tool) => setTool(t);
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  // While a marker is being dragged, the page itself must not scroll (phones
+  // otherwise pan side-to-side / up-and-down instead of moving the marker).
+  useEffect(() => {
+    if (dragIndex === null) return;
+    const prevOverflow = document.body.style.overflow;
+    const prevTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.touchAction = prevTouchAction;
+    };
+  }, [dragIndex]);
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
   const [livePoint, setLivePoint] = useState<[number, number] | null>(null);
   const [drawingStroke, setDrawingStroke] = useState<[number, number][] | null>(null);
@@ -426,7 +439,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-5" /></MiniBtn>,
   ];
   const column = (nodes: ReactNode[], key: string) => (
-    <div key={key} className="flex shrink-0 flex-col justify-between gap-1 overflow-y-auto lg:hidden">{nodes}</div>
+    <div key={key} className="flex max-h-[calc(100dvh-13rem)] shrink-0 flex-col justify-between gap-1 overflow-y-auto py-1 lg:hidden">{nodes}</div>
   );
   const hint = (
     <p className="mb-2 text-xs text-foreground/80">
@@ -590,8 +603,8 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       style={landscape ? { maxWidth: "min(100%, max(34rem, calc((100dvh - 27rem) * 2.05)))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
     >
       <div
-        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${tool === "select" ? "touch-pan-y" : "touch-none"}`}
-        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}` }}
+        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${dragIndex !== null || tool !== "select" ? "touch-none" : "touch-pan-y"}`}
+        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}`, touchAction: dragIndex !== null ? "none" : undefined }}
       >
         <div
           className={landscape ? "absolute" : "contents"}
@@ -607,6 +620,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           onPointerDown={handleBoardPointerDown}
           onPointerMove={handleBoardPointerMove}
           onPointerUp={handleBoardPointerUp}
+          onPointerCancel={handleBoardPointerUp}
         >
           {value.arrows?.map((arrow, i) => (
             <Arrow key={i} arrow={arrow} w={w} h={h} />
