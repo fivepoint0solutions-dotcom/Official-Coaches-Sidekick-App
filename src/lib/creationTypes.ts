@@ -51,21 +51,8 @@ export interface CreationTypeConfig {
   fields: FieldConfig[];
 }
 
-export const SPORT_OPTIONS = [
-  "Soccer",
-  "Basketball",
-  "Football",
-  "Baseball/Softball",
-  "Volleyball",
-  "Hockey",
-  "Track & Field",
-  "Swimming",
-  "Wrestling",
-  "Tennis",
-  "Lacrosse",
-  "Cross Country",
-  "Other",
-];
+/** Hockey-only: this app has no sport picker anywhere — everything is hockey. */
+export const SPORT_OPTIONS = ["Hockey"];
 
 export const AGE_GROUP_OPTIONS = [
   "U6",
@@ -100,13 +87,6 @@ export const AUDIENCE_OPTIONS = [
   "Behavior update",
 ];
 
-const sportField: FieldMeta = {
-  key: "sport",
-  labelKey: "field.sport.label",
-  kind: "choice",
-  options: SPORT_OPTIONS,
-  required: true,
-};
 const ageGroupField: FieldMeta = {
   key: "ageGroup",
   labelKey: "field.ageGroup.label",
@@ -170,20 +150,19 @@ export const CREATION_TYPES_META: CreationTypeMeta[] = [
     id: "drill-sheet",
     icon: PencilRuler,
     defaultMode: "busywork",
-    fields: [sportField, ageGroupField, topicField, levelField],
+    fields: [ageGroupField, topicField, levelField],
   },
   {
     id: "scouting-report",
     icon: ClipboardList,
     defaultMode: "busywork",
-    fields: [sportField, ageGroupField, topicField, timeField],
+    fields: [ageGroupField, topicField, timeField],
   },
   {
     id: "evaluation-rubric",
     icon: Layers,
     defaultMode: "busywork",
     fields: [
-      sportField,
       ageGroupField,
       topicField,
       {
