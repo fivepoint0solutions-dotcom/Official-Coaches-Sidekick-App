@@ -1905,3 +1905,282 @@ html body .badge-pill, html body .chip {
   /* Scoreboard content stays above its watermark. */
   [data-skin="scoreboard"] > * { position: relative; z-index: 1; }
 }
+
+/* ================================================================
+ * OCT 15 — HOCKEY CTA SYSTEM + ONE PLACARD LOOK + FLOATING PUCK BACK BUTTON + TRUE BLUE JERSEY.
+ * Unlayered on purpose: this block is the final word over the layered
+ * skin/ice/playbook rules above. Colour law: blue / white / black only,
+ * EXCEPT light red (soft, faded) for rink markings — centre line, rink
+ * markings inside Rink buttons, watermark rink. Never bold / pure red.
+ * ================================================================ */
+:root {
+  --rink-red: rgba(220, 80, 80, 0.5); /* soft, faded red — rink markings only */
+  --rink-red-soft: rgba(220, 80, 80, 0.38);
+  --rink-blue: #1f5fc8;
+}
+
+/* ---- 1. HOCKEY CTAs — four reusable styles. Order in every group: smallest → biggest. ---- */
+.btn-hockey:not(#_):not(#__) {
+  position: relative !important;
+  isolation: isolate !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  transition: filter 0.15s ease, transform 0.15s ease !important;
+}
+.btn-hockey:not(#_):not(#__):focus-visible {
+  filter: brightness(1.18) !important;
+  outline: 3px solid #0b1f4d !important;
+  outline-offset: 2px !important;
+}
+/* Sized up only where a graphic needs room (Todd's call, 2026-10-15): the
+   single primary CTA on a full-width form, so its graphic stays readable. */
+.btn-hockey.btn-roomy:not(#_):not(#__) {
+  min-height: 3.25rem !important;
+  padding-inline: 2rem !important;
+  font-size: 1rem !important;
+}
+/* Hockey Stick Angle: angular beveled dark blue + cyan glow edge. Primary actions. */
+.btn-stick:not(#_):not(#__) {
+  background-color: #0b1f4d !important;
+  background-image:
+    linear-gradient(115deg, transparent 0 calc(100% - 14px), rgba(103, 232, 249, 0.95) calc(100% - 14px), rgba(103, 232, 249, 0.95) calc(100% - 11px), transparent calc(100% - 11px)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 45%),
+    linear-gradient(115deg, #0b1f4d 0%, #153f8a 45%, #1f5fc8 100%) !important;
+  background-repeat: no-repeat !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65)) drop-shadow(0 3px 3px rgba(0, 0, 0, 0.35)) !important;
+}
+.btn-stick:not(#_):not(#__):hover { filter: brightness(1.12) drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)) drop-shadow(0 3px 3px rgba(0, 0, 0, 0.35)) !important; }
+.btn-stick:not(#_):not(#__):active { filter: brightness(1.05) drop-shadow(0 0 5px rgba(56, 189, 248, 0.6)) !important; transform: translateY(1px) !important; }
+/* Ice Rink Silhouette: white pill, dark blue border, faint rink markings inside
+   (centre line LIGHT red, blue lines, centre circle). Light secondary actions. */
+.btn-rink:not(#_):not(#__) {
+  background-color: #ffffff !important;
+  background-image:
+    radial-gradient(circle 15px at 50% 50%, transparent 0, transparent 13px, rgba(31, 95, 200, 0.35) 13px, rgba(31, 95, 200, 0.35) 15px, transparent 15px),
+    linear-gradient(90deg, transparent calc(30% - 1px), rgba(31, 95, 200, 0.4) calc(30% - 1px), rgba(31, 95, 200, 0.4) calc(30% + 1px), transparent calc(30% + 1px), transparent calc(70% - 1px), rgba(31, 95, 200, 0.4) calc(70% - 1px), rgba(31, 95, 200, 0.4) calc(70% + 1px), transparent calc(70% + 1px)),
+    linear-gradient(90deg, transparent calc(50% - 1.5px), var(--rink-red) calc(50% - 1.5px), var(--rink-red) calc(50% + 1.5px), transparent calc(50% + 1.5px)),
+    linear-gradient(180deg, #ffffff 0%, #e9f3ff 100%) !important;
+  background-repeat: no-repeat !important;
+  border: 2px solid #0b1f4d !important;
+  border-radius: 999px !important;
+  clip-path: none !important;
+  color: #0b1f4d !important;
+  -webkit-text-fill-color: #0b1f4d !important;
+  text-shadow: none !important;
+  box-shadow: 0 2px 0 rgba(11, 31, 77, 0.25), 0 6px 12px -6px rgba(15, 23, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  filter: none !important;
+}
+.btn-rink:not(#_):not(#__):hover { filter: brightness(1.04) !important; }
+.btn-rink:not(#_):not(#__):active { transform: translateY(1px) !important; box-shadow: 0 1px 0 rgba(11, 31, 77, 0.25) !important; }
+/* Puck / Faceoff Circle: black rounded block, blue outline, faceoff dot detail. Strong dark actions. */
+.btn-puck:not(#_):not(#__) {
+  background-color: #0b1226 !important;
+  background-image:
+    radial-gradient(circle 5px at 50% 50%, rgba(255, 255, 255, 0.22) 0, rgba(255, 255, 255, 0.22) 4px, transparent 5px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 36%),
+    linear-gradient(180deg, #2a3448 0%, #0b1226 45%, #000000 100%) !important;
+  background-repeat: no-repeat !important;
+  border: 2px solid #1f5fc8 !important;
+  border-radius: 12px !important;
+  clip-path: none !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75) !important;
+  box-shadow: 0 3px 0 #000000, 0 8px 14px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -4px 6px rgba(0, 0, 0, 0.7) !important;
+  filter: none !important;
+}
+.btn-puck:not(#_):not(#__):hover { filter: brightness(1.14) !important; }
+.btn-puck:not(#_):not(#__):active { transform: translateY(2px) !important; box-shadow: 0 1px 0 #000000, 0 4px 8px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -3px 5px rgba(0, 0, 0, 0.7) !important; }
+/* Skate Blade Edge: metallic silver-blue pointed hexagon. Confirm / finalize actions. */
+.btn-blade:not(#_):not(#__) {
+  background-color: #dcebfb !important;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 30%),
+    linear-gradient(180deg, #ffffff 0%, #dcebfb 22%, #9db9dd 48%, #6e93c4 62%, #eaf3ff 82%, #b9cfea 100%) !important;
+  background-repeat: no-repeat !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 16px 100%, 0 50%) !important;
+  color: #0b1f4d !important;
+  -webkit-text-fill-color: #0b1f4d !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 2px 2px rgba(11, 31, 77, 0.35)) !important;
+}
+.btn-blade:not(#_):not(#__):hover { filter: brightness(1.06) drop-shadow(0 2px 2px rgba(11, 31, 77, 0.35)) !important; }
+.btn-blade:not(#_):not(#__):active { filter: brightness(1.02) drop-shadow(0 1px 1px rgba(11, 31, 77, 0.35)) !important; transform: translateY(1px) !important; }
+/* Hockey CTA labels never pick up a parent panel's forced text colour. */
+.btn-hockey:not(#_):not(#__) :is(svg, span, i) { color: inherit !important; -webkit-text-fill-color: inherit !important; }
+
+/* ---- 3. PLACARDS — ONE look, whole site, mobile included.
+   Light blue / dark blue alternating down every list or grid. The ICE logo
+   sits centred faint behind the text; the dark placard's logo is lifted
+   (brighter) so both read with the same perceived visibility. ---- */
+.placard:not(#_) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border: 3px solid var(--b5) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 3px rgba(15, 23, 42, 0.12), 0 14px 28px -16px rgba(15, 23, 42, 0.45) !important;
+}
+.placard:not(#_)::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  border-radius: inherit !important;
+  background: var(--team-logo) no-repeat 50% 50% / auto 58% !important;
+  pointer-events: none !important;
+}
+.placard:not(#_)::after { content: none !important; background: none !important; box-shadow: none !important; }
+.placard-light:not(#_), .placard-list > .placard:nth-child(odd):not(#_) {
+  background-color: #ffffff !important;
+  background-image: linear-gradient(180deg, #ffffff 0%, #dcebfb 100%) !important;
+  color: #0b1f4d !important;
+}
+.placard-light:not(#_)::before, .placard-list > .placard:nth-child(odd):not(#_)::before { opacity: 0.17 !important; }
+.placard-dark:not(#_), .placard-list > .placard:nth-child(even):not(#_) {
+  background-color: #0b1f4d !important;
+  background-image: linear-gradient(160deg, #0b1f4d 0%, #153f8a 55%, #1f5fc8 100%) !important;
+  color: #ffffff !important;
+}
+.placard-dark:not(#_)::before, .placard-list > .placard:nth-child(even):not(#_)::before { opacity: 0.13 !important; filter: brightness(1.6) !important; }
+/* Dark placards read white — except buttons, links, tape strips, badges,
+   category tabs and form fields, which keep their own colours. */
+.placard-dark:not(#_) :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, strong, em, b):not(.keep-color):not(.tape-strip):not(.tape-strip *):not(.badge-pill):not(.badge-pill *):not(.category-tab):not(.category-tab *):not(button *):not(a *),
+.placard-list > .placard:nth-child(even):not(#_) :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, strong, em, b):not(.keep-color):not(.tape-strip):not(.tape-strip *):not(.badge-pill):not(.badge-pill *):not(.category-tab):not(.category-tab *):not(button *):not(a *) {
+  color: #ffffff !important;
+}
+.placard-dark:not(#_) :is(input, textarea, select),
+.placard-list > .placard:nth-child(even):not(#_) :is(input, textarea, select) {
+  background: #ffffff !important;
+  color: #0b1f4d !important;
+}
+
+/* ---- 6. BACK BUTTON — the puck FLOATS transparently. The button itself is
+   transparent (no black box); the puck is a separate disc with 3D gradients
+   + shadow, so its depth shows against white. Neutralizes the old layered
+   .back-puck background/pseudo rules above. ---- */
+.back-puck:not(#_):not(#__):not(#___) {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  filter: none !important;
+}
+.back-puck:not(#_):not(#__):not(#___)::before,
+.back-puck:not(#_):not(#__):not(#___)::after {
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+.back-puck:not(#_):not(#__):not(#___):hover { transform: translateX(-2px) !important; filter: none !important; }
+.back-puck:not(#_):not(#__):not(#___):active { transform: scale(0.95) !important; }
+.back-puck-disc {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 9999px !important;
+  pointer-events: none !important;
+  background-color: #0a0a0a !important;
+  background-image:
+    radial-gradient(ellipse 95% 80% at 34% 26%, #8a8a8a 0%, #4d4d4d 16%, #262626 38%, #121212 62%, #050505 82%, #000000 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 2px, rgba(0, 0, 0, 0.14) 2px 4px) !important;
+  background-repeat: no-repeat !important;
+  border: 1px solid #000000 !important;
+  box-shadow:
+    0 5px 0 0 #000000,
+    0 11px 16px -4px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.12),
+    inset 0 -7px 9px rgba(0, 0, 0, 0.85),
+    inset 2px 3px 6px rgba(255, 255, 255, 0.22) !important;
+}
+.back-puck-disc::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 10% !important; top: 6% !important;
+  width: 58% !important; height: 34% !important;
+  border-radius: 50% !important;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.22) 42%, rgba(255, 255, 255, 0) 72%) !important;
+  transform: rotate(-18deg) !important;
+  filter: blur(1px) !important;
+  pointer-events: none !important;
+}
+.back-puck-disc::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 58% 0 0 0 !important;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, rgba(0, 0, 0, 0.25) 2px 4px),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.45) 38%, rgba(0, 0, 0, 0.88) 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000000 32%) !important;
+  mask-image: linear-gradient(180deg, transparent 0%, #000000 32%) !important;
+  pointer-events: none !important;
+}
+
+/* ---- 7. JERSEY, ACTUALLY BLUE — blue body, white shoulder panels, logo centred faint.
+   The old layered jersey was pale ice, so it read as a plain card. ---- */
+[data-skin="jersey"] {
+  background-color: #1f5fc8 !important;
+  background-image: linear-gradient(160deg, #1f5fc8 0%, #153f8a 55%, #0b1f4d 100%) !important;
+  border: 3px solid #0b1f4d !important;
+  border-radius: 20px !important;
+  color: #ffffff !important;
+}
+[data-skin="jersey"] :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, strong, em, b):not(.keep-color):not(.tape-strip):not(.tape-strip *):not(.badge-pill):not(.badge-pill *):not(.category-tab):not(.category-tab *):not(button *):not(a *) {
+  color: #ffffff !important;
+}
+[data-skin="jersey"] :is(input, textarea, select) {
+  background: #ffffff !important;
+  color: #0b1f4d !important;
+}
+[data-skin="jersey"]::before {
+  opacity: 0.18 !important;
+  filter: brightness(1.5) !important;
+}
+[data-skin="jersey"]::after {
+  opacity: 1 !important;
+  background:
+    linear-gradient(135deg, #ffffff 0 50%, rgba(255, 255, 255, 0) 50.5%) top left / 72px 72px no-repeat,
+    linear-gradient(225deg, #ffffff 0 50%, rgba(255, 255, 255, 0) 50.5%) top right / 72px 72px no-repeat,
+    linear-gradient(90deg, #ffffff 0%, #8fb1e7 50%, #ffffff 100%) 0 0 / 100% 5px no-repeat !important;
+}
+/* Scoreboard: dark navy panel, white text, LED top line — already defined
+   above; this keeps the LED line above the watermark on every scoreboard. */
+[data-skin="scoreboard"]::after {
+  z-index: 1 !important;
+}
+/* A scoreboard's error alert keeps its light tint, so its text stays dark. */
+[data-skin="scoreboard"] [role="alert"] {
+  color: #0b1f4d !important;
+}
+/* A picked placard (e.g. the chosen Busywork type) shows a strong blue ring. */
+.placard.placard-selected:not(#_) {
+  border-color: #0b1f4d !important;
+  box-shadow: 0 0 0 3px rgba(31, 95, 200, 0.55), 0 2px 3px rgba(15, 23, 42, 0.12), 0 14px 28px -16px rgba(15, 23, 42, 0.45) !important;
+}
+/* Boards & glass: glass top, white boards, BLUE kick plate along the base. */
+[data-skin="glass"] {
+  background-image:
+    linear-gradient(0deg, #0b1f4d 0, #1f5fc8 10px, rgba(31, 95, 200, 0.35) 14px, rgba(31, 95, 200, 0) 17px),
+    var(--ice-gloss),
+    var(--ice-sweep),
+    repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.06) 0 1px, transparent 1px 120px),
+    linear-gradient(180deg, #ffffff 0%, #dcebfb 34%, #f4f9ff 64%, #e0ecf9 100%) !important;
+}
