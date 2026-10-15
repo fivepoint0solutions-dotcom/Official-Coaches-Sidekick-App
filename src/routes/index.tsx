@@ -72,8 +72,8 @@ function Dashboard() {
     <main>
       <section className="container-app relative pb-4 pt-6 lg:-mt-3 lg:pb-0 lg:pt-0">
         <Reveal delay={80}>
-          <h1 className="text-headline italic">
-            {t(greetingKey)} <span className="text-gradient">{t("dashboard.headline2")}</span>
+          <h1 className="text-headline italic lg:whitespace-nowrap">
+            <span className="text-gradient">{t(greetingKey)} {t("dashboard.headline2")}</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>

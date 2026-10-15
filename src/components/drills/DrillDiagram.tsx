@@ -6,7 +6,7 @@ import { playSteps } from "@/data/playTiming";
 export type DiagramMarker = {
   x: number;
   y: number;
-  /** player = attacker (orange O) · defender = defence (dark-blue X) · goalie = G in the crease · cone · ball = puck · coach */
+  /** player = attacker (blue O, or a role letter) · defender = other team (red X) · goalie = G in the crease · cone · ball = puck · coach */
   kind: "player" | "defender" | "goalie" | "cone" | "ball" | "coach";
   label?: string;
 };
@@ -36,25 +36,40 @@ export type DrillDiagramSpec = {
   backgroundImage?: string;
 };
 
-export const TEAM_ATTACK = "#2f7bff"; // orange O
-export const TEAM_DEFENCE = "#1E3A8A"; // dark-blue X
+/* One distinct colour per thing, so a coach can read a diagram at a glance.
+   No two different things share a colour. Letters (LW, RW, C, LD, RD) and the
+   X / O shapes stay, so the diagram still works in black-and-white print. */
+export const TEAM_ATTACK = "#2563EB"; // blue O — attacking players with no position letter
+export const TEAM_DEFENCE = "#DC2626"; // red X — the other team
+export const GOALIE_COLOR = "#CA8A04"; // gold G
+export const COACH_COLOR = "#DB2777"; // magenta diamond
+export const CONE_COLOR = "#F59E0B"; // amber cone
+export const PUCK_COLOR = "#111827"; // black puck
 const INK = "#0F172A";
+
+/** Arrow colours: skate (solid), pass (dashed), carry (wavy). All differ from
+ *  every player colour above; the line styles differ too, for black-and-white print. */
+export const ARROW_COLOR = {
+  run: "#0F172A", // skate — near-black solid
+  pass: "#0E7490", // pass — cyan dashed
+  dribble: "#92400E", // carry — brown wavy
+} as const;
 
 export const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
   player: TEAM_ATTACK,
   defender: TEAM_DEFENCE,
-  goalie: TEAM_DEFENCE,
-  cone: "#7fb6f5",
-  ball: "#111827",
-  coach: "#1c3f8f",
+  goalie: GOALIE_COLOR,
+  cone: CONE_COLOR,
+  ball: PUCK_COLOR,
+  coach: COACH_COLOR,
 };
 
 export function pct(value: number, size: number) {
   return (value / 100) * size;
 }
 
-/** Position letters: the coached team shows just the letter, coloured by role (wingers, centre, defence). */
-export const ROLE_COLOR = { wing: "#2f7bff", centre: "#0b0d12", defence: "#1e3a8a" } as const;
+/** Position letters: the coached team shows just the letter, coloured by role. */
+export const ROLE_COLOR = { wing: "#16A34A", centre: "#EA580C", defence: "#7C3AED" } as const;
 export function roleOf(label?: string): keyof typeof ROLE_COLOR | null {
   if (!label) return null;
   if (/^(LW|RW|W)$/i.test(label)) return "wing";
@@ -97,7 +112,7 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
   } else if (kind === "goalie") {
     glyph = (
       <>
-        <circle cx={cx} cy={cy} r={1.85 * k} fill={TEAM_DEFENCE} stroke="#FFFFFF" strokeWidth={0.35 * k} />
+        <circle cx={cx} cy={cy} r={1.85 * k} fill={GOALIE_COLOR} stroke="#FFFFFF" strokeWidth={0.35 * k} />
         <text x={cx} y={cy + 0.9 * k} textAnchor="middle" fontSize={2.8 * k} fontWeight={800} fill="#FFFFFF" className="diagram-label">
           G
         </text>
@@ -105,7 +120,7 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
     );
   } else if (kind === "cone") {
     const r = 1.15 * k;
-    glyph = <polygon points={`${cx},${cy - r} ${cx - r},${cy + r * 0.85} ${cx + r},${cy + r * 0.85}`} fill={MARKER_FILL.cone} stroke="#123f8f" strokeWidth={0.28 * k} strokeLinejoin="round" />;
+    glyph = <polygon points={`${cx},${cy - r} ${cx - r},${cy + r * 0.85} ${cx + r},${cy + r * 0.85}`} fill={MARKER_FILL.cone} stroke="#92400E" strokeWidth={0.28 * k} strokeLinejoin="round" />;
   } else if (kind === "ball") {
     glyph = <circle cx={cx} cy={cy} r={0.85 * k} fill={MARKER_FILL.ball} stroke="#FFFFFF" strokeWidth={0.3 * k} />;
   } else {
@@ -126,7 +141,7 @@ export function Marker({ marker, w, h, mode = "glyph", scale = 1 }: { marker: Di
         textAnchor={left ? "end" : "start"}
         fontSize={3.4 * k}
         fontWeight={800}
-        fill={kind === "defender" ? TEAM_DEFENCE : kind === "player" ? "#1c3f8f" : INK}
+        fill={kind === "defender" ? TEAM_DEFENCE : kind === "player" ? (role ? ROLE_COLOR[role] : TEAM_ATTACK) : INK}
         stroke="#FFFFFF"
         strokeWidth={0.8 * k}
         paintOrder="stroke"
@@ -189,18 +204,19 @@ export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: numb
   const style = arrow.style ?? "run";
   const line = style === "dribble" ? wavy(trimmed, 0.6 * k, 7 * k) : trimmed;
   const tip = `${last[0]},${last[1]} ${last[0] - Math.cos(ang) * head + Math.sin(ang) * half},${last[1] - Math.sin(ang) * head - Math.cos(ang) * half} ${last[0] - Math.cos(ang) * head - Math.sin(ang) * half},${last[1] - Math.sin(ang) * head + Math.cos(ang) * half}`;
+  const color = ARROW_COLOR[style];
   return (
     <g>
       <polyline
         points={line.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
-        stroke={INK}
+        stroke={color}
         strokeWidth={0.6 * k}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray={style === "pass" ? `${3 * k} ${2.2 * k}` : undefined}
       />
-      <polygon points={tip} fill={INK} />
+      <polygon points={tip} fill={color} />
     </g>
   );
 }
@@ -323,6 +339,9 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
 
 function Legend({ roles = false }: { roles?: boolean }) {
   const dot = "inline-block align-middle";
+  const line = (color: string, dash?: string) => (
+    <svg className={dot} width="22" height="8" aria-hidden="true"><line x1="1" y1="4" x2="21" y2="4" stroke={color} strokeWidth="2" strokeDasharray={dash} strokeLinecap="round" /></svg>
+  );
   return (
     <p className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-semibold opacity-80" aria-label="Diagram key">
       {roles ? (
@@ -332,13 +351,15 @@ function Legend({ roles = false }: { roles?: boolean }) {
           <span><b style={{ color: ROLE_COLOR.defence }}>LD · RD</b> defence</span>
         </>
       ) : null}
-      <span><b style={{ color: TEAM_DEFENCE }}>{roles ? "X · O" : "X"}</b> {roles ? "other team" : "defence"}</span>
-      {roles ? null : <span><b style={{ color: TEAM_ATTACK }}>O</b> offence</span>}
-      <span><span className={dot} style={{ width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "9px solid #7fb6f5" }} /> cone</span>
-      <span><span className={`${dot} rounded-full`} style={{ width: 8, height: 8, background: "#111827" }} /> puck</span>
-      <span>— skate</span>
-      <span>- - pass</span>
-      <span>~ carry</span>
+      <span><b style={{ color: TEAM_ATTACK }}>O</b> offence</span>
+      <span><b style={{ color: TEAM_DEFENCE }}>X</b> other team</span>
+      <span><b style={{ color: GOALIE_COLOR }}>G</b> goalie</span>
+      <span><span className={dot} style={{ width: 8, height: 8, background: COACH_COLOR, transform: "rotate(45deg)" }} /> coach</span>
+      <span><span className={dot} style={{ width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "9px solid " + CONE_COLOR }} /> cone</span>
+      <span><span className={`${dot} rounded-full`} style={{ width: 8, height: 8, background: PUCK_COLOR }} /> puck</span>
+      <span>{line(ARROW_COLOR.run)} skate</span>
+      <span>{line(ARROW_COLOR.pass, "4 3")} pass</span>
+      <span><b style={{ color: ARROW_COLOR.dribble }}>~</b> carry</span>
     </p>
   );
 }
@@ -352,10 +373,10 @@ function analyze(spec: DrillDiagramSpec, base: string, zone: "auto" | "full" | "
   const modeFor = (m: DiagramMarker): "glyph" | "text" | "glyph-nolabel" =>
     !roleOf(m.label) || !coached ? "glyph" : m.kind === coached ? "text" : "glyph-nolabel";
 
-  // In a play, the other team is only drawn where it takes part (a pass to or from it). Players just standing around are left off.
-  const ends: [number, number][] = (spec.arrows ?? []).flatMap((a) => [a.from, a.to]);
-  const standingAround = (m: DiagramMarker) =>
-    /^(PPP|PKP|PPL|PKL)-/.test(base) && coached !== null && m.kind !== coached && (m.kind === "player" || m.kind === "defender") && !ends.some((e) => Math.hypot(e[0] - m.x, e[1] - m.y) <= 7);
+  // Every marker in the diagram data is drawn — never hide the other team.
+  // (This used to drop PPP/PKP/PPL/PKL players no arrow touched, so defenders
+  // that exist in the data, e.g. the four at the blue line in PPL-002, never appeared.)
+  const standingAround = (_m: DiagramMarker) => false;
 
   // Half-ice drills show only the half of the rink they use, enlarged: boards touching the edges, nothing empty.
   let yMin = 0;
