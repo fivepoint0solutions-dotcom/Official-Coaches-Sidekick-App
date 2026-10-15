@@ -28,14 +28,14 @@ export function ShareBar({ title, text, className = "" }: { title: string; text:
   }
 
   return (
-    <div className={`flex flex-wrap gap-3 print:hidden ${className}`} role="group" aria-label="Print, save as PDF or send">
-      <Button type="button" variant="outline" size="lg" onClick={print}>
+    <div className={`flex flex-wrap gap-2 print:hidden ${className}`} role="group" aria-label="Print, save as PDF or send">
+      <Button type="button" variant="outline" size="sm" onClick={print}>
         <Printer /> Print
       </Button>
-      <Button type="button" variant="outline" size="lg" onClick={pdf}>
+      <Button type="button" variant="outline" size="sm" onClick={pdf}>
         <FileDown /> Save as PDF
       </Button>
-      <Button type="button" variant="cta" size="lg" onClick={send}>
+      <Button type="button" variant="cta" size="default" onClick={send}>
         <Send /> Send
       </Button>
     </div>

@@ -1833,23 +1833,58 @@ html body .badge-pill, html body .chip {
  * Blue / white / black only. No red anywhere in app chrome.
  * ============================================================ */
 @layer utilities {
-  /* Small hockey-puck Back button: one 56px circle, glossy black, arrow + BACK inside. */
+  /* Small hockey-puck Back button: one 56px circle, TRUE 3D puck (CSS only, no image).
+     Top face = radial highlight at top-left; rim ring + inner shade = cylinder edge;
+     bottom band = knurled rubber side wall; gloss pseudo = light hitting the puck. */
   .back-puck:not(#_):not(#__) {
-    background-color: #070c18 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    border-radius: 9999px !important;
+    background-color: #0a0a0a !important;
     background-image:
-      radial-gradient(ellipse 72% 46% at 50% 14%, rgba(190, 212, 240, .38) 0%, rgba(190, 212, 240, 0) 62%),
-      linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, 0) 36%),
-      linear-gradient(180deg, #26334c 0%, #0b1327 46%, #020409 100%) !important;
-    background-size: 100% 100% !important;
+      radial-gradient(ellipse 95% 80% at 34% 26%, #8a8a8a 0%, #4d4d4d 16%, #262626 38%, #121212 62%, #050505 82%, #000000 100%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, .045) 0 2px, rgba(0, 0, 0, .14) 2px 4px) !important;
+    background-size: 100% 100%, 100% 100% !important;
     background-repeat: no-repeat !important;
-    border: 2px solid #04070f !important;
+    border: 1px solid #000000 !important;
     color: #FFFFFF !important;
     box-shadow:
-      0 4px 0 #020409,
-      0 12px 18px -8px rgba(2, 6, 18, .7),
-      inset 0 2px 3px rgba(255, 255, 255, .3),
-      inset 0 -4px 7px rgba(0, 0, 0, .65) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .75);
+      0 5px 0 0 #000000,
+      0 11px 16px -4px rgba(0, 0, 0, .6),
+      0 2px 4px rgba(0, 0, 0, .45),
+      inset 0 1px 1px rgba(255, 255, 255, .6),
+      inset 0 0 0 2px rgba(255, 255, 255, .12),
+      inset 0 -7px 9px rgba(0, 0, 0, .85),
+      inset 2px 3px 6px rgba(255, 255, 255, .22) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .9), 0 0 1px rgba(0, 0, 0, .9);
+  }
+  /* Gloss: soft white elliptical highlight, top-left, like light hitting the puck. */
+  .back-puck:not(#_):not(#__)::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 10% !important; top: 6% !important;
+    width: 58% !important; height: 34% !important;
+    border-radius: 50% !important;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, .65) 0%, rgba(255, 255, 255, .22) 42%, rgba(255, 255, 255, 0) 72%) !important;
+    transform: rotate(-18deg) !important;
+    filter: blur(1px) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+  /* Side wall: knurled rubber texture + dark bottom shade, faded at the top edge
+     so it reads as puck thickness, not a flat band. */
+  .back-puck:not(#_):not(#__)::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 58% 0 0 0 !important;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, .06) 0 2px, rgba(0, 0, 0, .25) 2px 4px),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .45) 38%, rgba(0, 0, 0, .88) 100%) !important;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000000 32%) !important;
+    mask-image: linear-gradient(180deg, transparent 0%, #000000 32%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
   }
 
   /* ICE logo centered in EVERY placard: jersey, boards & glass, and scoreboard
