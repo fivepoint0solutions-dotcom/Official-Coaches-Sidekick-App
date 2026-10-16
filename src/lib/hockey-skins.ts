@@ -60,8 +60,37 @@ export function applySkins(root: ParentNode = document) {
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return; // form fields stay fields
     if (el.matches(".drill-sheet-paper") && !el.closest("[data-skin]")) return;
     el.dataset["skin"] = pick(el);
+    el.dataset["skinAuto"] = "1";
     // the designs draw their trim with pseudo-elements, which need a positioned box
     if (getComputedStyle(el).position === "static") el.style.position = "relative";
+  });
+}
+
+/* Light / dark rule: boards & glass is the LIGHT design, jersey and scoreboard are the DARK blue ones. Containers that
+   sit side by side in a list or grid alternate light, dark, light, dark (a checkerboard in grids), whatever order they
+   were first seen in, so filtering or resizing never leaves two of the same tone touching. */
+function alternate(root: ParentNode) {
+  const groups = new Map<Element, HTMLElement[]>();
+  root.querySelectorAll<HTMLElement>('[data-skin-auto="1"]').forEach((el) => {
+    if (!el.parentElement || el.offsetParent === null) return;
+    // Climb out of single-child wrappers so cards that are each wrapped in their own div still count as one list.
+    const kind = el.className.toString().split(" ")[0] ?? "";
+    let host: HTMLElement = el.parentElement;
+    while (host.parentElement && host.querySelectorAll(`[data-skin-auto="1"].${CSS.escape(kind)}`).length < 2 && host !== document.body) host = host.parentElement;
+    const g = groups.get(host) ?? [];
+    g.push(el);
+    groups.set(host, g);
+  });
+  groups.forEach((els) => {
+    if (els.length < 2) return;
+    const firstTop = els[0]!.offsetTop;
+    const cols = Math.max(1, els.filter((e) => Math.abs(e.offsetTop - firstTop) < 4).length);
+    els.forEach((el, i) => {
+      const light = ((i % cols) + Math.floor(i / cols)) % 2 === 0;
+      const seed = hash((el.textContent ?? "").slice(0, 32));
+      const skin: Skin = light ? "glass" : seed % 2 ? "jersey" : "scoreboard";
+      if (el.dataset["skin"] !== skin) el.dataset["skin"] = skin;
+    });
   });
 }
 
@@ -70,15 +99,18 @@ export function startSkins(): () => void {
   const run = () => {
     frame = 0;
     applySkins(document.body);
+    alternate(document.body);
   };
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(run);
   };
   run();
+  window.addEventListener("resize", schedule);
   const observer = new MutationObserver(schedule);
   observer.observe(document.body, { childList: true, subtree: true });
   return () => {
     observer.disconnect();
+    window.removeEventListener("resize", schedule);
     if (frame) cancelAnimationFrame(frame);
   };
 }

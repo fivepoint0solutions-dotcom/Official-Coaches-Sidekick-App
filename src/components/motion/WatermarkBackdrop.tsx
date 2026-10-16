@@ -45,8 +45,8 @@ export function WatermarkBackdrop() {
       {/* Realistic rink, faint (watermark, not foreground). */}
       <svg
         viewBox="0 0 1000 600"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 h-full w-full opacity-[0.42]"
+        preserveAspectRatio="xMidYMid meet"
+        className="rink-svg opacity-[0.42]"
       >
         {/* ice */}
         <rect x={0} y={0} width={1000} height={600} fill="#F7FBFF" />
