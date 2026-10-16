@@ -1454,7 +1454,7 @@ html body .badge-pill, html body .chip {
   [data-skin="jersey"]::before {
     transform: none !important; translate: none !important;
     content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: .3 !important; filter: brightness(2.1) saturate(.7) !important;
-    background: var(--team-logo) no-repeat 50% 50% / auto 62%;
+    background: var(--team-logo) no-repeat 50% 50% / auto min(62%, 18rem);
   }
   [data-skin="jersey"]::after {
     transform: none !important; translate: none !important; filter: none !important; mix-blend-mode: normal !important;
@@ -1848,14 +1848,14 @@ html body .badge-pill, html body .chip {
     content: "" !important;
     position: absolute !important; inset: 0 !important; z-index: -1 !important;
     border-radius: inherit !important; opacity: .22 !important;
-    background: var(--team-logo) no-repeat 50% 50% / auto 62% !important;
+    background: var(--team-logo) no-repeat 50% 50% / auto min(62%, 18rem) !important;
     pointer-events: none !important;
   }
   [data-skin="scoreboard"]::before {
     content: "" !important;
     position: absolute !important; inset: 0 !important; z-index: -1 !important;
     border-radius: inherit !important; opacity: .3 !important; filter: brightness(2.1) saturate(.7) !important;
-    background: var(--team-logo) no-repeat 50% 50% / auto 62% !important;
+    background: var(--team-logo) no-repeat 50% 50% / auto min(62%, 18rem) !important;
     pointer-events: none !important;
   }
   [data-skin="glass"], [data-skin="jersey"], [data-skin="scoreboard"] { isolation: isolate; }
@@ -1999,7 +1999,7 @@ html body .badge-pill, html body .chip {
   inset: 0 !important;
   z-index: -1 !important;
   border-radius: inherit !important;
-  background: var(--team-logo) no-repeat 50% 50% / auto 58% !important;
+  background: var(--team-logo) no-repeat 50% 50% / auto min(58%, 16rem) !important;
   pointer-events: none !important;
 }
 .placard:not(#_)::after { content: none !important; background: none !important; box-shadow: none !important; }
@@ -2132,3 +2132,19 @@ html body .badge-pill, html body .chip {
     repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.06) 0 1px, transparent 1px 120px),
     linear-gradient(180deg, #ffffff 0%, #dcebfb 34%, #f4f9ff 64%, #e0ecf9 100%) !important;
 }
+
+/* ---- Readable text on a LIGHT surface that wears a dark design (jersey / scoreboard): the drill sheet and any other
+   `.placard-light` container keep dark ink instead of the design's white. Same layer as the white-text rules, higher
+   specificity, so it wins. ---- */
+@layer utilities {
+  :is([data-skin="jersey"], [data-skin="scoreboard"]).placard-light:not(#_):not(#__):not(#___):not(#____),
+  :is([data-skin="jersey"], [data-skin="scoreboard"]).placard-light:not(#_):not(#__):not(#___):not(#____) :is(div, span, p, h1, h2, h3, h4, h5, li, small, label, strong, em, b, summary, dt, dd, td, th, a, svg):not(.keep-color):not(.tape-strip):not(.tape-strip *) {
+    color: #0B1226 !important;
+    -webkit-text-fill-color: #0B1226 !important;
+    text-shadow: none !important;
+  }
+  /* A dark panel nested inside a light one (e.g. a numbered step badge) keeps its own white text. */
+  :is([data-skin="jersey"], [data-skin="scoreboard"]).placard-light:not(#_):not(#__):not(#___):not(#____) :is(.btn-hockey, [class*="bg-primary"], .keep-color) :is(span, svg, div) { color: inherit !important; -webkit-text-fill-color: inherit !important; }
+}
+/* The drill sheet is long and its logo sits behind paragraphs: keep it a light watermark so the text stays crisp. */
+.drill-sheet-paper:not(#_):not(#__):not(#___)::before { opacity: 0.14 !important; filter: none !important; }
