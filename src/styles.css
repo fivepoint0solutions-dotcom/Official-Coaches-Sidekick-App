@@ -2132,3 +2132,33 @@ html body .badge-pill, html body .chip {
     repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.06) 0 1px, transparent 1px 120px),
     linear-gradient(180deg, #ffffff 0%, #dcebfb 34%, #f4f9ff 64%, #e0ecf9 100%) !important;
 }
+
+/* ---- No soft corners anywhere: every container, placard and photo uses the angled hockey-stick bevel (same family as the
+   CTAs). Menus, dropdown lists and the full-width beta banner keep a plain square edge. ---- */
+:root { --chamfer: 16px; }
+/* Important declarations in the FIRST layer beat important ones in every later layer and in unlayered CSS. */
+@layer theme {
+[data-skin]:not([role="menu"]):not([role="listbox"]):not([aria-label="Beta tester invitation"]):not([data-radix-popper-content-wrapper] *):not(#_):not(#__):not(#___) {
+  border-radius: 0 !important;
+  clip-path: polygon(
+    var(--chamfer) 0,
+    calc(100% - var(--chamfer)) 0,
+    100% var(--chamfer),
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    var(--chamfer) 100%,
+    0 calc(100% - var(--chamfer)),
+    0 var(--chamfer)
+  ) !important;
+}
+[data-skin]::before, [data-skin]::after { border-radius: 0 !important; }
+/* Mode photos: flush with the card, bevelled corners instead of the rounded rink shape. */
+.rink-frame:not(#_):not(#__) {
+  border-radius: 0 !important;
+  margin: -1.25rem -1.25rem 0 -1.25rem !important;
+  width: calc(100% + 2.5rem) !important;
+  border: 0 !important;
+  border-bottom: 3px solid var(--b0) !important;
+  clip-path: polygon(var(--chamfer) 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%, 0 var(--chamfer)) !important;
+}
+}

@@ -8,7 +8,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { useModes } from "@/lib/modes";
 import { deleteLibraryItem, useRecentWork } from "@/lib/library";
 import { useT } from "@/lib/i18n";
-import { useBrandLogo } from "@/lib/brand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -67,8 +66,6 @@ function useGreetingKey() {
 function Dashboard() {
   const t = useT();
   const modes = useModes();
-  // The default team's photo shows their own jersey logo, so another team gets a neutral player photo.
-  const playerPhoto = useBrandLogo().custom ? "/img/extra-4.jpg" : "/img/extra-6.jpg";
   const greetingKey = useGreetingKey();
 
   return (
@@ -103,8 +100,8 @@ function Dashboard() {
                 >
                   <span className="rink-frame">
                     <img
-                      src={playerPhoto}
-                      alt="Player working through a drill"
+                      src="/img/home-drills.jpg?v=1"
+                      alt="A coach sorting a fan of drill cards beside the boards"
                       loading="lazy"
                       style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: "center 33%" }}
                     />
@@ -132,8 +129,8 @@ function Dashboard() {
           >
             <span className="rink-frame shrink-0 sm:w-60">
               <img
-                src={playerPhoto}
-                alt="A team wearing their own team colours"
+                src="/img/home-brand.jpg?v=1"
+                alt="A coach pressing the team logo onto a jersey"
                 loading="lazy"
                 style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
               />
