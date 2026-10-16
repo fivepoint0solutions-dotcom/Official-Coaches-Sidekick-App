@@ -43,7 +43,7 @@ function RecentWork() {
           {t("dashboard.seeAll")}
         </Link>
       </div>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="placard-list grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {recent.map((item) => (
           <LibraryCard key={item.id} item={item} onDelete={deleteLibraryItem} />
         ))}
@@ -86,7 +86,7 @@ function Dashboard() {
       <section className="container-app pt-4 pb-10 lg:pt-2 lg:pb-12">
         <p className="flow-cue" aria-hidden="true">Pick a mode to start <span>↓</span></p>
         <Reveal>
-          <div className="mode-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="mode-grid placard-list grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             {modes.flatMap((mode) => {
               const card = <ModeCard key={mode.id} mode={mode} />;
               if (mode.id !== "build") return [card];
@@ -96,7 +96,7 @@ function Dashboard() {
                   key="drills"
                   to="/drills"
                   data-skin="jersey"
-                  className="anchor-card-gradient card-tint-build group flex flex-col p-5 transition-refined hover-lift"
+                  className="anchor-card-gradient card-tint-build placard group flex flex-col p-5 transition-refined hover-lift"
                 >
                   <span className="rink-frame">
                     <img
@@ -109,7 +109,7 @@ function Dashboard() {
                   <div className="mt-4 flex items-center gap-3">
                     <h3 className="tape-strip text-xl">{t("nav.drills")}</h3>
                   </div>
-                  <p className="mt-3 text-base leading-snug">Browse real drills by sport</p>
+                  <p className="mt-3 text-base leading-snug">Browse real hockey drills</p>
                   <p className="mt-2 text-sm leading-snug opacity-85">
                     Search the full drill library and pull any drill straight into your practice.
                   </p>
@@ -125,7 +125,7 @@ function Dashboard() {
           <Link
             to="/help"
             search={{ open: "settings" }}
-            className="anchor-card-gradient card-tint-inspire group flex flex-col gap-5 p-5 transition-refined hover-lift sm:flex-row sm:items-center"
+            className="anchor-card-gradient card-tint-inspire placard placard-light group flex flex-col gap-5 p-5 transition-refined hover-lift sm:flex-row sm:items-center"
           >
             <span className="rink-frame shrink-0 sm:w-60">
               <img
