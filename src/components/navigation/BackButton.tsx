@@ -21,12 +21,12 @@ export function BackButton({ className = "" }: { className?: string }) {
       type="button"
       onClick={goBack}
       aria-label="Go back"
-      className={`back-puck pointer-events-auto grid size-14 shrink-0 cursor-pointer place-items-center rounded-full transition-transform hover:-translate-x-0.5 active:scale-95 ${className}`}
+      className={`back-puck pointer-events-auto grid size-14 shrink-0 cursor-pointer place-items-center transition-transform hover:-translate-x-0.5 active:scale-95 ${className}`}
     >
       {/* The puck itself: a 3D disc floating on a TRANSPARENT button, so its
           depth shows against white instead of sitting in a black box. */}
       <span className="back-puck-disc" aria-hidden="true" />
-      <span className="relative z-[2] flex flex-col items-center justify-center leading-none text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9)]">
+      <span className="relative z-[2] -mt-1.5 flex flex-col items-center justify-center leading-none text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9)]">
         <ArrowLeft className="size-3.5" strokeWidth={3.5} aria-hidden="true" />
         <span className="mt-0.5 text-[10px] font-black tracking-[0.14em]">BACK</span>
       </span>
