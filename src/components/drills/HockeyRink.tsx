@@ -5,7 +5,10 @@ export const RINK_W = 572;
 export const RINK_H = 1173;
 
 const BLUE = "#1D4ED8";
-const RED = "#1f2a44";
+/* Colour law: blue / white / black only, EXCEPT red for rink drawing:
+   LIGHT red (soft, faded) for the centre line, and BOLD red net frames,
+   like a real net. Goal lines and faceoff circles/dots stay blue. */
+const CENTRE_RED = "rgba(220,80,80,0.5)";
 const BOARDS = "#94A3B8";
 const CREASE = "#DBEAFE";
 
@@ -14,13 +17,13 @@ function FaceoffCircle({ cx, cy }: { cx: number; cy: number }) {
     <path d={`M${cx + sx * 60},${cy + dy} H${cx + sx * 41} M${cx + sx * 60},${cy + dy} V${cy + dy * 0.37}`} />
   );
   return (
-    <g fill="none" stroke={RED} strokeWidth={3}>
+    <g fill="none" stroke={BLUE} strokeWidth={3}>
       <circle cx={cx} cy={cy} r={59.5} />
       {tick(-1, -30)}
       {tick(-1, 30)}
       {tick(1, -30)}
       {tick(1, 30)}
-      <circle cx={cx} cy={cy} r={7.5} fill={RED} stroke="none" />
+      <circle cx={cx} cy={cy} r={7.5} fill={BLUE} stroke="none" />
     </g>
   );
 }
@@ -59,15 +62,15 @@ export function HockeyRinkBody() {
         d="M186,2 H386 A184,184 0 0 1 570,186 V987 A184,184 0 0 1 386,1171 H186 A184,184 0 0 1 2,987 V186 A184,184 0 0 1 186,2 Z"
         fill="#FFFFFF"
       />
-      {/* goal lines */}
-      <rect x={39} y={75} width={493} height={4} fill={RED} />
-      <rect x={39} y={1094} width={493} height={4} fill={RED} />
+      {/* goal lines (blue) */}
+      <rect x={39} y={75} width={493} height={4} fill={BLUE} />
+      <rect x={39} y={1094} width={493} height={4} fill={BLUE} />
       <Crease />
       <Crease flip />
-      {/* blue lines and centre red line */}
+      {/* blue lines and centre line (LIGHT red — the only light-red marking) */}
       <rect x={0} y={400} width={RINK_W} height={14} fill={BLUE} />
       <rect x={0} y={759} width={RINK_W} height={14} fill={BLUE} />
-      <rect x={0} y={582} width={RINK_W} height={8} fill={RED} />
+      <rect x={0} y={582} width={RINK_W} height={8} fill={CENTRE_RED} />
       {/* centre circle */}
       <circle cx={285.5} cy={585.5} r={68.5} fill="none" stroke={BLUE} strokeWidth={3} />
       <circle cx={285.5} cy={585.5} r={8} fill={BLUE} />
