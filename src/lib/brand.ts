@@ -104,6 +104,12 @@ export function applyBrand(brand: Brand) {
     document.head.appendChild(el);
   }
   el.textContent = brandCss(brand);
+  // Browser tab icon follows the team logo too (default: the bundled icon).
+  const icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+  if (icon) {
+    icon.href = brand.logo && brand.logo.indexOf("data:image/") === 0 ? brand.logo : "/favicon.png";
+    icon.type = "image/png";
+  }
   window.dispatchEvent(new CustomEvent("cs-brand-changed"));
   syncThemeColor();
 }

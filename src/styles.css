@@ -1495,19 +1495,18 @@ html body .badge-pill, html body .chip {
   :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin])):not(#_):not(#__) {
     background-color: #E6EFF9 !important;
     background-image:
-      url("/ice/logo-faint-light.png"),
       linear-gradient(0deg, var(--team-primary) 0 12px, var(--team-deep) 12px 14px, transparent 14px),
       repeating-linear-gradient(90deg, rgba(15,23,42,.08) 0 1px, transparent 1px 120px),
       linear-gradient(112deg, rgba(255,255,255,.7) 0 13%, rgba(255,255,255,0) 13.4% 26%, rgba(255,255,255,.35) 26.4% 31%, rgba(255,255,255,0) 31.4%),
       linear-gradient(180deg, var(--b7) 0%, #DCEAF8 58%, #F6F9FD 58%, #EEF3F9 100%) !important;
-    background-size: auto 62%, 100% 100%, 100% 42%, 100% 56%, 100% 100% !important;
-    background-position: 50% 50%, 0 0, 0 100%, 0 0, 0 0 !important;
+    background-size: 100% 100%, 100% 42%, 100% 56%, 100% 100% !important;
+    background-position: 0 0, 0 100%, 0 0, 0 0 !important;
     background-repeat: no-repeat !important;
     border: 3px solid var(--b5) !important; border-radius: 20px !important;
     box-shadow: 0 2px 3px rgba(15,23,42,.12), 0 14px 28px -16px rgba(15,23,42,.45) !important;
     color: var(--b1) !important; animation: none !important; clip-path: none !important;
   }
-  :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::before, :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::after { content: none !important; }
+  :is(:is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::before, :is([data-skin="glass"], :is(.card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, .bg-card:not(input):not(textarea):not(select), .bg-popover:not(input):not(textarea):not(select), .anchor-card-gradient:not(.inline-flex):not(.nav-active):not(.rounded-full):not(.nav-pill):not(button):not([class*="tape-strip"]), [role="dialog"], [role="menu"], [role="listbox"], [data-radix-popper-content-wrapper] > div, [aria-label="Beta tester invitation"], li[class*="bg-white"], div[class*="bg-white"]:not([class*="bg-white/"])):not([data-skin]))::after { content: none !important; }
 }
 
 /* White buttons and tabs sit on the same ice: pale glass with a team-blue edge instead of flat white. */

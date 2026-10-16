@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ModeConfig } from "@/lib/modes";
 import { cn } from "@/lib/utils";
+import { useBrandLogo } from "@/lib/brand";
 
 type ModeCardProps = { mode: ModeConfig; className?: string };
 
@@ -14,7 +15,13 @@ const MODE_PHOTOS: Record<string, { src: string; alt: string; position?: string 
 
 /** Playbook-binder mode card: photo taped in, tape-strip title. */
 export function ModeCard({ mode, className }: ModeCardProps) {
-  const photo = MODE_PHOTOS[mode.id] ?? MODE_PHOTOS["inspire"]!;
+  const logo = useBrandLogo();
+  let photo = MODE_PHOTOS[mode.id] ?? MODE_PHOTOS["inspire"]!;
+  // Team-specific photos (their team picture and sponsor poster) are only the default team's: another team gets neutral hockey photos.
+  if (logo.custom && mode.id === "busywork") photo = { src: "/img/extra-3.jpg", alt: "Hockey team on the bench" };
+  if (logo.custom && mode.id === "challenge") photo = { src: "/img/extra-1.jpg", alt: "Player taking a wrist shot", position: "60% center" };
+  // The Draw Up Plays card shows the team's own logo, whatever it is.
+  const showLogo = mode.id === "inspire";
   return (
     <Link
       to={mode.href}
@@ -26,12 +33,18 @@ export function ModeCard({ mode, className }: ModeCardProps) {
       )}
     >
       <span className="rink-frame">
-        <img
-          src={photo.src}
-          alt={photo.alt}
-          loading="lazy"
-          style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: photo.position ?? "center" }}
-        />
+        {showLogo ? (
+          <span className="grid place-items-center" style={{ aspectRatio: "16 / 10", background: "linear-gradient(160deg, #ffffff 0%, var(--b7) 100%)" }}>
+            <img src={logo.src} alt={`${logo.name} logo`} loading="lazy" className="max-h-[88%] max-w-[88%] object-contain" style={{ aspectRatio: "auto" }} />
+          </span>
+        ) : (
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            loading="lazy"
+            style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: photo.position ?? "center" }}
+          />
+        )}
       </span>
       <div className="mt-4 flex items-center gap-3">
         <h3 className="tape-strip text-xl">{mode.label}</h3>
