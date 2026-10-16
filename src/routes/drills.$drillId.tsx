@@ -97,16 +97,16 @@ function DrillDetailPage() {
               {drill.ageGroup}
             </span>
           </div>
-          <div className="mt-6 flex flex-wrap gap-3 empty:hidden">
+          <div className="mt-6 flex flex-wrap gap-2 empty:hidden">
             {isCustom ? (
               <>
-                <Button asChild variant="outline" size="lg" className="bg-white/80">
+                <Button variant="outline" size="sm" className="bg-white/80" onClick={handleDelete}>
+                  <Trash2 /> Delete
+                </Button>
+                <Button asChild variant="outline" size="default" className="bg-white/80">
                   <Link to="/drills/$drillId/edit" params={{ drillId: drill.id }}>
                     <Pencil /> Edit
                   </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="bg-white/80" onClick={handleDelete}>
-                  <Trash2 /> Delete
                 </Button>
               </>
             ) : null}

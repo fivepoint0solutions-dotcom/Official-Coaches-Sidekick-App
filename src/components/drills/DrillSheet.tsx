@@ -27,7 +27,7 @@ export function DrillSheet({ drill, onClose }: { drill: Drill | null; onClose: (
         }}
         className="drill-sheet cursor-pointer [&>button]:hidden max-h-[92vh] w-[calc(100%-1.25rem)] max-w-2xl gap-0 overflow-y-auto border-0 p-0 shadow-2xl sm:rounded-md">
         {drill ? (
-          <div className="drill-sheet-paper px-5 pb-6 pt-5 sm:px-8">
+          <div className="drill-sheet-paper placard placard-light px-5 pb-6 pt-5 sm:px-8">
             <DialogTitle className="pr-8 text-xl font-bold leading-snug sm:text-2xl">{drill.name}</DialogTitle>
             <DialogDescription className="sr-only">
               {drill.category} drill: {drill.setup}

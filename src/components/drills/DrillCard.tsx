@@ -17,7 +17,7 @@ export function DrillCard({
       type="button"
       onClick={() => onOpen(drill)}
       aria-label={`Open drill: ${drill.name}`}
-      className="drill-flash"
+      className="drill-flash placard"
       style={{ zIndex: index + 1, transform: `rotate(${((index * 37) % 5) - 2}deg)`, backgroundPosition: `${(index * 53) % 100}% ${(index * 29) % 100}%` }}
     >
       <span className="drill-flash-top">

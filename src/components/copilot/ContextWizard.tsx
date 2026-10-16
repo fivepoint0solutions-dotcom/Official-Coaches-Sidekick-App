@@ -57,7 +57,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
         ))}
       </div>
 
-      <div className="card-soft space-y-7 p-8">
+      <div className="card-soft placard placard-light space-y-7 p-8">
         {step.map((field) => (
           <div key={field.key} className="space-y-3">
             <label className="text-title block">
@@ -78,7 +78,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
         <Button
           type="button"
           variant="ghost"
-          size="lg"
+          size="sm"
           disabled={stepIndex === 0}
           onClick={() => setStepIndex((i) => Math.max(0, i - 1))}
           className="disabled:opacity-0"
@@ -88,10 +88,9 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
         <Button
           type="button"
           variant="cta"
-          size="lg"
+          size="default"
           onClick={next}
           disabled={!canAdvance}
-          className="min-w-40"
         >
           {isLast ? t("create.letsGo") : t("create.continue")} <ArrowRight />
         </Button>

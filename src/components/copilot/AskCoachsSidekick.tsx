@@ -314,7 +314,7 @@ export function AskCoachsSidekick() {
             />
             <Button
               type="button"
-              variant="hero"
+              variant="puck"
               size="icon"
               className="shrink-0 rounded-xl"
               disabled={!input.trim() || thinking}

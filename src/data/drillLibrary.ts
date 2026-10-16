@@ -71,8 +71,6 @@ export const drillLibrary: Drill[] = rawDrills.map((drill) => ({
   category: CATEGORY_OF[drill.category] ?? "Conditioning & Games",
 }));
 
-export const drillSports = Array.from(new Set(drillLibrary.map((drill) => drill.sport)));
-
 export function drillsInCategory(category: string) {
   return drillLibrary.filter((drill) => drill.category === category);
 }

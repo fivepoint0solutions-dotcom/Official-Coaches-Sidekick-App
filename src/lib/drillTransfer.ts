@@ -43,17 +43,17 @@ export const CSV_TEMPLATE =
   [
     csvLine(COLUMN_LABELS),
     csvLine([
-      "Soccer",
-      "Rondo 4v2",
-      "Possession",
+      "Hockey",
+      "2-on-1 Rush",
+      "Offense",
       "15-20 min",
       "U10+",
-      "Cones, 1 ball per group",
-      "Set up a 10x10 yard grid. Four attackers on the edges, two defenders inside.",
-      "Attackers pass around the outside | Defenders try to win the ball | Swap a defender in when the ball is won",
-      "Open your body before you receive | Pass and move | Keep your head up",
+      "Cones, 1 puck per player",
+      "Set up two lines at the far blue line. Two attackers, one defender at centre ice.",
+      "Attackers carry the puck in on a 2-on-1 | Defender gaps up and plays the rush | Rotate the defender every rep",
+      "Skate with your head up | Pass to the open lane | Drive the net",
     ]),
-    csvLine(["Basketball", "Shell drill", "Defense", "10 min", "U12+", "1 ball", "Four on four, half court.", "Defense positions on the ball side | Slide as the ball moves", "Stay low | Talk"]),
+    csvLine(["Hockey", "Gap Control", "Defense", "10 min", "U12+", "1 puck", "One on one, full ice.", "Defender gaps up at the blue line | Attacker drives wide | Defender steers to the boards", "Keep your stick on the puck | Stay square | Talk"]),
   ].join("\r\n") +
   "\r\n";
 
@@ -80,8 +80,8 @@ const list = (v: unknown, itemMax: number, countMax: number): string[] =>
 function cleanDiagram(raw: unknown): DrillDiagramSpec | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const d = raw as Record<string, unknown>;
-  const surface = d["surface"];
-  if (typeof surface !== "string" || !(surface in SURFACE_VIEWBOX)) return undefined;
+  // Hockey-only: any surface from an older multi-sport file is re-laid on the hockey rink.
+  const surface = typeof d["surface"] === "string" && d["surface"] in SURFACE_VIEWBOX ? d["surface"] : "hockey-rink";
   const num = (n: unknown) => typeof n === "number" && Number.isFinite(n);
   const markers: DiagramMarker[] = (Array.isArray(d["markers"]) ? d["markers"] : [])
     .filter((m): m is Record<string, unknown> => !!m && typeof m === "object")
@@ -124,7 +124,7 @@ function normalizeDrill(raw: unknown): DrillValues | null {
   if (!name) return null;
   const steps = list(pick("steps", "Steps (separate with |)", "Steps"), 400, 40);
   const drill: DrillValues = {
-    sport: str(pick("sport", "Sport"), 40) || "Other",
+    sport: "Hockey",
     name,
     category: str(pick("category", "Category"), 60),
     duration: str(pick("duration", "Duration"), 40),

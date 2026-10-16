@@ -40,7 +40,7 @@ export type DrillDiagramSpec = {
    No two different things share a colour. Letters (LW, RW, C, LD, RD) and the
    X / O shapes stay, so the diagram still works in black-and-white print. */
 export const TEAM_ATTACK = "#2563EB"; // blue O — attacking players with no position letter
-export const TEAM_DEFENCE = "#DC2626"; // red X — the other team
+export const TEAM_DEFENCE = "#DC2626"; // red X — the other team (diagram team distinction, not app chrome)
 export const GOALIE_COLOR = "#CA8A04"; // gold G
 export const COACH_COLOR = "#DB2777"; // magenta diamond
 export const CONE_COLOR = "#F59E0B"; // amber cone
@@ -462,8 +462,9 @@ export function DrillDiagram({
 }) {
   const base = id.replace(/^(row|mini|play|card|plan|sheet)-/, ""); // the drill's own id, however the caller labelled this copy
   const spec = toRink(diagram);
-  const Surface = SURFACE_COMPONENTS[spec.surface];
-  const { w, h } = SURFACE_VIEWBOX[spec.surface];
+  // Legacy diagrams saved on an old multi-sport surface fall back to the hockey rink.
+  const Surface = SURFACE_COMPONENTS[spec.surface] ?? SURFACE_COMPONENTS["hockey-rink"]!;
+  const { w, h } = SURFACE_VIEWBOX[spec.surface] ?? SURFACE_VIEWBOX["hockey-rink"]!;
   const isRink = spec.surface === "hockey-rink";
   void framed;
   const { coached, modeFor, standingAround, yMin, yMax } = analyze(spec, base, zone, mini);

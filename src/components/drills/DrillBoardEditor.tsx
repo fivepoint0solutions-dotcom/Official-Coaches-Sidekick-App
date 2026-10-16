@@ -3,6 +3,8 @@ import {
   Circle,
   ArrowLeftRight,
   Eraser,
+  Lock,
+  LockOpen,
   MousePointer2,
   Pencil,
   Shield,
@@ -25,22 +27,7 @@ import {
   type DrillDiagramSpec,
 } from "./DrillDiagram";
 import { buildPath, weavePath, type PathKind } from "./pathShapes";
-import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
-
-const SURFACE_LABELS: Record<SurfaceId, string> = {
-  "training-grid": "Training grid",
-  "soccer-third": "Soccer third",
-  "basketball-full": "Basketball (full)",
-  "basketball-half": "Basketball (half)",
-  "football-zone": "Football zone",
-  "baseball-diamond": "Baseball diamond",
-  "volleyball-court": "Volleyball court",
-  "track-lane": "Track lane",
-  "track-oval": "Track oval",
-  "hockey-rink": "Hockey rink",
-  "hockey-full": "Hockey (full)",
-  "hockey-half": "Hockey (half)",
-};
+import { SURFACE_COMPONENTS, SURFACE_VIEWBOX } from "./surfaces";
 
 type PositionLabel = "LW" | "RW" | "C" | "LD" | "RD";
 
@@ -123,12 +110,15 @@ function MiniBtn({ label, active, onClick, disabled, children }: { label: string
 type Props = {
   value: DrillDiagramSpec;
   onChange: (spec: DrillDiagramSpec) => void;
-  /** Lets a page place the controls and the rink itself (e.g. rink left, everything else to its right). */
-  layout?: (parts: { controls: ReactNode; board: ReactNode; toolsButton: ReactNode }) => ReactNode;
+  /** Lets a page place the controls and the rink itself (e.g. tool columns
+   * flanking the rink on desktop). controlsLeft = players/positions,
+   * controlsRight = arrows/paths/drawing + Undo/Clear/drag lock. */
+  layout?: (parts: { controls: ReactNode; controlsLeft: ReactNode; controlsRight: ReactNode; board: ReactNode; toolsButton: ReactNode }) => ReactNode;
 };
 
 /** Interactive whiteboard: place players/cones, draw run/pass arrows, or free-draw with a pen
- * directly on the chosen sport surface. Edits apply live via onChange so a parent can save the result. */
+ * directly on the hockey rink. Edits apply live via onChange so a parent can save the result.
+ * Hockey-only: there is no surface picker — every new diagram is the hockey rink. */
 export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
   // On desktop the hockey rink lies sideways (wide); on phones it stays upright.
@@ -140,12 +130,10 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
-  // "around": the rink stays centred with buttons down both sides. "left": every button on the left, rink flush right.
-  const [toolsLayout, setToolsLayout] = useState<"around" | "left">("around");
-  useEffect(() => {
-    const asked = new URLSearchParams(window.location.search).get("tools");
-    if (asked === "left" || asked === "around") setToolsLayout(asked);
-  }, []);
+  // Tools always wrap the rink: on phones the two MiniBtn columns flank it;
+  // on desktop the page splits the tool buttons into left/right columns
+  // around the rink. Drag lock freezes markers in place (tap again to move them).
+  const [dragLocked, setDragLocked] = useState(false);
   const pickTool = (t: Tool) => setTool(t);
   const [history, setHistory] = useState<DrillDiagramSpec[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
@@ -169,8 +157,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [notice, setNotice] = useState("");
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const { w, h } = SURFACE_VIEWBOX[value.surface];
-  const Surface = SURFACE_COMPONENTS[value.surface];
+  // Legacy diagrams saved on an old multi-sport surface fall back to the hockey rink.
+  const { w, h } = SURFACE_VIEWBOX[value.surface] ?? SURFACE_VIEWBOX["hockey-rink"]!;
+  const Surface = SURFACE_COMPONENTS[value.surface] ?? SURFACE_COMPONENTS["hockey-rink"]!;
   const landscape = wide && value.surface === "hockey-rink" && !value.backgroundImage;
 
   function pushHistory() {
@@ -339,6 +328,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       return;
     }
     if (tool === "select") {
+      if (dragLocked) return; // drag lock: markers stay put
       event.stopPropagation();
       event.currentTarget.setPointerCapture?.(event.pointerId);
       pushHistory();
@@ -435,6 +425,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     <MiniBtn key="flip" label="Flip side" active={flip} onClick={() => setFlip((f) => !f)}><ArrowLeftRight className="size-5" /></MiniBtn>,
     <MiniBtn key="pen" label="Draw" active={tool === "pen"} onClick={choose("pen")}><Pencil className="size-5" /></MiniBtn>,
     <MiniBtn key="eraser" label="Erase" active={tool === "eraser"} onClick={choose("eraser")}><Eraser className="size-5" /></MiniBtn>,
+    <MiniBtn key="lock" label={dragLocked ? "Unlock dragging" : "Lock dragging"} active={dragLocked} onClick={() => setDragLocked((v) => !v)}>{dragLocked ? <Lock className="size-5" /> : <LockOpen className="size-5" />}</MiniBtn>,
     <MiniBtn key="undo" label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-5" /></MiniBtn>,
     <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-5" /></MiniBtn>,
   ];
@@ -443,7 +434,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   );
   const hint = (
     <p className="mb-2 text-xs text-foreground/80">
-      {tool === "select" && "Drag a marker to reposition it."}
+      {tool === "select" && (dragLocked ? "Dragging is locked — unlock to move markers." : "Drag a marker to reposition it.")}
       {tool === "eraser" && "Tap a marker, arrow, or drawn line to remove it."}
       {tool === "pen" && "Press and drag to draw a freehand line."}
       {tool.startsWith("marker-") && "Tap anywhere on the board to drop a marker."}
@@ -453,147 +444,176 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     </p>
   );
 
+  // Desktop tools split into two flank columns around the rink: players and
+  // positions on the left, arrows/paths/drawing on the right, with
+  // Undo / Clear / drag lock above the right column.
+  const toolsMeta = (
+    <div className="mb-3 flex flex-wrap items-center gap-1.5">
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={undo}
+        disabled={!history.length}
+        className="gap-1.5"
+      >
+        <Undo2 className="size-3.5" /> Undo
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={clearBoard}
+        className="gap-1.5"
+      >
+        <Trash2 className="size-3.5" /> Clear
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant={dragLocked ? "default" : "outline"}
+        onClick={() => setDragLocked((v) => !v)}
+        aria-pressed={dragLocked}
+        className="gap-1.5"
+      >
+        {dragLocked ? <Lock className="size-3.5" /> : <LockOpen className="size-3.5" />}
+        {dragLocked ? "Drag locked" : "Lock drag"}
+      </Button>
+    </div>
+  );
+
+  const toolsLeft = (
+    <div className="mb-3 flex flex-wrap gap-1.5">
+      <Button
+        type="button"
+        size="sm"
+        variant={tool === "select" ? "default" : "outline"}
+        onClick={() => {
+          pickTool("select");
+          setArrowStart(null);
+        }}
+        className="gap-1.5"
+      >
+        <MousePointer2 className="size-3.5" /> Move
+      </Button>
+      {MARKER_TOOLS.map(({ tool: t, label, glyph }) => (
+        <Button
+          key={t}
+          type="button"
+          size="sm"
+          variant={tool === t ? "default" : "outline"}
+          onClick={() => {
+            pickTool(t);
+            setArrowStart(null);
+          }}
+          className="gap-1.5"
+        >
+          {glyph} {label}
+        </Button>
+      ))}
+    </div>
+  );
+
+  const controlsLeft = (
+    <div className="hidden min-w-0 lg:block">
+      {toolsLeft}
+      {hint}
+    </div>
+  );
+  const toolsRight = (
+    <div className="mb-3 flex flex-wrap gap-1.5">
+      {ARROW_TOOLS.map(({ style, label }) => (
+        <Button
+          key={style}
+          type="button"
+          size="sm"
+          variant={tool === `arrow-${style}` ? "default" : "outline"}
+          onClick={() => {
+            pickTool(`arrow-${style}`);
+            setArrowStart(null);
+          }}
+          className="gap-1.5"
+        >
+          {label} arrow
+        </Button>
+      ))}
+      {PATH_TOOLS.map(({ kind, label }) => (
+        <Button
+          key={kind}
+          type="button"
+          size="sm"
+          variant={tool === `path-${kind}` ? "default" : "outline"}
+          onClick={() => {
+            pickTool(`path-${kind}`);
+            setArrowStart(null);
+            setNotice("");
+          }}
+        >
+          {label}
+        </Button>
+      ))}
+      <Button type="button" size="sm" variant="outline" onClick={weaveCones} className="bg-white/80">
+        Weave through cones
+      </Button>
+      <Button type="button" size="sm" variant={flip ? "default" : "outline"} onClick={() => setFlip((f) => !f)} aria-pressed={flip}>
+        Flip side
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant={tool === "pen" ? "default" : "outline"}
+        onClick={() => {
+          pickTool("pen");
+          setArrowStart(null);
+        }}
+        className="gap-1.5"
+      >
+        <Pencil className="size-3.5" /> Draw
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant={tool === "eraser" ? "default" : "outline"}
+        onClick={() => {
+          pickTool("eraser");
+          setArrowStart(null);
+        }}
+        className="gap-1.5"
+      >
+        <Eraser className="size-3.5" /> Erase
+      </Button>
+    </div>
+  );
+
+  const hintDesktop = (
+    <p className="mb-2 text-xs text-foreground/70">
+      {tool === "select" && (dragLocked ? "Dragging is locked — unlock to move markers." : "Drag a marker to reposition it.")}
+      {tool === "eraser" && "Click a marker, arrow, or drawn line to remove it."}
+      {tool === "pen" && "Press and drag to draw a freehand line."}
+      {tool.startsWith("marker-") && "Click anywhere on the board to drop a marker."}
+      {tool.startsWith("path-") &&
+        (arrowStart ? "Click where the path ends." : "Click where the path starts.")}
+      {notice && <span className="font-semibold text-foreground"> {notice}</span>}
+      {tool.startsWith("arrow-") &&
+        (arrowStart ? "Click the arrow's end point." : "Click the arrow's start point.")}
+    </p>
+  );
+
+  // Combined controls (one stack) for callers that don't split the flanks.
   const controls = (
     <div className="hidden lg:block">
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <label className="flex items-center gap-2 text-xs font-semibold text-foreground/90">
-          Surface
-          <select
-            value={value.surface}
-            onChange={(event) => commit({ ...value, surface: event.target.value as SurfaceId })}
-            className="rounded-lg border border-white/40 bg-white/80 px-2 py-1.5 text-xs font-semibold text-foreground"
-          >
-            {Object.entries(SURFACE_LABELS).filter(([id]) => id !== "hockey-full" && id !== "hockey-half").map(([id, label]) => (
-              <option key={id} value={id}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="ml-auto flex gap-1.5">
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            onClick={undo}
-            disabled={!history.length}
-            className="gap-1.5 bg-white/80"
-          >
-            <Undo2 className="size-3.5" /> Undo
-          </Button>
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            onClick={clearBoard}
-            className="gap-1.5 bg-white/80"
-          >
-            <Trash2 className="size-3.5" /> Clear
-          </Button>
-        </div>
-      </div>
+      {toolsMeta}
+      {toolsLeft}
+      {toolsRight}
+      {hintDesktop}
+    </div>
+  );
 
-      <div className="mb-3 flex flex-wrap gap-1.5">
-        <Button
-          type="button"
-          size="sm"
-          variant={tool === "select" ? "default" : "outline"}
-          onClick={() => {
-            pickTool("select");
-            setArrowStart(null);
-          }}
-          className="gap-1.5"
-        >
-          <MousePointer2 className="size-3.5" /> Move
-        </Button>
-        {MARKER_TOOLS.map(({ tool: t, label, glyph }) => (
-          <Button
-            key={t}
-            type="button"
-            size="sm"
-            variant={tool === t ? "default" : "outline"}
-            onClick={() => {
-              pickTool(t);
-              setArrowStart(null);
-            }}
-            className="gap-1.5"
-          >
-            {glyph} {label}
-          </Button>
-        ))}
-        {ARROW_TOOLS.map(({ style, label }) => (
-          <Button
-            key={style}
-            type="button"
-            size="sm"
-            variant={tool === `arrow-${style}` ? "default" : "outline"}
-            onClick={() => {
-              pickTool(`arrow-${style}`);
-              setArrowStart(null);
-            }}
-            className="gap-1.5"
-          >
-            {label} arrow
-          </Button>
-        ))}
-        {PATH_TOOLS.map(({ kind, label }) => (
-          <Button
-            key={kind}
-            type="button"
-            size="sm"
-            variant={tool === `path-${kind}` ? "default" : "outline"}
-            onClick={() => {
-              pickTool(`path-${kind}`);
-              setArrowStart(null);
-              setNotice("");
-            }}
-          >
-            {label}
-          </Button>
-        ))}
-        <Button type="button" size="sm" variant="outline" onClick={weaveCones} className="bg-white/80">
-          Weave through cones
-        </Button>
-        <Button type="button" size="sm" variant={flip ? "default" : "outline"} onClick={() => setFlip((f) => !f)} aria-pressed={flip}>
-          Flip side
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={tool === "pen" ? "default" : "outline"}
-          onClick={() => {
-            pickTool("pen");
-            setArrowStart(null);
-          }}
-          className="gap-1.5"
-        >
-          <Pencil className="size-3.5" /> Draw
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={tool === "eraser" ? "default" : "outline"}
-          onClick={() => {
-            pickTool("eraser");
-            setArrowStart(null);
-          }}
-          className="gap-1.5"
-        >
-          <Eraser className="size-3.5" /> Erase
-        </Button>
-      </div>
-
-      <p className="mb-2 text-xs text-foreground/70">
-        {tool === "select" && "Drag a marker to reposition it."}
-        {tool === "eraser" && "Click a marker, arrow, or drawn line to remove it."}
-        {tool === "pen" && "Press and drag to draw a freehand line."}
-        {tool.startsWith("marker-") && "Click anywhere on the board to drop a marker."}
-        {tool.startsWith("path-") &&
-          (arrowStart ? "Click where the path ends." : "Click where the path starts.")}
-        {notice && <span className="font-semibold text-foreground"> {notice}</span>}
-        {tool.startsWith("arrow-") &&
-          (arrowStart ? "Click the arrow's end point." : "Click the arrow's start point.")}
-      </p>
+  const controlsRight = (
+    <div className="hidden min-w-0 lg:block">
+      {toolsMeta}
+      {toolsRight}
+      {hintDesktop}
     </div>
   );
 
@@ -667,17 +687,13 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   );
 
   const board = (
-    <div>
-      <div className={`flex items-stretch gap-1.5 lg:block ${toolsLayout === "left" ? "justify-between" : "justify-center"}`}>
-        {toolsLayout === "around" ? column(leftButtons, "l") : null}
-        {toolsLayout === "left" ? (
-          <>
-            {column(leftButtons, "l1")}
-            {column(rightButtons, "l2")}
-          </>
-        ) : null}
+    <div className="min-w-0">
+      {/* Phones: the tool columns flank the rink on both sides; the rink
+          width already accounts for them, so nothing scrolls sideways. */}
+      <div className="flex min-w-0 max-w-full items-stretch justify-center gap-1.5 overflow-x-clip lg:block">
+        {column(leftButtons, "l")}
         {rink}
-        {toolsLayout === "around" ? column(rightButtons, "r") : null}
+        {column(rightButtons, "r")}
       </div>
       <div className="mt-2 lg:hidden">{hint}</div>
     </div>
@@ -698,14 +714,16 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     </Button>
   );
 
-  if (layout) return <>{layout({ controls, board, toolsButton })}</>;
+  if (layout) return <>{layout({ controls, controlsLeft, controlsRight, board, toolsButton })}</>;
 
-  // Wide screens: the rink on the left, every control to the right of it. Phones: controls, then the rink, centred.
+  // Wide screens: the tool columns flank the rink on BOTH sides, using the
+  // white space around it. Phones: the rink with its tool columns, centred.
   return (
     <div className="anchor-card-gradient card-tint-inspire relative overflow-hidden rounded-2xl p-3">
-      <div className="grid gap-4 lg:grid-cols-[min(23rem,calc((100dvh_-_14.5rem)*0.4876))_minmax(0,1fr)] lg:items-start">
-        <div className="order-2 lg:order-1"><div className="mb-2 flex lg:hidden">{toolsButton}</div>{board}</div>
-        <div className="order-1 lg:order-2">{controls}</div>
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,15rem)] lg:items-start">
+        <div className="order-2 lg:order-1">{controlsLeft}</div>
+        <div className="order-1 lg:order-2"><div className="mb-2 flex lg:hidden">{toolsButton}</div>{board}</div>
+        <div className="order-3">{controlsRight}</div>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const EMPTY_DIAGRAM: DrillDiagramSpec = {
 function toValues(drill?: Drill): DrillFormValues {
   if (!drill) {
     return {
-      sport: "",
+      sport: "Hockey",
       name: "",
       category: "",
       duration: "",
@@ -77,7 +77,7 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
     const { diagram: _diagram, ...rest } = values;
     onSubmit({
       ...rest,
-      sport: rest.sport.trim(),
+      sport: "Hockey",
       name: rest.name.trim(),
       category: rest.category.trim(),
       duration: rest.duration.trim(),
@@ -91,7 +91,6 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
   }
 
   const requiredFilled = Boolean(
-    values.sport.trim() &&
     values.name.trim() &&
     values.category.trim() &&
     values.duration.trim() &&
@@ -123,24 +122,16 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
           />
         ) : (
           <p className="text-sm text-muted-foreground">
-            Optional — sketch player positions, movement, and passing lanes on a sport surface.
+            Optional — sketch player positions, movement, and passing lanes on the rink.
           </p>
         )}
       </section>
       <section className="glass-panel grid gap-5 p-5 sm:grid-cols-2">
-        <Field label="Sport" required>
-          <Input
-            value={values.sport}
-            onChange={(event) => set("sport", event.target.value)}
-            placeholder="e.g. Soccer"
-            required
-          />
-        </Field>
         <Field label="Drill name" required>
           <Input
             value={values.name}
             onChange={(event) => set("name", event.target.value)}
-            placeholder="e.g. Rondo"
+            placeholder="e.g. 2-on-1 Rush"
             required
           />
         </Field>
@@ -173,11 +164,11 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
             required
           />
         </Field>
-        <Field label="Equipment">
+        <Field label="Equipment" className="sm:col-span-2">
           <Input
             value={values.equipment}
             onChange={(event) => set("equipment", event.target.value)}
-            placeholder="e.g. Cones, 1 ball per group"
+            placeholder="e.g. Cones, 1 puck per player"
           />
         </Field>
       </section>
@@ -213,7 +204,7 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
       />
 
 
-      <Button type="submit" variant="hero" size="lg" disabled={!requiredFilled}>
+      <Button type="submit" variant="hero" size="default" disabled={!requiredFilled}>
         {submitLabel}
       </Button>
     </form>
@@ -223,14 +214,16 @@ export function DrillForm({ initial, onSubmit, submitLabel }: Props) {
 function Field({
   label,
   required,
+  className = "",
   children,
 }: {
   label: string;
   required?: boolean;
+  className?: string;
   children: ReactNode;
 }) {
   return (
-    <Label className="block space-y-1.5">
+    <Label className={`block space-y-1.5 ${className}`}>
       <span className="text-sm font-semibold text-foreground/90">
         {label}
         {required ? " *" : ""}
