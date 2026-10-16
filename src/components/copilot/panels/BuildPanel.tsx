@@ -124,7 +124,7 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
 
   if (!isDrafted && draft.buildQuestion) {
     return (
-      <div className="card-soft mx-auto max-w-xl space-y-6 p-8 animate-pop">
+      <div className="card-soft placard placard-light mx-auto max-w-xl space-y-6 p-8 animate-pop">
         <h2 className="text-title">{draft.buildQuestion.prompt}</h2>
         <ChoiceGroup options={draft.buildQuestion.choices} onChange={answer} />
       </div>
@@ -134,7 +134,7 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
   if (!isDrafted) return <AIThinking gradientClass="gradient-build" />;
 
   return (
-    <div className="space-y-5">
+    <div className="placard-list space-y-5">
       {loading && <AIThinking gradientClass="gradient-build" />}
       {!loading &&
         draft.blocks.map((block, i) => (
@@ -160,8 +160,8 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
             onAction={(a) => void quickAction(a)}
           />
           <Button
-            variant="build"
-            size="lg"
+            variant="blade"
+            size="default"
             onClick={() =>
               onSave(
                 draft.context.topic

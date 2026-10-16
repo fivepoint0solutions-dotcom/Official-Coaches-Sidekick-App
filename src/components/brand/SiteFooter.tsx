@@ -4,7 +4,7 @@ import { useBrandLogo } from "@/lib/brand";
 export function SiteFooter() {
   const logo = useBrandLogo();
   return (
-    <footer className="site-footer container-app flex flex-col items-center gap-2 pb-6 pt-10 text-center">
+    <footer data-skin="glass" className="site-footer container-app relative flex flex-col items-center gap-2 pb-6 pt-10 text-center">
       <img src={logo.src} alt={logo.name} width={96} height={84} className="h-20 w-auto object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(15,23,42,.25))" }} />
       <p className="text-xs font-semibold leading-snug text-foreground/80">
         Website design and development by{" "}

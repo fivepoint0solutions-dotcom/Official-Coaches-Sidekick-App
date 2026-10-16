@@ -42,7 +42,7 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
 
   if (!draft.critique) {
     return (
-      <div className="card-soft mx-auto max-w-xl space-y-6 p-8 animate-pop">
+      <div className="card-soft placard placard-light mx-auto max-w-xl space-y-6 p-8 animate-pop">
         <div>
           <h2 className="text-title mb-2">{t("panel.challenge.title")}</h2>
           <p className="text-body text-muted-foreground">{t("panel.challenge.subtitle")}</p>
@@ -56,8 +56,7 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
         />
         <Button
           variant="challenge"
-          size="lg"
-          className="w-full"
+          size="default"
           disabled={!text.trim()}
           onClick={() => void challenge()}
         >
@@ -70,11 +69,11 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
   return (
     <div className="space-y-6">
       <CritiquePanel critique={draft.critique} />
-      <div className="flex flex-wrap items-center gap-3">
-        <Button variant="outline" size="lg" onClick={() => void challenge()}>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button variant="outline" size="sm" onClick={() => void challenge()}>
           {t("panel.challenge.again")}
         </Button>
-        <Button variant="build" size="lg" onClick={helpMeImprove}>
+        <Button variant="build" size="default" onClick={helpMeImprove}>
           <Sparkles /> {t("panel.challenge.improve")}
         </Button>
       </div>

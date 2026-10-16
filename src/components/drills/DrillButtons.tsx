@@ -29,12 +29,12 @@ export function DrillButtons({ className = "" }: { className?: string }) {
   }, [mine, query, category]);
 
   return (
-    <div className={`flex flex-wrap gap-3 ${className}`}>
-      <Button type="button" variant="cta" size="lg" onClick={() => setOpen("library")}>
-        <FolderOpen /> Open a drill
-      </Button>
-      <Button type="button" variant="outline" size="lg" className="!border-2 !border-[#94A3B8] !bg-white !text-[#17171c]" onClick={() => setOpen("own")}>
+    <div className={`flex flex-wrap gap-2 ${className}`}>
+      <Button type="button" variant="rink" size="sm" onClick={() => setOpen("own")}>
         <Upload /> Upload a drill
+      </Button>
+      <Button type="button" variant="cta" size="default" onClick={() => setOpen("library")}>
+        <FolderOpen /> Open a drill
       </Button>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
@@ -118,7 +118,7 @@ export function DrillButtons({ className = "" }: { className?: string }) {
               </DialogHeader>
               <div className="space-y-4">
                 <DrillTransfer />
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="sm">
                   <Link to="/drills/new" onClick={() => setOpen(null)}>Type one in myself</Link>
                 </Button>
               </div>

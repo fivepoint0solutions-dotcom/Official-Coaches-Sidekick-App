@@ -27,7 +27,7 @@ export function QuickCapture({
   const canSubmit = fields.every((f) => !f.required || Boolean(context[f.key]));
 
   return (
-    <div className="card-soft mx-auto max-w-xl space-y-6 p-8 animate-pop">
+    <div className="card-soft placard placard-light mx-auto max-w-xl space-y-6 p-8 animate-pop">
       <div>
         <h2 className="text-title">{title}</h2>
         {subtitle && <p className="text-body mt-1 text-muted-foreground">{subtitle}</p>}
@@ -47,8 +47,8 @@ export function QuickCapture({
       <Button
         type="button"
         variant={ctaVariant}
-        size="lg"
-        className="w-full"
+        size="default"
+        className="btn-roomy w-full"
         disabled={!canSubmit}
         onClick={() => onSubmit(context)}
       >

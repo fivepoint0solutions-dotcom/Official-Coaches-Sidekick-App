@@ -35,7 +35,7 @@ export function LibraryCard({ item, onDelete }: LibraryCardProps) {
   }
 
   return (
-    <div className="card-elevated group flex flex-col gap-3 p-6">
+    <div className="card-elevated placard group flex flex-col gap-3 p-6">
       <div className="flex items-center justify-between">
         <span className="badge-pill">{typeConfig.label}</span>
         <span className="text-caption text-muted-foreground">{date}</span>
@@ -48,7 +48,7 @@ export function LibraryCard({ item, onDelete }: LibraryCardProps) {
       </div>
       <p className="text-body line-clamp-2 flex-1 text-muted-foreground">{snippet}</p>
       <div className="mt-auto flex items-center gap-2 pt-2">
-        <Button type="button" size="sm" variant="secondary" className="flex-1" onClick={open}>
+        <Button type="button" size="sm" variant="stick" className="flex-1" onClick={open}>
           {t("library.open")}
         </Button>
         {onDelete && (

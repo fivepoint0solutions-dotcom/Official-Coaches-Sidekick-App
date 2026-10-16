@@ -13,7 +13,7 @@ export function TypePicker({ value, onSelect, types, className }: TypePickerProp
   const items = useCreationTypes(types);
 
   return (
-    <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4", className)}>
+    <div className={cn("placard-list grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4", className)}>
       {items.map((type) => {
         const Icon = type.icon;
         const selected = value === type.id;
@@ -23,8 +23,8 @@ export function TypePicker({ value, onSelect, types, className }: TypePickerProp
             type="button"
             onClick={() => onSelect(type.id)}
             className={cn(
-              "card-soft flex flex-col items-start gap-3 p-5 text-left transition-refined hover:-translate-y-1",
-              selected && "border-interactive bg-secondary shadow-raised",
+              "card-soft placard flex flex-col items-start gap-3 p-5 text-left transition-refined hover:-translate-y-1",
+              selected && "placard-selected border-interactive bg-secondary shadow-raised",
             )}
           >
             <span

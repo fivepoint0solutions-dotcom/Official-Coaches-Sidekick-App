@@ -60,7 +60,7 @@ export function InspirePanel({ draft, patch }: PanelProps) {
   if (draft.ideas.length === 0) {
     return (
       <div className="flex justify-center">
-        <Button variant="inspire" size="lg" onClick={() => void generate()}>
+        <Button variant="inspire" size="default" onClick={() => void generate()}>
           {t("panel.inspire.cta")}
         </Button>
       </div>
@@ -69,7 +69,7 @@ export function InspirePanel({ draft, patch }: PanelProps) {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="placard-list grid gap-5 sm:grid-cols-2">
         {draft.ideas.map((idea) => (
           <IdeaCard key={idea.id} idea={idea} onUse={useIdea} />
         ))}
