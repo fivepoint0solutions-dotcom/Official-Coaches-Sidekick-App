@@ -102,7 +102,7 @@ function cleanDiagram(raw: unknown): DrillDiagramSpec | undefined {
     const to = pair(o["to"]);
     if (!from || !to) continue;
     const arrow: DiagramArrow = { from, to };
-    if (o["style"] === "run" || o["style"] === "pass" || o["style"] === "dribble") arrow.style = o["style"];
+    if (o["style"] === "run" || o["style"] === "pass" || o["style"] === "dribble" || o["style"] === "shoot") arrow.style = o["style"];
     arrows.push(arrow);
   }
   const strokes = (Array.isArray(d["strokes"]) ? d["strokes"] : [])

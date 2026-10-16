@@ -17,7 +17,7 @@ export type DiagramArrow = {
   /** Optional bend points between `from` and `to`, for a path that curves around a cone or a player. */
   via?: [number, number][];
   /** run = skating · pass = dashed · dribble = puck carry (wavy) */
-  style?: "run" | "pass" | "dribble";
+  style?: "run" | "pass" | "dribble" | "shoot";
 };
 
 export type DiagramStroke = {
@@ -53,6 +53,7 @@ export const ARROW_COLOR = {
   run: "#0F172A", // skate — near-black solid
   pass: "#0E7490", // pass — cyan dashed
   dribble: "#92400E", // carry — brown wavy
+  shoot: "#1E40AF", // shot — thick deep-blue solid with a big head
 } as const;
 
 export const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
@@ -196,8 +197,9 @@ export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: numb
   const prev = pts[pts.length - 2] ?? pts[0];
   if (!last || !prev) return null;
   const ang = Math.atan2(last[1] - prev[1], last[0] - prev[0]);
-  const head = 3.1 * k;
-  const half = 1.5 * k;
+  const shot = (arrow.style ?? "run") === "shoot";
+  const head = (shot ? 4.4 : 3.1) * k;
+  const half = (shot ? 2.3 : 1.5) * k;
   const back = head * 0.85;
   // The line stops at the base of the head so the point stays sharp.
   const trimmed = pts.slice(0, -1).concat([[last[0] - Math.cos(ang) * back, last[1] - Math.sin(ang) * back]]);
@@ -211,7 +213,7 @@ export function Arrow({ arrow, w, h, scale = 1 }: { arrow: DiagramArrow; w: numb
         points={line.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
         stroke={color}
-        strokeWidth={0.6 * k}
+        strokeWidth={(shot ? 1.2 : 0.6) * k}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeDasharray={style === "pass" ? `${3 * k} ${2.2 * k}` : undefined}
@@ -258,7 +260,7 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
   const arrows = spec.arrows ?? [];
   // Default: everyone skates first (step 0), then the passes go one after another.
   let passNo = 0;
-  const raw = arrows.map((a, i) => given?.[i] ?? ((a.style ?? "run") === "pass" ? 1 + passNo++ : 0));
+  const raw = arrows.map((a, i) => given?.[i] ?? (((a.style ?? "run") === "pass" || a.style === "shoot") ? 1 + passNo++ : 0));
   const order = [...new Set(raw)].sort((x, y) => x - y);
   const stepOf = raw.map((r) => order.indexOf(r));
   const nSteps = Math.max(1, order.length);
@@ -271,7 +273,7 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
     return "M0,0 " + pts.slice(1).map(([x, y]) => `L${pct(x - x0, w)},${pct(y - y0, h)}`).join(" ");
   };
   const used = new Set<number>();
-  const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass";
+  const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass" && a.style !== "shoot";
   const moves = new Map<number, MotionPlan>();
   spec.markers.forEach((m, mi) => {
     if (m.kind === "cone" || m.kind === "ball" || m.kind === "goalie") return;
@@ -305,7 +307,7 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
     moves.set(mi, { path: rel(pts), keyTimes: times.join(";"), keyPoints: points.join(";") });
   });
 
-  const passIdx = arrows.map((a, i) => (a.style === "pass" ? i : -1)).filter((i) => i >= 0);
+  const passIdx = arrows.map((a, i) => (a.style === "pass" || a.style === "shoot" ? i : -1)).filter((i) => i >= 0);
   const pucks: PuckPlan[] = passIdx.map((ai, k) => {
     const a = arrows[ai]!;
     const pts: [number, number][] = [a.from, ...(a.via ?? []), a.to];
@@ -359,6 +361,7 @@ function Legend({ roles = false }: { roles?: boolean }) {
       <span><span className={`${dot} rounded-full`} style={{ width: 8, height: 8, background: PUCK_COLOR }} /> puck</span>
       <span>{line(ARROW_COLOR.run)} skate</span>
       <span>{line(ARROW_COLOR.pass, "4 3")} pass</span>
+      <span>{line(ARROW_COLOR.shoot)} shoot</span>
       <span><b style={{ color: ARROW_COLOR.dribble }}>~</b> carry</span>
     </p>
   );
