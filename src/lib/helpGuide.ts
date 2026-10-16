@@ -70,7 +70,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
           "The pages are in this order: Dashboard, Drill Library, My Practices, My Ideas, Team Materials.",
                   ],
         tips: [
-          "Swiping is ignored when your finger starts on a button, a text box, or a row that scrolls sideways (like the sport filters in the Drill Library). That is on purpose, so you never change page by accident.",
+          "Swiping is ignored when your finger starts on a button, a text box, or a row that scrolls sideways (like the category tabs in the Drill Library). That is on purpose, so you never change page by accident.",
         ],
       },
       {
@@ -204,11 +204,10 @@ export const GUIDE_GROUPS: GuideGroup[] = [
       {
         id: "browse",
         title: "Browsing the Drill Library",
-        intro: "A collection of ready-made coaching drills across several sports, plus any you add yourself.",
+        intro: "A collection of ready-made hockey drills, plus any you add yourself.",
         steps: [
           "Open the menu and tap Drill Library.",
           "Type in the search box to find a drill by name, skill or equipment.",
-          "Tap a sport under the search box to show only that sport. Tap All sports to see everything again. The row scrolls sideways.",
           "Once you have added your own drills, a My drills only button appears. Tap it to see just yours.",
           "Tap any drill to open it.",
         ],
@@ -219,8 +218,8 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         title: "Inside a drill",
         intro: "Each drill has everything you need to run it.",
         steps: [
-          "At the top you see the sport and category, the drill name, how long it takes and the age group.",
-          "Diagram shows how the drill looks on the court or field.",
+          "At the top you see the category, the drill name, how long it takes and the age group.",
+          "Diagram shows how the drill looks on the rink.",
           "Equipment and Setup tell you what to bring and how to lay it out.",
           "Step-by-step instructions are numbered. Coaching points are the cues to give your players.",
           "Tap Add to practice to put this drill in your practice, then open Build a Practice and tap Build my practice.",
@@ -233,7 +232,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         diagram: { kind: "drill-form" },
         steps: [
           "Open the Drill Library and tap Add a drill.",
-          "Fill in Sport, Category, Drill name, Age group, Duration, Equipment and Setup. For example Soccer, Possession, Rondo, U10+, 15-20 min, Cones and 1 ball per group.",
+          "Fill in Category, Drill name, Age group, Duration, Equipment and Setup. For example Offense, 2-on-1 Rush, U10+, 15-20 min, Cones and 1 puck per player.",
           "Under Step-by-step instructions, type the first step. Tap Add for the next one, and repeat until the drill is described. At least one step is needed.",
           "Under Coaching points, type a cue you would give your players. Tap Add for more.",
           "To include a picture, tap Draw a diagram (see \"Drawing a diagram\").",
@@ -250,7 +249,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
           "Open the Drill Library and find the box called Upload or download drills.",
           "To add drills you already have, tap Upload a file.",
           "A spreadsheet (.csv) or a drill file you downloaded here: you see a list of the drills found. Tap Add them all to my library.",
-          "A PDF, a Word file, a photo of a drill sheet or a notes file: it opens as a first draft in the Add a drill form. Fix anything that is off, add the sport, then tap Save drill.",
+          "A PDF, a Word file, a photo of a drill sheet or a notes file: it opens as a first draft in the Add a drill form. Fix anything that is off, then tap Save drill.",
           "To fill in a spreadsheet yourself, tap Blank template, open it in Excel or Google Sheets, type one drill per row, save it as .csv, and upload it.",
           "To take your drills with you, tap My drills (file) to download a file you can add back later or share with another coach, or My drills (spreadsheet) for Excel.",
         ],

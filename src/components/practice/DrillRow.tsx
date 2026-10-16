@@ -24,7 +24,7 @@ export function DrillRow({
   const zone = zoneHint(drill);
   const full = drill.diagram ? isFullIceDiagram(drill.diagram, `row-${drill.id}`, zone) : false;
   return (
-    <article className="card-soft ice-lib ice-texture relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
+    <article className="card-soft ice-lib ice-texture placard relative grid grid-cols-[5.6rem_1fr] gap-3 p-3 sm:grid-cols-[13rem_1fr] sm:gap-4 sm:p-5">
       {drill.diagram && !full ? (
         <div className="w-full">
           <PlayableDiagram diagram={drill.diagram} id={`row-${drill.id}`} framed={false} zone={zone} />
@@ -47,10 +47,13 @@ export function DrillRow({
           </div>
         ) : null}
         <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-4 sm:gap-3">
+          <Button type="button" variant="outline" size="sm" onClick={() => onOpen(drill)} className="max-sm:h-10 max-sm:px-3 max-sm:text-xs">
+            See the whole drill
+          </Button>
           <Button
             type="button"
             variant={added ? "outline" : "cta"}
-            size="lg"
+            size="default"
             aria-pressed={added}
             aria-label={added ? `${drill.name} is added to your practice` : `Add ${drill.name} to your practice`}
             onClick={() => onToggle(drill)}
@@ -58,9 +61,6 @@ export function DrillRow({
           >
             {added ? <Check /> : <Plus />}
             <span className="max-sm:hidden">{added ? "Added" : "Add to practice"}</span>
-          </Button>
-          <Button type="button" variant="outline" size="lg" onClick={() => onOpen(drill)} className="max-sm:h-10 max-sm:px-3 max-sm:text-xs">
-            See the whole drill
           </Button>
         </div>
       </div>
