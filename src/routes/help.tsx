@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Search } from "lucide-react";
 import { GuideDiagram } from "@/components/help/HelpDiagram";
@@ -111,6 +111,13 @@ function HelpPage() {
   const [open, setOpen] = useState<Record<string, boolean>>(() => (search.open ? { [search.open]: true } : {}));
   const q = query.trim().toLowerCase();
   const toggle = (id: string) => setOpen((o) => ({ ...o, [id]: !o[id] }));
+  // Arriving with ?open=<section> (e.g. "Make it yours" on the home page): open it and scroll straight to it.
+  useEffect(() => {
+    if (!search.open) return;
+    setOpen((o) => ({ ...o, [search.open as string]: true }));
+    const t = window.setTimeout(() => ((search.open === "settings" ? document.getElementById("team-brand") : null) ?? document.getElementById(`help-${search.open}`))?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+    return () => window.clearTimeout(t);
+  }, [search.open]);
 
   const groups = useMemo(
     () =>
@@ -181,7 +188,7 @@ function HelpPage() {
           )}
 
           {!q && (
-            <section aria-label="Settings">
+            <section aria-label="Settings" id="help-settings" className="scroll-mt-24">
               <h2 className="text-title mb-3">Settings</h2>
               <Pill title="Text size and colors" open={Boolean(open["settings"])} onToggle={() => toggle("settings")}>
                 <DisplaySettings />
@@ -189,7 +196,7 @@ function HelpPage() {
             </section>
           )}
 
-          <section aria-label="Still stuck">
+          <section aria-label="Still stuck" id="help-contact" className="scroll-mt-24">
             <h2 className="text-title mb-3">Still stuck?</h2>
             <Pill title="Contact us" open={Boolean(open["contact"])} onToggle={() => toggle("contact")}>
               <p className="text-sm text-white/90">

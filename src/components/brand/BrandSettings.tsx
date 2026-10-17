@@ -43,7 +43,7 @@ export function BrandSettings() {
   );
 
   return (
-    <section aria-label="Team brand">
+    <section aria-label="Team brand" id="team-brand" className="scroll-mt-24">
       <h3 className="text-base font-bold text-white">Your team brand</h3>
       <p className="mt-1 text-sm text-white/90">Pick your team&apos;s colours and add your logo. The layout stays the same.</p>
 
