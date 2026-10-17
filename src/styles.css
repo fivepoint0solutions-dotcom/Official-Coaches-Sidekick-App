@@ -2185,6 +2185,15 @@ html body .badge-pill, html body .chip {
   border-color: #0b1f4d !important;
   box-shadow: 0 0 0 3px rgba(31, 95, 200, 0.55), 0 2px 3px rgba(15, 23, 42, 0.12), 0 14px 28px -16px rgba(15, 23, 42, 0.45) !important;
 }
+@layer theme {
+  .placard.placard-selected[class][class]:not(#_):not(#__):not(#___) {
+    background-image: var(--ice-gloss-soft), linear-gradient(155deg, #2f6fd6 0%, #16418f 55%, #081233 100%) !important;
+    background-color: #0b1f4d !important;
+  }
+  .placard.placard-selected[class][class]:not(#_):not(#__):not(#___) :is(p, span, div, svg, b, strong, small):not(.keep-color):not(#_):not(#__):not(#___) {
+    color: #ffffff !important;
+  }
+}
 /* Boards & glass: glass top, white boards, BLUE kick plate along the base. */
 [data-skin="glass"] {
   background-image:
