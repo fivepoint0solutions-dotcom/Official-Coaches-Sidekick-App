@@ -671,11 +671,11 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         role="switch"
         aria-checked={screenLocked}
         onClick={() => setScreenLocked((v) => !v)}
-        className={`mb-2 flex w-full items-center justify-between gap-3 rounded-full border px-3 py-1.5 text-sm font-semibold shadow-sm transition-colors ${screenLocked ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"}`}
+        className={`mb-1.5 inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[0.625rem] font-semibold leading-none shadow-sm transition-colors ${screenLocked ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"}`}
       >
-        <span className="flex items-center gap-2">{screenLocked ? <Lock className="size-4" /> : <LockOpen className="size-4" />}{screenLocked ? "Screen locked — drag freely" : "Lock screen to drag"}</span>
-        <span className={`relative h-5 w-9 rounded-full transition-colors ${screenLocked ? "bg-primary-foreground/40" : "bg-muted-foreground/30"}`}>
-          <span className={`absolute top-0.5 size-4 rounded-full bg-background shadow transition-all ${screenLocked ? "left-[1.125rem]" : "left-0.5"}`} />
+        <span className="flex items-center gap-1">{screenLocked ? <Lock className="size-2.5" /> : <LockOpen className="size-2.5" />}{screenLocked ? "Screen locked" : "Lock screen"}</span>
+        <span className={`relative h-3 w-5 rounded-full transition-colors ${screenLocked ? "bg-primary-foreground/40" : "bg-muted-foreground/30"}`}>
+          <span className={`absolute top-0.5 size-2 rounded-full bg-background shadow transition-all ${screenLocked ? "left-[0.75rem]" : "left-0.5"}`} />
         </span>
       </button>
       <div
