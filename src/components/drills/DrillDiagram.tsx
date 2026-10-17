@@ -572,10 +572,10 @@ export function DrillDiagram({
           )}
           <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 block h-full w-full">
             {rspec.arrows?.map((arrow, i) => (
-              <Arrow key={i} arrow={arrow} w={W} h={H} scale={boost} />
+              <Arrow key={i} arrow={arrow} w={W} h={H} scale={boost * 0.8} />
             ))}
             {rspec.strokes?.map((stroke, i) => (
-              <Stroke key={i} stroke={stroke} w={W} h={H} scale={boost} />
+              <Stroke key={i} stroke={stroke} w={W} h={H} scale={boost * 0.8} />
             ))}
             {rspec.markers.map((marker, i) => {
               if (standingAround(spec.markers[i]!)) return null;
@@ -585,7 +585,7 @@ export function DrillDiagram({
                 <g key={i}>
                   {m ? <animateMotion dur={motion!.dur} repeatCount="indefinite" calcMode="linear" path={m.path} keyTimes={m.keyTimes} keyPoints={m.keyPoints} /> : null}
                   {fade ? <animate attributeName="opacity" dur={motion!.dur} repeatCount="indefinite" calcMode="discrete" values="1;0" keyTimes={`0;${motion!.firstStart.toFixed(3)}`} /> : null}
-                  <Marker marker={marker} w={W} h={H} mode={modeFor(spec.markers[i]!)} scale={boost} />
+                  <Marker marker={marker} w={W} h={H} mode={modeFor(spec.markers[i]!)} scale={boost * 0.8} />
                 </g>
               );
             })}
@@ -593,7 +593,7 @@ export function DrillDiagram({
               <g key={`puck-${i}`} opacity={0}>
                 <animateMotion dur={motion.dur} repeatCount="indefinite" calcMode="linear" path={p.path} keyTimes={p.keyTimes} keyPoints={p.keyPoints} />
                 <animate attributeName="opacity" dur={motion.dur} repeatCount="indefinite" calcMode="discrete" values={p.opacity} keyTimes={p.opacityTimes} />
-                <circle cx={pct(p.x, W)} cy={pct(p.y, H)} r={1.3 * (W / 100) * boost} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (W / 100) * boost} />
+                <circle cx={pct(p.x, W)} cy={pct(p.y, H)} r={1.3 * (W / 100) * boost * 0.8} fill="#111827" stroke="#FFFFFF" strokeWidth={0.45 * (W / 100) * boost * 0.8} />
               </g>
             ))}
           </svg>
