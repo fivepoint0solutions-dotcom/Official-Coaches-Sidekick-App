@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Add and verify full-ice, top-half, and bottom-half play-board choices.
+
 - [x] Apply Sidekick family visual system and feather watermark
 - [x] Add searchable drill library and detail views
 - [x] Connect curated drills to the practice builder

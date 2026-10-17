@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Apply container presentation centrally through `src/lib/hockey-skins.ts` and semantic surface tokens in `src/styles.css`; this keeps dynamically opened sheets and page placards consistent without changing coaching logic.
+- Store rink-view selection separately from full-rink drawing coordinates; cropping either end must preserve marker positions and saved-play views.
