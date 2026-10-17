@@ -151,6 +151,26 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       document.body.style.touchAction = prevTouchAction;
     };
   }, [dragIndex]);
+
+  // Screen lock toggle: when on, the page cannot scroll or swipe at all,
+  // so dragging markers on phones only moves the marker.
+  const [screenLocked, setScreenLocked] = useState(false);
+  useEffect(() => {
+    if (!screenLocked) return;
+    const html = document.documentElement;
+    const prev = [document.body.style.overflow, document.body.style.touchAction, html.style.overscrollBehavior];
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+    html.style.overscrollBehavior = "none";
+    const block = (e: TouchEvent) => { e.stopPropagation(); if (e.type === "touchmove" && e.cancelable) e.preventDefault(); };
+    window.addEventListener("touchstart", block, { capture: true, passive: true });
+    window.addEventListener("touchmove", block, { capture: true, passive: false });
+    return () => {
+      [document.body.style.overflow, document.body.style.touchAction, html.style.overscrollBehavior] = prev;
+      window.removeEventListener("touchstart", block, { capture: true });
+      window.removeEventListener("touchmove", block, { capture: true });
+    };
+  }, [screenLocked]);
   const [arrowStart, setArrowStart] = useState<[number, number] | null>(null);
   const [livePoint, setLivePoint] = useState<[number, number] | null>(null);
   const [drawingStroke, setDrawingStroke] = useState<[number, number][] | null>(null);
@@ -644,6 +664,18 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       className={landscape ? "w-full min-w-0 lg:mx-auto" : "w-[min(18rem,calc(100vw-8.5rem))] shrink-0 lg:mx-auto lg:w-full lg:max-w-[23rem]"}
       style={landscape ? { maxWidth: "min(100%, max(34rem, calc((100dvh - 27rem) * 2.05)))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
     >
+      <button
+        type="button"
+        role="switch"
+        aria-checked={screenLocked}
+        onClick={() => setScreenLocked((v) => !v)}
+        className={`mb-2 flex w-full items-center justify-between gap-3 rounded-full border px-3 py-1.5 text-sm font-semibold shadow-sm transition-colors ${screenLocked ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"}`}
+      >
+        <span className="flex items-center gap-2">{screenLocked ? <Lock className="size-4" /> : <LockOpen className="size-4" />}{screenLocked ? "Screen locked — drag freely" : "Lock screen to drag"}</span>
+        <span className={`relative h-5 w-9 rounded-full transition-colors ${screenLocked ? "bg-primary-foreground/40" : "bg-muted-foreground/30"}`}>
+          <span className={`absolute top-0.5 size-4 rounded-full bg-background shadow transition-all ${screenLocked ? "left-[1.125rem]" : "left-0.5"}`} />
+        </span>
+      </button>
       <div
         data-no-swipe
         className="relative w-full touch-none select-none overflow-hidden overscroll-contain rounded-xl shadow-inner"
