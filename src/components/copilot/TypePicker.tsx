@@ -30,9 +30,7 @@ export function TypePicker({ value, onSelect, types, className }: TypePickerProp
             <span
               className={cn(
                 "grid size-11 place-items-center rounded-xl",
-                selected
-                  ? "bg-interactive text-interactive-foreground"
-                  : "bg-secondary text-interactive",
+                "bg-interactive text-interactive-foreground",
               )}
             >
               <Icon className="size-5" />
