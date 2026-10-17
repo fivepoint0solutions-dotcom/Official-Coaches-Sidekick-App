@@ -166,7 +166,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     window.addEventListener("touchstart", block, { capture: true, passive: true });
     window.addEventListener("touchmove", block, { capture: true, passive: false });
     return () => {
-      [document.body.style.overflow, document.body.style.touchAction, html.style.overscrollBehavior] = prev;
+      document.body.style.overflow = prev[0];
+      document.body.style.touchAction = prev[1];
+      html.style.overscrollBehavior = prev[2];
       window.removeEventListener("touchstart", block, { capture: true });
       window.removeEventListener("touchmove", block, { capture: true });
     };
