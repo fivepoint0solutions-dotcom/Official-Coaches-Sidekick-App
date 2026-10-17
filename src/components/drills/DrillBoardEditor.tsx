@@ -761,7 +761,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       {value.surface === "hockey-rink" && !value.backgroundImage ? (
         <div role="group" aria-label="Ice view" data-no-swipe className="mb-2 flex flex-wrap justify-center gap-1">
           {([ ["full", "Full ice"], ["top", "Top half"], ["bottom", "Bottom half"] ] as const).map(([view, label]) => (
-            <Button key={view} type="button" size="sm" variant="default" aria-pressed={rinkView === view} onClick={() => changeRinkView(view)} className={`keep-color h-8 rounded-md px-2 text-xs ${rinkView === view ? "bg-interactive text-interactive-foreground ring-2 ring-ring" : "bg-primary text-primary-foreground opacity-75"}`}>
+            <Button key={view} type="button" size="sm" variant="default" aria-pressed={rinkView === view} onClick={() => changeRinkView(view)} className="rink-view-choice keep-color h-8 rounded-md px-2 text-xs">
               {label}
             </Button>
           ))}
