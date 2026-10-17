@@ -432,6 +432,23 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     <MiniBtn key="undo" label="Undo" onClick={undo} disabled={!history.length}><Undo2 className="size-5" /></MiniBtn>,
     <MiniBtn key="clear" label="Clear" onClick={clearBoard}><Trash2 className="size-5" /></MiniBtn>,
   ];
+  // Phone legend: one row per button, in the order they appear (left column, then right column).
+  const legendWhat: Record<string, string> = {
+    Move: "drag markers and arrows around", "Left wing": "left winger", "Right wing": "right winger", Centre: "centre", "Left defence": "left defenceman", "Right defence": "right defenceman", Player: "your player (O)", Defender: "the other team (X)", Goalie: "your goalie", Cone: "a cone",
+    Puck: "the puck", Coach: "the coach", "Skate arrow": "a player skates here", "Pass arrow (dashed)": "a pass", "Shoot arrow (thick)": "a shot",
+    "Straight line": "straight path", "Half circle": "curved path", Corner: "path with a corner", "S-turn": "S-shaped path",
+  };
+  const legendRows: [ReactNode, string, string][] = [
+    ...leftTools.map((t): [ReactNode, string, string] => [t.glyph, t.label.replace(/ \(.*\)/, ""), legendWhat[t.label] ?? ""]),
+    ...rightTools.map((t): [ReactNode, string, string] => [t.glyph, t.label, legendWhat[t.label] ?? ""]),
+    [pathIcon("M3 12c3-6 5-6 6 0s3 6 6 0 3-6 6 0"), "Weave", "weave a skater through the cones"],
+    [<ArrowLeftRight className="size-5" key="f" />, "Flip side", "mirror the play left to right"],
+    [<Pencil className="size-5" key="p" />, "Draw", "draw a freehand line"],
+    [<Eraser className="size-5" key="e" />, "Erase", "tap something to remove it"],
+    [<LockOpen className="size-5" key="l" />, "Lock", "stop markers being dragged by accident"],
+    [<Undo2 className="size-5" key="u" />, "Undo", "undo the last change"],
+    [<Trash2 className="size-5" key="t" />, "Clear", "clear the whole board"],
+  ];
   const column = (nodes: ReactNode[], key: string) => (
     <div key={key} className="flex max-h-[calc(100dvh-13rem)] shrink-0 flex-col justify-between gap-1 overflow-y-auto py-1 lg:hidden">{nodes}</div>
   );
@@ -699,6 +716,17 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         {column(rightButtons, "r")}
       </div>
       <div className="mt-2 lg:hidden">{hint}</div>
+      <details className="mt-1 rounded-lg border border-border bg-white/70 px-3 py-2 text-sm lg:hidden">
+        <summary className="cursor-pointer select-none font-semibold text-foreground">What do the buttons mean?</summary>
+        <ul className="mt-2 grid grid-cols-1 gap-x-3 gap-y-1.5">
+          {legendRows.map(([glyph, name, what]) => (
+            <li key={name} className="flex items-center gap-2">
+              <span className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-white">{glyph}</span>
+              <span className="min-w-0"><b>{name}</b> <span className="text-foreground/75">— {what}</span></span>
+            </li>
+          ))}
+        </ul>
+      </details>
     </div>
   );
 
