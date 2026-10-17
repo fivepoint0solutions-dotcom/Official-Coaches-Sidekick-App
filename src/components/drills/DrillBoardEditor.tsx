@@ -700,12 +700,12 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
           onPointerCancel={handleBoardPointerUp}
         >
           {value.arrows?.map((arrow, i) => (
-            <Arrow key={i} arrow={arrow} w={w} h={h} scale={1.8} />
+            <Arrow key={i} arrow={arrow} w={w} h={h} scale={1.4} />
           ))}
           {value.strokes?.map((stroke, i) => (
-            <Stroke key={i} stroke={stroke} w={w} h={h} scale={1.8} />
+            <Stroke key={i} stroke={stroke} w={w} h={h} scale={1.4} />
           ))}
-          {drawingStroke ? <Stroke stroke={{ points: drawingStroke }} w={w} h={h} scale={1.8} /> : null}
+          {drawingStroke ? <Stroke stroke={{ points: drawingStroke }} w={w} h={h} scale={1.4} /> : null}
           {arrowStart && livePoint && tool.startsWith("path-") ? (
             <polyline
               points={buildPath(tool.replace("path-", "") as PathKind, arrowStart, livePoint, w, h, flip).map(([x, y]) => `${pct(x, w)},${pct(y, h)}`).join(" ")}
@@ -733,7 +733,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
               <circle cx={pct(marker.x, w)} cy={pct(marker.y, h)} r={6 * (w / 100)} fill="transparent" />
               <g transform={landscape ? `rotate(90 ${pct(marker.x, w)} ${pct(marker.y, h)})` : undefined}>
                 {/* Designated spots (LW, RW, C, LD, RD) show as just the bold letters, like the drill library — no O / X. */}
-                <Marker marker={marker} w={w} h={h} scale={marker.kind === "cone" ? 3 : 1.8} mode={roleOf(marker.label) ? "text" : "glyph"} />
+                <Marker marker={marker} w={w} h={h} scale={marker.kind === "cone" ? 2.5 : 1.4} mode={roleOf(marker.label) ? "text" : "glyph"} />
               </g>
             </g>
           ))}
