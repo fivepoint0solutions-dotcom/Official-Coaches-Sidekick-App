@@ -2162,3 +2162,22 @@ html body .badge-pill, html body .chip {
   clip-path: polygon(var(--chamfer) 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%, 0 var(--chamfer)) !important;
 }
 }
+
+/* ================================================================
+ * OCT 17 — DRAG-LOCK TOGGLE (above the rink in the tactics board).
+ * The chamfered skin plate paints a pale ice face here, so its label must
+ * stay dark and its knob must read against that face. Scoped to this one
+ * control; nothing else changes.
+ * ============================================================ */
+.drag-lock-toggle:not(#_):not(#__) {
+  color: var(--sk-text) !important;
+  -webkit-text-fill-color: var(--sk-text) !important;
+}
+.drag-lock-toggle :is(svg) { color: var(--sk-text) !important; }
+.drag-lock-toggle > span:last-child {
+  background-color: color-mix(in oklab, var(--sk-text) 32%, transparent) !important;
+}
+.drag-lock-toggle > span:last-child > span {
+  background-color: var(--sk-bg) !important;
+  border: 1px solid var(--sk-text) !important;
+}
