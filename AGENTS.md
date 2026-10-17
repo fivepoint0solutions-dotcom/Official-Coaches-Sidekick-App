@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Apply container presentation centrally through `src/lib/hockey-skins.ts` and semantic surface tokens in `src/styles.css`; this keeps dynamically opened sheets and page placards consistent without changing coaching logic.

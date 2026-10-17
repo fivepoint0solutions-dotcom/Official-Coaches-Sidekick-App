@@ -3,6 +3,50 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Shared dark-blue surfaces use the customizable brand ramp. */
+:root {
+  --panel-blue: var(--b1);
+  --panel-blue-gradient: linear-gradient(160deg, var(--b1) 0%, var(--b2) 58%, color-mix(in oklab, var(--b3) 70%, var(--b1)) 100%);
+  --panel-blue-foreground: oklch(0.98 0.008 250);
+  --panel-blue-border: var(--b4);
+}
+
+/* The first layer wins important declarations over legacy light skins. Keep
+   playing surfaces and editable fields unchanged; only app plates turn blue. */
+@layer theme {
+  :is([data-skin], .placard, .card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, [role="dialog"], [role="menu"], [role="listbox"]):not([data-no-skin]):not([data-no-skin] *):not(#_):not(#__):not(#___) {
+    background-color: var(--panel-blue) !important;
+    background-image: var(--ice-gloss-soft), var(--panel-blue-gradient) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    border-color: var(--panel-blue-border) !important;
+    color: var(--panel-blue-foreground) !important;
+  }
+  :is([data-skin], .placard)::before {
+    opacity: .09 !important;
+    filter: brightness(1.5) !important;
+  }
+  :is([data-skin], .placard) :is(p, h1, h2, h3, h4, h5, h6, li, span, small, label, strong, em, b, a, dt, dd, td, th):not(.keep-color):not(.keep-color *):not(.badge-pill):not(.badge-pill *):not(.tape-strip):not(.tape-strip *):not(button *):not([role="button"] *):not(input):not(svg *):not(#_):not(#__):not(#___) {
+    color: var(--panel-blue-foreground) !important;
+  }
+  :is(button.sweep-fill, a.sweep-fill, .category-tab, .nav-pill, .btn-rink, .btn-blade, .choice-chip, .tape-strip, .beta-banner-ice, .cat-find, button.bg-secondary, a.bg-secondary, button.bg-card, a.bg-card, button.bg-background, a.bg-background):not(.back-puck):not(#_):not(#__):not(#___),
+  :is([data-skin], .placard) :is(button, a, [role="button"]):is(.sweep-fill, .category-tab, .bg-secondary, .bg-background, .bg-card, .bg-popover, [class*="bg-white"]):not(.keep-color):not(#_):not(#__):not(#___) {
+    background-color: var(--panel-blue) !important;
+    background-image: var(--ice-gloss-soft), var(--panel-blue-gradient) !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    background-size: 100% 100% !important;
+    border-color: var(--panel-blue-border) !important;
+    color: var(--panel-blue-foreground) !important;
+    -webkit-text-fill-color: var(--panel-blue-foreground) !important;
+    text-shadow: none !important;
+  }
+  :is(.sweep-fill, .category-tab, .nav-pill, .btn-rink, .btn-blade, .choice-chip, .tape-strip, .beta-banner-ice, .cat-find, button.bg-secondary, a.bg-secondary, button.bg-card, a.bg-card, button.bg-background, a.bg-background) :is(span, b, strong, em, small, svg, i):not(#_):not(#__):not(#___) {
+    color: var(--panel-blue-foreground) !important;
+    -webkit-text-fill-color: var(--panel-blue-foreground) !important;
+  }
+}
+
 /* Brand ramp: ten shades from jet black to near white, rebuilt from the coach's own three colours (see src/lib/brand.ts). */
 :root{--b0:#030917;--b1:#0B1F4D;--b2:#153f8a;--b3:#1F5FC8;--b4:#6392db;--b5:#8fb1e7;--b6:#afc9f0;--b7:#D3E4FA;--b8:#e9f2fc;--b9:#f6fafe;--brand-ink:#030917;}
 
