@@ -671,7 +671,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         role="switch"
         aria-checked={screenLocked}
         onClick={() => setScreenLocked((v) => !v)}
-        className={`drag-lock-toggle mb-1.5 inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[0.625rem] font-semibold leading-none shadow-sm transition-colors ${screenLocked ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"}`}
+        className={`drag-lock-toggle keep-color mb-1.5 inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[0.625rem] font-semibold leading-none shadow-sm transition-colors ${screenLocked ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"}`}
       >
         <span className="flex items-center gap-1">{screenLocked ? <Lock className="size-2.5" /> : <LockOpen className="size-2.5" />}{screenLocked ? "Screen locked" : "Lock screen"}</span>
         <span className={`relative h-3 w-5 rounded-full transition-colors ${screenLocked ? "bg-primary-foreground/40" : "bg-muted-foreground/30"}`}>

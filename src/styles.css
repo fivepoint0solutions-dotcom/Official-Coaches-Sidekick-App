@@ -1768,28 +1768,21 @@ html body .badge-pill, html body .chip {
   }
 }
 
-/* Drag-lock toggle (above the rink): the .rounded-full skin plate leaves this
- * one control with white text on a pale face, so pin its label to the app's ink
- * and make its knob read against the track. Scoped to .drag-lock-toggle only. */
+/* Drag-lock toggle (above the rink). It carries .keep-color so the skin's
+ * dark puck plate skips it; these lines only finish the job — no chamfered
+ * clip-path eating the label, and a knob that reads against its track. */
 @layer utilities {
   button.drag-lock-toggle:not(#_):not(#__):not(#___) {
-    color: var(--sk-text) !important;
-    -webkit-text-fill-color: var(--sk-text) !important;
-    background-image: none !important;
-    background-color: color-mix(in oklab, var(--sk-bg) 80%, white) !important;
-    border: 2px solid var(--b1) !important;
+    clip-path: none !important;
+    border-radius: 9999px !important;
     text-shadow: none !important;
   }
-  button.drag-lock-toggle :is(span, svg, i):not(#_):not(#__):not(#___) {
-    color: var(--sk-text) !important;
-    -webkit-text-fill-color: var(--sk-text) !important;
-  }
   button.drag-lock-toggle > span:last-child:not(#_):not(#__):not(#___) {
-    background-color: color-mix(in oklab, var(--sk-text) 30%, transparent) !important;
+    background-color: color-mix(in oklab, #0b1226 28%, transparent) !important;
   }
   button.drag-lock-toggle > span:last-child > span:not(#_):not(#__):not(#___) {
-    background-color: var(--sk-bg) !important;
-    border: 1px solid var(--sk-text) !important;
+    background-color: #ffffff !important;
+    border: 1px solid #0b1226 !important;
   }
 }
 
