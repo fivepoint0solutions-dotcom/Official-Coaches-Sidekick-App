@@ -181,16 +181,18 @@ export function BuildPracticePage() {
             </div>
           ) : (
             <div className="sticky bottom-[6.5rem] z-[25] flex justify-end">
-              <button
+              <Button
                 type="button"
+                variant="stick"
+                size="lg"
+                className="btn-roomy shadow-lg"
                 onClick={() => setTrayOpen(true)}
                 aria-label={`Open your practice, ${picked.length} ${picked.length === 1 ? "drill" : "drills"}`}
                 aria-expanded={false}
-                className="relative grid size-14 place-items-center rounded-full border-2 border-[#0b0d12] bg-white shadow-lg"
               >
-                <ClipboardList className="size-6" />
-                <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0b0d12] text-xs font-extrabold text-white">{picked.length}</span>
-              </button>
+                <ClipboardList className="size-5" /> My practice
+                <span className="ml-1 grid min-w-6 place-items-center bg-white px-1.5 text-xs font-extrabold text-[#0b1f4d]" style={{ clipPath: "polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px)" }}>{picked.length}</span>
+              </Button>
             </div>
           )
         ) : null}
