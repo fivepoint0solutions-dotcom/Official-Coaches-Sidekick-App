@@ -328,7 +328,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       commit({ ...value, markers: value.markers.filter((_, i) => i !== index) });
       return;
     }
-    if (tool === "select") {
+    // Pressing an existing marker always picks it up (even with a drop tool on),
+    // so a just-dropped cone can be dragged straight away.
+    if (tool === "select" || tool.startsWith("marker-")) {
       if (dragLocked) return; // drag lock: markers stay put
       event.stopPropagation();
       event.currentTarget.setPointerCapture?.(event.pointerId);
@@ -643,8 +645,9 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       style={landscape ? { maxWidth: "min(100%, max(34rem, calc((100dvh - 27rem) * 2.05)))" } : value.surface === "hockey-rink" ? { maxWidth: "min(23rem, calc((100dvh - 14.5rem) * 0.4876))" } : undefined}
     >
       <div
-        className={`relative w-full select-none overflow-hidden rounded-xl shadow-inner ${dragIndex !== null || tool !== "select" ? "touch-none" : "touch-pan-y"}`}
-        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}`, touchAction: dragIndex !== null ? "none" : undefined }}
+        data-no-swipe
+        className="relative w-full touch-none select-none overflow-hidden overscroll-contain rounded-xl shadow-inner"
+        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}`, touchAction: "none" }}
       >
         <div
           className={landscape ? "absolute" : "contents"}
