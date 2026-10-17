@@ -7,7 +7,14 @@ import type { Drill } from "@/data/drillLibrary";
 import { getUserDrill, isUserDrillId, updateUserDrill } from "@/lib/userDrills";
 
 export const Route = createFileRoute("/drills/$drillId/edit")({
-  head: () => ({ meta: [{ title: "Edit Drill — Coach's Sidekick" }] }),
+  head: () => ({ meta: [
+    { title: "Edit Drill — Coach's Sidekick" },
+    { name: "description", content: "Update your own hockey drill and its rink drawing." },
+    { property: "og:title", content: "Edit Drill — Coach's Sidekick" },
+    { property: "og:description", content: "Update your own hockey drill and its rink drawing." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: EditDrillPage,
 });
 

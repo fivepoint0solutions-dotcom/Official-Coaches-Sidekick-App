@@ -28,6 +28,7 @@ import {
 } from "./DrillDiagram";
 import { buildPath, weavePath, type PathKind } from "./pathShapes";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX } from "./surfaces";
+import { rinkPoint, rinkWindow, type RinkView } from "@/lib/rink-view";
 
 type PositionLabel = "LW" | "RW" | "C" | "LD" | "RD";
 
@@ -119,7 +120,7 @@ type Props = {
 
 /** Interactive whiteboard: place players/cones, draw run/pass arrows, or free-draw with a pen
  * directly on the hockey rink. Edits apply live via onChange so a parent can save the result.
- * Hockey-only: there is no surface picker — every new diagram is the hockey rink. */
+ * Hockey-only: full ice or either half use the same rink coordinates. */
 export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const [tool, setTool] = useState<Tool>("select");
   // On desktop the hockey rink lies sideways (wide); on phones it stays upright.
@@ -181,9 +182,20 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   // Legacy diagrams saved on an old multi-sport surface fall back to the hockey rink.
-  const { w, h } = SURFACE_VIEWBOX[value.surface] ?? SURFACE_VIEWBOX["hockey-rink"]!;
-  const Surface = SURFACE_COMPONENTS[value.surface] ?? SURFACE_COMPONENTS["hockey-rink"]!;
-  const landscape = wide && value.surface === "hockey-rink" && !value.backgroundImage;
+  const { w, h } = SURFACE_VIEWBOX[value.surface] ?? SURFACE_VIEWBOX["hockey-rink"];
+  const Surface = SURFACE_COMPONENTS[value.surface] ?? SURFACE_COMPONENTS["hockey-rink"];
+  const rinkView = value.surface === "hockey-rink" && !value.backgroundImage ? value.rinkView ?? "full" : "full";
+  const { start, span } = rinkWindow(rinkView);
+  const visibleH = h * span / 100;
+  const landscape = wide && value.surface === "hockey-rink" && !value.backgroundImage && rinkView === "full";
+
+  function changeRinkView(next: RinkView) {
+    setArrowStart(null);
+    setLivePoint(null);
+    setDrawingStroke(null);
+    setDragIndex(null);
+    commit({ ...value, rinkView: next });
+  }
 
   function pushHistory() {
     setHistory((prev) => [...prev.slice(-(HISTORY_LIMIT - 1)), value]);
@@ -225,8 +237,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     const fx = clamp((event.clientX - rect.left) / rect.width, 0, 1);
     const fy = clamp((event.clientY - rect.top) / rect.height, 0, 1);
     // Sideways rink: the board is turned a quarter turn, so a click maps back to the upright drawing.
-    if (landscape) return [(1 - fy) * 100, fx * 100];
-    return [fx * 100, fy * 100];
+    return rinkPoint(fx, fy, rinkView, landscape);
   }
 
   function nearestMarkerIndex(point: [number, number]) {
@@ -681,18 +692,20 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
       <div
         data-no-swipe
         className="relative w-full touch-none select-none overflow-hidden overscroll-contain rounded-xl shadow-inner"
-        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${h}`, touchAction: "none" }}
+        style={{ aspectRatio: landscape ? `${h} / ${w}` : `${w} / ${visibleH}`, touchAction: "none" }}
       >
         <div
           className={landscape ? "absolute" : "contents"}
           style={landscape ? { left: "50%", top: "50%", width: `${(w / h) * 100}%`, height: `${(h / w) * 100}%`, transform: "translate(-50%, -50%) rotate(-90deg)" } : undefined}
         >
-        <div className="absolute inset-0">
+        <div className="absolute inset-x-0" style={{ top: `${-start / span * 100}%`, height: `${10000 / span}%` }}>
           {value.backgroundImage ? <img src={value.backgroundImage} alt="" className="h-full w-full object-cover" /> : <Surface />}
         </div>
         <svg
           ref={svgRef}
-          viewBox={`0 0 ${w} ${h}`}
+          viewBox={`0 ${h * start / 100} ${w} ${visibleH}`}
+          preserveAspectRatio="none"
+          aria-label={`${rinkView === "full" ? "Full ice" : rinkView === "top" ? "Top half ice" : "Bottom half ice"} drawing board`}
           className="absolute inset-0 h-full w-full cursor-crosshair"
           onPointerDown={handleBoardPointerDown}
           onPointerMove={handleBoardPointerMove}
@@ -745,6 +758,15 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
 
   const board = (
     <div className="min-w-0">
+      {value.surface === "hockey-rink" && !value.backgroundImage ? (
+        <div role="group" aria-label="Ice view" data-no-swipe className="mb-2 flex flex-wrap justify-center gap-1">
+          {([ ["full", "Full ice"], ["top", "Top half"], ["bottom", "Bottom half"] ] as const).map(([view, label]) => (
+            <Button key={view} type="button" size="sm" variant="default" aria-pressed={rinkView === view} onClick={() => changeRinkView(view)} className="rink-view-choice keep-color h-8 rounded-md px-2 text-xs">
+              {label}
+            </Button>
+          ))}
+        </div>
+      ) : null}
       {/* Phones: the tool columns flank the rink on both sides; the rink
           width already accounts for them, so nothing scrolls sideways. */}
       <div className="flex min-w-0 max-w-full items-stretch justify-center gap-1.5 overflow-x-clip lg:block">

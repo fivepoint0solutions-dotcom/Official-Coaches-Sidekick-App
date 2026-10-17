@@ -14,6 +14,20 @@
 /* The first layer wins important declarations over legacy light skins. Keep
    playing surfaces and editable fields unchanged; only app plates turn blue. */
 @layer theme {
+  button.rink-view-choice[class]:not(#_):not(#__):not(#___) {
+    background-color: var(--panel-blue) !important;
+    background-image: var(--ice-gloss-soft), var(--panel-blue-gradient) !important;
+    color: var(--panel-blue-foreground) !important;
+    -webkit-text-fill-color: var(--panel-blue-foreground) !important;
+    border: 1px solid var(--panel-blue-border) !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  button.rink-view-choice[aria-pressed="true"][class]:not(#_):not(#__):not(#___) {
+    background-image: var(--ice-gloss-soft), linear-gradient(155deg, var(--b3), var(--b1)) !important;
+    outline: 2px solid var(--panel-blue-border) !important;
+    outline-offset: 1px;
+  }
   :is([data-skin], .placard, .card-soft, .card-elevated, .glass-panel, .stat-tile, .drill-flash, .practice-cat, .drill-sheet-paper, .cat-bar, [role="dialog"], [role="menu"], [role="listbox"]):not([data-no-skin]):not([data-no-skin] *):not(#_):not(#__):not(#___) {
     background-color: var(--panel-blue) !important;
     background-image: var(--ice-gloss-soft), var(--panel-blue-gradient) !important;

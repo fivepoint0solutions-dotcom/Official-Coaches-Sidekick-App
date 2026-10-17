@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 import { playSteps } from "@/data/playTiming";
+import { rinkWindow, type RinkView } from "@/lib/rink-view";
 
 export type DiagramMarker = {
   x: number;
@@ -27,6 +28,7 @@ export type DiagramStroke = {
 
 export type DrillDiagramSpec = {
   surface: SurfaceId;
+  rinkView?: RinkView;
   markers: DiagramMarker[];
   arrows?: DiagramArrow[];
   strokes?: DiagramStroke[];
@@ -408,6 +410,11 @@ function analyze(spec: DrillDiagramSpec, base: string, zone: "auto" | "full" | "
         if (yMax - yMin > 96) { yMin = 0; yMax = 100; }
       }
     }
+  }
+  if (isRink && spec.rinkView && !spec.backgroundImage) {
+    const window = rinkWindow(spec.rinkView);
+    yMin = window.start;
+    yMax = window.start + window.span;
   }
   return { coached, modeFor, standingAround, yMin, yMax };
 }
