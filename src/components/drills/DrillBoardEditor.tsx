@@ -411,7 +411,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
     puck: icon(<circle cx="12" cy="12" r="4.5" fill="#111827" stroke="none" />),
     coach: icon(<rect x="6.5" y="6.5" width="11" height="11" rx="1.5" transform="rotate(45 12 12)" fill="#DB2777" stroke="none" />),
     skate: icon(<path d="M4.5 19L18 6M18 6h-7M18 6v7" stroke="#0F172A" />),
-    shoot: icon(<><path d="M4.5 19L15 8.5" stroke="#1E40AF" strokeWidth={4} /><path d="M20 4l-9 1.5 7.5 7.5z" fill="#1E40AF" stroke="#1E40AF" strokeWidth={1.2} /></>),
+    shoot: icon(<><path d="M4.5 19L15 8.5" stroke="#15803D" strokeWidth={4} /><path d="M20 4l-9 1.5 7.5 7.5z" fill="#15803D" stroke="#15803D" strokeWidth={1.2} /></>),
     pass: icon(<><path d="M4.5 19L15 8.5" strokeDasharray="2.4 3" stroke="#0E7490" /><path d="M18 6h-7M18 6v7" stroke="#0E7490" /></>),
   };
   const pathIcon = (d: string) => (

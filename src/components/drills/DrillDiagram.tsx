@@ -53,7 +53,7 @@ export const ARROW_COLOR = {
   run: "#0F172A", // skate — near-black solid
   pass: "#0E7490", // pass — cyan dashed
   dribble: "#92400E", // carry — brown wavy
-  shoot: "#1E40AF", // shot — thick deep-blue solid with a big head
+  shoot: "#15803D", // shot — thick dark-green solid with a big head; green keeps it off the rink's blue markings and the blue player circles
 } as const;
 
 export const MARKER_FILL: Record<DiagramMarker["kind"], string> = {
