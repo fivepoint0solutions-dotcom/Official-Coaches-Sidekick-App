@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ModeCard } from "@/components/copilot/ModeCard";
-import { PhotoStrip } from "@/components/PhotoStrip";
 import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { useModes } from "@/lib/modes";
@@ -83,7 +82,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <section className="container-app pt-4 pb-10 lg:pt-2 lg:pb-12">
+      <section className="container-app pt-4 pb-6 lg:pt-2 lg:pb-4">
         <p className="flow-cue" aria-hidden="true">Pick a mode to start <span>↓</span></p>
         <Reveal>
           <div className="mode-grid placard-list grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -120,7 +119,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <section className="container-app pb-10 lg:hidden" aria-label="Customize your team">
+      <section className="container-app pb-4 lg:hidden" aria-label="Customize your team">
         <Reveal>
           <Link
             to="/help"
@@ -155,17 +154,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <section className="container-app pb-10" aria-label="Photos from the rink">
-        <PhotoStrip
-          photos={[
-            { src: "/img/extra-2.jpg", alt: "Three young players handling pucks", position: "40% center" },
-            { src: "/img/extra-5.jpg", alt: "Kids playing pond hockey in the snow", position: "center 70%" },
-            { src: "/img/extra-3.jpg", alt: "A team of smiling players gathered for a photo", position: "center 40%" },
-          ]}
-        />
-      </section>
-
-      <div className="container-app pb-10">
+      <div className="container-app pb-2 empty:hidden">
         <RecentWork />
       </div>
 
