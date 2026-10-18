@@ -101,7 +101,7 @@ export const drillDiagrams2: Record<string, Diagram> = {
   },
   "DFZ-006": { // backcheck: 2-on-0 rush from the far blue line, backcheckers start at centre ice three seconds later
     markers: [GT, ...O([[40, 36], [60, 36]]), PUCK(41.8, 36.6), ...X([[44, 50], [56, 50]])],
-    arrows: [carry([40, 33], [42, 18]), pass([43, 17], [58, 15]), pass([58, 14], [52, 10]), run([44, 47], [44, 26]), run([56, 47], [58, 24])],
+    arrows: [carry([40, 33], [42, 18]), pass([43, 17], [58, 15]), pass([58, 14], [52, 10]), run([44, 47], [44, 26]), run([56, 47], [58, 24]), run([60, 33], [60, 27]), run([60, 27], [58, 16])], // the second forward rushes alongside and takes the pass in stride
   },
   "DFZ-007": { // 5-on-5 walkthrough in the defensive zone, coach moves the puck at the point
     markers: [GB, ...X([[36, 86], [64, 86], [50, 76], [24, 70], [76, 70]]), ...O([[34, 66], [66, 66], [50, 62], [22, 80], [78, 80]]), COACH(50, 65.3, "Coach"), PUCK(48, 66)],
@@ -137,6 +137,6 @@ export const drillDiagrams2: Record<string, Diagram> = {
   },
   "OFZ-008": { // two nets, two corners: skate toward each other, give-and-go at centre, finish 2-on-0
     markers: [GT, GB, P(9, 91), PUCK(10.8, 91.6), P(91, 9), PUCK(89.2, 9.6)],
-    arrows: [carry([10, 88], [44, 56], [[12, 72], [30, 62]]), carry([90, 12], [56, 44], [[88, 28], [70, 38]]), pass([46, 54], [54, 46]), pass([54, 45], [54, 20]), pass([54, 19], [51, 10])],
+    arrows: [carry([10, 88], [44, 56], [[12, 72], [30, 62]]), carry([90, 12], [56, 44], [[88, 28], [70, 38]]), pass([46, 54], [54, 46]), pass([54, 45], [54, 20]), pass([54, 19], [51, 10]), run([45, 55], [54, 22]), run([56, 44], [58, 12])], // give, then the first player goes for the return pass in stride; both drive the net
   },
 };

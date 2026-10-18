@@ -21,7 +21,7 @@ export const drillDiagrams3: Record<string, Diagram> = {
   },
   "PPL-002": { // PP breakout entry: unit in the neutral zone, four killers at the blue line; carry-in wide, drop pass, or stretch pass
     markers: [GT, P(40, 57, "LD"), P(60, 57, "RD"), P(18, 52, "LW"), P(82, 52, "RW"), P(50, 48, "C"), PUCK(41.8, 57.6), D(30, 35, "LD"), D(43, 35, "C"), D(57, 35, "RW"), D(70, 35, "RD")],
-    arrows: [carry([18, 49], [10, 24], [[12, 38]]), pass([12, 26], [26, 38]), pass([60, 54], [80, 24])],
+    arrows: [carry([18, 49], [10, 24], [[12, 38]]), pass([12, 26], [26, 38]), pass([60, 54], [80, 24]), run([82, 50], [80, 22])], // the right winger breaks up the ice onto the stretch pass
   },
   "PPL-003": { // one-timer seam pass: passer at the half boards, shooter in the opposite circle, screener in front
     markers: [GT, P(10, 23, "LW"), P(70, 22, "RW"), P(50, 15, "C"), PUCK(11.8, 23.6), D(16, 27)],
@@ -84,7 +84,7 @@ export const drillDiagrams3: Record<string, Diagram> = {
   },
   "GLT-001": { // crease shuffles: goalie squares up to the coach, shuffles left or right
     markers: [GT, COACH(50, 24, "Coach"), PUCK(51.8, 24.6)],
-    arrows: [run([45, 8.6], [40, 8.6]), run([55, 8.6], [60, 8.6]), pass([50, 22], [50, 12])],
+    arrows: [run([45, 8.6], [40, 8.6]), run([55, 8.6], [60, 8.6]), pass([50, 22], [59, 11])],
   },
   "GLT-002": { // butterfly basics: coach shoots low from the slot
     markers: [GT, COACH(50, 22, "Coach"), PUCK(51.8, 22.6)],

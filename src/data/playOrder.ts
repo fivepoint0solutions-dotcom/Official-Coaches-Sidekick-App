@@ -2,12 +2,15 @@
    Skaters with nothing to wait for go first, passes follow one after another, and the order follows the puck:
    - a skater who starts where a pass ENDS (the receiver) or where it STARTS (the passer following it) leaves WITH the pass, never before it:
      the receiver keeps moving and the puck leads him (see buildMotion), so he is in stride when he takes it;
-   - a skater who ends where a pass STARTS (the passer moving into position) gets there before the pass goes. */
+   - a skater who ends where a pass STARTS (the passer moving into position) gets there before the pass goes;
+   - a skater's next arrow starts where the last one ended, so it comes after it. */
 type Pt = [number, number];
 type Arrow = { from: Pt; to: Pt; style?: string };
 
 const NEAR = 3.4;
-const close = (a: Pt, b: Pt) => Math.hypot(a[0] - b[0], a[1] - b[1]) <= NEAR;
+const CHAIN = 8; // a skater's next arrow may start this far from where the last one ended (hand-drawn gaps)
+const dist = (a: Pt, b: Pt) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+const close = (a: Pt, b: Pt) => dist(a, b) <= NEAR;
 const isPass = (a: Arrow) => a.style === "pass" || a.style === "shoot";
 
 export function defaultSteps(arrows: Arrow[]): number[] {
@@ -19,6 +22,7 @@ export function defaultSteps(arrows: Arrow[]): number[] {
       if (i === j) return;
       if (!isPass(a) && isPass(b) && (close(a.from, b.to) || close(a.from, b.from)) && !close(a.to, b.from)) before.push([j, 0]); // receiver (or passer following their pass) goes with the pass
       if (isPass(a) && !isPass(b) && close(b.to, a.from) && !close(b.from, a.to)) before.push([j, 1]); // passer arrives, then passes
+      if (!isPass(a) && !isPass(b) && j < i && dist(a.from, b.to) <= CHAIN) before.push([j, 1]); // a skater's next leg (drawn later) starts when the last one ends
     });
     return before;
   });
