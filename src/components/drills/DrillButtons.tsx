@@ -38,7 +38,7 @@ export function DrillButtons({ className = "" }: { className?: string }) {
       </Button>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
-        <DialogContent className="max-h-[88vh] w-[calc(100vw-1.5rem)] max-w-2xl overflow-x-hidden overflow-y-auto">
+        <DialogContent className="max-h-[88dvh] w-[calc(100vw-1.5rem)] max-w-2xl overflow-x-hidden overflow-y-auto">
           {open === "library" ? (
             <>
               <DialogHeader>

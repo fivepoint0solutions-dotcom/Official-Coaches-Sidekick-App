@@ -1,0 +1,9 @@
+/* Apple (iOS Safari / macOS) compatibility: same look as Android and desktop Chrome. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { -webkit-tap-highlight-color: transparent; }
+/* iOS draws its own inner shadow and rounding on text fields; turn it off so fields look the same everywhere. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]), textarea { -webkit-appearance: none; appearance: none; }
+/* iOS zooms the whole page when a field under 16px is focused; keep fields at 16px or larger on iPhone/iPad. */
+@supports (-webkit-touch-callout: none) {
+  input, textarea, select { font-size: max(16px, 1em) !important; }
+}
