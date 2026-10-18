@@ -272,7 +272,6 @@ function alongPoly(pts: [number, number][], f: number) {
   }
   return { m: pts[pts.length - 1]!, rest: [] as [number, number][] };
 }
-const LEAD = 0.6; // a lead pass meets its receiver this far into his stride, then the puck goes with him
 const f3 = (x: number) => Math.min(1, Math.max(0, x)).toFixed(3);
 const STEP_S = 1.7; // seconds per step
 
@@ -281,9 +280,11 @@ export function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?
   // Default: skaters with nothing to wait for go first, then the passes one after another; a receiver leaves after its pass lands.
   const auto = defaultSteps(arrows);
   const raw = arrows.map((_, i) => given?.[i] ?? auto[i]!);
+  // Hand-set timing keeps its numbers exactly (a fraction such as 0.5 starts something part-way into a step, so one player can
+  // start sooner than another); automatic timing drops the empty steps.
   const order = [...new Set(raw)].sort((x, y) => x - y);
-  const stepOf = raw.map((r) => order.indexOf(r));
-  const nSteps = Math.max(1, order.length);
+  const stepOf = given ? raw : raw.map((r) => order.indexOf(r));
+  const nSteps = Math.max(1, given ? Math.max(...raw) + 1 : order.length);
   const durS = Math.max(5, nSteps * STEP_S + 1.6);
   const winStart = (st: number) => (st * STEP_S + 0.15) / durS;
   const winEnd = (st: number) => ((st + 1) * STEP_S - 0.1) / durS;
@@ -295,23 +296,66 @@ export function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?
   const used = new Set<number>();
   const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass" && a.style !== "shoot";
   const moves = new Map<number, MotionPlan>();
-  const legPts = new Map<number, [number, number][]>(); // each skating arrow's path (arrow index -> points), for lead passes
+  const legPts = new Map<number, [number, number][]>(); // each skating arrow's path (arrow index -> points), so a pass can meet its receiver on it
+  // Which skating arrows each player takes, in order. An arrow that starts at a player (or where his last arrow ended) is his; a
+  // lone arrow drawn further up the ice (a queue of players at the line, the first one goes) goes to the nearest player, who skates
+  // up to its start first.
+  type Leg = { ai: number; pts: [number, number][] };
+  const legsOf = new Map<number, Leg[]>();
+  const endOf = (mi: number): [number, number] => {
+    const l = legsOf.get(mi);
+    return l?.length ? l[l.length - 1]!.pts[l[l.length - 1]!.pts.length - 1]! : [spec.markers[mi]!.x, spec.markers[mi]!.y];
+  };
+  // An arrow that starts at a player is that player's, even if another player's last arrow happens to end next to it.
+  const startsAt = new Map<number, number>();
+  arrows.forEach((a, i) => {
+    if (!skate(a)) return;
+    let best = -1;
+    let bestD = 3.4;
+    spec.markers.forEach((m, mi) => {
+      if (m.kind === "cone" || m.kind === "ball") return;
+      const d = Math.hypot(m.x - a.from[0], m.y - a.from[1]);
+      if (d <= bestD) { bestD = d; best = mi; }
+    });
+    if (best >= 0) startsAt.set(i, best);
+  });
   spec.markers.forEach((m, mi) => {
-    if (m.kind === "cone" || m.kind === "ball" || m.kind === "goalie") return;
-    const pts: [number, number][] = [[m.x, m.y]];
-    const segs: { len: number; step: number }[] = [];
+    if (m.kind === "cone" || m.kind === "ball") return;
     let at = { x: m.x, y: m.y };
     for (let hop = 0; hop < 4; hop++) {
-      const ai = arrows.findIndex((a, i) => !used.has(i) && skate(a) && near(a.from, at));
+      const ai = arrows.findIndex((a, i) => !used.has(i) && skate(a) && near(a.from, at) && (!startsAt.has(i) || startsAt.get(i) === mi));
       if (ai < 0) break;
       used.add(ai);
       const a = arrows[ai]!;
-      const leg: [number, number][] = [[at.x, at.y], ...(a.via ?? []), a.to];
-      segs.push({ len: segLen(leg), step: stepOf[ai]! });
-      legPts.set(ai, leg);
-      pts.push(...(a.via ?? []), a.to);
+      legsOf.set(mi, [...(legsOf.get(mi) ?? []), { ai, pts: [[at.x, at.y], ...(a.via ?? []), a.to] }]);
       at = { x: a.to[0], y: a.to[1] };
     }
+  });
+  arrows.forEach((a, ai) => {
+    if (used.has(ai) || !skate(a)) return;
+    let best = -1;
+    let bestD = 26;
+    spec.markers.forEach((m, mi) => {
+      if (m.kind !== "player" && m.kind !== "defender" && m.kind !== "goalie") return;
+      const e = endOf(mi);
+      const d = Math.hypot(e[0] - a.from[0], e[1] - a.from[1]);
+      if (d < bestD) { bestD = d; best = mi; }
+    });
+    if (best < 0) return;
+    used.add(ai);
+    const e = endOf(best);
+    legsOf.set(best, [...(legsOf.get(best) ?? []), { ai, pts: [e, ...(bestD > 3.4 ? [a.from] : []), ...(a.via ?? []), a.to] }]);
+  });
+  spec.markers.forEach((m, mi) => {
+    const legs = legsOf.get(mi);
+    if (!legs?.length) return;
+    const pts: [number, number][] = [[m.x, m.y]];
+    const segs: { len: number; step: number }[] = [];
+    legs.forEach(({ ai, pts: leg }) => {
+      segs.push({ len: segLen(leg), step: stepOf[ai]! });
+      legPts.set(ai, leg);
+      pts.push(...leg.slice(1));
+    });
     if (!segs.length) return;
     const total = segs.reduce((t, g) => t + g.len, 0) || 1;
     let done = 0;
@@ -338,18 +382,43 @@ export function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?
     const e0 = winEnd(st);
     const nextStart = k < passIdx.length - 1 ? winStart(stepOf[passIdx[k + 1]!]!) : 1;
     const last = k === passIdx.length - 1;
-    // A receiver who skates away in the same step takes a lead pass: the puck meets him in stride and then travels with him.
-    const recv = a.style === "pass" ? [...legPts.keys()].find((j) => stepOf[j] === st && near(arrows[j]!.from, { x: a.to[0], y: a.to[1] }, 5)) : undefined;
-    if (recv !== undefined) {
-      const { m, rest } = alongPoly(legPts.get(recv)!, LEAD);
+    // A pass to a player who is skating (his leg overlaps the pass in time and runs through the pass's end) is a lead pass: the puck
+    // meets him on his path, in stride, and then travels with him to the end of that leg.
+    let recv: { j: number; at: number } | undefined;
+    if (a.style === "pass") {
+      let bestD = 6;
+      legPts.forEach((leg, j) => {
+        const ls = winStart(stepOf[j]!);
+        const le = winEnd(stepOf[j]!);
+        if (!(ls < e0 - 0.001 && le > s0 + 0.3 * (e0 - s0) + 0.001)) return; // not still skating when the puck can reach him
+        const total = segLen(leg) || 1;
+        let run = 0;
+        for (let i = 1; i < leg.length; i++) {
+          const [x0, y0] = leg[i - 1]!;
+          const [x1, y1] = leg[i]!;
+          const L = Math.hypot(x1 - x0, y1 - y0);
+          const k = L ? Math.max(0, Math.min(1, ((a.to[0] - x0) * (x1 - x0) + (a.to[1] - y0) * (y1 - y0)) / (L * L))) : 0;
+          const d = Math.hypot(x0 + (x1 - x0) * k - a.to[0], y0 + (y1 - y0) * k - a.to[1]);
+          if (d < bestD) { bestD = d; recv = { j, at: (run + L * k) / total }; }
+          run += L;
+        }
+      });
+    }
+    if (recv) {
+      const ls = winStart(stepOf[recv.j]!);
+      const le = winEnd(stepOf[recv.j]!);
+      // the puck needs time to travel: it can't be taken before 30% of its own window, nor after the receiver's leg ends
+      const tm = Math.min(le, Math.max(s0 + 0.3 * (e0 - s0), ls + recv.at * (le - ls)));
+      const f = le > ls ? (tm - ls) / (le - ls) : 1;
+      const { m, rest } = alongPoly(legPts.get(recv.j)!, f);
       const first: [number, number][] = [a.from, ...(a.via ?? []), m];
       const d1 = segLen(first);
       const total = d1 + segLen([m, ...rest]) || 1;
       return {
         path: rel([...first, ...rest]), x: a.from[0], y: a.from[1],
-        keyTimes: `0;${f3(s0)};${f3(s0 + LEAD * (e0 - s0))};${f3(e0)};1`, keyPoints: `0;0;${f3(d1 / total)};1;1`,
+        keyTimes: `0;${f3(s0)};${f3(tm)};${f3(Math.max(tm, le))};1`, keyPoints: `0;0;${f3(d1 / total)};1;1`,
         opacity: last ? "0;1" : "0;1;0",
-        opacityTimes: last ? `0;${f3(s0)}` : `0;${f3(s0)};${f3(Math.max(nextStart, e0))}`,
+        opacityTimes: last ? `0;${f3(s0)}` : `0;${f3(s0)};${f3(Math.max(nextStart, tm))}`,
       };
     }
     return {
@@ -372,7 +441,9 @@ export function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?
     if (firstPass && (owner || near(firstPass.from, m, 4))) hidden.add(mi);
   });
   const firstStart = passIdx.length ? winStart(stepOf[passIdx[0]!]!) : 1;
-  return { moves, carried, hidden, pucks, firstStart, dur: `${durS.toFixed(1)}s` };
+  const attach = new Map<number, number>(); // arrow index -> the marker that skates it (for tests)
+  legsOf.forEach((legs, mi) => legs.forEach((l) => attach.set(l.ai, mi)));
+  return { moves, carried, hidden, pucks, firstStart, attach, stepOf, dur: `${durS.toFixed(1)}s` };
 }
 
 function Legend({ roles = false }: { roles?: boolean }) {

@@ -29,3 +29,27 @@ describe("every drill's animation timing follows the puck", () => {
     });
   }
 });
+
+// Structural checks on the finished animation of every drill and play.
+import { buildMotion } from "@/components/drills/DrillDiagram";
+import { rinkSpec } from "./drillDiagrams";
+
+describe("every drill's animation is well formed", () => {
+  for (const [id, d] of Object.entries(drillDiagrams)) {
+    const arrows = d.arrows ?? [];
+    if (!arrows.length) continue;
+    test(id, () => {
+      const given = playSteps[id];
+      if (given) expect(given).toHaveLength(arrows.length); // one timing number per arrow
+      const m = buildMotion(rinkSpec(d), 100, 100, given, false);
+      // nobody is asked to skate two arrows at once (legs of one skater must follow each other)
+      const byMarker = new Map();
+      m.attach.forEach((mi, ai) => byMarker.set(mi, [...(byMarker.get(mi) ?? []), m.stepOf[ai]].sort((a, b) => a - b)));
+      byMarker.forEach((steps, mi) => steps.slice(1).forEach((st, i) => expect(st - steps[i]).toBeGreaterThanOrEqual(0.999)));
+      // every skating arrow belongs to somebody, so it is animated
+      arrows.forEach((a, i) => { if (a.style !== "pass" && a.style !== "shoot") expect(m.attach.has(i)).toBe(true); });
+      // every puck path is a valid animation: times never run backwards
+      m.pucks.forEach((p) => { const t = p.keyTimes.split(";").map(Number); t.slice(1).forEach((v, k) => expect(v).toBeGreaterThanOrEqual(t[k])); });
+    });
+  }
+});
