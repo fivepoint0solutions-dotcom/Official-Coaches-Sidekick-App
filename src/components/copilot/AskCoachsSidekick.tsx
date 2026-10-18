@@ -6,7 +6,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowUp, Mic, Sparkles } from "lucide-react";
+import { ArrowUp, MessageCircle, Sparkles } from "lucide-react";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
 import { createDraft, updateDraft } from "@/lib/draft";
 import {
@@ -218,7 +218,7 @@ export function AskCoachsSidekick() {
           } as unknown as CSSProperties
         }
       >
-        <Mic className="size-5" />
+        <MessageCircle className="size-5" />
       </button>
 
       <Sheet open={open} onOpenChange={setOpen}>
