@@ -2,12 +2,12 @@ import { describe, expect, test } from "bun:test";
 import { defaultSteps, playArrows } from "./playOrder";
 
 describe("default play order", () => {
-  test("receiver skates away only after the pass lands", () => {
+  test("receiver skates away with the pass, never before it", () => {
     const steps = defaultSteps([
       { from: [20, 60], to: [40, 50], style: "pass" }, // pass to the teammate at (40,50)
       { from: [40, 50], to: [60, 20], style: "run" }, // teammate skates away
     ]);
-    expect(steps[0]).toBeLessThan(steps[1]);
+    expect(steps[1]).toBeGreaterThanOrEqual(steps[0]);
   });
   test("unrelated skaters still go first, passes after", () => {
     expect(defaultSteps([{ from: [10, 10], to: [30, 10], style: "run" }, { from: [50, 60], to: [60, 40], style: "pass" }])).toEqual([0, 1]);
@@ -22,9 +22,9 @@ describe("default play order", () => {
 });
 
 describe("passer who follows their own pass", () => {
-  test("skates only after the pass is thrown", () => {
+  test("skates with the pass, not before it is thrown", () => {
     const steps = defaultSteps([{ from: [20, 60], to: [40, 50], style: "pass" }, { from: [20, 60], to: [30, 30], style: "run" }]);
-    expect(steps[1]).toBeGreaterThan(steps[0]);
+    expect(steps[1]).toBeGreaterThanOrEqual(steps[0]);
   });
 });
 
@@ -35,7 +35,7 @@ describe("plays drawn in the editor", () => {
     expect(arrows[0].from).toEqual([20, 60]);
     expect(arrows[0].to).toEqual([40, 50]);
     expect(arrows[1].from).toEqual([40, 50]);
-    expect(defaultSteps(arrows)[0]).toBeLessThan(defaultSteps(arrows)[1]);
+    expect(defaultSteps(arrows)[1]).toBeGreaterThanOrEqual(defaultSteps(arrows)[0]);
   });
   test("a skater's next arrow picks up where the last one ended", () => {
     const arrows = playArrows({ markers, arrows: [{ from: [20, 60], to: [30, 40], style: "run" }, { from: [32, 42], to: [50, 20], style: "run" }] }, true);

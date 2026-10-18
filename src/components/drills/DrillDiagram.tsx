@@ -258,10 +258,25 @@ type PuckPlan = MotionPlan & { x: number; y: number; opacity: string; opacityTim
 
 const near = (a: [number, number], m: { x: number; y: number }, r = 3.4) => Math.hypot(a[0] - m.x, a[1] - m.y) <= r;
 const segLen = (pts: [number, number][]) => pts.slice(1).reduce((t, p, i) => t + Math.hypot(p[0] - pts[i]![0], p[1] - pts[i]![1]), 0);
+/** The point a fraction f of the way along a polyline, plus the polyline from there on. */
+function alongPoly(pts: [number, number][], f: number) {
+  let d = f * segLen(pts);
+  for (let i = 1; i < pts.length; i++) {
+    const L = Math.hypot(pts[i]![0] - pts[i - 1]![0], pts[i]![1] - pts[i - 1]![1]);
+    if (d <= L || i === pts.length - 1) {
+      const k = L ? Math.min(1, d / L) : 1;
+      const m: [number, number] = [pts[i - 1]![0] + (pts[i]![0] - pts[i - 1]![0]) * k, pts[i - 1]![1] + (pts[i]![1] - pts[i - 1]![1]) * k];
+      return { m, rest: pts.slice(i) };
+    }
+    d -= L;
+  }
+  return { m: pts[pts.length - 1]!, rest: [] as [number, number][] };
+}
+const LEAD = 0.6; // a lead pass meets its receiver this far into his stride, then the puck goes with him
 const f3 = (x: number) => Math.min(1, Math.max(0, x)).toFixed(3);
 const STEP_S = 1.7; // seconds per step
 
-function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[], handDrawn = false) {
+export function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[], handDrawn = false) {
   const arrows = playArrows(spec, handDrawn) as DiagramArrow[];
   // Default: skaters with nothing to wait for go first, then the passes one after another; a receiver leaves after its pass lands.
   const auto = defaultSteps(arrows);
@@ -280,6 +295,7 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
   const used = new Set<number>();
   const skate = (a: DiagramArrow) => (a.style ?? "run") !== "pass" && a.style !== "shoot";
   const moves = new Map<number, MotionPlan>();
+  const legPts = new Map<number, [number, number][]>(); // each skating arrow's path (arrow index -> points), for lead passes
   spec.markers.forEach((m, mi) => {
     if (m.kind === "cone" || m.kind === "ball" || m.kind === "goalie") return;
     const pts: [number, number][] = [[m.x, m.y]];
@@ -292,6 +308,7 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
       const a = arrows[ai]!;
       const leg: [number, number][] = [[at.x, at.y], ...(a.via ?? []), a.to];
       segs.push({ len: segLen(leg), step: stepOf[ai]! });
+      legPts.set(ai, leg);
       pts.push(...(a.via ?? []), a.to);
       at = { x: a.to[0], y: a.to[1] };
     }
@@ -321,6 +338,20 @@ function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: numbe
     const e0 = winEnd(st);
     const nextStart = k < passIdx.length - 1 ? winStart(stepOf[passIdx[k + 1]!]!) : 1;
     const last = k === passIdx.length - 1;
+    // A receiver who skates away in the same step takes a lead pass: the puck meets him in stride and then travels with him.
+    const recv = a.style === "pass" ? [...legPts.keys()].find((j) => stepOf[j] === st && near(arrows[j]!.from, { x: a.to[0], y: a.to[1] }, 5)) : undefined;
+    if (recv !== undefined) {
+      const { m, rest } = alongPoly(legPts.get(recv)!, LEAD);
+      const first: [number, number][] = [a.from, ...(a.via ?? []), m];
+      const d1 = segLen(first);
+      const total = d1 + segLen([m, ...rest]) || 1;
+      return {
+        path: rel([...first, ...rest]), x: a.from[0], y: a.from[1],
+        keyTimes: `0;${f3(s0)};${f3(s0 + LEAD * (e0 - s0))};${f3(e0)};1`, keyPoints: `0;0;${f3(d1 / total)};1;1`,
+        opacity: last ? "0;1" : "0;1;0",
+        opacityTimes: last ? `0;${f3(s0)}` : `0;${f3(s0)};${f3(Math.max(nextStart, e0))}`,
+      };
+    }
     return {
       path: rel(pts), x: a.from[0], y: a.from[1],
       keyTimes: `0;${f3(s0)};${f3(e0)};1`, keyPoints: "0;0;1;1",
