@@ -116,7 +116,7 @@ export function SwipeNav({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div ref={areaRef} style={{ touchAction: "pan-y", minHeight: "70vh" }}>
+    <div ref={areaRef} style={{ touchAction: "pan-y", minHeight: "70dvh" }}>
       {current >= 0 && (
         <div className="flex flex-col items-center gap-1.5 pb-3 pt-1 md:hidden" aria-live="polite">
           <div className="font-display text-sm font-bold text-interactive">{t(NAV_ITEMS[current]!.key)}</div>

@@ -57,7 +57,7 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
 
   if (!draft) {
     return (
-      <div className="container-app flex min-h-[55vh] items-center justify-center py-16" aria-busy="true">
+      <div className="container-app flex min-h-[55dvh] items-center justify-center py-16" aria-busy="true">
         <BrandLogo markClassName="animate-float" />
       </div>
     );

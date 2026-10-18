@@ -28,7 +28,7 @@ import { syncThemeColor } from "../lib/theme-color";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
@@ -56,7 +56,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           This page didn't load
@@ -91,6 +91,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "Coach's Sidekick" },
+      { name: "format-detection", content: "telephone=no" },
       { name: "theme-color", content: "#f3f8ff" },
       { title: "Coach's Sidekick" },
       {
@@ -165,7 +170,7 @@ function RootComponent() {
       <LanguageProvider>
         <HockeySkins />
         <WatermarkBackdrop />
-        <div className="beta-banner-clearance relative z-10 min-h-screen pt-24 pb-24 sm:pb-12 lg:pt-0">
+        <div className="beta-banner-clearance relative z-10 min-h-dvh pt-24 pb-24 sm:pb-12 lg:pt-0">
           <AppHeader />
           <div className="w-full px-4 lg:pr-8">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

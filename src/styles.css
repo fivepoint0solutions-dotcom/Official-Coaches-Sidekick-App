@@ -2,6 +2,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./apple.css";
 
 /* Shared dark-blue surfaces use the customizable brand ramp. */
 :root {
@@ -1322,7 +1323,7 @@ body.beta-banner-collapsed .beta-banner-clearance {
 
 .photo-strip-item:focus-visible { outline: 3px solid var(--b3); outline-offset: 3px; }
 .photo-lightbox { padding: .6rem .6rem 1.4rem; background: #FFFFFF; border: 2px solid rgba(33,29,20,.5); box-shadow: 0 24px 50px -14px rgba(0,0,0,.7); }
-.photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
+.photo-lightbox img { display: block; width: 100%; height: auto; max-height: 80vh; max-height: 80dvh; object-fit: contain; }
 
 /* ---- Mode photos in a hockey-rink frame: rounded rink corners, white boards, faint red and blue lines ---- */
 .rink-frame { position: relative; display: block; overflow: hidden; margin: -1.25rem -1.25rem 0 -3.4rem; width: calc(100% + 4.65rem); border-radius: 20.6% / 33%; border: 1.5px solid var(--b0); background: #fff; padding: 0; box-shadow: none; }
