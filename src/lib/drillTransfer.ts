@@ -108,7 +108,7 @@ function cleanDiagram(raw: unknown): DrillDiagramSpec | undefined {
   const strokes = (Array.isArray(d["strokes"]) ? d["strokes"] : [])
     .filter((s): s is Record<string, unknown> => !!s && typeof s === "object" && Array.isArray((s as Record<string, unknown>)["points"]))
     .slice(0, 40)
-    .map((s) => ({ points: (s["points"] as unknown[]).map(pair).filter((p): p is [number, number] => !!p).slice(0, 400) }));
+    .map((s) => ({ points: (s["points"] as unknown[]).map(pair).filter((p): p is [number, number] => !!p).slice(0, 400), ...(s["skate"] === true ? { skate: true as const } : {}) }));
   return { surface: surface as DrillDiagramSpec["surface"], markers, arrows, strokes, ...(d["v"] === 2 ? { v: 2 as const } : {}) };
 }
 
