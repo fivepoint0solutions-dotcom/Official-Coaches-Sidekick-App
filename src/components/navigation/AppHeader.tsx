@@ -67,7 +67,9 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
           message: message.trim(),
         }),
       });
-      if (!res.ok) throw new Error("send failed");
+      const out = await res.json().catch(() => ({} as Record<string, unknown>));
+      // FormSubmit answers 200 even when it refuses to deliver (e.g. the address isn't activated yet): only "success" counts.
+      if (!res.ok || String(out.success) !== "true") throw new Error(String(out.message || "send failed"));
       setStatus("sent");
       setTimeout(onClose, 2800);
     } catch {
@@ -125,7 +127,7 @@ export function FeedbackModal({ onClose }: { onClose: () => void }) {
           />
         </label>
         {status === "error" && (
-          <p role="alert" className="mt-3 text-sm font-semibold text-white">Couldn't send just now. Check your connection and try again.</p>
+          <p role="alert" className="mt-3 text-sm font-semibold text-white">Couldn't send just now. Check your connection and try again. <a className="underline" href={`mailto:fivepoint0solutions@gmail.com?subject=${encodeURIComponent("Coach's Sidekick Feedback")}&body=${encodeURIComponent(message)}`}>Email it to us instead</a></p>
         )}
         <div className="mt-4 flex justify-end gap-2">
           <button
