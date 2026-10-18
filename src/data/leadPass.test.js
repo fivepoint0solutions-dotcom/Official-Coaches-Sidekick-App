@@ -45,3 +45,15 @@ describe("Passing on the Move: the pass leads the receiver", () => {
     expect(Math.hypot(p[0] - spot[0], p[1] - spot[1])).toBeGreaterThan(3);
   });
 });
+
+describe("Passing on the Move: both players keep going to the far line", () => {
+  const d = drillDiagrams["PAS-003"];
+  test("the receiver continues the way he was skating, not back to his own line", () => {
+    const [, toRed, , goOn] = d.arrows; // right-hand player: down to the red line, then on
+    expect(Math.sign(goOn.to[1] - goOn.from[1])).toBe(Math.sign(toRed.to[1] - toRed.from[1]));
+  });
+  test("the passer continues the way he was skating too", () => {
+    const [toRed, , , , goOn] = d.arrows;
+    expect(Math.sign(goOn.to[1] - goOn.from[1])).toBe(Math.sign(toRed.to[1] - toRed.from[1]));
+  });
+});
