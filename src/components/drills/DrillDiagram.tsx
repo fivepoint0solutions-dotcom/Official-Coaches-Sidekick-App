@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 import { playSteps } from "@/data/playTiming";
-import { defaultSteps } from "@/data/playOrder";
+import { defaultSteps, playArrows } from "@/data/playOrder";
 import { rinkWindow, type RinkView } from "@/lib/rink-view";
 
 export type DiagramMarker = {
@@ -25,6 +25,8 @@ export type DiagramArrow = {
 export type DiagramStroke = {
   points: [number, number][];
   color?: string;
+  /** A skating path drawn with the path tools: the animation skates a player along it. */
+  skate?: boolean;
 };
 
 export type DrillDiagramSpec = {
@@ -259,8 +261,8 @@ const segLen = (pts: [number, number][]) => pts.slice(1).reduce((t, p, i) => t +
 const f3 = (x: number) => Math.min(1, Math.max(0, x)).toFixed(3);
 const STEP_S = 1.7; // seconds per step
 
-function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[]) {
-  const arrows = spec.arrows ?? [];
+function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[], handDrawn = false) {
+  const arrows = playArrows(spec, handDrawn) as DiagramArrow[];
   // Default: skaters with nothing to wait for go first, then the passes one after another; a receiver leaves after its pass lands.
   const auto = defaultSteps(arrows);
   const raw = arrows.map((_, i) => given?.[i] ?? auto[i]!);
@@ -485,7 +487,7 @@ export function DrillDiagram({
   const rspec = flat ? toLandscape(spec) : spec;
   const W = flat ? h : w; // size of the drawing space (swapped when lying flat)
   const H = flat ? w : h;
-  const motion = animate && isRink ? buildMotion(rspec, W, H, playSteps[base]) : null;
+  const motion = animate && isRink ? buildMotion(rspec, W, H, playSteps[base], !/^[A-Z]{2,4}-\d{3}$/.test(base)) : null;
   const boost = flat ? 0.7 : cropped ? 1 + (1 - frac) * 0.7 : 1; // markers, letters and arrows grow with the zoom so nothing stays tiny
 
 

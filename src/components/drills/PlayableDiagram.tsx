@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { DrillDiagram } from "@/components/drills/DrillDiagram";
+import { playArrows } from "@/data/playOrder";
 
 type DiagramProps = Parameters<typeof DrillDiagram>[0];
 
@@ -11,7 +12,7 @@ export function PlayableDiagram({ autoplay = false, ...props }: DiagramProps & {
     const calm = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     setPlaying(autoplay && !calm);
   }, [autoplay]);
-  const hasMoves = (props.diagram.arrows?.length ?? 0) > 0;
+  const hasMoves = playArrows(props.diagram, false).length > 0;
   return (
     <div>
       <DrillDiagram {...props} animate={playing && hasMoves} />

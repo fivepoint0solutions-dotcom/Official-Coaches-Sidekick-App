@@ -33,3 +33,44 @@ export function defaultSteps(arrows: Arrow[]): number[] {
   }
   return level;
 }
+
+/* ---- Plays drawn in the editor ---- */
+type ArrowV = Arrow & { via?: Pt[] };
+type Spec = {
+  markers: { x: number; y: number; kind: string }[];
+  arrows?: ArrowV[];
+  strokes?: { points: Pt[]; skate?: boolean }[];
+};
+const SNAP = 6; // how far a hand-placed arrow end may be from a player and still count as theirs
+
+/** The arrows a play's animation should use. Skating paths drawn with the path tools count as skate arrows. A hand-drawn play
+ *  (snap = true) has its arrow ends pulled onto the players and onto each other, so a pass reaches its receiver and a skater's
+ *  next arrow picks up where the last one ended, even when the taps weren't pixel-perfect. Library drills are left exactly as drawn. */
+export function playArrows(spec: Spec, snap: boolean): ArrowV[] {
+  const drawn: ArrowV[] = (spec.arrows ?? []).map((a) => ({ ...a }));
+  (spec.strokes ?? []).forEach((st) => {
+    if (!st.skate || st.points.length < 2) return;
+    const mid = st.points.slice(1, -1);
+    const step = Math.max(1, Math.ceil(mid.length / 12));
+    drawn.push({ from: st.points[0]!, to: st.points[st.points.length - 1]!, via: mid.filter((_, i) => i % step === 0), style: "run" });
+  });
+  if (!snap) return drawn;
+  const people: Pt[] = spec.markers.filter((m) => m.kind !== "cone" && m.kind !== "ball").map((m) => [m.x, m.y]);
+  const ends = drawn.map((a) => ({ to: a.to, pass: isPass(a) }));
+  const pull = (pt: Pt, self: number, withPassEnds: boolean): Pt => {
+    let best = pt;
+    let bestD = SNAP;
+    people.forEach((p) => { const d = Math.hypot(p[0] - pt[0], p[1] - pt[1]) - 0.5; if (d < bestD) { bestD = d; best = p; } });
+    ends.forEach((e, j) => {
+      if (j === self || (e.pass && !withPassEnds)) return;
+      const d = Math.hypot(e.to[0] - pt[0], e.to[1] - pt[1]);
+      if (d < bestD) { bestD = d; best = e.to; }
+    });
+    return best;
+  };
+  return drawn.map((a, i) => ({
+    ...a,
+    from: pull(a.from, i, true),
+    ...(a.style === "pass" ? { to: pull(a.to, i, false) } : {}),
+  }));
+}
