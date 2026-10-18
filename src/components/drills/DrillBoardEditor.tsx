@@ -342,7 +342,7 @@ export function DrillBoardEditor({ value, onChange, layout }: Props) {
         setLivePoint(point);
         return;
       }
-      commit({ ...value, strokes: [...(value.strokes ?? []), { points: buildPath(kind, arrowStart, point, w, h, flip) }] });
+      commit({ ...value, strokes: [...(value.strokes ?? []), { points: buildPath(kind, arrowStart, point, w, h, flip), skate: true }] });
       setArrowStart(null);
       setLivePoint(null);
       return;
