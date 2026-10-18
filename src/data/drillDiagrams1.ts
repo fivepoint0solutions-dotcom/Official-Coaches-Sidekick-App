@@ -104,7 +104,7 @@ export const drillDiagrams1: Record<string, Diagram> = {
   },
   "PAS-003": { // two lines at opposite blue lines, exchange the pass at the red line
     markers: [P(34, 65.3), P(34, 70), P(66, 34.6), P(66, 30), P(66, 65.3), P(66, 70), P(34, 34.6), P(34, 30), PUCK(35.8, 66), PUCK(67.8, 35.2)],
-    arrows: [run([34, 62], [38, 50]), run([66, 38], [62, 50]), pass([40, 50], [60, 50]), run([62, 48], [66, 36])],
+    arrows: [run([34, 62], [38, 50]), run([66, 38], [62, 50]), pass([40, 50], [60, 50]), run([62, 51], [66, 64]), run([38, 48], [34, 36])], // after the exchange both keep going to the far blue line
   },
   "PAS-004": { // down the wing, give to the coach at the half boards, sprint past, return pass, shoot
     markers: [G(), P(90, 9), P(90, 5), P(93, 13), PUCK(88.2, 9.6), COACH(84, 24, "Coach")],

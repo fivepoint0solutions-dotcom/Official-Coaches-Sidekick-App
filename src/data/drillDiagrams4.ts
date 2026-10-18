@@ -93,11 +93,11 @@ export const drillDiagrams4: Record<string, Diagram> = {
   },
   "WRM-003": { // two-line passing warmup: lines at opposite blue lines, exchange the pass at the red line
     markers: [P(34, 65.3), P(34, 70), P(66, 34.6), P(66, 30), P(66, 65.3), P(66, 70), P(34, 34.6), P(34, 30), PUCK(35.8, 66), PUCK(67.8, 31)],
-    arrows: [run([34, 62], [38, 52]), run([66, 38], [62, 48]), pass([40, 50], [60, 50]), run([62, 46], [66, 36]), run([66, 62], [62, 52]), run([34, 38], [38, 48])],
+    arrows: [run([34, 62], [38, 52]), run([66, 38], [62, 48]), pass([40, 50], [60, 50]), run([62, 51], [66, 64]), run([66, 62], [62, 52]), run([34, 38], [38, 48]), run([38, 49], [34, 36])], // after the exchange both keep going to the far line
   },
   "WRM-004": { // stretch and flow skate: easy laps while the coach leads dynamic stretches, then build-up sprints
     markers: [COACH(50, 50, "Coach"), ...O([[14, 72], [12, 50], [14, 28], [36, 12], [64, 12], [88, 34]])],
-    arrows: [run([50, 88], [56, 88], [[20, 88], [10, 76], [10, 24], [20, 12], [80, 12], [90, 24], [90, 76], [80, 88]])],
+    arrows: [run([14, 72], [12, 76], [[10, 50], [10, 24], [20, 12], [80, 12], [90, 24], [90, 76], [80, 88], [20, 88]])], // one full lap, starting from a skater
   },
   "WRM-005": { // horseshoe: first skater backward, pass from the second, forward around the far cone, drive wide and shoot
     markers: [GT, CONE(18, 34.6), CONE(82, 34.6), P(42, 52), P(42, 58), P(58, 52), P(58, 58), PUCK(43.8, 58.6), PUCK(56.2, 58.6)],
