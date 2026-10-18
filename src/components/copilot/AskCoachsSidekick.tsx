@@ -45,6 +45,8 @@ function clampToViewport(x: number, y: number, width: number, height: number) {
   };
 }
 
+const SHOW_CHAT_BUTTON = false;
+
 export function AskCoachsSidekick() {
   const navigate = useNavigate();
   const t = useT();
@@ -202,6 +204,8 @@ export function AskCoachsSidekick() {
 
   return (
     <>
+      {/* The chat button is switched off for now (no message bubble in any Sidekick); the chat itself stays wired up. */}
+      {SHOW_CHAT_BUTTON && (
       <button
         ref={fabRef}
         type="button"
@@ -220,6 +224,7 @@ export function AskCoachsSidekick() {
       >
         <MessageCircle className="size-5" />
       </button>
+      )}
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right" className="flex w-full flex-col gap-0 p-0 sm:max-w-md">
