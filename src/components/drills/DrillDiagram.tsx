@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { SURFACE_COMPONENTS, SURFACE_VIEWBOX, type SurfaceId } from "./surfaces";
 import { playSteps } from "@/data/playTiming";
+import { defaultSteps } from "@/data/playOrder";
 import { rinkWindow, type RinkView } from "@/lib/rink-view";
 
 export type DiagramMarker = {
@@ -260,9 +261,9 @@ const STEP_S = 1.7; // seconds per step
 
 function buildMotion(spec: DrillDiagramSpec, w: number, h: number, given?: number[]) {
   const arrows = spec.arrows ?? [];
-  // Default: everyone skates first (step 0), then the passes go one after another.
-  let passNo = 0;
-  const raw = arrows.map((a, i) => given?.[i] ?? (((a.style ?? "run") === "pass" || a.style === "shoot") ? 1 + passNo++ : 0));
+  // Default: skaters with nothing to wait for go first, then the passes one after another; a receiver leaves after its pass lands.
+  const auto = defaultSteps(arrows);
+  const raw = arrows.map((_, i) => given?.[i] ?? auto[i]!);
   const order = [...new Set(raw)].sort((x, y) => x - y);
   const stepOf = raw.map((r) => order.indexOf(r));
   const nSteps = Math.max(1, order.length);
