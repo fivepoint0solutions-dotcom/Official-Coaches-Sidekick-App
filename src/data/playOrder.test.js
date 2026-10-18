@@ -20,3 +20,10 @@ describe("default play order", () => {
     expect(defaultSteps([{ from: [10, 10], to: [30, 30], style: "pass" }, { from: [30, 30], to: [60, 60], style: "pass" }])).toEqual([1, 2]);
   });
 });
+
+describe("passer who follows their own pass", () => {
+  test("skates only after the pass is thrown", () => {
+    const steps = defaultSteps([{ from: [20, 60], to: [40, 50], style: "pass" }, { from: [20, 60], to: [30, 30], style: "run" }]);
+    expect(steps[1]).toBeGreaterThan(steps[0]);
+  });
+});

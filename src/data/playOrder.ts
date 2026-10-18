@@ -1,6 +1,6 @@
 /* Default animation order for a play that has no hand-set timing (see playTiming.ts).
    Skaters with nothing to wait for go first, passes follow one after another, and the order follows the puck:
-   - a skater who starts where a pass ENDS (the receiver) leaves only after that pass has arrived;
+   - a skater who starts where a pass ENDS (the receiver) or where it STARTS (the passer following it) leaves only after that pass has arrived;
    - a skater who ends where a pass STARTS (the passer moving into position) gets there before the pass goes. */
 type Pt = [number, number];
 type Arrow = { from: Pt; to: Pt; style?: string };
@@ -15,7 +15,7 @@ export function defaultSteps(arrows: Arrow[]): number[] {
     const before: number[] = [];
     arrows.forEach((b, j) => {
       if (i === j) return;
-      if (!isPass(a) && isPass(b) && close(a.from, b.to)) before.push(j); // receiver skates away after the pass lands
+      if (!isPass(a) && isPass(b) && (close(a.from, b.to) || close(a.from, b.from)) && !close(a.to, b.from)) before.push(j); // receiver (or passer following their pass) skates away after the pass
       if (isPass(a) && !isPass(b) && close(b.to, a.from) && !close(b.from, a.to)) before.push(j); // passer arrives, then passes
     });
     return before;

@@ -21,12 +21,12 @@ export const playSteps: Record<string, number[]> = {
   // Passing: all five pairs pass at the same time.
   "PAS-001": [0, 0, 0, 0, 0],
   "PAS-002": [0, 0, 0, 0, 0],
-  // Passing: skate together, exchange at the red line, continue together.
-  "PAS-003": [0, 0, 1, 1],
+  // Passing: skate together, exchange at the red line, then the receiver continues (not while the pass is still in the air).
+  "PAS-003": [0, 0, 1, 2],
   // Passing: give, return + sprint in stride, drive to the net, shot.
   "PAS-004": [0, 1, 1, 2, 2],
-  // Passing: both pairs bank at once; the receiver skates with the pass.
-  "PAS-005": [0, 0, 0],
+  // Passing: both pairs bank at once; the receiver takes the pass, then skates on.
+  "PAS-005": [0, 0, 1],
   // Passing: both pairs saucer out together, both return together.
   "PAS-006": [0, 1, 0, 1],
   // Passing: D-to-D, D-to-D again, then the shot.
