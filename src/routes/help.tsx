@@ -5,6 +5,7 @@ import { GuideDiagram } from "@/components/help/HelpDiagram";
 import { GUIDE_GROUPS, type GuideTopic } from "@/lib/helpGuide";
 import { DisplaySettings } from "@/components/navigation/AppHeader";
 import { cn } from "@/lib/utils";
+import { setVoiceIconEnabled, useVoiceIconEnabled } from "@/lib/voiceSetting";
 
 export const Route = createFileRoute("/help")({
   validateSearch: (search: Record<string, unknown>): { open?: string } => {
@@ -27,6 +28,16 @@ const CARD = "anchor-card-gradient card-tint-inspire rounded-3xl text-white";
 function matches(topic: GuideTopic, q: string) {
   const hay = [topic.title, topic.intro, ...topic.steps, ...(topic.tips ?? [])].join(" ").toLowerCase();
   return q.split(/\s+/).every((w) => hay.includes(w));
+}
+
+function VoiceToggle() {
+  const on = useVoiceIconEnabled();
+  return (
+    <label className={cn(CARD, "mt-3 flex min-h-16 cursor-pointer items-center gap-3 px-6 py-3")} style={{ borderRadius: 35 }}>
+      <span className="min-w-0 flex-1 text-base font-bold leading-tight text-white">Show the voice / chat button</span>
+      <input type="checkbox" checked={on} onChange={(e) => setVoiceIconEnabled(e.target.checked)} className="size-6 shrink-0 accent-white" />
+    </label>
+  );
 }
 
 /* Every Help section is the same collapsed pill with a chevron; tap to open or close. */
@@ -193,6 +204,7 @@ function HelpPage() {
               <Pill title="Text size and colors" open={Boolean(open["settings"])} onToggle={() => toggle("settings")}>
                 <DisplaySettings />
               </Pill>
+              <VoiceToggle />
             </section>
           )}
 

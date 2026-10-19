@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-/* The feedback button in the bottom-left corner, shown only while the beta banner is collapsed (the banner's own
+/* The feedback button in the bottom-left corner, always shown, sitting just above the beta banner while it is open (the banner's own
    "Send feedback" button does the same job while it is open). Each Sidekick has its own icon, drawn inline. */
 const svg = (children: ReactNode) => (
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -25,7 +25,7 @@ export function FeedbackCorner({
       className="fixed grid place-items-center active:scale-95 transition-transform"
       style={{
         left: "max(10px, env(safe-area-inset-left))",
-        bottom: "calc(env(safe-area-inset-bottom, 0px) + 10px)",
+        bottom: "calc(var(--beta-banner-h, 0px) + env(safe-area-inset-bottom, 0px) + 10px)",
         width: 48, height: 48, borderRadius: 16, zIndex: 35,
         background, border: `2px solid ${border}`, color,
         boxShadow: "0 6px 16px -6px rgba(0,0,0,0.5)",
