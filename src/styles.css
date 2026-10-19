@@ -1390,7 +1390,7 @@ html body .badge-pill, html body .chip {
 @keyframes lamp-glow { 0%, 100% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 0 rgba(90,162,255,.55); } 50% { box-shadow: 0 6px 14px -4px rgba(5,16,50,.6), 0 0 0 11px rgba(90,162,255,0); } }
 .feedback-lamp {
   position: fixed; z-index: 45; display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .95rem .35rem .55rem; min-height: 48px; border-radius: 999px;
-  left: max(16px, env(safe-area-inset-left)); bottom: calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)));
+  right: max(16px, env(safe-area-inset-right)); bottom: calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)));
   background: linear-gradient(180deg, var(--b4), var(--b1)); color: #FFFFFF; border: 3px solid var(--b0); font-family: var(--font-marker, "Permanent Marker", sans-serif); font-size: 1rem; letter-spacing: .02em;
   animation: lamp-glow 2.4s ease-out infinite; cursor: pointer; transition: transform .12s ease;
 }

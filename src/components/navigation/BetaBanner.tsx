@@ -116,15 +116,13 @@ export function BetaBanner() {
           </button>
         </div>
       )}
-      {collapsed && (
-        <FeedbackCorner
-          icon={<WhistleIcon />}
-          background="var(--ice-gloss), var(--ice-sweep), var(--ice-dark)"
-          border="var(--b1)"
-          color="#FFFFFF"
-          onClick={() => setOpen(true)}
-        />
-      )}
+      <FeedbackCorner
+        icon={<WhistleIcon />}
+        background="var(--ice-gloss), var(--ice-sweep), var(--ice-dark)"
+        border="var(--b1)"
+        color="#FFFFFF"
+        onClick={() => setOpen(true)}
+      />
       {collapsed && (
         <button
           type="button"

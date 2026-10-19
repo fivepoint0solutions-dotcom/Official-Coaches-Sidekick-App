@@ -79,7 +79,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         intro: "The feedback whistle floats over every page, just above the beta banner, so it is always within reach.",
         diagram: { kind: "floating", left: ["Whistle:", "send feedback"], right: ["Chevron:", "hide the banner"] },
         steps: [
-          "Bottom left: the whistle that says Feedback. Tap it to send feedback to the team that built the app.",
+          "Bottom left: the whistle. Tap it to send feedback to the team that built the app.",
           "The voice / chat button is switched off. To turn it on, open Help, then Settings, and tick \"Show the voice / chat button\".",
         ],
       },
