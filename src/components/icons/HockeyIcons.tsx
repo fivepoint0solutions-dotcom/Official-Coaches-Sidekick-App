@@ -24,6 +24,18 @@ export function GoalLightIcon({ className = "", size = 28 }: { className?: strin
   );
 }
 
+/** A coach's whistle: the feedback button. */
+export function WhistleIcon({ className = "", size = 28 }: { className?: string; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true" strokeLinejoin="round" strokeLinecap="round">
+      <path d="M3 11 h15 a9 9 0 1 1 0 18 a9 9 0 0 1-9-9 v-3 H3 Z" fill="#E4EAF2" stroke="#0b0d12" strokeWidth="1.8" />
+      <circle cx="18" cy="20" r="4" fill="#5aa2ff" stroke="#0b0d12" strokeWidth="1.8" />
+      <path d="M12 11 v-3 h5 v3" stroke="#0b0d12" strokeWidth="1.8" />
+      <path d="M27 9 l3-3" stroke="#8fc1ff" strokeWidth="2" />
+    </svg>
+  );
+}
+
 /** A whiteboard-style play diagram mark: for Draw Up Plays. */
 export function PlayIcon({ className = "", size = 28 }: { className?: string; size?: number }) {
   return (

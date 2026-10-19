@@ -75,13 +75,12 @@ export const GUIDE_GROUPS: GuideGroup[] = [
       },
       {
         id: "floating",
-        title: "The two floating buttons",
-        intro: "Two buttons float over every page, just above the beta banner, so they are always within reach.",
-        diagram: { kind: "floating", left: ["Microphone:", "chat with the Sidekick"], right: ["Goal light:", "send feedback"] },
+        title: "The floating buttons",
+        intro: "The feedback whistle floats over every page, just above the beta banner, so it is always within reach.",
+        diagram: { kind: "floating", left: ["Whistle:", "send feedback"], right: ["Chevron:", "hide the banner"] },
         steps: [
-          "Bottom left: the microphone. Tap it to open the chat with Coach's Sidekick (see \"Ask Coach's Sidekick\").",
-          "Bottom right: the red goal light that says Feedback. Tap it to send feedback to the team that built the app.",
-          "To move the microphone out of the way, press it and drag it anywhere.",
+          "Bottom left: the whistle that says Feedback. Tap it to send feedback to the team that built the app.",
+          "The voice / chat button is switched off. To turn it on, open Help, then Settings, and tick \"Show the voice / chat button\".",
         ],
       },
     ],
@@ -299,7 +298,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
         title: "The chat button",
         intro: "Tell Coach's Sidekick what you are working on in your own words.",
         steps: [
-          "Tap the round microphone button at the bottom right. The chat opens.",
+          "Turn on the voice / chat button first (Help, then Settings). Then tap the round chat button at the bottom left, above the whistle. The chat opens.",
           "Type what you need, for example \"I want to work on zone defense with my U12 team.\" Or tap one of the starter suggestions.",
           "Tap Send (the arrow). Coach's Sidekick replies and can set up a draft for you in the workspace.",
           "Close the chat with the X to go back to where you were.",

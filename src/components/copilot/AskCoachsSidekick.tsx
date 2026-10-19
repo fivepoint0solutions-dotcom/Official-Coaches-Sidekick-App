@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowUp, MessageCircle, Sparkles } from "lucide-react";
+import { useVoiceIconEnabled } from "@/lib/voiceSetting";
 import { aiProvider, type ChatMemory, type ChatSuggestion } from "@/lib/ai";
 import { createDraft, updateDraft } from "@/lib/draft";
 import {
@@ -48,6 +49,8 @@ function clampToViewport(x: number, y: number, width: number, height: number) {
 const SHOW_CHAT_BUTTON = false;
 
 export function AskCoachsSidekick() {
+  const voiceIcon = useVoiceIconEnabled();
+  const showButton = SHOW_CHAT_BUTTON || voiceIcon;
   const navigate = useNavigate();
   const t = useT();
   const [open, setOpen] = useState(false);
@@ -205,7 +208,7 @@ export function AskCoachsSidekick() {
   return (
     <>
       {/* The chat button is switched off for now (no message bubble in any Sidekick); the chat itself stays wired up. */}
-      {SHOW_CHAT_BUTTON && (
+      {showButton && (
       <button
         ref={fabRef}
         type="button"
@@ -218,7 +221,7 @@ export function AskCoachsSidekick() {
         style={
           {
             "--twinkle-duration": "26s",
-            ...(pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : { bottom: "calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)))" }),
+            ...(pos ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" } : { bottom: "calc(var(--beta-banner-h, 0px) + max(16px, env(safe-area-inset-bottom)) + 64px)" }),
           } as unknown as CSSProperties
         }
       >
