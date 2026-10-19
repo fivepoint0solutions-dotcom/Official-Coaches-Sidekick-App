@@ -1,3 +1,4 @@
+import DemoGate from "@/components/DemoGate";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -136,7 +137,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning style={{ backgroundColor: "var(--background, #f3f8ff)" }}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      style={{ backgroundColor: "var(--background, #f3f8ff)" }}
+    >
       <head>
         <HeadContent />
         {/* Apply the saved text size and color palette before first paint. */}
@@ -144,8 +149,17 @@ function RootShell({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: colorThemeInitScript() }} />
         <script dangerouslySetInnerHTML={{ __html: brandInitScript() }} />
         {/* No flash on load: the page stays hidden until the fonts are ready and the app has drawn, then fades in once. */}
-        <style dangerouslySetInnerHTML={{ __html: "html.sk-pre body{opacity:0}body{transition:opacity .3s ease}" }} />
-        <script dangerouslySetInnerHTML={{ __html: "(function(){var d=document.documentElement;d.classList.add('sk-pre');var f=false,r=false,x=false;function go(){if(x||!(f&&r))return;x=true;requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('sk-pre')})})}window.__skReady=function(){r=true;go()};(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){f=true;go()});setTimeout(function(){x=true;d.classList.remove('sk-pre')},3000)})();" }} />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: "html.sk-pre body{opacity:0}body{transition:opacity .3s ease}",
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement;d.classList.add('sk-pre');var f=false,r=false,x=false;function go(){if(x||!(f&&r))return;x=true;requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('sk-pre')})})}window.__skReady=function(){r=true;go()};(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){f=true;go()});setTimeout(function(){x=true;d.classList.remove('sk-pre')},3000)})();",
+          }}
+        />
       </head>
       <body>
         {children}
@@ -167,23 +181,25 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <HockeySkins />
-        <WatermarkBackdrop />
-        <div className="beta-banner-clearance relative z-10 min-h-dvh pt-24 pb-24 sm:pb-12 lg:pt-0">
-          <AppHeader />
-          <div className="w-full px-4 lg:pr-8">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <SwipeNav>
-              <Outlet />
-            </SwipeNav>
-            <SiteFooter />
+      <DemoGate>
+        <LanguageProvider>
+          <HockeySkins />
+          <WatermarkBackdrop />
+          <div className="beta-banner-clearance relative z-10 min-h-dvh pt-24 pb-24 sm:pb-12 lg:pt-0">
+            <AppHeader />
+            <div className="w-full px-4 lg:pr-8">
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+              <SwipeNav>
+                <Outlet />
+              </SwipeNav>
+              <SiteFooter />
+            </div>
           </div>
-        </div>
-        <AskCoachsSidekick />
-        <BetaBanner />
-        <Toaster position="bottom-right" />
-      </LanguageProvider>
+          <AskCoachsSidekick />
+          <BetaBanner />
+          <Toaster position="bottom-right" />
+        </LanguageProvider>
+      </DemoGate>
     </QueryClientProvider>
   );
 }
