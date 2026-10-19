@@ -102,7 +102,7 @@ function Dashboard() {
                       src="/img/home-drills.jpg?v=1"
                       alt="A coach sorting a fan of drill cards beside the boards"
                       loading="lazy"
-                      style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: "center 33%" }}
+                      style={{ aspectRatio: "1376 / 768", objectFit: "cover", objectPosition: "center 33%" }}
                     />
                   </span>
                   <div className="mt-4 flex items-center gap-3">
@@ -131,7 +131,7 @@ function Dashboard() {
                 src="/img/home-brand.jpg?v=1"
                 alt="A coach pressing the team logo onto a jersey"
                 loading="lazy"
-                style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+                style={{ aspectRatio: "1376 / 768", objectFit: "cover" }}
               />
             </span>
             <div className="min-w-0">

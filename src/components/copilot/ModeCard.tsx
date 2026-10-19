@@ -30,7 +30,7 @@ export function ModeCard({ mode, className }: ModeCardProps) {
           src={photo.src}
           alt={photo.alt}
           loading="lazy"
-          style={{ aspectRatio: "16 / 10", objectFit: "cover", objectPosition: photo.position ?? "center" }}
+          style={{ aspectRatio: "1376 / 768", objectFit: "cover", objectPosition: photo.position ?? "center" }}
         />
       </span>
       <div className="mt-4 flex items-center gap-3">
