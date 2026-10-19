@@ -250,7 +250,7 @@ export function AppHeader() {
               />
             </span>
             <span
-              className={`font-display font-bold tracking-wide leading-none min-w-0 whitespace-nowrap truncate text-[0.95rem] sm:text-[1.05rem] md:text-[1.4rem] ${menuOpen ? "md:hidden" : ""}`}
+              className={`font-display font-bold tracking-wide leading-none min-w-0 whitespace-nowrap truncate text-[0.95rem] sm:text-[1.05rem] md:text-[1.4rem] max-sm:absolute max-sm:left-1/2 max-sm:top-[32px] max-sm:-translate-x-1/2 max-sm:-translate-y-1/2 max-sm:text-center ${menuOpen ? "md:hidden" : ""}`}
               style={{
                 color: "var(--primary)",
                 filter: "drop-shadow(0 1px 2px rgba(255,255,255,0.85)) drop-shadow(0 1px 5px rgba(0,0,0,0.3))",
@@ -294,7 +294,7 @@ export function AppHeader() {
           <Link
             to="/help"
             search={{ open: "settings" }}
-            className="pointer-events-auto inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2 py-[0.25rem] text-[0.62rem] font-bold leading-none text-white sm:hidden"
+            className="pointer-events-auto hidden sm:inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2 py-[0.25rem] text-[0.62rem] font-bold leading-none text-white sm:hidden"
             style={{ backgroundImage: "var(--ice-gloss), var(--ice-dark)", border: "2px solid var(--b1)", boxShadow: "0 3px 8px -3px rgba(5,12,32,.6)" }}
           >
             <span aria-hidden="true">✦</span> Make it yours
