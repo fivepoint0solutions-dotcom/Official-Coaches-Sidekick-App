@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useLocation } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FeedbackModal } from "@/components/navigation/AppHeader";
+import { FeedbackCorner, WhistleIcon } from "@/components/navigation/FeedbackCorner";
 
 const STORAGE_KEY = "betaBannerCollapsed";
 
@@ -114,6 +115,15 @@ export function BetaBanner() {
             <ChevronRight size={20} strokeWidth={2.75} aria-hidden />
           </button>
         </div>
+      )}
+      {collapsed && (
+        <FeedbackCorner
+          icon={<WhistleIcon />}
+          background="var(--ice-gloss), var(--ice-sweep), var(--ice-dark)"
+          border="var(--b1)"
+          color="#FFFFFF"
+          onClick={() => setOpen(true)}
+        />
       )}
       {collapsed && (
         <button
