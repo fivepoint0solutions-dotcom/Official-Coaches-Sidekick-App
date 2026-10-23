@@ -189,7 +189,8 @@ function brandRuntime(b: { primary?: string; dark?: string; light?: string; logo
       "html body{background:#000000!important;color:#FFFFFF!important}" +
       "html body div.pointer-events-none.fixed.inset-0.z-0{background:#000000!important}html body .rink-wash{background:rgba(0,0,0,.72)!important}html body .rink-svg{opacity:.16!important}" +
       "html body :is(h1,h2,h3):not([data-skin] *):not(.placard *):not(.keep-color){color:" + g + "!important}" +
-      "@layer theme{html body .text-gradient" + N + "{background-image:linear-gradient(100deg," + g + " 0%,#E3C98F 45%," + g + " 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}" +
+      "@layer theme{html body :is(.flow-cue span,.practice-cat-sign)" + N + "{background-color:#C82031!important;background-image:none!important;color:#FFFFFF!important;border-color:#C82031!important}html body :is(.drill-flash,.practice-cat)::after" + N + "{background:#C82031!important}" +
+      "html body .text-gradient" + N + "{background-image:linear-gradient(100deg," + g + " 0%,#E3C98F 45%," + g + " 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}" +
       "html body :is(.badge-pill,.chip,.badge):not(.keep-color)" + N + "{background:#C82031!important;background-image:none!important;color:#FFFFFF!important;border-color:#C82031!important}" +
       "html body :is(button,a,[role=button]).rounded-full:not(.nav-pill):not(.nav-active):not([class*=gradient-]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color)" + N + "{background-color:#000!important;background-image:linear-gradient(180deg,#2B2829 0%,#000 100%)!important;border-color:" + g + "!important;box-shadow:0 4px 0 #000,inset 0 1px 2px rgba(255,255,255,.18)!important}}";
   }
