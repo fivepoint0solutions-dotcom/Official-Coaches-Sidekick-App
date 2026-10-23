@@ -179,19 +179,30 @@ function brandRuntime(b: { primary?: string; dark?: string; light?: string; logo
   }
   // A very light main colour gets dark text on its buttons so the words stay readable.
   if (lm(primary) > 0.5) {
-    css += "@layer theme{html body :is(button.hover-lift.bg-interactive,a.hover-lift.bg-interactive,.category-tab[aria-pressed=true],.btn-stick,.btn-rink,.btn-blade,.sweep-fill):not(.keep-color)" + N + ",html body :is(button.hover-lift.bg-interactive,a.hover-lift.bg-interactive,.category-tab[aria-pressed=true],.btn-stick):not(.keep-color) :is(span,svg,div,b,strong,p,i)" + N + "{color:#000!important;-webkit-text-fill-color:#000!important}}";
+    // Team presets paint their own CTA buttons, so only the generic gold ones need dark words.
+    const on = b.preset ? "button.hover-lift.bg-interactive,a.hover-lift.bg-interactive" : "button.hover-lift.bg-interactive,a.hover-lift.bg-interactive,.category-tab[aria-pressed=true],.btn-stick";
+    css += "@layer theme{html body :is(" + on + "):not(.keep-color)" + N + ",html body :is(" + on + "):not(.keep-color) :is(span,svg,div,b,strong,p,i)" + N + "{color:#000!important;-webkit-text-fill-color:#000!important}}";
   }
   if (b.preset === "pontiacs") {
-    // Bonnyville Pontiacs: black base, #211F20 panels, gold primary, red accent (badges only), white text.
+    // Bonnyville Pontiacs: white page, black (#211F20) panels with white words, gold borders/buttons, red highlights.
     const g = P;
+    const R = "#C82031";
     css += ":root{--panel-blue:#211F20;--panel-blue-gradient:linear-gradient(#211F20,#211F20);--panel-blue-foreground:#FFFFFF;--panel-blue-border:" + g + ";--ice-gloss:none;--ice-gloss-soft:none;" +
-      "--sk-bg:#000000;--sk-text:#FFFFFF;--sk-primary:" + g + ";--sk-primary-deep:#211F20;--brand-bg:#000000;--brand-ink:#FFFFFF;--background:#000000;--foreground:#FFFFFF;--muted-foreground:#FFFFFF;--secondary-foreground:#FFFFFF;--card:#211F20;--card-foreground:#FFFFFF;--popover:#211F20;--popover-foreground:#FFFFFF;--surface:#211F20;--surface-foreground:#FFFFFF;--primary:" + g + ";--primary-foreground:#000000;--interactive:" + g + ";--interactive-foreground:#000000;--border:" + g + "55;--border-strong:" + g + ";--team-accent:#C82031;}" +
-      "html body{background:#000000!important;color:#FFFFFF!important}" +
-      "html body div.pointer-events-none.fixed.inset-0.z-0{background:#000000!important}html body .rink-wash{background:rgba(0,0,0,.72)!important}html body .rink-svg{opacity:.16!important}" +
-      "html body :is(h1,h2,h3):not([data-skin] *):not(.placard *):not(.keep-color){color:" + g + "!important}" +
-      "@layer theme{html body :is(.flow-cue span,.practice-cat-sign)" + N + "{background-color:#C82031!important;background-image:none!important;color:#FFFFFF!important;border-color:#C82031!important}html body :is(.drill-flash,.practice-cat)::after" + N + "{background:#C82031!important}" +
-      "html body .text-gradient" + N + "{background-image:linear-gradient(100deg," + g + " 0%,#E3C98F 45%," + g + " 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}" +
-      "html body :is(.badge-pill,.chip,.badge):not(.keep-color)" + N + "{background:#C82031!important;background-image:none!important;color:#FFFFFF!important;border-color:#C82031!important}" +
+      "--sk-bg:#FFFFFF;--sk-text:#111111;--sk-primary:" + g + ";--sk-primary-deep:#211F20;--brand-bg:#FFFFFF;--brand-ink:#111111;--background:#FFFFFF;--foreground:#111111;--muted-foreground:#333333;--secondary-foreground:#111111;--card:#211F20;--card-foreground:#FFFFFF;--popover:#211F20;--popover-foreground:#FFFFFF;--surface:#211F20;--surface-foreground:#FFFFFF;--primary:" + g + ";--primary-foreground:#000000;--interactive:" + g + ";--interactive-foreground:#000000;--border:" + g + "88;--border-strong:" + g + ";--team-accent:" + R + ";}" +
+      "html body{background:#FFFFFF!important;color:#111111!important}" +
+      "html body div.pointer-events-none.fixed.inset-0.z-0{background:#FFFFFF!important}html body .rink-wash{background:rgba(255,255,255,.55)!important}html body .rink-svg{filter:grayscale(1)!important;opacity:.5!important}" +
+      "html body :is(h1,h2,h3):not([data-skin] *):not(.placard *):not(.keep-color):not(.text-gradient){color:#111111!important}" +
+      "html body :is(.flow-cue,.text-interactive):not([data-skin] *):not(.placard *){color:" + R + "!important}" +
+      "@layer theme{html body :is(.flow-cue span,.practice-cat-sign)" + N + "{background-color:" + R + "!important;background-image:none!important;color:#FFFFFF!important;border-color:" + R + "!important}html body :is(.drill-flash,.practice-cat)::after" + N + "{background:" + R + "!important}" +
+      "html body .text-gradient" + N + "{background-image:linear-gradient(100deg,#111111 0%," + R + " 55%," + g + " 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}" +
+      "html body :is(.badge-pill,.chip,.badge):not(.keep-color)" + N + "{background:" + R + "!important;background-image:none!important;color:#FFFFFF!important;border-color:" + R + "!important}" +
+      "html body :is([data-skin],.placard,.card-soft,.card-elevated,.glass-panel,.stat-tile,.drill-flash,.practice-cat):not(.rounded-full):not(.keep-color)" + N + "{box-shadow:inset 0 5px 0 " + R + ",0 6px 14px -8px rgba(0,0,0,.55)!important}" +
+      "html body span.font-display.font-bold.tracking-wide.truncate:not([data-skin] *):not(.placard *)" + N + "{color:#111111!important;-webkit-text-fill-color:#111111!important;text-shadow:none!important}" +
+      "html body button.keep-color.shrink-0.rounded-full:not([data-skin] *)" + N + "{color:#0A1930!important;-webkit-text-fill-color:#0A1930!important}" +
+      "html body .category-tab .category-count" + N + "{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}" +
+      "html body .btn-hockey:not(.btn-stick):not(.keep-color)" + N + "{box-shadow:inset 0 0 0 2px " + g + "!important;border-color:" + g + "!important;filter:none!important}" +
+      "html body :is(.btn-stick,.category-tab:is([aria-pressed=true],[aria-selected=true],[aria-checked=true])):not(.keep-color)" + N + "{background-color:" + R + "!important;background-image:linear-gradient(180deg,#E24A5A 0%," + R + " 45%,#8F1422 100%)!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;filter:drop-shadow(0 0 5px " + g + ") drop-shadow(0 3px 3px rgba(0,0,0,.35))!important}" +
+      "html body :is(.btn-stick,.category-tab:is([aria-pressed=true],[aria-selected=true],[aria-checked=true])):not(.keep-color) :is(span,svg,div,b,strong,p,i)" + N + "{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}" +
       "html body :is(button,a,[role=button]).rounded-full:not(.nav-pill):not(.nav-active):not([class*=gradient-]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color)" + N + "{background-color:#000!important;background-image:linear-gradient(180deg,#2B2829 0%,#000 100%)!important;border-color:" + g + "!important;box-shadow:0 4px 0 #000,inset 0 1px 2px rgba(255,255,255,.18)!important}}";
   }
   return css;
