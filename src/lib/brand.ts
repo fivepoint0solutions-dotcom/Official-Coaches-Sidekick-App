@@ -19,9 +19,36 @@ export type Brand = {
   logo: string;
   /** Team name shown in the footer / logo alt text. */
   name: string;
+  /** Named preset ("" = none). A preset also sets the base, surface, text and accent colours. */
+  preset: string;
 };
 
-export const DEFAULT_BRAND: Brand = { primary: "#1F5FC8", dark: "#0B1F4D", light: "#D3E4FA", logo: "", name: "" };
+export const DEFAULT_BRAND: Brand = { primary: "#1F5FC8", dark: "#0B1F4D", light: "#D3E4FA", logo: "", name: "", preset: "" };
+
+/** Ready-made team looks. Selecting one fills the three brand colours and switches on the dark base/surface/accent roles. */
+export const BRAND_PRESETS = {
+  pontiacs: {
+    label: "Bonnyville Pontiacs",
+    primary: "#B8985B",
+    dark: "#211F20",
+    light: "#FFFFFF",
+    base: "#000000",
+    surface: "#211F20",
+    accent: "#C82031",
+    text: "#FFFFFF",
+  },
+} as const;
+export type BrandPresetId = keyof typeof BRAND_PRESETS;
+export const isBrandPreset = (id: unknown): id is BrandPresetId => typeof id === "string" && Object.prototype.hasOwnProperty.call(BRAND_PRESETS, id);
+
+/** A typed or pasted hex code: "#B8985B", "B8985B" or the short "#B95" form, in any case. Returns "#RRGGBB" or null. */
+export function parseHex(input: string): string | null {
+  const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(input.trim());
+  if (!m) return null;
+  const h = m[1]!;
+  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  return "#" + full.toUpperCase();
+}
 
 type RGB = [number, number, number];
 const clamp = (n: number) => Math.min(255, Math.max(0, Math.round(n)));
@@ -47,7 +74,7 @@ export function safeBrand(b: Brand): Brand {
   let primary = b.primary;
   while (lum(dark) > 0.24) dark = mix(dark, "#000000", 0.2);
   while (lum(light) < 0.78) light = mix(light, "#FFFFFF", 0.2);
-  while (lum(primary) > 0.55) primary = mix(primary, "#000000", 0.15);
+  while (lum(primary) > 0.7) primary = mix(primary, "#000000", 0.15);
   while (lum(primary) < 0.1) primary = mix(primary, "#FFFFFF", 0.15);
   return { ...b, primary, dark, light };
 }
@@ -70,10 +97,7 @@ export function rampFor(input: Brand): string[] {
 }
 
 export function brandCss(brand: Brand): string {
-  const ramp = rampFor(brand);
-  const vars = ramp.map((c, i) => `--b${i}:${c};`).join("");
-  const logo = brand.logo ? `--team-logo:url("${brand.logo}");` : "";
-  return `:root{${vars}${logo}--brand-ink:${ramp[0]};}`;
+  return brandRuntime(brand);
 }
 
 export function readBrand(): Brand {
@@ -89,6 +113,7 @@ export function readBrand(): Brand {
       light: ok(j.light, DEFAULT_BRAND.light),
       logo: typeof j.logo === "string" && j.logo.startsWith("data:image/") ? j.logo : "",
       name: typeof j.name === "string" ? j.name.slice(0, 60) : "",
+      preset: isBrandPreset(j.preset) ? j.preset : "",
     };
   } catch {
     return DEFAULT_BRAND;
@@ -120,7 +145,7 @@ export function brandInitScript(): string {
 }
 
 /** Self-contained copy of the colour maths, serialised into the init script above (it cannot import anything). */
-function brandRuntime(b: { primary?: string; dark?: string; light?: string; logo?: string }): string {
+function brandRuntime(b: { primary?: string; dark?: string; light?: string; logo?: string; preset?: string }): string {
   const hx = /^#[0-9a-f]{6}$/i;
   const P = hx.test(b.primary || "") ? (b.primary as string) : "#1F5FC8";
   const D = hx.test(b.dark || "") ? (b.dark as string) : "#0B1F4D";
@@ -141,11 +166,34 @@ function brandRuntime(b: { primary?: string; dark?: string; light?: string; logo
   let primary = P;
   while (lm(dark) > 0.24) dark = mx(dark, "#000000", 0.2);
   while (lm(light) < 0.78) light = mx(light, "#FFFFFF", 0.2);
-  while (lm(primary) > 0.55) primary = mx(primary, "#000000", 0.15);
+  while (lm(primary) > 0.7) primary = mx(primary, "#000000", 0.15);
   while (lm(primary) < 0.1) primary = mx(primary, "#FFFFFF", 0.15);
   const r = [mx(dark, "#000000", 0.7), dark, mx(dark, primary, 0.5), primary, mx(primary, light, 0.38), mx(primary, light, 0.62), mx(primary, light, 0.8), light, mx(light, "#FFFFFF", 0.5), mx(light, "#FFFFFF", 0.8)];
   const logo = b.logo && b.logo.indexOf("data:image/") === 0 ? '--team-logo:url("' + b.logo + '");' : "";
-  return ":root{" + r.map((c, i) => "--b" + i + ":" + c + ";").join("") + logo + "--brand-ink:" + r[0] + ";}";
+  let css = ":root{" + r.map((c, i) => "--b" + i + ":" + c + ";").join("") + logo + "--brand-ink:" + r[0] + ";}";
+  // The skin's own rules are !important inside @layer theme, so overrides must live in that layer too (with the same id-hack specificity).
+  const N = ":not(#_):not(#__):not(#___)";
+  // The hockey CTA buttons hard-code their blue; once the main colour is changed they follow the brand ramp instead (default stays untouched).
+  if (P.toLowerCase() !== "#1f5fc8") {
+    css += "@layer theme{html body :is(.btn-stick,.category-tab:is([aria-pressed=true],[aria-selected=true],[aria-checked=true])):not(.keep-color)" + N + "{background-color:var(--b1)!important;background-image:linear-gradient(115deg,transparent 0 calc(100% - 14px),var(--b6) calc(100% - 14px),var(--b6) calc(100% - 11px),transparent calc(100% - 11px)),linear-gradient(180deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,0) 45%),linear-gradient(115deg,var(--b1) 0%,var(--b2) 45%,var(--b3) 100%)!important;filter:drop-shadow(0 0 6px var(--b5)) drop-shadow(0 3px 3px rgba(0,0,0,.35))!important}}";
+  }
+  // A very light main colour gets dark text on its buttons so the words stay readable.
+  if (lm(primary) > 0.5) {
+    css += "@layer theme{html body :is(button.hover-lift.bg-interactive,a.hover-lift.bg-interactive,.category-tab[aria-pressed=true],.btn-stick,.btn-rink,.btn-blade,.sweep-fill):not(.keep-color)" + N + ",html body :is(button.hover-lift.bg-interactive,a.hover-lift.bg-interactive,.category-tab[aria-pressed=true],.btn-stick):not(.keep-color) :is(span,svg,div,b,strong,p,i)" + N + "{color:#000!important;-webkit-text-fill-color:#000!important}}";
+  }
+  if (b.preset === "pontiacs") {
+    // Bonnyville Pontiacs: black base, #211F20 panels, gold primary, red accent (badges only), white text.
+    const g = P;
+    css += ":root{--panel-blue:#211F20;--panel-blue-gradient:linear-gradient(#211F20,#211F20);--panel-blue-foreground:#FFFFFF;--panel-blue-border:" + g + ";--ice-gloss:none;--ice-gloss-soft:none;" +
+      "--sk-bg:#000000;--sk-text:#FFFFFF;--sk-primary:" + g + ";--sk-primary-deep:#211F20;--brand-bg:#000000;--brand-ink:#FFFFFF;--background:#000000;--foreground:#FFFFFF;--card:#211F20;--card-foreground:#FFFFFF;--popover:#211F20;--popover-foreground:#FFFFFF;--surface:#211F20;--surface-foreground:#FFFFFF;--primary:" + g + ";--primary-foreground:#000000;--interactive:" + g + ";--interactive-foreground:#000000;--border:" + g + "55;--border-strong:" + g + ";--team-accent:#C82031;}" +
+      "html body{background:#000000!important;color:#FFFFFF!important}" +
+      "html body div.pointer-events-none.fixed.inset-0.z-0{background:#000000!important}html body .rink-wash{background:rgba(0,0,0,.72)!important}html body .rink-svg{opacity:.16!important}" +
+      "html body :is(h1,h2,h3):not([data-skin] *):not(.placard *):not(.keep-color){color:" + g + "!important}" +
+      "@layer theme{html body .text-gradient" + N + "{background-image:linear-gradient(100deg," + g + " 0%,#E3C98F 45%," + g + " 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}" +
+      "html body :is(.badge-pill,.chip,.badge):not(.keep-color)" + N + "{background:#C82031!important;background-image:none!important;color:#FFFFFF!important;border-color:#C82031!important}" +
+      "html body :is(button,a,[role=button]).rounded-full:not(.nav-pill):not(.nav-active):not([class*=gradient-]):not(.anchor-card-gradient):not(.category-tab):not(.chip):not(.keep-color)" + N + "{background-color:#000!important;background-image:linear-gradient(180deg,#2B2829 0%,#000 100%)!important;border-color:" + g + "!important;box-shadow:0 4px 0 #000,inset 0 1px 2px rgba(255,255,255,.18)!important}}";
+  }
+  return css;
 }
 
 /** A picked logo, shrunk to at most 320 px and saved as a PNG data URL (keeps transparency, stays small). */
