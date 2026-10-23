@@ -2248,3 +2248,15 @@ html body .badge-pill, html body .chip {
   clip-path: polygon(var(--chamfer) 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%, 0 var(--chamfer)) !important;
 }
 }
+
+/* Moving gradient border around every card/panel (a decorative child added by useGradientRings), in the team's brand colors. */
+[data-ringed] { position: relative; }
+.sk-ring {
+  position: absolute; inset: 0; border-radius: inherit; padding: 3px; pointer-events: none; z-index: 3;
+  background: linear-gradient(120deg, var(--b3), var(--b7), var(--team-accent, var(--b5)), var(--b6), var(--b3));
+  background-size: 300% 300%; animation: sk-ring-move 7s ease-in-out infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+@keyframes sk-ring-move { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@media (prefers-reduced-motion: reduce) { .sk-ring { animation: none; } }
